@@ -1528,12 +1528,12 @@ public class PreferencesContentPane extends edu.cmu.cs.stage3.swing.ContentPane 
 			,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		seldomUsedPanel.add(numClipboardsPanel, new GridBagConstraints(0, 9, 1, 1, 0.0, 0.0
 			,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(5, 5, 5, 0), 0, 0));
-		seldomUsedPanel.add(saveIntervalPanel, new GridBagConstraints(0, 10, 1, 1, 0.0, 0.0
+		seldomUsedPanel.add(enableScriptingCheckBox, new GridBagConstraints(0, 10, 1, 1, 0.0, 0.0
+				,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
+		seldomUsedPanel.add(saveIntervalPanel, new GridBagConstraints(0, 11, 1, 1, 0.0, 0.0
 			,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		seldomUsedPanel.add(backupCountPanel, new GridBagConstraints(0, 11, 1, 1, 0.0, 0.0
+		seldomUsedPanel.add(backupCountPanel, new GridBagConstraints(0, 12, 1, 1, 0.0, 0.0
 			,GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-//		seldomUsedPanel.add(enableScriptingCheckBox, new GridBagConstraints(0, 8, 1, 1, 0.0, 0.0
-//			,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 //		seldomUsedPanel.add(runtimeScratchPadEnabledCheckBox, new GridBagConstraints(0, 10, 1, 1, 0.0, 0.0
 //			,GridBagConstraints.WEST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 //		seldomUsedPanel.add(reloadWorldScriptCheckBox, new GridBagConstraints(0, 11, 1, 1, 0.0, 0.0
