@@ -1,0 +1,7 @@
+<itemChoices>
+	<setMultipleModelsAndTexture icon="noshoes.gif" model1="GreySneakers_RightFoot.a2c" parent1="RightAnkle" model2="GreySneakers_LeftFoot.a2c" parent2="LeftAnkle" texture="trans0.gif" layer="6"></setMultipleModelsAndTexture>
+	<setMultipleModelsAndTexture icon="greysneakersImg.gif" model1="GreySneakers_RightFoot.a2c" parent1="RightAnkle" model2="GreySneakers_LeftFoot.a2c" parent2="LeftAnkle" texture="greysneakers.gif" layer="6"></setMultipleModelsAndTexture>
+	<setMultipleModelsAndTexture icon="bluesneakersImg.gif" model1="BlueSneakers_RightFoot.a2c" parent1="RightAnkle" model2="BlueSneakers_LeftFoot.a2c" parent2="LeftAnkle" texture="bluesneakers.gif" layer="6"></setMultipleModelsAndTexture>
+	<setMultipleModelsAndTexture icon="maryjanesImg.gif" model1="MaryJanes_RightFoot.a2c" parent1="RightAnkle" model2="MaryJanes_LeftFoot.a2c" parent2="LeftAnkle" texture="maryjanes.gif" layer="6"></setMultipleModelsAndTexture>
+	<setMultipleModelsAndTexture icon="bootsImg.gif" model1="Boots_RightFoot.a2c" parent1="RightAnkle" model2="Boots_LeftFoot.a2c" parent2="LeftAnkle" texture="boots.gif" layer="6"></setMultipleModelsAndTexture>
+</itemChoices>

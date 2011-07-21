@@ -1,0 +1,15 @@
+<itemChoices>
+	<addTexture icon="noshirt.gif" texture="trans0.gif" layer="5"></addTexture>
+	<addTexture icon="greenshirt_small.gif" texture="greenshirt.gif" layer="5"></addTexture>
+	<addTexture icon="redshirt_small.gif" texture="redshirt.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_crunchy_img.gif" texture="Shirt_crunchy.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_casual_img.gif" texture="Shirt_casual.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_club_img.gif" texture="Shirt_club.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_Athletic_img.gif" texture="Shirt_Athletic.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_hip_img.gif" texture="Shirt_hip.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_greendress_img.gif" texture="Shirt_greendress.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_reddress_img.gif" texture="Shirt_reddress.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_skater_img.gif" texture="Shirt_skater.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_skatertank_img.gif" texture="Shirt_skatertank.gif" layer="5"></addTexture>
+	<addTexture icon="Shirt_swimsuit_img.gif" texture="Shirt_swimsuit.gif" layer="5"></addTexture>
+</itemChoices>

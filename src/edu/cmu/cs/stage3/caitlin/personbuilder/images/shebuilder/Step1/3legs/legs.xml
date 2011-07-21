@@ -1,0 +1,6 @@
+<itemChoices>
+	<setModel icon="Legs_fitwoman_cuffs.gif" model="Legs_fitwoman_cuffs.a2c" parent="Woman" altModel="Legs_fitwoman_bare.a2c"></setModel>
+	<setModel icon="Legs_fatwoman_cuffs.gif" model="Legs_fatwoman_cuffs.a2c" parent="Woman" altModel="Legs_fatwoman_bare.a2c"></setModel>
+	<setModel icon="Legs_shortwoman_cuffs.gif" model="Legs_shortwoman_cuffs.a2c" parent="Woman" altModel="Legs_shortwoman_bare.a2c"></setModel>
+	<setModel icon="Legs_skinnywoman_cuffs.gif" model="Legs_skinnywoman_cuffs.a2c" parent="Woman" altModel="Legs_skinnywoman_bare.a2c"></setModel>
+</itemChoices>

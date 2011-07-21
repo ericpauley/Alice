@@ -1,0 +1,6 @@
+<itemChoices>
+	<setModel icon="Torso_fitman.gif" model="Torso_fitman.a2c" parent="Man" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Torso_fatman.gif" model="Torso_fatman.a2c" parent="Man" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Torso_shortman.gif" model="Torso_shortman.a2c" parent="Man" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Torso_skinnyman.gif" model="Torso_skinnyman.a2c" parent="Man" x="0" y="0.07426346976207143" z="0"></setModel>
+</itemChoices>

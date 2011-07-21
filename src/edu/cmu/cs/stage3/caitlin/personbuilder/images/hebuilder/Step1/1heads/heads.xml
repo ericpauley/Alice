@@ -1,0 +1,5 @@
+<itemChoices>
+	<setModel icon="Head_man_pointy.gif" model="Head_man_pointy.a2c" parent="Neck" x="-0.0035563074198486297" y="0.7738642611311135" z="0.02371943068331709"></setModel>
+	<setModel icon="Head_man_blocky.gif" model="Head_man_blocky.a2c" parent="Neck" x="-0.0035563074198486297" y="0.7738642611311135" z="0.02371943068331709"></setModel>
+	<setModel icon="Head_man_fat.gif" model="Head_man_fat.a2c" parent="Neck" x="-0.0035563074198486297" y="0.7738642611311135" z="0.02371943068331709"></setModel>
+</itemChoices>

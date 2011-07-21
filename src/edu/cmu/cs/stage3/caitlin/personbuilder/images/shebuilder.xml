@@ -1,0 +1,195 @@
+<?xml version="1.0"?>
+
+<directory path="images/shebuilder">
+  <image path="images/shebuilder/backBtn.jpg" />
+  <image path="images/shebuilder/nextBtn.jpg" />
+  <image path="images/shebuilder/noBackBtn.jpg" />
+  <image path="images/shebuilder/noNextBtn.jpg" />
+  <image path="images/shebuilder/spacer.jpg" />
+  <model path="images/shebuilder/WomanTemplate.a2c" />
+  <directory path="images/shebuilder/Step1">
+    <directory path="images/shebuilder/Step1/1heads">
+      <model path="images/shebuilder/Step1/1heads/Head_woman_smallround.a2c" />
+	<model path="images/shebuilder/Step1/1heads/Head_woman_long.a2c" />
+	<model path="images/shebuilder/Step1/1heads/Head_woman_boxy.a2c" />
+	<model path="images/shebuilder/Step1/1heads/Head_woman_fat.a2c" />
+      <xml path="images/shebuilder/Step1/1heads/heads.xml" />
+      <image path="images/shebuilder/Step1/1heads/Head_woman_smallround.gif" />
+	<image path="images/shebuilder/Step1/1heads/Head_woman_long.gif" />
+	<image path="images/shebuilder/Step1/1heads/Head_woman_boxy.gif" />
+	<image path="images/shebuilder/Step1/1heads/Head_woman_fat.gif" />
+    </directory>
+    <directory path="images/shebuilder/Step1/2torsos">
+      <image path="images/shebuilder/Step1/2torsos/Torso_fitwoman.gif" />
+	<image path="images/shebuilder/Step1/2torsos/Torso_fatwoman.gif" />
+	<image path="images/shebuilder/Step1/2torsos/Torso_shortwoman.gif" />
+	<image path="images/shebuilder/Step1/2torsos/Torso_skinnywoman.gif" />
+      <model path="images/shebuilder/Step1/2torsos/Torso_fitwoman.a2c" />
+	<model path="images/shebuilder/Step1/2torsos/Torso_fatwoman.a2c" />
+	<model path="images/shebuilder/Step1/2torsos/Torso_shortwoman.a2c" />
+	<model path="images/shebuilder/Step1/2torsos/Torso_skinnywoman.a2c" />
+      <xml path="images/shebuilder/Step1/2torsos/torsos.xml" />
+    </directory>
+    <directory path="images/shebuilder/Step1/3legs">
+      <image path="images/shebuilder/Step1/3legs/Legs_fitwoman_cuffs.gif" />
+	<image path="images/shebuilder/Step1/3legs/Legs_fatwoman_cuffs.gif" />
+	<image path="images/shebuilder/Step1/3legs/Legs_shortwoman_cuffs.gif" />
+	<image path="images/shebuilder/Step1/3legs/Legs_skinnywoman_cuffs.gif" />
+      <model path="images/shebuilder/Step1/3legs/Legs_fitwoman_cuffs.a2c" />
+	<model path="images/shebuilder/Step1/3legs/Legs_fatwoman_cuffs.a2c" />
+	<model path="images/shebuilder/Step1/3legs/Legs_shortwoman_cuffs.a2c" />
+	<model path="images/shebuilder/Step1/3legs/Legs_skinnywoman_cuffs.a2c" />
+	<model path="images/shebuilder/Step1/3legs/Legs_fitwoman_bare.a2c" />
+	<model path="images/shebuilder/Step1/3legs/Legs_fatwoman_bare.a2c" />
+	<model path="images/shebuilder/Step1/3legs/Legs_shortwoman_bare.a2c" />
+	<model path="images/shebuilder/Step1/3legs/Legs_skinnywoman_bare.a2c" />
+      <xml path="images/shebuilder/Step1/3legs/legs.xml" />
+    </directory>
+    <image path="images/shebuilder/Step1/step1.jpg" />
+    <image path="images/shebuilder/Step1/step1_sel.jpg" />
+  </directory>
+  <directory path="images/shebuilder/Step2">
+    <setColor />
+    <image path="images/shebuilder/Step2/step2.jpg" />
+    <image path="images/shebuilder/Step2/step2_sel.jpg" />
+    <directory path="images/shebuilder/Step2/1eyes">
+      <image path="images/shebuilder/Step2/1eyes/almondeyes.gif" />
+	<image path="images/shebuilder/Step2/1eyes/almondeyes_small.gif" />
+	<image path="images/shebuilder/Step2/1eyes/blackeyes.gif" />
+	<image path="images/shebuilder/Step2/1eyes/blackeyes_small.gif" />
+	<image path="images/shebuilder/Step2/1eyes/greeneyes.gif" />
+	<image path="images/shebuilder/Step2/1eyes/greeneyes_small.gif" />
+	<image path="images/shebuilder/Step2/1eyes/hazeleyes.gif" />
+	<image path="images/shebuilder/Step2/1eyes/hazeleyes_small.gif" />
+	<image path="images/shebuilder/Step2/1eyes/trans0.gif" />
+	<image path="images/shebuilder/Step2/1eyes/noface.gif" />
+      <xml path="images/shebuilder/Step2/1eyes/eyes.xml" />
+    </directory>
+    <directory path="images/shebuilder/Step2/2mouths">
+	<image path="images/shebuilder/Step2/2mouths/trans0.gif" />
+	<image path="images/shebuilder/Step2/2mouths/noface.gif" />
+	<image path="images/shebuilder/Step2/2mouths/biglips.gif" />
+	<image path="images/shebuilder/Step2/2mouths/biglips_small.gif" />
+	<image path="images/shebuilder/Step2/2mouths/brightpinklips.gif" />
+	<image path="images/shebuilder/Step2/2mouths/brightpinklips_small.gif" />
+	<image path="images/shebuilder/Step2/2mouths/darklips.gif" />
+	<image path="images/shebuilder/Step2/2mouths/darklips_small.gif" />
+	<image path="images/shebuilder/Step2/2mouths/inwardsmile.gif" />
+	<image path="images/shebuilder/Step2/2mouths/inwardsmile_small.gif" />
+      <xml path="images/shebuilder/Step2/2mouths/mouths.xml" />
+    </directory>
+  </directory>
+  <directory path="images/shebuilder/Step3">
+    <image path="images/shebuilder/Step3/step3.jpg" />
+    <image path="images/shebuilder/Step3/step3_sel.jpg" />
+    <directory path="images/shebuilder/Step3/1HairStyle">
+      <image path="images/shebuilder/Step3/1HairStyle/Hair_woman_short.gif" />
+	<image path="images/shebuilder/Step3/1HairStyle/Hair_woman_long.gif" />
+	<image path="images/shebuilder/Step3/1HairStyle/Hair_woman_shoulder.gif" />
+	<model path="images/shebuilder/Step3/1HairStyle/Hair_woman_short.a2c" />
+	<model path="images/shebuilder/Step3/1HairStyle/Hair_woman_long.a2c" />
+	<model path="images/shebuilder/Step3/1HairStyle/Hair_woman_shoulder.a2c" />
+      <xml path="images/shebuilder/Step3/1HairStyle/hair.xml" />
+    </directory>
+    <directory path="images/shebuilder/Step3/2Hair">
+	<image path="images/shebuilder/Step3/2Hair/nohaircolor.gif" />
+	<image path="images/shebuilder/Step3/2Hair/trans0.gif" />
+	<image path="images/shebuilder/Step3/2Hair/Hair_black.gif" />
+	<image path="images/shebuilder/Step3/2Hair/Hair_black_img.gif" />
+	<image path="images/shebuilder/Step3/2Hair/Hair_blonde.gif" />
+	<image path="images/shebuilder/Step3/2Hair/Hair_blonde_img.gif" />
+	<image path="images/shebuilder/Step3/2Hair/Hair_brown.gif" />
+	<image path="images/shebuilder/Step3/2Hair/Hair_brown_img.gif" />
+	<image path="images/shebuilder/Step3/2Hair/Hair_red.gif" />
+	<image path="images/shebuilder/Step3/2Hair/Hair_red_img.gif" />
+      <xml path="images/shebuilder/Step3/2Hair/hair.xml" />
+    </directory>
+  </directory>
+  <directory path="images/shebuilder/Step4">
+    <directory path="images/shebuilder/Step4/1tops">
+      <image path="images/shebuilder/Step4/1tops/noshirt.gif" />
+      <image path="images/shebuilder/Step4/1tops/greenshirt.gif" />
+      <image path="images/shebuilder/Step4/1tops/greenshirt_small.gif" />
+      <image path="images/shebuilder/Step4/1tops/redshirt.gif" />
+      <image path="images/shebuilder/Step4/1tops/redshirt_small.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_crunchy.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_crunchy_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_casual.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_casual_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_club.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_club_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_Athletic.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_Athletic_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_hip.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_hip_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_greendress.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_greendress_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_reddress.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_reddress_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_skater.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_skater_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_skatertank.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_skatertank_img.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_swimsuit.gif" />
+	<image path="images/shebuilder/Step4/1tops/Shirt_swimsuit_img.gif" />
+      <xml path="images/shebuilder/Step4/1tops/tops.xml" />
+      <image path="images/shebuilder/Step4/1tops/trans0.gif" />
+    </directory>
+    <directory path="images/shebuilder/Step4/2bottoms">
+      <image path="images/shebuilder/Step4/2bottoms/blackpants.gif" />
+      <image path="images/shebuilder/Step4/2bottoms/blackpants_small.gif" />
+      <image path="images/shebuilder/Step4/2bottoms/bluepants.gif" />
+      <image path="images/shebuilder/Step4/2bottoms/bluepants_small.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_casual.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_casual_img.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_Athletic.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_Athletic_img.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_club.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_club_img.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_hip.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_hip_img.gif" />
+      <xml path="images/shebuilder/Step4/2bottoms/bottoms.xml" />
+      <image path="images/shebuilder/Step4/2bottoms/nopants.gif" />
+      <image path="images/shebuilder/Step4/2bottoms/trans0.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Skirt_green_img.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Skirt_crunchy_img.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Skirt_red_img.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Skirt_green.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Skirt_crunchy.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Skirt_red.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_swimsuit.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_swimsuit_img.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_skater.gif" />
+	<image path="images/shebuilder/Step4/2bottoms/Pants_skater_img.gif" />
+	<model path="images/shebuilder/Step4/2bottoms/LongSkirt.a2c" />
+	<model path="images/shebuilder/Step4/2bottoms/ShortSkirt.a2c" />
+
+    </directory>
+    <directory path="images/shebuilder/Step4/3shoes">
+      <image path="images/shebuilder/Step4/3shoes/greysneakersImg.gif" />
+	<image path="images/shebuilder/Step4/3shoes/greysneakers.gif" />
+	<image path="images/shebuilder/Step4/3shoes/bluesneakersImg.gif" />
+	<image path="images/shebuilder/Step4/3shoes/bluesneakers.gif" />
+	<image path="images/shebuilder/Step4/3shoes/bootsImg.gif" />
+	<image path="images/shebuilder/Step4/3shoes/boots.gif" />
+	<image path="images/shebuilder/Step4/3shoes/maryjanesImg.gif" />
+	<image path="images/shebuilder/Step4/3shoes/maryjanes.gif" />
+      <xml path="images/shebuilder/Step4/3shoes/shoes.xml" />
+      <image path="images/shebuilder/Step4/3shoes/trans0.gif" />
+	<image path="images/shebuilder/Step4/3shoes/noshoes.gif" />
+	<model path="images/shebuilder/Step4/3shoes/BlueSneakers_LeftFoot.a2c" />
+	<model path="images/shebuilder/Step4/3shoes/BlueSneakers_RightFoot.a2c" />
+	<model path="images/shebuilder/Step4/3shoes/Boots_LeftFoot.a2c" />
+	<model path="images/shebuilder/Step4/3shoes/Boots_RightFoot.a2c" />
+	<model path="images/shebuilder/Step4/3shoes/GreySneakers_LeftFoot.a2c" />
+	<model path="images/shebuilder/Step4/3shoes/GreySneakers_RightFoot.a2c" />
+	<model path="images/shebuilder/Step4/3shoes/MaryJanes_LeftFoot.a2c" />
+	<model path="images/shebuilder/Step4/3shoes/MaryJanes_RightFoot.a2c" />
+    </directory>
+    <image path="images/shebuilder/Step4/step4.jpg" />
+    <image path="images/shebuilder/Step4/step4_sel.jpg" />
+  </directory>
+  <image path="images/shebuilder/stepBack.jpg" />
+  <image path="images/shebuilder/stepNext.jpg" />
+  <xml path="images/shebuilder/structure.xml" />
+</directory>

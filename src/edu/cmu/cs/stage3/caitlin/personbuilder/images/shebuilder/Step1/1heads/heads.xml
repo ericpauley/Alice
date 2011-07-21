@@ -1,0 +1,6 @@
+<itemChoices>
+	<setModel icon="Head_woman_smallround.gif" model="Head_woman_smallround.a2c" parent="Neck"></setModel>
+	<setModel icon="Head_woman_long.gif" model="Head_woman_long.a2c" parent="Neck"></setModel>
+	<setModel icon="Head_woman_boxy.gif" model="Head_woman_boxy.a2c" parent="Neck"></setModel>
+	<setModel icon="Head_woman_fat.gif" model="Head_woman_fat.a2c" parent="Neck"></setModel>
+</itemChoices>

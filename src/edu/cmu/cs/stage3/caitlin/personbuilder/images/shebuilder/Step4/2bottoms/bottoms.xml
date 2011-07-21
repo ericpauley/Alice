@@ -1,0 +1,17 @@
+<itemChoices>
+	<addTexture icon="nopants.gif" texture="trans0.gif" layer="4"></addTexture>
+	<addTexture icon="blackpants_small.gif" texture="blackpants.gif" layer="4"></addTexture>
+	<addTexture icon="bluepants_small.gif" texture="bluepants.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_casual_img.gif" texture="Pants_casual.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_Athletic_img.gif" texture="Pants_Athletic.gif" layer="4" useAltModel="LowerBody"></addTexture>
+	<addTexture icon="Pants_club_img.gif" texture="Pants_club.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_hip_img.gif" texture="Pants_hip.gif" layer="4"></addTexture>
+	<addModelAndTexture icon="Skirt_green_img.gif" model="ShortSkirt.a2c" parent="LowerBody" texture="Skirt_green.gif" layer="7" useAltModel="LowerBody" x="0.011" y="0.256" z="-0.0189"></addModelAndTexture>
+	<addModelAndTexture icon="Skirt_crunchy_img.gif" model="ShortSkirt.a2c" parent="LowerBody" texture="Skirt_crunchy.gif" layer="7" useAltModel="LowerBody" x="0.011" y="0.256" z="-0.0189"></addModelAndTexture>
+	<addModelAndTexture icon="Skirt_red_img.gif" model="ShortSkirt.a2c" parent="LowerBody" texture="Skirt_red.gif" layer="7" useAltModel="LowerBody" x="0.011" y="0.256" z="-0.0189"></addModelAndTexture>
+	<addModelAndTexture icon="Skirt_green_img.gif" model="LongSkirt.a2c" parent="LowerBody" texture="Skirt_green.gif" layer="7" useAltModel="LowerBody" x="0.011" y="0.256" z="-0.0189"></addModelAndTexture>
+	<addModelAndTexture icon="Skirt_crunchy_img.gif" model="LongSkirt.a2c" parent="LowerBody" texture="Skirt_crunchy.gif" layer="7" useAltModel="LowerBody" x="0.011" y="0.256" z="-0.0189"></addModelAndTexture>
+	<addModelAndTexture icon="Skirt_red_img.gif" model="LongSkirt.a2c" parent="LowerBody" texture="Skirt_red.gif" layer="7" useAltModel="LowerBody" x="0.011" y="0.256" z="-0.0189"></addModelAndTexture>
+	<addTexture icon="Pants_swimsuit_img.gif" texture="Pants_swimsuit.gif" layer="4" useAltModel="LowerBody"></addTexture>
+	<addTexture icon="Pants_skater_img.gif" texture="Pants_skater.gif" layer="4"></addTexture>
+</itemChoices>

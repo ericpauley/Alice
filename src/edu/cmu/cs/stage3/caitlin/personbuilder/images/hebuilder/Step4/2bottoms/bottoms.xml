@@ -1,0 +1,21 @@
+<itemChoices>
+	<addTexture icon="nopants.gif" texture="trans0.gif" layer="4"></addTexture>
+	<addTexture icon="blackpants_small.gif" texture="blackpants.gif" layer="4"></addTexture>
+	<addTexture icon="bluepants_small.gif" texture="bluepants.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_crunchy_img.gif" texture="Pants_crunchy.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_casual_img.gif" texture="Pants_casual.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_club_img.gif" texture="Pants_club.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_athletic_img.gif" texture="Pants_athletic.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_athletic_black_small.gif" texture="Pants_athletic_black.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_athletic_blue_small.gif" texture="Pants_athletic_blue.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_athletic_red_small.gif" texture="Pants_athletic_red.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_formal_img.gif" texture="Pants_formal.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_suit_coolgrey_small.gif" texture="Pants_suit_coolgrey.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_suit_darkblue_small.gif" texture="Pants_suit_darkblue.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_suit_green_small.gif" texture="Pants_suit_green.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_suit_lightblue_small.gif" texture="Pants_suit_lightblue.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_suit_pinstripe_small.gif" texture="Pants_suit_pinstripe.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_suit_warmgrey_small.gif" texture="Pants_suit_warmgrey.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_hip_img.gif" texture="Pants_hip.gif" layer="4"></addTexture>
+	<addTexture icon="Pants_lowrider_small.gif" texture="Pants_lowrider.gif" layer="4"></addTexture>
+</itemChoices>

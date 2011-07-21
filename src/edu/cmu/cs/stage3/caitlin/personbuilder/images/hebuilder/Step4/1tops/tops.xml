@@ -1,0 +1,19 @@
+<itemChoices>
+	<addTexture icon="noshirt.gif" texture="trans0.gif" layer="6"></addTexture>
+	<addTexture icon="greenshirt_small.gif" texture="greenshirt.gif" layer="6"></addTexture>
+	<addTexture icon="redshirt_small.gif" texture="redshirt.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_club_img.gif" texture="Shirt_club.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_athletic2_img.gif" texture="Shirt_athletic2.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_casual_img.gif" texture="Shirt_casual.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_athletic1_img.gif" texture="Shirt_athletic1.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_crunchy_img.gif" texture="Shirt_crunchy.gif" layer="6"></addTexture>	
+	<addTexture icon="Shirt_formal_img.gif" texture="Shirt_formal.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_hip_img.gif" texture="Shirt_hip.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_suit_coolgrey_small.gif" texture="Shirt_suit_coolgrey.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_suit_darkblue_small.gif" texture="Shirt_suit_darkblue.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_suit_green_small.gif" texture="Shirt_suit_green.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_suit_lightblue_small.gif" texture="Shirt_suit_lightblue.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_suit_pinstripe_small.gif" texture="Shirt_suit_pinstripe.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_suit_warmgrey_small.gif" texture="Shirt_suit_warmgrey.gif" layer="6"></addTexture>
+	<addTexture icon="Shirt_thug_small.gif" texture="Shirt_thug.gif" layer="6"></addTexture>
+</itemChoices>

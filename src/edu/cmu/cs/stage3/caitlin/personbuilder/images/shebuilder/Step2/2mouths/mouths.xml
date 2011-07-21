@@ -1,0 +1,7 @@
+<itemChoices>
+	<addTexture icon="noface.gif" texture="trans0.gif" layer="2"></addTexture>
+	<addTexture icon="brightpinklips_small.gif" texture="brightpinklips.gif" layer="2"></addTexture>
+	<addTexture icon="biglips_small.gif" texture="biglips.gif" layer="2"></addTexture>
+	<addTexture icon="darklips_small.gif" texture="darklips.gif" layer="2"></addTexture>
+	<addTexture icon="inwardsmile_small.gif" texture="inwardsmile.gif" layer="2"></addTexture>
+</itemChoices>

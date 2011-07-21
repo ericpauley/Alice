@@ -1,0 +1,7 @@
+<itemChoices>
+	<addTexture icon="noface.gif" texture="trans0.gif" layer="1"></addTexture>
+	<addTexture icon="greeneyes_small.gif" texture="greeneyes.gif" layer="1"></addTexture>
+	<addTexture icon="almondeyes_small.gif" texture="almondeyes.gif" layer="1"></addTexture>
+	<addTexture icon="blackeyes_small.gif" texture="blackeyes.gif" layer="1"></addTexture>
+	<addTexture icon="hazeleyes_small.gif" texture="hazeleyes.gif" layer="1"></addTexture>
+</itemChoices>

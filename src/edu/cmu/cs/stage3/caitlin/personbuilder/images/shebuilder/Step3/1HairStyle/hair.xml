@@ -1,0 +1,5 @@
+<itemChoices>
+	<setModel icon="Hair_woman_shoulder.gif" model="Hair_woman_shoulder.a2c" parent="Head"></setModel>
+	<setModel icon="Hair_woman_short.gif" model="Hair_woman_short.a2c" parent="Head"></setModel>
+	<setModel icon="Hair_woman_long.gif" model="Hair_woman_long.a2c" parent="Head"></setModel>
+</itemChoices>

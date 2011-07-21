@@ -1,0 +1,6 @@
+<itemChoices>
+	<setModel icon="Legs_fitman_cuffs.gif" model="Legs_fitman_cuffs.a2c" parent="Man" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Legs_fatman_cuffs.gif" model="Legs_fatman_cuffs.a2c" parent="Man" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Legs_shortman_cuffs.gif" model="Legs_shortman_cuffs.a2c" parent="Man" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Legs_skinnyman_cuffs.gif" model="Legs_skinnyman_cuffs.a2c" parent="Man" x="0" y="0.07426346976207143" z="0"></setModel>
+</itemChoices>

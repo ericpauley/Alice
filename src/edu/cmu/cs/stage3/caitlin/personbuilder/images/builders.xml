@@ -1,0 +1,4 @@
+<availableBuilders>
+	<builder name="hebuilder" icon="hebuilder.gif"> </builder>
+	<builder name="shebuilder" icon="shebuilder.gif"> </builder>
+</availableBuilders>

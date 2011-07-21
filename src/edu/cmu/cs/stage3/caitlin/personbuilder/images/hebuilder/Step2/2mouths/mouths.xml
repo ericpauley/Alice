@@ -1,0 +1,8 @@
+<itemChoices>
+	<addTexture icon="noface.gif" texture="trans0.gif" layer="2"></addTexture>
+	<addTexture icon="biglowerlip_small.gif" texture="biglowerlip.gif" layer="2"></addTexture>
+	<addTexture icon="grin_small.gif" texture="grin.gif" layer="2"></addTexture>
+	<addTexture icon="puffylips_small.gif" texture="puffylips.gif" layer="2"></addTexture>
+	<addTexture icon="underbite_small.gif" texture="underbite.gif" layer="2"></addTexture>
+	<addTexture icon="widethinlips_small.gif" texture="widethinlips.gif" layer="2"></addTexture>
+</itemChoices>

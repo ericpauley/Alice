@@ -1,0 +1,8 @@
+<itemChoices>
+	<addTexture icon="nohaircolor.gif" texture="trans0.gif" layer="3"></addTexture>
+	<addTexture icon="Hair_black_img.gif" texture="Hair_black.gif" layer="3"></addTexture>
+	<addTexture icon="Hair_black_goatee_img.gif" texture="Hair_black_goatee.gif" layer="3"></addTexture>
+	<addTexture icon="Hair_blonde_img.gif" texture="Hair_blonde.gif" layer="3"></addTexture>
+	<addTexture icon="Hair_brown_img.gif" texture="Hair_brown.gif" layer="3"></addTexture>
+	<addTexture icon="Hair_brown_goatee_img.gif" texture="Hair_brown_goatee.gif" layer="3"></addTexture>
+</itemChoices>

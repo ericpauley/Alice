@@ -1,0 +1,6 @@
+<itemChoices>
+	<setModel icon="Torso_fitwoman.gif" model="Torso_fitwoman.a2c" parent="Woman" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Torso_fatwoman.gif" model="Torso_fatwoman.a2c" parent="Woman" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Torso_shortwoman.gif" model="Torso_shortwoman.a2c" parent="Woman" x="0" y="0.07426346976207143" z="0"></setModel>
+	<setModel icon="Torso_skinnywoman.gif" model="Torso_skinnywoman.a2c" parent="Woman" x="0" y="0.07426346976207143" z="0"></setModel>
+</itemChoices>

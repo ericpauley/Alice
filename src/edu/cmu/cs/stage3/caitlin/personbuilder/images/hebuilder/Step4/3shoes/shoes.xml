@@ -1,0 +1,4 @@
+<itemChoices>
+	<addTexture icon="noshoes.gif" texture="trans0.gif" layer="5"></addTexture>
+	<addTexture icon="greysneakers.gif" texture="shoes.gif" layer="5"></addTexture>
+</itemChoices>

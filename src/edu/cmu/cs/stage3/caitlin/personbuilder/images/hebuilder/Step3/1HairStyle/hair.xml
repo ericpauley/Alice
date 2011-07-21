@@ -1,0 +1,5 @@
+<itemChoices>
+	<setModel icon="Hair_man_mohawk.gif" model="Hair_man_mohawk.a2c" parent="Head" x="-0.0035563074198486297" y="0.7738642611311135" z="0.02371943068331709"></setModel>
+	<setModel icon="Hair_man_bowl.gif" model="Hair_man_bowl.a2c" parent="Head" x="-0.0035563074198486297" y="0.7738642611311135" z="0.02371943068331709"></setModel>
+	<setModel icon="Hair_man_short.gif" model="Hair_man_short.a2c" parent="Head" x="-0.0035563074198486297" y="0.7738642611311135" z="0.02371943068331709"></setModel>
+</itemChoices>
