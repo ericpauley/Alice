@@ -1,0 +1,1193 @@
+<?xml version="1.0"?>
+
+<stencilStack access="read" world="tutorialWorlds/penguinChorus1b.a2w" nextStack="tutorial/Tutorial4.stl">
+  <stencil title="Introduction to Alice Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.28391472868217055" yPos="0.43513513513513513">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[In this chapter of the tutorial, you will learn how to make Alice worlds respond to mouse clicks and key presses.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Introduction to Alice Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-42.0" yPos="52.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Press the "Play" button to see what this world does.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Introduction to Alice Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.7306201550387597" yPos="0.2581081081081081">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[The penguins should sing a short song.]]>
+      </message>
+      <message>
+	<![CDATA[When they have finished, click 'X' to close the new window.]]>
+      </message>
+      <message>
+	<![CDATA[Then, click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Introduction to Alice Events" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.28488372093023256" yPos="0.4243243243243243">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[What do you think made the penguins sing their song?]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Introduction to Alice Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-234.0" yPos="97.0">
+      <id>
+	<![CDATA[behaviors]]>
+      </id>
+      <message>
+	<![CDATA[This is the events area. Events tell Alice when to do things like make the penguins sing.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Introduction to Alice Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-180.0" yPos="72.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event1>]]>
+      </id>
+      <message>
+	<![CDATA[This is an event. It says that when the world starts, Alice should run the method   "World.penguins sing song"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.29651162790697677" yPos="0.44054054054054054">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Let's make Alice run a different method when the world starts.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.46124031007751937" yPos="0.43513513513513513">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[First, we'll need to find out what else the world can do.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-36.0" yPos="87.0">
+      <id>
+	<![CDATA[objectTree<>]]>
+      </id>
+      <message>
+	<![CDATA[Click on the world to see the World's information.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-117.0" yPos="-217.0">
+      <id>
+	<![CDATA[details<>]]>
+      </id>
+      <message>
+	<![CDATA[The details area now shows the World's methods.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-36.0" yPos="-216.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<penguins sing scale>]]>
+      </id>
+      <message>
+	<![CDATA[In the next step, we'll tell Alice to run the method "penguins sing scale" when the world starts.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event1.__Unnamed5__.userDefinedResponse:World.penguins sing scale?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mousePress" hasNext="false" xPos="100.0" yPos="-227.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<penguins sing scale>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "penguins sing scale" from here and...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-184.0" yPos="111.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event1>:property<triggerResponse>]]>
+      </id>
+      <message>
+	<![CDATA[2...drop it on top of the tile "World.penguins sing song" to replace it.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-148.0" yPos="70.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event1>]]>
+      </id>
+      <message>
+	<![CDATA[Now, when the world starts, Alice will run the method "World.penguins sing scale"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-43.0" yPos="73.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Click "Play" to see the penguins sing their scale.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Changing the World Start Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.7315891472868217" yPos="0.28243243243243243">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the penguins have finished, click 'X' to close the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.28391472868217055" yPos="0.42702702702702705">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now, we'll add a new event to make the penguins sing their song when you press a key on the keyboard.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-13.0" yPos="76.0">
+      <id>
+	<![CDATA[behaviors:createNewEventButton]]>
+      </id>
+      <message>
+	<![CDATA[Click on the "create new event" button]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?event2.code?event2.keyChar?event2?|nonExistantElements|?|propertyValues|?event2.keyChar.valueClass:java.lang.Character?event2.code.valueClass:java.lang.Integer?|elementPositions|?event2.code:1?event2:0?event2.keyChar:0?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.5319767441860465" yPos="0.5108108108108108">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Choose "when a key is typed" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-216.0" yPos="63.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event2>]]>
+      </id>
+      <message>
+	<![CDATA[Here's the event you just created. It says that when you press a key in the running world, Alice will do "Nothing!"]]>
+      </message>
+      <message>
+	<![CDATA[Let's change this.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event2.__Unnamed2__.userDefinedResponse:World.penguins sing song?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="80.0" yPos="40.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<penguins sing song>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "penguins sing song" from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-156.0" yPos="82.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event2>:property<triggerResponse>]]>
+      </id>
+      <message>
+	<![CDATA[2and drop it on top of "Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-188.0" yPos="50.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event1>]]>
+      </id>
+      <message>
+	<![CDATA[When the world starts, Alice will still run the method "World.penguins sing scale"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-252.0" yPos="85.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event2>]]>
+      </id>
+      <message>
+	<![CDATA[And, when you press any key, Alice will run the method "World.penguins sing song"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-44.0" yPos="83.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Now, try playing your world again.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Key Typed Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.7112403100775194" yPos="0.2391891891891892">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the penguins finish singing their scale, try pressing a key on the keyboard. They should sing their song!]]>
+      </message>
+      <message>
+	<![CDATA[When you've finished, click 'X' to close the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Mouse Clicked Event" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.2858527131782946" yPos="0.4243243243243243">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now, we'll add another event to make each of the penguins sing their note when you click on them.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Mouse Clicked Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="19.0" yPos="88.0">
+      <id>
+	<![CDATA[behaviors:createNewEventButton]]>
+      </id>
+      <message>
+	<![CDATA[Click on "create new event"]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Mouse Clicked Event" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?event3.what?event3.y?event3.x?event3?|nonExistantElements|?|propertyValues|?event3.y.valueClass:Number?event3.x.valueClass:Number?|elementPositions|?event3.y:1?event3.x:0?event3:0?event3.what:2?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.5562015503875969" yPos="0.5">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Choose "When the mouse is clicked on something" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding a Mouse Clicked Event" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-223.0" yPos="95.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event3>]]>
+      </id>
+      <message>
+	<![CDATA[This is the new event that you created. It says that when the mouse is clicked on any object, Alice should do "Nothing!"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding Mouse Clicked Details" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.2926356589147287" yPos="0.43108108108108106">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Let's make the event we just added tell the Blue Penguin to sing its note.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding Mouse Clicked Details" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event3.__Unnamed3__.whichPenguin:BluePenguin?event3.__Unnamed3__.userDefinedResponse:World.penguin sing note?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="10.0" yPos="30.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<penguin sing note>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "penguin sing note whichPenguin" from here and ...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-264.0" yPos="65.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event3>:property<triggerResponse>]]>
+      </id>
+      <message>
+	<![CDATA[2...drop it on top of "Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[2-Choose "BluePenguin" and then "the entire BluePenguin" from the pop-up menu]]>
+      </message>
+      <message>
+	<![CDATA[2-Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding Mouse Clicked Details" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-268.0" yPos="86.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event3>]]>
+      </id>
+      <message>
+	<![CDATA[Now, when the mouse is clicked on any object in the world, Alice will tell the Blue Penguin to sing his note.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding Mouse Clicked Details" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-45.0" yPos="115.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world again.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding Mouse Clicked Details" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.750968992248062" yPos="0.35">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the world starts, the penguins will sing their song. When they've finished try clicking on any object. The Blue Penguin will sing his note.]]>
+      </message>
+      <message>
+	<![CDATA[Click 'X' to close the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Using the Object Clicked On" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.3003875968992248" yPos="0.42702702702702705">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[It's a little strange that you can click on anything in the world and the Blue Penguin sings his note. Now, we'll make the penguin you click on sing its note.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Using the Object Clicked On" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event3.__Unnamed3__.whichPenguin.value:object under mouse cursor?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-486.0" yPos="118.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event3.__Unnamed3__.whichPenguin>:property<value>]]>
+      </id>
+      <message>
+	<![CDATA[Click on "whichPenguin = BluePenguin"]]>
+      </message>
+      <message>
+	<![CDATA[Choose "expressions" and then "object under mouse cursor" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Using the Object Clicked On" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-321.0" yPos="78.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event3>]]>
+      </id>
+      <message>
+	<![CDATA[Now, when you click on anything, it will tell that object to sing its note. Only the penguins know how to sing. The other objects will remain silent if you ask them to sing.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Using the Object Clicked On" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-44.0" yPos="85.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world again.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Using the Object Clicked On" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.7441860465116279" yPos="0.2756756756756757">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the penguins have finished their song, try clicking on different penguins, one at a time. They should all sing their notes.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.27906976744186046" yPos="0.41621621621621624">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now we'll hook up the play, stop and record buttons above the penguins so we can record what the penguins sing.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.27325581395348836" yPos="0.43108108108108106">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[To make the buttons work, we'll need to add a few more mouse click behaviors.]]>
+      </message>
+      <message>
+	<![CDATA[We'll start by making record button work.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-63.0" yPos="77.0">
+      <id>
+	<![CDATA[behaviors:createNewEventButton]]>
+      </id>
+      <message>
+	<![CDATA[Click on "create new event"]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?event4.what?event4.y?event4.x?event4?|nonExistantElements|?|propertyValues|?event4.y.valueClass:Number?event4.x.valueClass:Number?|elementPositions|?event4:0?event4.what:2?event4.y:1?event4.x:0?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.5406976744186046" yPos="0.5405405405405406">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Choose "When mouse is clicked on something" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-197.0" yPos="89.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event4>]]>
+      </id>
+      <message>
+	<![CDATA[Here is the event you just created. Now we'll need to fill in the details so that when you click on the record button, Alice will start recording!]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.28294573643410853" yPos="0.4297297297297297">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[We'll start by making our new mouse click event say "When the mouse is clicked on RecordButton, do Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event4.onWhat:RecordButton?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mousePress" hasNext="true" xPos="-387.0" yPos="126.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event4>:property<onWhat>]]>
+      </id>
+      <message>
+	<![CDATA[Click on "anything"]]>
+      </message>
+      <message>
+	<![CDATA[Choose "RecordButton" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-364.0" yPos="96.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event4>]]>
+      </id>
+      <message>
+	<![CDATA[Now our event says "When the mouse is clicked on RecordButton, do Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[Let's make it record instead!]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event4.__Unnamed3__.userDefinedResponse:World.record?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mousePress" hasNext="false" xPos="119.0" yPos="-207.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<record>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag the "record" tile from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-164.0" yPos="86.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event4>:property<triggerResponse>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it on top of "Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-237.0" yPos="92.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event4>]]>
+      </id>
+      <message>
+	<![CDATA[Now, when the mouse is clicked on RecordButton, Alice will run the method "World.record" which is what we want.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.2819767441860465" yPos="0.4337837837837838">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now, we'll make an event for the play button.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-47.0" yPos="137.0">
+      <id>
+	<![CDATA[behaviors:createNewEventButton]]>
+      </id>
+      <message>
+	<![CDATA[Click on "create new event"]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?event5.what?event5.y?event5.x?event5?|nonExistantElements|?|propertyValues|?event5.y.valueClass:Number?event5.x.valueClass:Number?|elementPositions|?event5:0?event5.what:2?event5.y:1?event5.x:0?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.5348837209302325" yPos="0.5527027027027027">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Choose "When the mouse is clicked on something" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-201.0" yPos="96.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event5>]]>
+      </id>
+      <message>
+	<![CDATA[Here's the event you just created.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event5.onWhat:PlayButton?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-264.0" yPos="83.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event5>:property<onWhat>]]>
+      </id>
+      <message>
+	<![CDATA[Click on "anything"]]>
+      </message>
+      <message>
+	<![CDATA[Choose "PlayButton" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-264.0" yPos="85.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event5>]]>
+      </id>
+      <message>
+	<![CDATA[Now, our event says "When the mouse is clicked on PlayButton, do Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[Let's make it play instead!]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event5.__Unnamed3__.userDefinedResponse:World.play?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="218.0" yPos="-4.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<play>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag the "play" tile from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-191.0" yPos="69.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event5>:property<triggerResponse>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it on top of "Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-283.0" yPos="87.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event5>]]>
+      </id>
+      <message>
+	<![CDATA[Now, this event says that when you click on the play button, Alice will run the "World.play" method.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.3003875968992248" yPos="0.42162162162162165">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[We can now click on the penguins to make them sing, and click on the play and record buttons to start playing and recording. We just need add one last event for stop.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-41.0" yPos="67.0">
+      <id>
+	<![CDATA[behaviors:createNewEventButton]]>
+      </id>
+      <message>
+	<![CDATA[Click "create new event" one last time...]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?event6.what?event6.y?event6.x?event6?|nonExistantElements|?|propertyValues|?event6.y.valueClass:Number?event6.x.valueClass:Number?|elementPositions|?event6.x:0?event6.what:2?event6:0?event6.y:1?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.5164728682170543" yPos="0.518918918918919">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Choose "When the mouse is clicked on something" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-306.0" yPos="85.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event6>]]>
+      </id>
+      <message>
+	<![CDATA[Here's the event you just created.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.29554263565891475" yPos="0.4486486486486487">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[First, we'll make our new event say "When the mouse is clicked on StopButton, do Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event6.onWhat:StopButton?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-308.0" yPos="121.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event6>:property<onWhat>]]>
+      </id>
+      <message>
+	<![CDATA[Click on "anything"]]>
+      </message>
+      <message>
+	<![CDATA[Choose "StopButton" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-201.0" yPos="94.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event6>]]>
+      </id>
+      <message>
+	<![CDATA[Now, our event says "When the mouse is clicked on StopButton, do Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[Let's make it stop instead!]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?event6.__Unnamed3__.userDefinedResponse:World.stop?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="150.0" yPos="-200.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<stop>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag the tile "stop" from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-307.0" yPos="80.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event6>:property<triggerResponse>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it on top of "Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-293.0" yPos="92.0">
+      <id>
+	<![CDATA[behaviors]]>
+      </id>
+      <message>
+	<![CDATA[Now, we've got a few events here. You can click on penguins and they will sing. You can also record their songs and play them back.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-241.0" yPos="94.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event2>]]>
+      </id>
+      <message>
+	<![CDATA[And, the penguins will still sing their song when you type any key.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-83.0" yPos="80.0">
+      <id>
+	<![CDATA[behaviors:elementTile<event1>]]>
+      </id>
+      <message>
+	<![CDATA[And, when the world starts, the penguins will still sing their scale.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-44.0" yPos="80.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="false" xPos="0.7344961240310077" yPos="0.33783783783783783">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the penguins have finished their scale, press record and click on a few penguins.]]>
+      </message>
+      <message>
+	<![CDATA[-Press stop to stop recording]]>
+      </message>
+      <message>
+	<![CDATA[-Press play to hear what you recorded]]>
+      </message>
+    </note>
+    <note type="null" hasNext="true" xPos="0.7383720930232558" yPos="0.6202702702702703">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[You can do this as many times as you like. When you've finished, click 'X' to close the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Adding More Mouse Click Events" stepsToGoBack="2">
+    <note type="null" hasNext="false" xPos="0.3226744186046512" yPos="0.4391891891891892">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[In this chapter we covered:]]>
+      </message>
+      <message>
+	<![CDATA[-what an event is]]>
+      </message>
+      <message>
+	<![CDATA[-how to create key typed and mouse click events]]>
+      </message>
+      <message>
+	<![CDATA[If you're not comfortable with these topics, please restart]]>
+      </message>
+    </note>
+  </stencil>
+</stencilStack>
+

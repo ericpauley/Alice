@@ -1,0 +1,1161 @@
+<?xml version="1.0"?>
+
+<stencilStack access="read" world="tutorialWorlds/naptime.a2w" nextStack="tutorial/Tutorial3.stl">
+  <stencil title="All About Methods" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.29069767441860467" yPos="0.4472972972972973">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[In this chapter of the tutorial, you'll learn how to teach Alice worlds and objects how to do new things.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="All About Methods" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-3.0" yPos="-250.0">
+      <id>
+	<![CDATA[editors:element<defending naptime story>:elementTile<defending naptime story>]]>
+      </id>
+      <message>
+	<![CDATA[This world tells the beginning of a short story here about a bunny whose nap is rudely interrupted by a cell phone. In this tutorial we'll create new methods to add to this story.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="All About Methods" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-43.0" yPos="55.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Click "Play" to see the beginning of the story.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="All About Methods" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.747093023255814" yPos="0.40135135135135136">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[After the bunny says G'bye phone, close the world by clicking 'X' in the top right corner of the new window.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.3168604651162791" yPos="0.42027027027027025">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[The bunny doesn't seem too happy about being woken up. Let's make the bunny jump on the phone and squash it.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-115.0" yPos="-207.0">
+      <id>
+	<![CDATA[details<>]]>
+      </id>
+      <message>
+	<![CDATA[Now this area is showing the World's methods.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-116.0" yPos="-209.0">
+      <id>
+	<![CDATA[details<>]]>
+      </id>
+      <message>
+	<![CDATA[The world doesn't have a method called "bunny squashes phone". Let's make one.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-14.0" yPos="-312.0">
+      <id>
+	<![CDATA[details<>:newAnimationButton]]>
+      </id>
+      <message>
+	<![CDATA[Click on "create new method"]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?bunny squashes phone?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.1069767441860467" yPos="0.4472972972972973">
+      <message>
+	<![CDATA[-Type in "bunny squashes phone" exactly]]>
+      </message>
+	<message>
+	<![CDATA[-Then, click the "OK" button.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-16.0" yPos="-213.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<bunny squashes phone>]]>
+      </id>
+      <message>
+	<![CDATA[Here's the method you just added.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-30.0" yPos="-220.0">
+      <id>
+	<![CDATA[editors]]>
+      </id>
+      <message>
+	<![CDATA[Alice has opened an editor for the method you just created "World.bunny squashes phone" We can now add method tiles to this new method.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.2877906976744186" yPos="0.45">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[We want the bunny to squash the phone. Let's see what the bunny knows how to do.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-47.0" yPos="93.0">
+      <id>
+	<![CDATA[objectTree<bunny>]]>
+      </id>
+      <message>
+	<![CDATA[Click on "bunny" to see what the bunny knows how to do.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Creating Another New Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-117.0" yPos="-206.0">
+      <id>
+	<![CDATA[details<bunny>]]>
+      </id>
+      <message>
+	<![CDATA[Now the details area shows bunny's methods. None of them look like they will make the bunny jump up and down.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.006782945736434108" yPos="0.1783783783783784">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Often, Alice objects won't know how to do everything you want them to. But, you can use simple animations to teach them to do new things.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.005813953488372093" yPos="0.28783783783783784">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now we'll teach the bunny to jump up and down and squash the cellphone.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?bunny squashes phone.__Unnamed0__?|nonExistantElements|?|propertyValues|?bunny squashes phone.__Unnamed0__.subject:bunny?bunny squashes phone.__Unnamed0__.amount:1?bunny squashes phone.__Unnamed0__.direction:up?|elementPositions|?bunny squashes phone.__Unnamed0__:0?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-37.0" yPos="-254.0">
+      <id>
+	<![CDATA[details<bunny>:responsePrototype<edu.cmu.cs.stage3.alice.core.response.MoveAnimation>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "bunny move" from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-29.0" yPos="-249.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it where it says "Do Nothing"]]>
+      </message>
+      <message>
+	<![CDATA[2Choose "up" and then "1 meter" from the menu.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-24.0" yPos="-200.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone.__Unnamed0__>]]>
+      </id>
+      <message>
+	<![CDATA[This line tells the bunny to move up 1 meter.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?bunny squashes phone.__Unnamed1__?|nonExistantElements|?|propertyValues|?bunny squashes phone.__Unnamed1__.amount:1?bunny squashes phone.__Unnamed1__.subject:bunny?bunny squashes phone.__Unnamed1__.direction:down?|elementPositions|?bunny squashes phone.__Unnamed1__:1?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-46.0" yPos="-235.0">
+      <id>
+	<![CDATA[details<bunny>:responsePrototype<edu.cmu.cs.stage3.alice.core.response.MoveAnimation>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "bunny move" from here..]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-88.0" yPos="-240.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it underneath "bunny move up 1 meter"]]>
+      </message>
+      <message>
+	<![CDATA[2Choose "down" and "1 meter" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-18.0" yPos="-212.0">
+      <id>
+	<![CDATA[editors]]>
+      </id>
+      <message>
+	<![CDATA["World.bunny squashes phone" now tells the bunny to move up 1 meter and then down 1 meter.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.29069767441860467" yPos="0.44324324324324327">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now, let's add the method "World.bunny squashes phone" to our story.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-78.0" yPos="77.0">
+      <id>
+	<![CDATA[editors:element<defending naptime story>]]>
+      </id>
+      <message>
+	<![CDATA[Click on the tab labelled "World.defending naptime story"]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-1.0" yPos="-232.0">
+      <id>
+	<![CDATA[editors]]>
+      </id>
+      <message>
+	<![CDATA[Now, we can see the main story again.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-27.0" yPos="88.0">
+      <id>
+	<![CDATA[objectTree<>]]>
+      </id>
+      <message>
+	<![CDATA[Click on "World" to see the world's methods.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-115.0" yPos="-208.0">
+      <id>
+	<![CDATA[details<>]]>
+      </id>
+      <message>
+	<![CDATA[Now, the details area is displaying the World's methods.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?defending naptime story.__Unnamed6__?|nonExistantElements|?|propertyValues|?|elementPositions|?defending naptime story.__Unnamed6__:6?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-64.0" yPos="-239.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<bunny squashes phone>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "bunny squashes phone" from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-47.0" yPos="-229.0">
+      <id>
+	<![CDATA[editors:element<defending naptime story>:elementTile<defending naptime story>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it at the end under the tile "World.bunny hops to the phone"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-44.0" yPos="64.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world to see the bunny squash the phone.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.7432170542635659" yPos="0.33918918918918917">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the bunny has moved up and down, click 'X' to stop the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.3313953488372093" yPos="0.43783783783783786">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[The bunny moved up and down pretty slowly. Let's make it jump a little more convincingly.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="6.0" yPos="-210.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>]]>
+      </id>
+      <message>
+	<![CDATA[Click on the tab labelled "World.bunny squashes phone" to see the method you made.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-14.0" yPos="-253.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone>]]>
+      </id>
+      <message>
+	<![CDATA[Now, we're looking at   "World.bunny squashes the phone"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-43.0" yPos="-226.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone.__Unnamed0__>]]>
+      </id>
+      <message>
+	<![CDATA[Normally, all methods take 1 second but we can change this.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?bunny squashes phone.__Unnamed0__.duration:0.25?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="50.0" yPos="-227.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone.__Unnamed0__>:more]]>
+      </id>
+      <message>
+	<![CDATA[Click "more"]]>
+      </message>
+      <message>
+	<![CDATA[Choose "duration" and then "0.25" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Do not click the next "more".]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-64.0" yPos="-215.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone.__Unnamed0__>]]>
+      </id>
+      <message>
+	<![CDATA[Now this tells the bunny to move up 1, but to take 0.25 seconds instead of 1 second.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?bunny squashes phone.__Unnamed1__.duration:0.25?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="50.0" yPos="-231.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone.__Unnamed1__>:more]]>
+      </id>
+      <message>
+	<![CDATA[Click "more"]]>
+      </message>
+      <message>
+	<![CDATA[Choose "duration" and then "0.25" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[Do not click the next "more".]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-9.0" yPos="-193.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone>]]>
+      </id>
+      <message>
+	<![CDATA[Now, the bunny should move up in 0.25 seconds and then down in 0.25 seconds.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-45.0" yPos="61.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world to see the bunny jump faster.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.75" yPos="0.40540540540540543">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[After the bunny has jumped, close the world by clicking 'X']]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.311046511627907" yPos="0.43243243243243246">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now, let's make the cellphone squash when the bunny jumps on it.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-21.0" yPos="45.0">
+      <id>
+	<![CDATA[objectTree<Cellphone>]]>
+      </id>
+      <message>
+	<![CDATA[Click "Cellphone" to see the Cellphone's details.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-119.0" yPos="-204.0">
+      <id>
+	<![CDATA[details<Cellphone>]]>
+      </id>
+      <message>
+	<![CDATA[Now the details area is showing the Cellphone's methods.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?bunny squashes phone.__Unnamed2__?|nonExistantElements|?|propertyValues|?|elementPositions|?bunny squashes phone.__Unnamed2__:2?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-30.0" yPos="81.0">
+      <id>
+	<![CDATA[details<Cellphone>:userDefinedResponse<Cellphone.squash>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "squash" from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="0.0" yPos="-207.0">
+      <id>
+	<![CDATA[editors:element<bunny squashes phone>:elementTile<bunny squashes phone>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it underneath "bunny move down 1 meter"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-44.0" yPos="81.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world again to see the bunny squash the phone.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.7461240310077519" yPos="0.35">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the bunny has squashed the cell phone, close the world by clicking 'X']]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.28972868217054265" yPos="0.4445945945945946">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Let's add a couple more methods to the main story to finish it off.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-27.0" yPos="109.0">
+      <id>
+	<![CDATA[editors:element<defending naptime story>]]>
+      </id>
+      <message>
+	<![CDATA[Click on the tab labelled "World.defending naptime story"]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="0.0" yPos="-210.0">
+      <id>
+	<![CDATA[editors]]>
+      </id>
+      <message>
+	<![CDATA[Now we can see the main story again.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.2936046511627907" yPos="0.45">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[We need a couple more methods that the World has so we need to find the World's methods.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-25.0" yPos="70.0">
+      <id>
+	<![CDATA[objectTree<>]]>
+      </id>
+      <message>
+	<![CDATA[Click on the "World" to see the World's details.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-117.0" yPos="-233.0">
+      <id>
+	<![CDATA[details<>]]>
+      </id>
+      <message>
+	<![CDATA[Now, we can see the World's methods in the details area.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?defending naptime story.__Unnamed7__?|nonExistantElements|?|propertyValues|?|elementPositions|?defending naptime story.__Unnamed7__:7?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-79.0" yPos="-214.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<bunny shrug and hop away>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag the method tile      "bunny shrug and hop away" from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-47.0" yPos="-224.0">
+      <id>
+	<![CDATA[editors:element<defending naptime story>:elementTile<defending naptime story>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it underneath "World.bunny squashes phone"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?defending naptime story.__Unnamed8__?|nonExistantElements|?|propertyValues|?|elementPositions|?defending naptime story.__Unnamed8__:8?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-56.0" yPos="-211.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<show end screen>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "show end screen" from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-11.0" yPos="-258.0">
+      <id>
+	<![CDATA[editors:element<defending naptime story>:elementTile<defending naptime story>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it at the end underneath the method    "World.bunny shrug and hop away"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-44.0" yPos="59.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world to see the whole story.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.7296511627906976" yPos="0.3635135135135135">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When you see the end screen, click 'X' to close the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Opening a Method" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.2936046511627907" yPos="0.41216216216216217">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Our story looks pretty good, but when the bunny says 'Shhhh!' it seems strange that he doesn't move. Let's make it better.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Opening a Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-76.0" yPos="-199.0">
+      <id>
+	<![CDATA[details<>:userDefinedResponse<bunny shushes the phone>]]>
+      </id>
+      <message>
+	<![CDATA[We need to open the method "bunny shushes the phone"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Opening a Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="-76.0" yPos="-199.0">
+      <id>
+	<![CDATA[details<>:editObjectButton<bunny shushes the phone>]]>
+      </id>
+      <message>
+	<![CDATA[To open "bunny shushes the phone", click on the edit button beside it.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Opening a Method" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-55.0" yPos="-217.0">
+      <id>
+	<![CDATA[editors]]>
+      </id>
+      <message>
+	<![CDATA[Alice opened the method "World.bunny shushes the phone" in an editor for you.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.3081395348837209" yPos="0.48783783783783785">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Let's make the bunny raise his arm and make the shush sign before he says Shhh!]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-36.0" yPos="115.0">
+      <id>
+	<![CDATA[objectTree<bunny>]]>
+      </id>
+      <message>
+	<![CDATA[Bunny has subparts that are the different parts of his body.]]>
+      </message>
+      <message>
+	<![CDATA[Click on the "+" to the left of the bunny tile.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-50.0" yPos="131.0">
+      <id>
+	<![CDATA[objectTree<bunny.body>]]>
+      </id>
+      <message>
+	<![CDATA["body" is the bunny's first subpart.]]>
+      </message>
+      <message>
+	<![CDATA[Let's open it to see what's inside.]]>
+      </message>
+      <message>
+	<![CDATA[Click on the "+" next to the body tile.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-36.0" yPos="127.0">
+      <id>
+	<![CDATA[objectTree<bunny.body.chest>]]>
+      </id>
+      <message>
+	<![CDATA[bunny's body has a part called the chest. Arms are usually attached to chests, so we're getting close.]]>
+      </message>
+      <message>
+	<![CDATA[Click the on the "+" next to chest to open it.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-48.0" yPos="145.0">
+      <id>
+	<![CDATA[objectTree<bunny.body.chest.armR>]]>
+      </id>
+      <message>
+	<![CDATA[And here we have the bunny's right arm.]]>
+      </message>
+      <message>
+	<![CDATA[Click on it to see the methods it can do.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-120.0" yPos="-221.0">
+      <id>
+	<![CDATA[details<bunny.body.chest.armR>]]>
+      </id>
+      <message>
+	<![CDATA[Now we can see all the methods that the right arm (armR) can do.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?bunny shushes the phone.__Unnamed2__?|nonExistantElements|?|propertyValues|?bunny shushes the phone.__Unnamed2__.subject:bunny.body.chest.armR?bunny shushes the phone.__Unnamed2__.amount:0.25?bunny shushes the phone.__Unnamed2__.direction:backward?|elementPositions|?bunny shushes the phone.__Unnamed2__:1?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-40.0" yPos="43.0">
+      <id>
+	<![CDATA[details<bunny.body.chest.armR>:responsePrototype<edu.cmu.cs.stage3.alice.core.response.TurnAnimation>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag armR from here..]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="19.0" yPos="-242.0">
+      <id>
+	<![CDATA[editors:element<bunny shushes the phone>:elementTile<bunny shushes the phone>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it under the method "Cellphone.ring"]]>
+      </message>
+      <message>
+	<![CDATA[2Choose "backward" and "1/4" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?bunny shushes the phone.__Unnamed3__?|nonExistantElements|?|propertyValues|?bunny shushes the phone.__Unnamed3__.direction:forward?bunny shushes the phone.__Unnamed3__.subject:bunny.body.chest.armR?bunny shushes the phone.__Unnamed3__.amount:0.25?|elementPositions|?bunny shushes the phone.__Unnamed3__:3?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-37.0" yPos="73.0">
+      <id>
+	<![CDATA[details<bunny.body.chest.armR>:responsePrototype<edu.cmu.cs.stage3.alice.core.response.TurnAnimation>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag "armR turn" from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="15.0" yPos="-247.0">
+      <id>
+	<![CDATA[editors:element<bunny shushes the phone>:elementTile<bunny shushes the phone>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it underneath "bunny say Shhhh!"]]>
+      </message>
+      <message>
+	<![CDATA[2Choose "forward" and "1/4" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-43.0" yPos="53.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Play your world one last time to see the complete story!]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.7102713178294574" yPos="0.3932432432432432">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the story has ended, click 'X' to close the world]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="2">
+    <note type="null" hasNext="false" xPos="0.2916666666666667" yPos="0.43513513513513513">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[In this chapter of the tutorial we covered]]>
+      </message>
+      <message>
+	<![CDATA[- how to make new methods]]>
+      </message>
+      <message>
+	<![CDATA[- how to open methods]]>
+      </message>
+      <message>
+	<![CDATA[If you aren't comfortable with these, please restart.]]>
+      </message>
+    </note>
+  </stencil>
+</stencilStack>
+
