@@ -155,6 +155,8 @@ public class ExportCodeForPrintingContentPane extends edu.cmu.cs.stage3.swing.Co
 					m_pathFileChooser.setCurrentDirectory( dir );
 				} catch( ArrayIndexOutOfBoundsException aioobe ) {
 					// for some reason this can potentially fail in jdk1.4.2_04
+				} catch ( java.lang.IndexOutOfBoundsException e ) {
+					// and on JDK 1.6 it's this one (added by Michael Vorburger) - just sometimes
 				}
 			}
 		}

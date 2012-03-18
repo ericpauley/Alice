@@ -308,8 +308,11 @@ public class DialogManager {
 		javax.swing.JOptionPane pane = new javax.swing.JOptionPane( message, messageType, optionType, icon, options, initialValue );
 
 		pane.setInitialValue(initialValue);
-		java.awt.Component parent = (java.awt.Component)s_stack.peek();
-		pane.setComponentOrientation( parent.getComponentOrientation() );
+		java.awt.Component parent = null;
+		if (!s_stack.isEmpty()) {
+			parent = (java.awt.Component)s_stack.peek();
+			pane.setComponentOrientation( parent.getComponentOrientation() );
+		}
 		
 		javax.swing.JDialog dialog = pane.createDialog( parent, title );
 		pane.selectInitialValue();
