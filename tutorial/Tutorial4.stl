@@ -1,0 +1,444 @@
+<?xml version="1.0"?>
+
+<stencilStack access="read" world="tutorialWorlds/space.a2w">
+  <stencil>
+    <note type="null" hasNext="true" xPos="0.3003875968992248" yPos="0.41711229946524064">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[In this chapter of the tutorial, we'll show you how to create your own scenes. This is the last thing you need to know to be able to build your own worlds.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-163.0" yPos="80.0">
+      <id>
+	<![CDATA[sceneEditor<small>:singleView:makeSceneEditorBigButton]]>
+      </id>
+      <message>
+	<![CDATA[Click here to expand the 3D window.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="null" hasNext="true" xPos="0.03875968992248062" yPos="0.6176470588235294">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now that we have a good view of the 3D scene, we'll show you how to move objects around.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-349.0" yPos="58.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[Click on the lunar lander in the 3D window and drag it to the center of the screen.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="null" hasNext="true" xPos="0.18023255813953487" yPos="0.6390374331550802">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[You can also move around in your 3D scene.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-66.0" yPos="25.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:guiNavigatorDrivePanel]]>
+      </id>
+      <message>
+	<![CDATA[Click and drag on this control to move closer to the lunar lander.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-113.0" yPos="30.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:guiNavigatorSlidePanel]]>
+      </id>
+      <message>
+	<![CDATA[This control moves up, down, left, and right.]]>
+      </message>
+      <message>
+	<![CDATA[Click and drag on this control to get a better view of the top of the lunar lander.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-145.0" yPos="45.0">
+      <id>
+	<![CDATA[undoButton]]>
+      </id>
+      <message>
+	<![CDATA[If you don't like a change you've made, you can always hit undo to go back.]]>
+      </message>
+      <message>
+	<![CDATA[Click on "Undo" to undo your last camera movement.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-147.0" yPos="152.0">
+      <id>
+	<![CDATA[undoButton]]>
+      </id>
+      <message>
+	<![CDATA[Alice allows you to Undo as many changes as you like.]]>
+      </message>
+      <message>
+	<![CDATA[Click "Undo" again to go back another change.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="null" hasNext="true" xPos="0.0436046511627907" yPos="0.6350267379679144">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now, you know how to position objects in the scene and move the camera. Next we'll show you how to make a new world and add objects to it.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-6.0" yPos="108.0">
+      <id>
+	<![CDATA[fileMenu]]>
+      </id>
+      <message>
+	<![CDATA[Click on "File"]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="0">
+    <note type="null" hasNext="true" xPos="0.02810077519379845" yPos="0.6764705882352942">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Choose "New World" from the menu.]]>
+      </message>
+	<message>
+	<![CDATA[In the new world dialog, click on the "grass" world. Then, click the "Open" button]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="0">
+    <note type="frame" hasNext="true" xPos="-73.0" yPos="194.0">
+      <id>
+	<![CDATA[sceneEditor<small>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[Notice that Alice has loaded an empty world with a blue sky and some grass for you.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-54.0" yPos="125.0">
+      <id>
+	<![CDATA[sceneEditor<small>:singleView:makeSceneEditorBigButton]]>
+      </id>
+      <message>
+	<![CDATA[Click this button to expand the 3D window.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="null" hasNext="true" xPos="0.03875968992248062" yPos="0.6176470588235294">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Next you'll learn how to add new objects into your world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="frame" hasNext="true" xPos="127.0" yPos="-271.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:galleryViewer<Home\Local Gallery>]]>
+      </id>
+      <message>
+	<![CDATA[Underneath the 3D window is a gallery of objects that you can add to Alice worlds.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="-590.0" yPos="-291.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:galleryViewer<Home\Local Gallery>:galleryObject<Local Gallery\Beach>]]>
+      </id>
+      <message>
+	<![CDATA[Click on "Beach" to see the beach objects.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="frame" hasNext="true" xPos="127.0" yPos="-245.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:galleryViewer<Home\Local Gallery\Beach>]]>
+      </id>
+      <message>
+	<![CDATA[Now, you can see all of the beach objects.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-320.0" yPos="-219.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:galleryViewer<Home\Local Gallery\Beach>:galleryObject<Local Gallery\Beach\BeachChair.a2c>]]>
+      </id>
+      <message>
+	<![CDATA[1To add a beach chair to this world, drag the "BeachChair.a2c" card from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="42.0" yPos="87.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it into the 3D scene.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="-342.0" yPos="-207.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:galleryViewer<Home\Local Gallery\Beach>:button<Local Gallery>]]>
+      </id>
+      <message>
+	<![CDATA[To get back to the main gallery click on "Local Gallery"]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="frame" hasNext="true" xPos="124.0" yPos="-247.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:galleryViewer<Home\Local Gallery>]]>
+      </id>
+      <message>
+	<![CDATA[Now we are back to the main gallery.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="null" hasNext="true" xPos="0.027131782945736434" yPos="0.5962566844919787">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Let's add one more object to the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="37.0" yPos="-197.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:galleryViewer<Home\Local Gallery>:galleryObject<Local Gallery\Buildings>]]>
+      </id>
+      <message>
+	<![CDATA[Click on "Buildings" to see the buildings that you can add to Alice worlds.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-465.0" yPos="-220.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:galleryViewer<Home\Local Gallery\Buildings>:galleryObject<Local Gallery\Buildings\BeachHouse2.a2c>]]>
+      </id>
+      <message>
+	<![CDATA[1Drag the "BeachHouse2.a2c" card from here...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="130.0" yPos="81.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it into the 3D scene.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-279.0" yPos="59.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[Use the mouse to drag the beachhouse to a position that you like.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="null" hasNext="true" xPos="0.055232558139534885" yPos="0.6350267379679144">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Sometimes, you may want multiple copies of a single object. In the next step, we'll show you an easy way to copy objects.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="-197.0" yPos="74.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:copyModeButton]]>
+      </id>
+      <message>
+	<![CDATA[Click on this button to select the copy tool.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-54.0" yPos="111.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[Now, click and drag on the chair to make copies of it.]]>
+      </message>
+      <message>
+	<![CDATA[When you've made as many chairs as you want, click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="-86.0" yPos="81.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:turnLeftRightModeButton]]>
+      </id>
+      <message>
+	<![CDATA[Click this button to select the rotate tool.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="1.0" yPos="96.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[Now, rotate the beach chairs to positions you like by clicking on them and dragging.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="-33.0" yPos="69.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:defaultMoveModeButton]]>
+      </id>
+      <message>
+	<![CDATA[Click on the arrow icon to get the normal object moving cursor back.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-148.0" yPos="76.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[Try moving one or two of the beach chairs to a new position.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-300.0" yPos="70.0">
+      <id>
+	<![CDATA[sceneEditor<large>:singleView:makeSceneEditorSmallButton]]>
+      </id>
+      <message>
+	<![CDATA[Now that you're finished laying out a scene, press this button to get back so you can make your world do interesting things.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil>
+    <note type="null" hasNext="false" xPos="0.5455426356589147" yPos="0.16711229946524064">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[This chapter of the tutorial showed you how to create new worlds and add objects to them. If you are not comfortable with this, please restart.]]>
+      </message>
+    </note>
+    <note type="null" hasNext="false" xPos="0.5426356589147286" yPos="0.4572192513368984">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[If you are ready to start building your own Alice worlds, click the pink 'Exit Tutorial' button in the middle of the screen.]]>
+      </message>
+    </note>
+  </stencil>
+</stencilStack>
+

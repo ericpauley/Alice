@@ -1,0 +1,663 @@
+<?xml version="1.0"?>
+
+<stencilStack access="read" world="tutorialWorlds/IceSkaterWorld.a2w" nextStack="tutorial/Tutorial2.stl">
+  <stencil title="About the Alice Tutorial" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.006782945736434108" yPos="0.0945945945945946">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Welcome to the Alice Tutorial! This tutorial will introduce you to the basics of Alice.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to move to the next step in the tutorial.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="About the Alice Tutorial" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.005813953488372093" yPos="0.25">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[We've covered the Alice interface with a blue filter so it isn't too overwhelming while you are learning.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="About the Alice Tutorial" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.012596899224806201" yPos="0.4297297297297297">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Each step in the tutorial will appear on a note like this one.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="About the Alice Tutorial" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-55.0" yPos="69.0">
+      <id>
+	<![CDATA[objectTree<IceSkater>]]>
+      </id>
+      <message>
+	<![CDATA[When you need to click on a button or drag a tile, we will cut a hole in the filter like the one over the "IceSkater" tile. You can make changes through the hole.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="About the Alice Tutorial" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-57.0" yPos="107.0">
+      <id>
+	<![CDATA[objectTree<IceSkater>]]>
+      </id>
+      <message>
+	<![CDATA[When you need to read or look at an element of the interface, we will draw a red frame around it like the one above.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A Quick Tour of Alice" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.007751937984496124" yPos="0.15135135135135136">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Alice is a program for building virtual worlds populated by 3D objects. Objects in Alice can move, spin, change color, react to the mouse, and more.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A Quick Tour of Alice" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.009689922480620155" yPos="0.2662162162162162">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[We'll start with a short tour of the five areas of the Alice interface.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A Quick Tour of Alice" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-353.0" yPos="100.0">
+      <id>
+	<![CDATA[sceneEditor<small>:singleView:renderPanel]]>
+      </id>
+      <message>
+	<![CDATA[This is the world window. It shows you the world you are building.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A Quick Tour of Alice" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-119.0" yPos="78.0">
+      <id>
+	<![CDATA[objectTree]]>
+      </id>
+      <message>
+	<![CDATA[This is the object tree. It contains a list of the objects in the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A Quick Tour of Alice" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-119.0" yPos="-226.0">
+      <id>
+	<![CDATA[details<>]]>
+      </id>
+      <message>
+	<![CDATA[This is the details area. It provides more information about the world or an object in the world. Right now, it is showing information about the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A Quick Tour of Alice" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-74.0" yPos="-215.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method>]]>
+      </id>
+      <message>
+	<![CDATA[This is the editor area. It allows you to make objects in your world do new things like move and spin!]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A Quick Tour of Alice" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-129.0" yPos="85.0">
+      <id>
+	<![CDATA[behaviors]]>
+      </id>
+      <message>
+	<![CDATA[This is the events area. It allows you to tell Alice when to make objects do certain things.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A Quick Tour of Alice" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.2703488372093023" yPos="0.4081081081081081">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Don't worry if you don't fully understand all the areas of the interface. We'll be going into more detail over the course of the tutorial.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Playing Alice Worlds" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.42344961240310075" yPos="0.4135135135135135">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now that you've seen the layout of the interface for building worlds, we'll show you how to play a world you are working on.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Playing Alice Worlds" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-46.0" yPos="83.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[To play this world, click on the "Play" button.]]>
+      </message>
+      <message>
+	<![CDATA[A new window will appear and the Iceskater will spin.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Playing Alice Worlds" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.6647286821705426" yPos="0.2891891891891892">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the Iceskater has finished spinning, click 'X' in the top corner of the new window. This will close the new window and stop the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.27325581395348836" yPos="0.42027027027027025">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Now, we'll make the Iceskater do a more complicated routine.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-52.0" yPos="-229.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method>]]>
+      </id>
+      <message>
+	<![CDATA[This is what the Iceskater is doing now. First, she does "IceSkater.prepare to skate" Then she does,       "IceSkater.do simple spin."]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.2800387596899225" yPos="0.4175675675675676">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[Before we can change what Iceskater does, we need to know what Iceskater can do.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="-59.0" yPos="71.0">
+      <id>
+	<![CDATA[objectTree<IceSkater>]]>
+      </id>
+      <message>
+	<![CDATA[By selecting objects in the object tree, we can see more information about them.]]>
+      </message>
+      <message>
+	<![CDATA[Click on "IceSkater" to select her.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-117.0" yPos="-216.0">
+      <id>
+	<![CDATA[details<IceSkater>]]>
+      </id>
+      <message>
+	<![CDATA[The details area now displays the IceSkater's information.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mouseClick" hasNext="false" xPos="-105.0" yPos="-208.0">
+      <id>
+	<![CDATA[details<IceSkater>:tab<1>]]>
+      </id>
+      <message>
+	<![CDATA[Now, click "methods" to see what the Iceskater knows how to do.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-119.0" yPos="-223.0">
+      <id>
+	<![CDATA[details<IceSkater>]]>
+      </id>
+      <message>
+	<![CDATA[These are all of the things that Iceskater knows how to do.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?my first method.__Unnamed2__?|nonExistantElements|?|propertyValues|?my first method.__Unnamed2__.howManySteps:2?|elementPositions|?my first method.__Unnamed2__:2?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-68.0" yPos="-204.0">
+      <id>
+	<![CDATA[details<IceSkater>:userDefinedResponse<IceSkater.skate>]]>
+      </id>
+      <message>
+	<![CDATA[1We'll make the IceSkater skate 2 steps after she finishes her spin.]]>
+      </message>
+      <message>
+	<![CDATA[1Drag "skate howManySteps" from below and...]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-42.0" yPos="-213.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method>]]>
+      </id>
+      <message>
+	<![CDATA[2...drop it underneath "IceSkater.do simple spin"]]>
+      </message>
+      <message>
+	<![CDATA[2Then, choose "2" from the menu.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-54.0" yPos="-204.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method.__Unnamed2__>]]>
+      </id>
+      <message>
+	<![CDATA[This line tells the skater to skate 2 sets of steps.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-39.0" yPos="81.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Now, try playing your world again. The Iceskater should spin and then skate.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.6608527131782945" yPos="0.25405405405405407">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the Iceskater has finished, click 'X' to stop the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="2">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?my first method.__Unnamed1__:2?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-11.0" yPos="-227.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method>]]>
+      </id>
+      <message>
+	<![CDATA[We can change the order of the tricks in the Iceskater's routine.]]>
+      </message>
+      <message>
+	<![CDATA[Drag and drop "IceSkater.do simple spin" to below "IceSkater.skate"]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-41.0" yPos="78.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world again. The Iceskater should skate and then spin.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.6608527131782945" yPos="0.25405405405405407">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the Iceskater has finished, click 'X' to stop the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?my first method.__Unnamed3__?|nonExistantElements|?|propertyValues|?my first method.__Unnamed3__.howManySteps:1?|elementPositions|?my first method.__Unnamed3__:3?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-100.0" yPos="-223.0">
+      <id>
+	<![CDATA[details<IceSkater>:userDefinedResponse<IceSkater.skate backwards>]]>
+      </id>
+      <message>
+	<![CDATA[1After her spin, we'd like the skater to skate backwards.]]>
+      </message>
+      <message>
+	<![CDATA[1Drag the tile called "skate backwards howManySteps" ....]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-45.0" yPos="-216.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it below "IceSkater.do simple spin".]]>
+      </message>
+      <message>
+	<![CDATA[2Choose "1" from the pop-up menu.]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-36.0" yPos="-204.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method.__Unnamed3__>]]>
+      </id>
+      <message>
+	<![CDATA[This line tells the skater to skate backwards 1 step.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?my first method.__Unnamed4__?|nonExistantElements|?|propertyValues|?|elementPositions|?my first method.__Unnamed4__:4?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="false" xPos="-16.0" yPos="-200.0">
+      <id>
+	<![CDATA[details<IceSkater>:userDefinedResponse<IceSkater.jump>]]>
+      </id>
+      <message>
+	<![CDATA[1Finally, we'll have her do a jump at the end of her routine.]]>
+      </message>
+      <message>
+	<![CDATA[1Drag "jump" from here....]]>
+      </message>
+    </note>
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-81.0" yPos="-205.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method>]]>
+      </id>
+      <message>
+	<![CDATA[2...and drop it below "IceSkater.skate backwards"]]>
+      </message>
+      <message>
+	<![CDATA[2Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="frame" hasNext="true" xPos="-36.0" yPos="-204.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method.__Unnamed4__>]]>
+      </id>
+      <message>
+	<![CDATA[This tile tells the skater to jump.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-40.0" yPos="92.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Try playing your world to see the Iceskater's new routine! When she has finished, close the window and click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.6608527131782945" yPos="0.25405405405405407">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the Iceskater has finished, click 'X' to stop the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="2">
+    <note type="hole" autoAdvance="false" advanceEvent="mouseClick" hasNext="true" xPos="-13.0" yPos="-241.0">
+      <id>
+	<![CDATA[editors:element<my first method>:elementTile<my first method>]]>
+      </id>
+      <message>
+	<![CDATA[Try rearranging the IceSkater's tricks to make your own routine by dragging the tiles.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="hole" autoAdvance="true" advanceEvent="mousePress" hasNext="false" xPos="-44.0" yPos="94.0">
+      <id>
+	<![CDATA[playButton]]>
+      </id>
+      <message>
+	<![CDATA[Then, play the world to see your routine!]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="A More Complicated Routine" stepsToGoBack="1">
+    <stateCapsule>
+      <![CDATA[existantElements|?|nonExistantElements|?|propertyValues|?|elementPositions|?|]]>
+    </stateCapsule>
+    <note type="null" hasNext="true" xPos="0.6608527131782945" yPos="0.25405405405405407">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[When the Iceskater has finished, click 'X' to stop the world.]]>
+      </message>
+      <message>
+	<![CDATA[Click "next" to continue.]]>
+      </message>
+    </note>
+  </stencil>
+  <stencil title="Summary" stepsToGoBack="2">
+    <note type="null" hasNext="false" xPos="0.29651162790697677" yPos="0.4283783783783784">
+      <id>
+	<![CDATA[null]]>
+      </id>
+      <message>
+	<![CDATA[We have done a quick tour of the Alice interface, learned how to play worlds, and changed the Iceskater's routine. If you are not comfortable with these topics, please  restart.]]>
+      </message>
+    </note>
+  </stencil>
+</stencilStack>
+
