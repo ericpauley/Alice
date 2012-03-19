@@ -23,11 +23,14 @@
 
 package edu.cmu.cs.stage3.alice.player;
 
+import java.awt.Frame;
+import java.util.Vector;
+
 public class DefaultPlayer extends AbstractPlayer {
-	public DefaultPlayer(Class rendererClass) {
+	public DefaultPlayer(Class<?> rendererClass) {
 		super( rendererClass );
 	}
-	private java.util.Vector m_frames = new java.util.Vector();
+	private Vector<Frame> m_frames = new Vector<Frame>();
 	
 	protected boolean isPreserveAndRestoreRequired() {
 		return false;

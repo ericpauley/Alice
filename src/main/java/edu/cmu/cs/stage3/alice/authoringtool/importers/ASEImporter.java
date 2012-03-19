@@ -23,17 +23,28 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.importers;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import edu.cmu.cs.stage3.alice.core.Model;
+import edu.cmu.cs.stage3.alice.core.TextureMap;
+import edu.cmu.cs.stage3.alice.core.Transformable;
+import edu.cmu.cs.stage3.alice.scenegraph.Color;
+import edu.cmu.cs.stage3.pratt.maxkeyframing.KeyframeResponse;
+
 /**
  * @author Jason Pratt
  */
 public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractImporter {
 	protected java.io.StreamTokenizer tokenizer;
-	protected java.util.HashMap modelsToParentStrings;
-	protected java.util.HashMap namesToModels;
-	protected java.util.HashMap namesToMaterials;
-	protected java.util.HashMap modelsToMaterialIndices;
-	protected java.util.HashMap modelsToKeyframeAnims;
-	protected java.util.ArrayList models;
+	protected Map<Model, String> modelsToParentStrings;
+	protected Map<Object, Model> namesToModels;
+	protected Map<String, Material> namesToMaterials;
+	protected Map<Model, Integer> modelsToMaterialIndices;
+	protected Map<Model, List<KeyframeResponse>> modelsToKeyframeAnims;
+	protected List<Model> models;
 	protected Material[] materials = null;
 
 	protected int firstFrame;
@@ -69,8 +80,8 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 		}
 	}
 
-	public java.util.Map getExtensionMap() {
-		java.util.HashMap map = new java.util.HashMap();
+	public Map<String, String> getExtensionMap() {
+		Map<String , String> map = new HashMap<String, String>();
 		map.put( "ASE", "3D Studio ascii export" );
 		return map;
 	}
@@ -87,12 +98,12 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 		tokenizer.wordChars( '_', '_' );
 		tokenizer.wordChars( ':', ':' );
 
-		modelsToParentStrings = new java.util.HashMap();
-		namesToModels = new java.util.HashMap();
-		namesToMaterials = new java.util.HashMap();
-		modelsToMaterialIndices = new java.util.HashMap();
-		modelsToKeyframeAnims = new java.util.HashMap();
-		models = new java.util.ArrayList();
+		modelsToParentStrings = new HashMap<Model, String>();
+		namesToModels = new HashMap<Object, Model>();
+		namesToMaterials = new HashMap<String, Material>();
+		modelsToMaterialIndices = new HashMap<Model, Integer>();
+		modelsToKeyframeAnims = new HashMap<Model, List<KeyframeResponse>>();
+		models = new ArrayList<Model>();
 
 		//optionsDialog.show();
 
@@ -133,9 +144,8 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 
 		edu.cmu.cs.stage3.alice.core.Element element = null;
 		try {
-			java.util.ArrayList rootModels = new java.util.ArrayList();
-			for( java.util.Iterator iter = models.iterator(); iter.hasNext(); ) {
-				edu.cmu.cs.stage3.alice.core.Transformable model = (edu.cmu.cs.stage3.alice.core.Transformable)iter.next();
+			List<Transformable> rootModels = new ArrayList<Transformable>();
+			for(Transformable model: rootModels) {
 				String parentString = (String)modelsToParentStrings.get( model );
 				if( parentString == null ) {
 					rootModels.add( model );
@@ -162,8 +172,7 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 					element = new edu.cmu.cs.stage3.alice.core.Model();
 					element.name.set( null );
 					element.isFirstClass.set( Boolean.TRUE );
-					for( java.util.Iterator iter = rootModels.iterator(); iter.hasNext(); ) {
-						edu.cmu.cs.stage3.alice.core.Transformable model = (edu.cmu.cs.stage3.alice.core.Transformable)iter.next();
+					for(Transformable model: rootModels) {
 						element.addChild( model );
 						((edu.cmu.cs.stage3.alice.core.Model)element).parts.add( model );
 						model.vehicle.set( (edu.cmu.cs.stage3.alice.core.Model)element );
@@ -172,8 +181,7 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 				} else {
 					element = new edu.cmu.cs.stage3.alice.core.Module();
 					element.name.set( null );
-					for( java.util.Iterator iter = rootModels.iterator(); iter.hasNext(); ) {
-						edu.cmu.cs.stage3.alice.core.Transformable model = (edu.cmu.cs.stage3.alice.core.Transformable)iter.next();
+					for(Transformable model: rootModels) {
 						element.addChild( model );
 						model.isFirstClass.set( Boolean.TRUE );
 					}
@@ -218,8 +226,7 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 				}
 			}
 
-			for( java.util.Iterator iter = models.iterator(); iter.hasNext(); ) {
-				edu.cmu.cs.stage3.alice.core.Transformable trans = (edu.cmu.cs.stage3.alice.core.Transformable)iter.next();
+			for(Transformable trans:models) {
 				if( trans instanceof edu.cmu.cs.stage3.alice.core.Model ) {
 					edu.cmu.cs.stage3.alice.core.Model model = (edu.cmu.cs.stage3.alice.core.Model)trans;
 					//TODO make better
@@ -269,8 +276,7 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 						//TODO: if texture is applied to multiple root models, it should be attached to the world,
 						//      or something better.  In the implementation below, it just uses the root model of the first
 						//      model that uses the material.
-						for( java.util.Iterator iter = models.iterator(); iter.hasNext(); ) {
-							edu.cmu.cs.stage3.alice.core.Transformable trans = (edu.cmu.cs.stage3.alice.core.Transformable)iter.next();
+						for(Transformable trans:models) {
 							try {
 								int materialIndex = ((Integer)modelsToMaterialIndices.get( trans )).intValue();
 								if( materialIndex == i ) {
@@ -308,22 +314,19 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 
 			// Keyframe Animation
 
-			for( java.util.Iterator iter = rootModels.iterator(); iter.hasNext(); ) {
-				edu.cmu.cs.stage3.alice.core.Transformable root = (edu.cmu.cs.stage3.alice.core.Transformable)iter.next();
+			for(Transformable root:rootModels) {
 				//System.out.println( "root: " + root );
 				edu.cmu.cs.stage3.alice.core.response.DoTogether rootAnim = new edu.cmu.cs.stage3.alice.core.response.DoTogether();
 				rootAnim.name.set( "keyframeAnimation" );
-				for( java.util.Iterator jter = models.iterator(); jter.hasNext(); ) {
-					edu.cmu.cs.stage3.alice.core.Transformable trans = (edu.cmu.cs.stage3.alice.core.Transformable)jter.next();
+				for(Transformable trans:models) {
 					//System.out.println( "trans: " + trans );
 					if( trans.isDescendantOf( root ) || trans.equals( root ) ) {
-						java.util.ArrayList anims = (java.util.ArrayList)modelsToKeyframeAnims.get( trans );
+						List<KeyframeResponse> anims = modelsToKeyframeAnims.get( trans );
 						if( anims != null ) {
 							//System.out.println( trans + " has anims" );
 							String prefix = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( trans );
 							prefix = prefix.replace( '.', '_' );
-							for( java.util.Iterator kter = anims.iterator(); kter.hasNext(); ) {
-								edu.cmu.cs.stage3.pratt.maxkeyframing.KeyframeResponse anim = (edu.cmu.cs.stage3.pratt.maxkeyframing.KeyframeResponse)kter.next();
+							for(KeyframeResponse anim:anims) {
 								anim.duration.set( null );
 								String baseName = anim.name.getStringValue();
 								anim.name.set( prefix + "_" + baseName );
@@ -758,7 +761,7 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 				currentProgress = 0;
 				currentlyLoading = "<none>";
 			} else if( (tokenizer.sval != null) && tokenizer.sval.equalsIgnoreCase( "*TM_ANIMATION" ) ) {
-				java.util.ArrayList anims = parseAnimationNode();
+				List<KeyframeResponse> anims = parseAnimationNode();
 				modelsToKeyframeAnims.put( helper, anims );
 			} else if( tokenizer.ttype == '{' ) {
 				parseUnknownBlock();
@@ -810,7 +813,7 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 			} else if( (tokenizer.sval != null) && tokenizer.sval.equalsIgnoreCase( "*MATERIAL_REF" ) ) {
 				modelsToMaterialIndices.put( model, new Integer( parseInt() ) );
 			} else if( (tokenizer.sval != null) && tokenizer.sval.equalsIgnoreCase( "*TM_ANIMATION" ) ) {
-				java.util.ArrayList anims = parseAnimationNode();
+				List<KeyframeResponse> anims = parseAnimationNode();
 				modelsToKeyframeAnims.put( model, anims );
 			} else if( tokenizer.ttype == '{' ) {
 				parseUnknownBlock();
@@ -1085,6 +1088,7 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 			tokenizer.nextToken();
 
 			if( (tokenizer.sval != null) && tokenizer.sval.equalsIgnoreCase( "*MESH_VERTEXNORMAL" ) ) {
+				@SuppressWarnings("unused")
 				int index = parseInt();
 				int realv = v;
 				// reverse face order
@@ -1183,8 +1187,8 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 		}
 	}
 
-	protected java.util.ArrayList parseAnimationNode() throws InvalidFormatError, java.io.IOException {
-		java.util.ArrayList anims = new java.util.ArrayList();
+	protected List<KeyframeResponse> parseAnimationNode() throws InvalidFormatError, java.io.IOException {
+		List<KeyframeResponse> anims = new ArrayList<KeyframeResponse>();
 
 		tokenizer.nextToken();
 		if( tokenizer.ttype != '{' ) {
@@ -1319,7 +1323,9 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 				double tension = parseDouble();
 				double continuity = parseDouble();
 				double bias = parseDouble();
+				@SuppressWarnings("unused")
 				double easeIn = parseDouble();  // NOT USED AT THE MOMENT
+				@SuppressWarnings("unused")
 				double easeOut = parseDouble(); // NOT USED AT THE MOMENT
 				spline.addKey( new edu.cmu.cs.stage3.pratt.maxkeyframing.Vector3TCBKey( time, new javax.vecmath.Vector3d( x, y, z ), tension, continuity, bias ) );
 			} else if( tokenizer.ttype == '}' ) {
@@ -1417,7 +1423,9 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 				double tension = parseDouble();     // NOT USED IN QUATERNION ANIMATION
 				double continuity = parseDouble();  // NOT USED IN QUATERNION ANIMATION
 				double bias = parseDouble();        // NOT USED IN QUATERNION ANIMATION
+				@SuppressWarnings("unused")
 				double easeIn = parseDouble();  // NOT USED AT THE MOMENT
+				@SuppressWarnings("unused")
 				double easeOut = parseDouble(); // NOT USED AT THE MOMENT
 				spline.addKey( new edu.cmu.cs.stage3.pratt.maxkeyframing.QuaternionTCBKey( time, new edu.cmu.cs.stage3.math.Quaternion( new edu.cmu.cs.stage3.math.AxisAngle( axis_x, axis_y, axis_z, angle ) ), tension, continuity, bias ) );
 			} else if( tokenizer.ttype == '}' ) {
@@ -1565,12 +1573,21 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 	}
 
 	class InvalidFormatError extends Error {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public InvalidFormatError( String s ) {
 			super( s );
 		}
 	}
 
 	class ProgressDialog extends javax.swing.JDialog {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		protected javax.swing.JLabel linesLabel = new javax.swing.JLabel( "Lines read: 0" );
 		protected javax.swing.JLabel objectLabel = new javax.swing.JLabel( "Object: <none>" );
 		protected javax.swing.JLabel progressLabel = new javax.swing.JLabel( "Loading <none>: " );
@@ -1627,19 +1644,23 @@ public class ASEImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractI
 
 	private class Material {
 		public String name;
-		public edu.cmu.cs.stage3.alice.scenegraph.Color ambient;
-		public edu.cmu.cs.stage3.alice.scenegraph.Color diffuse;
-		public edu.cmu.cs.stage3.alice.scenegraph.Color specular;
+		public Color ambient;
+		public Color diffuse;
+		public Color specular;
 		public double shine;
+		@SuppressWarnings("unused")
 		public double shinestrength;
 		public double transparency;
-		public edu.cmu.cs.stage3.alice.core.TextureMap ambientTexture = null;
-		public edu.cmu.cs.stage3.alice.core.TextureMap diffuseTexture = null;
-		public edu.cmu.cs.stage3.alice.core.TextureMap shineTexture = null;
-		public edu.cmu.cs.stage3.alice.core.TextureMap shineStrengthTexture = null;
-		public edu.cmu.cs.stage3.alice.core.TextureMap selfIllumTexture = null;
-		public edu.cmu.cs.stage3.alice.core.TextureMap opacityTexture = null;
-		public edu.cmu.cs.stage3.alice.core.TextureMap bumpTexture = null;
+		@SuppressWarnings("unused")
+		public TextureMap ambientTexture = null;
+		public TextureMap diffuseTexture = null;
+		public TextureMap shineTexture = null;
+		@SuppressWarnings("unused")
+		public TextureMap shineStrengthTexture = null;
+		@SuppressWarnings("unused")
+		public TextureMap selfIllumTexture = null;
+		public TextureMap opacityTexture = null;
+		public TextureMap bumpTexture = null;
 	}
 
 	/*

@@ -28,9 +28,10 @@ public class MovieMaker extends edu.cmu.cs.stage3.alice.player.DefaultPlayer {
 	private String m_fileName;
 	private java.text.NumberFormat m_numberFormat;
 	private String m_extension;
+	@SuppressWarnings("unused")
 	private int m_index;
 
-	public MovieMaker(Class rendererClass, String directoryPath, String fileName, String localizedPattern, String extension) {
+	public MovieMaker(Class<?> rendererClass, String directoryPath, String fileName, String localizedPattern, String extension) {
 		super( rendererClass );
 		m_directoryPath = directoryPath;
 		m_fileName = fileName;

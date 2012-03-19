@@ -30,7 +30,7 @@ public abstract class AbstractPlayer {
 	private edu.cmu.cs.stage3.alice.core.World m_world = null;
 	private boolean m_isGoodToSchedule = false;
 
-	public AbstractPlayer( Class rendererClass ) {
+	public AbstractPlayer( Class<?> rendererClass ) {
 		m_drtf = new edu.cmu.cs.stage3.alice.scenegraph.renderer.DefaultRenderTargetFactory( rendererClass );
 		edu.cmu.cs.stage3.scheduler.Scheduler scheduler = new edu.cmu.cs.stage3.scheduler.AbstractScheduler() {
 			
@@ -136,6 +136,7 @@ public abstract class AbstractPlayer {
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private double getTime() {
 		return ( System.currentTimeMillis()-m_when0 ) * 0.001;
 	}

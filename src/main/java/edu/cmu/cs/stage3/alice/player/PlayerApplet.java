@@ -23,7 +23,16 @@
 
 package edu.cmu.cs.stage3.alice.player;
 
+import java.awt.Color;
+
+import javax.vecmath.Matrix4d;
+
 public class PlayerApplet extends java.applet.Applet {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private AbstractPlayer m_player = new AbstractPlayer() {
 		
 		protected boolean isPreserveAndRestoreRequired() {
@@ -50,6 +59,11 @@ public class PlayerApplet extends java.applet.Applet {
 	}
 
 	private class ProgressPanel extends java.awt.Panel {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		private String m_worldName = getParameter( "world" );
 
 		private javax.swing.JProgressBar m_downloadProgressBar;
@@ -59,7 +73,8 @@ public class PlayerApplet extends java.applet.Applet {
 			setLayout( null );
 			setBackground( decodeColorParam( "boxfgcolor", java.awt.Color.black ) );
 			setBackground( decodeColorParam( "boxbgcolor", java.awt.Color.white ) );
-			java.awt.Color progressColor = decodeColorParam( "progresscolor", java.awt.Color.blue );
+			@SuppressWarnings("unused")
+			Color progressColor = decodeColorParam( "progresscolor", java.awt.Color.blue );
 
 			String s = getParameter( "WIDTH" );
 			int width;
@@ -185,7 +200,8 @@ public class PlayerApplet extends java.applet.Applet {
 	private Runnable m_loadRunnable = new Runnable() {
 		public void run() {
 			try {
-				Class c = javax.vecmath.Matrix4d.class;
+				@SuppressWarnings("unused")
+				Class<Matrix4d> c = Matrix4d.class;
 			} catch( Throwable t ) {
 				remove( m_progressPanel );
 				String initErrorMessage = getParameter( "initializationErrorMessage" );
