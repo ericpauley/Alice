@@ -50,16 +50,15 @@
 			<artifactId>jftp</artifactId>
 			<version>1.52</version>
 		</dependency>
-		<!--
-			TODO like this? or need a file:/ <repository> ? 
-			
-		 <dependency>
+
+		<dependency>
 			<groupId>javax.media</groupId>
-		 	<artifactId>jmf-mp3plugin</artifactId>
-		 	<scope>system</scope>
-		 	<systemPath>lib/<mp3plugin.jar/systemPath>
-		 </dependency>
-		 -->
+			<artifactId>jmf-mp3plugin</artifactId>
+			<!-- I have no idea which version this is -->
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/mp3plugin.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
