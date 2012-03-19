@@ -26,27 +26,31 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
 public class DefaultUndoRedoStack extends java.util.LinkedList implements UndoRedoStack {
 	private int currentIndex = -1;
 
-	synchronized public void push( UndoableRedoable ur ) {
-		//System.out.println( "push" );
-		if( currentIndex < (size() - 1) ) { //is the current index the last item added
-			removeRange( currentIndex + 1, size() );
+	@Override
+	synchronized public void push(UndoableRedoable ur) {
+		// System.out.println( "push" );
+		if (currentIndex < size() - 1) { // is the current index the last item
+											// added
+			removeRange(currentIndex + 1, size());
 		}
-		addLast( ur );
+		addLast(ur);
 		currentIndex = size() - 1;
 	}
 
+	@Override
 	synchronized public UndoableRedoable pop_() {
-		if( currentIndex == (size() - 1) ) {
+		if (currentIndex == size() - 1) {
 			currentIndex--;
 		}
-		return (UndoableRedoable)removeLast();
+		return (UndoableRedoable) removeLast();
 	}
 
+	@Override
 	synchronized public UndoableRedoable undo() {
-		//DEBUG System.out.println( "undo" );
-		if( currentIndex > -1 ) {
-			UndoableRedoable ur = (UndoableRedoable)get( currentIndex );
-			//System.out.println( "DefaultUndoRedoStack.undo( " + ur + " )" );
+		// DEBUG System.out.println( "undo" );
+		if (currentIndex > -1) {
+			UndoableRedoable ur = (UndoableRedoable) get(currentIndex);
+			// System.out.println( "DefaultUndoRedoStack.undo( " + ur + " )" );
 			ur.undo();
 			currentIndex--;
 			return ur;
@@ -55,12 +59,13 @@ public class DefaultUndoRedoStack extends java.util.LinkedList implements UndoRe
 		}
 	}
 
+	@Override
 	synchronized public UndoableRedoable redo() {
-		//System.out.println( "redo" );
-		if( currentIndex < (size() - 1) ) {
+		// System.out.println( "redo" );
+		if (currentIndex < size() - 1) {
 			currentIndex++;
-			UndoableRedoable ur = (UndoableRedoable)get( currentIndex );
-			//System.out.println( "DefaultUndoRedoStack.redo( " + ur + " )" );
+			UndoableRedoable ur = (UndoableRedoable) get(currentIndex);
+			// System.out.println( "DefaultUndoRedoStack.redo( " + ur + " )" );
 			ur.redo();
 			return ur;
 		} else {
@@ -68,43 +73,45 @@ public class DefaultUndoRedoStack extends java.util.LinkedList implements UndoRe
 		}
 	}
 
-	synchronized public UndoableRedoable removeUndoable( int index ) {
-		if( (index < 0) || (index > (size() - 1)) ) {
+	@Override
+	synchronized public UndoableRedoable removeUndoable(int index) {
+		if (index < 0 || index > size() - 1) {
 			return null;
 		}
-		if( index > currentIndex ) {
-			return (UndoableRedoable)remove( index );
+		if (index > currentIndex) {
+			return (UndoableRedoable) remove(index);
 		}
 
 		UndoableRedoable removedItem = null;
 		java.util.ListIterator iter = listIterator();
-		while( iter.nextIndex() <= currentIndex ) {
+		while (iter.nextIndex() <= currentIndex) {
 			iter.next();
 		}
-		while( iter.previousIndex() >= index ) {
-			UndoableRedoable ur = (UndoableRedoable)iter.previous();
+		while (iter.previousIndex() >= index) {
+			UndoableRedoable ur = (UndoableRedoable) iter.previous();
 			ur.undo();
 			removedItem = ur;
 		}
 		iter.remove();
 		currentIndex--;
-		while( iter.nextIndex() <= currentIndex ) {
-			UndoableRedoable ur = (UndoableRedoable)iter.next();
+		while (iter.nextIndex() <= currentIndex) {
+			UndoableRedoable ur = (UndoableRedoable) iter.next();
 			ur.redo();
 		}
 
 		return removedItem;
 	}
 
+	@Override
 	synchronized public int getCurrentUndoableRedoableIndex() {
 		return currentIndex;
 	}
 
 	synchronized public UndoableRedoable getCurrentUndoableRedoable() {
-		return (UndoableRedoable)get( currentIndex );
+		return (UndoableRedoable) get(currentIndex);
 	}
 
-	
+	@Override
 	synchronized public void clear() {
 		super.clear();
 		currentIndex = -1;

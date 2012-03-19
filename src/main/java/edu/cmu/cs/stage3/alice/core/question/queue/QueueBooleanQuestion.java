@@ -27,17 +27,18 @@ import edu.cmu.cs.stage3.alice.core.Queue;
 import edu.cmu.cs.stage3.alice.core.property.QueueProperty;
 
 public abstract class QueueBooleanQuestion extends edu.cmu.cs.stage3.alice.core.question.BooleanQuestion {
-	public final QueueProperty queue = new QueueProperty( this, "queue", null );
-	protected abstract boolean getValue( Queue queue );
-	
+	public final QueueProperty queue = new QueueProperty(this, "queue", null);
+	protected abstract boolean getValue(Queue queue);
+
+	@Override
 	public Object getValue() {
 		Queue queueValue = queue.getQueueValue();
-		if( queueValue!=null ) {
-            if( getValue( queueValue ) ) {
-                return Boolean.TRUE;
-            } else {
-                return Boolean.FALSE;
-            }
+		if (queueValue != null) {
+			if (getValue(queueValue)) {
+				return Boolean.TRUE;
+			} else {
+				return Boolean.FALSE;
+			}
 		} else {
 			return Boolean.FALSE;
 		}

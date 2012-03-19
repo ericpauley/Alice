@@ -26,10 +26,10 @@ package edu.cmu.cs.stage3.alice.core.response.array;
 import edu.cmu.cs.stage3.alice.core.property.ArrayProperty;
 
 public class ArrayResponse extends edu.cmu.cs.stage3.alice.core.Response {
-	public final ArrayProperty array = new ArrayProperty( this, "array", null );
+	public final ArrayProperty array = new ArrayProperty(this, "array", null);
 	public class RuntimeArrayResponse extends RuntimeResponse {
-        protected edu.cmu.cs.stage3.alice.core.Array getArray() {
-            return ArrayResponse.this.array.getArrayValue();
-        }
+		protected edu.cmu.cs.stage3.alice.core.Array getArray() {
+			return array.getArrayValue();
+		}
 	}
 }

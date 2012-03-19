@@ -23,10 +23,14 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
+import java.awt.Window;
+
 import javax.swing.JPopupMenu;
+import javax.swing.MenuElement;
 
 /**
  * designed to improve on popup menu behavior.
+ * 
  * @author Jason Pratt
  */
 public class AlicePopupMenu extends JPopupMenu {
@@ -37,105 +41,107 @@ public class AlicePopupMenu extends JPopupMenu {
 	AliceMenu invokerMenu;
 
 	public AlicePopupMenu() {
-		setLayout( new MultiColumnPopupLayout() );
+		setLayout(new MultiColumnPopupLayout());
 	}
 
 	// HACK for gray boxes bug; this can go away in 1.4
-	
-	public void setVisible( boolean b ) {
-		super.setVisible( b );
+
+	@Override
+	public void setVisible(boolean b) {
+		super.setVisible(b);
 		java.awt.Container popup = null;
-		if( b ) {
+		if (b) {
 			popup = getParent();
-			if( popup != null ) { // content pane
+			if (popup != null) { // content pane
 				popup = popup.getParent();
 			}
-			if( popup != null ) { // layered pane
+			if (popup != null) { // layered pane
 				popup = popup.getParent();
 			}
-			if( popup != null ) { // root pane
+			if (popup != null) { // root pane
 				popup = popup.getParent();
 			}
-			if( popup instanceof java.awt.Window ) {
-				java.awt.Window[] windows = ((java.awt.Window)popup).getOwnedWindows();
-				for( int i = 0; i < windows.length; i++ ) {
-					windows[i].setVisible( false );
+			if (popup instanceof java.awt.Window) {
+				java.awt.Window[] windows = ((java.awt.Window) popup).getOwnedWindows();
+				for (Window window : windows) {
+					window.setVisible(false);
 				}
 			}
 		}
 	}
 
-	
-	public void menuSelectionChanged( boolean isIncluded ) {
-		if( setPopupVisibleTrueTimer == null ) {
-			setPopupVisibleTrueTimer = new javax.swing.Timer( millisecondDelay, new java.awt.event.ActionListener() {
-				public void actionPerformed( java.awt.event.ActionEvent ev ) {
-					AlicePopupMenu.this.invokerMenu.setPopupMenuVisible( true );
+	@Override
+	public void menuSelectionChanged(boolean isIncluded) {
+		if (setPopupVisibleTrueTimer == null) {
+			setPopupVisibleTrueTimer = new javax.swing.Timer(millisecondDelay, new java.awt.event.ActionListener() {
+				@Override
+				public void actionPerformed(java.awt.event.ActionEvent ev) {
+					invokerMenu.setPopupMenuVisible(true);
 				}
-			} );
-			setPopupVisibleTrueTimer.setRepeats( false );
+			});
+			setPopupVisibleTrueTimer.setRepeats(false);
 		}
-		if( setPopupVisibleFalseTimer == null ) {
-			setPopupVisibleFalseTimer = new javax.swing.Timer( millisecondDelay, new java.awt.event.ActionListener() {
-				public void actionPerformed( java.awt.event.ActionEvent ev ) {
-					AlicePopupMenu.this.invokerMenu.setPopupMenuVisible( false );
+		if (setPopupVisibleFalseTimer == null) {
+			setPopupVisibleFalseTimer = new javax.swing.Timer(millisecondDelay, new java.awt.event.ActionListener() {
+				@Override
+				public void actionPerformed(java.awt.event.ActionEvent ev) {
+					invokerMenu.setPopupMenuVisible(false);
 				}
-			} );
-			setPopupVisibleFalseTimer.setRepeats( false );
+			});
+			setPopupVisibleFalseTimer.setRepeats(false);
 		}
-		if( setPopupVisibleTrueTimer.isRunning() ) {
+		if (setPopupVisibleTrueTimer.isRunning()) {
 			setPopupVisibleTrueTimer.stop();
 		}
-		if( setPopupVisibleFalseTimer.isRunning() ) {
+		if (setPopupVisibleFalseTimer.isRunning()) {
 			setPopupVisibleFalseTimer.stop();
 		}
 
-		if( getInvoker() instanceof AliceMenu ) {
+		if (getInvoker() instanceof AliceMenu) {
 			boolean allGone = javax.swing.MenuSelectionManager.defaultManager().getSelectedPath().length == 0;
-			invokerMenu = (AliceMenu)getInvoker();
+			invokerMenu = (AliceMenu) getInvoker();
 
-			if( isIncluded ) {
+			if (isIncluded) {
 				setPopupVisibleTrueTimer.start();
 			} else {
-				if( allGone ) {
-					setVisible( false );
+				if (allGone) {
+					setVisible(false);
 				} else {
 					setPopupVisibleFalseTimer.start();
 				}
 			}
 		}
-		if( isPopupMenu() && ! isIncluded ) {
-			setVisible( false );
+		if (isPopupMenu() && !isIncluded) {
+			setVisible(false);
 		}
 	}
 
 	private boolean isPopupMenu() {
-		return ( (getInvoker() != null) && ! (getInvoker() instanceof AliceMenu) );
+		return getInvoker() != null && !(getInvoker() instanceof AliceMenu);
 	}
 
-	
-	public void show( java.awt.Component invoker, int x, int y ) {
-		super.show( invoker, x, y );
-		PopupMenuUtilities.ensurePopupIsOnScreen( this );
+	@Override
+	public void show(java.awt.Component invoker, int x, int y) {
+		super.show(invoker, x, y);
+		PopupMenuUtilities.ensurePopupIsOnScreen(this);
 	}
 
-	public void printPath( javax.swing.MenuElement[] path ) {
-		System.out.print( "path [" );
-		for( int i = 0; i < path.length; i++ ) {
-			javax.swing.MenuElement me = path[i];
-			if( me instanceof javax.swing.JMenu ) {
-				System.out.print( ((javax.swing.JMenu)me).getText() + ", " );
-			} else if( me instanceof javax.swing.JPopupMenu ) {
-				Object invoker = ((javax.swing.JPopupMenu)me).getInvoker();
-				if( invoker instanceof javax.swing.JMenu ) {
-					System.out.print( ((javax.swing.JMenu)invoker).getText() + ".popupMenu, " );
+	public void printPath(javax.swing.MenuElement[] path) {
+		System.out.print("path [");
+		for (MenuElement me : path) {
+			if (me instanceof javax.swing.JMenu) {
+				System.out.print(((javax.swing.JMenu) me).getText() + ", ");
+			} else if (me instanceof javax.swing.JPopupMenu) {
+				Object invoker = ((javax.swing.JPopupMenu) me).getInvoker();
+				if (invoker instanceof javax.swing.JMenu) {
+					System.out.print(((javax.swing.JMenu) invoker).getText() + ".popupMenu, ");
 				} else {
-					System.out.print( "anonymous popupMenu, " );
+					System.out.print("anonymous popupMenu, ");
 				}
 			} else {
-				System.out.print( me.getClass().getName() );
+				System.out.print(me.getClass().getName());
 			}
 		}
-		System.out.println( "]" );
+		System.out.println("]");
 	}
 }

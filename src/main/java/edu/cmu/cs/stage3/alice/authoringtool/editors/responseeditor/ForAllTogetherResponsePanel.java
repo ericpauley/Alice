@@ -24,30 +24,39 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.responseeditor;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2002
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author David Culyba
  * @version 1.0
  */
 
 public class ForAllTogetherResponsePanel extends ForEachInListSequentialLoopPanel {
 
-    public ForAllTogetherResponsePanel(){
-        super();
-        headerText = "For all";
-        endHeaderText = "together";
-        middleHeaderText = ", every";
-    }
+	public ForAllTogetherResponsePanel() {
+		super();
+		headerText = "For all";
+		endHeaderText = "together";
+		middleHeaderText = ", every";
+	}
 
-    public void set(edu.cmu.cs.stage3.alice.core.response.ForEachTogether r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
-        super.set(r, authoringToolIn);
-    }
+	public void set(edu.cmu.cs.stage3.alice.core.response.ForEachTogether r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		super.set(r, authoringToolIn);
+	}
 
-    
-	protected java.awt.Color getCustomBackgroundColor(){
-        return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("ForAllTogether");
-    }
+	@Override
+	protected java.awt.Color getCustomBackgroundColor() {
+		return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("ForAllTogether");
+	}
 
 }

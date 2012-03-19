@@ -24,35 +24,40 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 abstract class Context implements javax.media.opengl.GLEventListener {
-    public javax.media.opengl.GL gl;
-    public javax.media.opengl.glu.GLU glu;
+	public javax.media.opengl.GL gl;
+	public javax.media.opengl.glu.GLU glu;
 	public com.sun.opengl.util.GLUT glut;
-    
-    protected int m_width;
-    protected int m_height;
 
-    public void init( javax.media.opengl.GLAutoDrawable drawable ) {
-        //drawable.setGL( new javax.media.opengl.DebugGL( drawable.getGL() ) );
-    }
- 
-    public void display( javax.media.opengl.GLAutoDrawable drawable ) {
-        gl = drawable.getGL();
-    	glu = new javax.media.opengl.glu.GLU();
-        glut = new com.sun.opengl.util.GLUT();
-    }
-    public void reshape( javax.media.opengl.GLAutoDrawable drawable, int x, int y, int width, int height ) {
-        //System.err.println( "reshape: " + drawable );
-        m_width = width;
-        m_height = height;
-    }
-    public void displayChanged( javax.media.opengl.GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged ) {
-        //System.err.println( "displayChanged: " + drawable + " " + modeChanged + " "  + deviceChanged );
-    }
+	protected int m_width;
+	protected int m_height;
 
-    public int getWidth() {
-        return m_width;
-    }
-    public int getHeight() {
-        return m_height;
-    }
+	@Override
+	public void init(javax.media.opengl.GLAutoDrawable drawable) {
+		// drawable.setGL( new javax.media.opengl.DebugGL( drawable.getGL() ) );
+	}
+
+	@Override
+	public void display(javax.media.opengl.GLAutoDrawable drawable) {
+		gl = drawable.getGL();
+		glu = new javax.media.opengl.glu.GLU();
+		glut = new com.sun.opengl.util.GLUT();
+	}
+	@Override
+	public void reshape(javax.media.opengl.GLAutoDrawable drawable, int x, int y, int width, int height) {
+		// System.err.println( "reshape: " + drawable );
+		m_width = width;
+		m_height = height;
+	}
+	@Override
+	public void displayChanged(javax.media.opengl.GLAutoDrawable drawable, boolean modeChanged, boolean deviceChanged) {
+		// System.err.println( "displayChanged: " + drawable + " " + modeChanged
+		// + " " + deviceChanged );
+	}
+
+	public int getWidth() {
+		return m_width;
+	}
+	public int getHeight() {
+		return m_height;
+	}
 }

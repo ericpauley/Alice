@@ -23,15 +23,18 @@
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
 
-import javax.xml.parsers.*;
-import org.w3c.dom.*;
 import java.io.File;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2002
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2002 Company:
+ * 
  * @author
  * @version 1.0
  */
@@ -58,8 +61,8 @@ public class XMLDirectoryBuilder {
 			root.setAttribute("path", mainFile.getName());
 			if (mainFile.isDirectory()) {
 				File[] kidFiles = mainFile.listFiles();
-				for (int i = 0; i < kidFiles.length; i++) {
-					createChildren(document, root, kidFiles[i], mainFile.getName());
+				for (File kidFile : kidFiles) {
+					createChildren(document, root, kidFile, mainFile.getName());
 				}
 			}
 
@@ -74,9 +77,13 @@ public class XMLDirectoryBuilder {
 				ioe.printStackTrace();
 			}
 
-			//try {
-			//((com.sun.xml.tree.XmlDocument)document).write( new java.io.PrintWriter(new java.io.BufferedWriter(new java.io.FileWriter(mainFile.getAbsolutePath() + File.separator + "structure.xml"))) );
-			//} catch (java.io.IOException ioe) {System.err.println("problems creating printwriter");};
+			// try {
+			// ((com.sun.xml.tree.XmlDocument)document).write( new
+			// java.io.PrintWriter(new java.io.BufferedWriter(new
+			// java.io.FileWriter(mainFile.getAbsolutePath() + File.separator +
+			// "structure.xml"))) );
+			// } catch (java.io.IOException ioe)
+			// {System.err.println("problems creating printwriter");};
 		}
 	}
 
@@ -87,10 +94,10 @@ public class XMLDirectoryBuilder {
 			element.appendChild(childElement);
 
 			File[] kidFiles = file.listFiles();
-			for (int i = 0; i < kidFiles.length; i++) {
-				createChildren(document, childElement, kidFiles[i], dir + '/' + file.getName());
+			for (File kidFile : kidFiles) {
+				createChildren(document, childElement, kidFile, dir + '/' + file.getName());
 			}
-		} else if ((file.getName().endsWith(".jpg")) || (file.getName().endsWith(".gif"))) {
+		} else if (file.getName().endsWith(".jpg") || file.getName().endsWith(".gif")) {
 			Element childElement = document.createElement("image");
 			childElement.setAttribute("path", dir + '/' + file.getName());
 			element.appendChild(childElement);

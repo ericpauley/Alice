@@ -21,7 +21,6 @@
  *    "This product includes software developed by Carnegie Mellon University"
  */
 
-
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
 public class RenderTargetOrbitManipulator extends RenderTargetPickManipulator {
@@ -42,90 +41,93 @@ public class RenderTargetOrbitManipulator extends RenderTargetPickManipulator {
 	protected UndoRedoStack undoRedoStack;
 	protected edu.cmu.cs.stage3.alice.core.Scheduler scheduler;
 
-	private Configuration orbitConfig = Configuration.getLocalConfiguration( RenderTargetOrbitManipulator.class.getPackage() );
+	private Configuration orbitConfig = Configuration.getLocalConfiguration(RenderTargetOrbitManipulator.class.getPackage());
 
-	public RenderTargetOrbitManipulator( edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget renderTarget, UndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler ) {
-		super( renderTarget );
+	public RenderTargetOrbitManipulator(edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget renderTarget, UndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
+		super(renderTarget);
 		this.undoRedoStack = undoRedoStack;
 		this.scheduler = scheduler;
-		helper.setName( "helper" );
+		helper.setName("helper");
 		configInit();
 	}
 
-	public void setClippingPlaneAdjustmentEnabled( boolean enabled ) {
+	public void setClippingPlaneAdjustmentEnabled(boolean enabled) {
 		clippingPlaneAdjustmentEnabled = enabled;
 	}
 
 	private void configInit() {
-		if( orbitConfig.getValue( "renderTargetOrbitManipulator.orbitRotationFactor" ) == null ) {
-			orbitConfig.setValue( "renderTargetOrbitManipulator.orbitRotationFactor", Double.toString( .02 ) );
+		if (orbitConfig.getValue("renderTargetOrbitManipulator.orbitRotationFactor") == null) {
+			orbitConfig.setValue("renderTargetOrbitManipulator.orbitRotationFactor", Double.toString(.02));
 		}
-		if( orbitConfig.getValue( "renderTargetOrbitManipulator.orbitZoomFactor" ) == null ) {
-			orbitConfig.setValue( "renderTargetOrbitManipulator.orbitZoomFactor", Double.toString( .05 ) );
+		if (orbitConfig.getValue("renderTargetOrbitManipulator.orbitZoomFactor") == null) {
+			orbitConfig.setValue("renderTargetOrbitManipulator.orbitZoomFactor", Double.toString(.05));
 		}
 	}
 
-	
-	public void mousePressed( java.awt.event.MouseEvent ev ) {
-		//DEBUG System.out.println( "mousePressed" );
-		if( enabled ) {
-			super.mousePressed( ev );
+	@Override
+	public void mousePressed(java.awt.event.MouseEvent ev) {
+		// DEBUG System.out.println( "mousePressed" );
+		if (enabled) {
+			super.mousePressed(ev);
 
-			orbitRotationFactor = Double.parseDouble( orbitConfig.getValue( "renderTargetOrbitManipulator.orbitRotationFactor" ) );
-			orbitZoomFactor = Double.parseDouble( orbitConfig.getValue( "renderTargetOrbitManipulator.orbitZoomFactor" ) );
+			orbitRotationFactor = Double.parseDouble(orbitConfig.getValue("renderTargetOrbitManipulator.orbitRotationFactor"));
+			orbitZoomFactor = Double.parseDouble(orbitConfig.getValue("renderTargetOrbitManipulator.orbitZoomFactor"));
 
-			if( (sgPickedTransformable == null) && (objectsOfInterest.size() == 1) ) {
-				ePickedTransformable = (edu.cmu.cs.stage3.alice.core.Transformable)objectsOfInterest.iterator().next();
+			if (sgPickedTransformable == null && objectsOfInterest.size() == 1) {
+				ePickedTransformable = (edu.cmu.cs.stage3.alice.core.Transformable) objectsOfInterest.iterator().next();
 				sgPickedTransformable = ePickedTransformable.getSceneGraphTransformable();
-				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.getHack().getUndoRedoStack().setIsListening( false );
+				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.getHack().getUndoRedoStack().setIsListening(false);
 				mouseIsDown = true;
 			}
 
-			if( sgPickedTransformable != null ) {
-				sizeFactor = Math.max( .1, ePickedTransformable.getBoundingSphere().getRadius() );
+			if (sgPickedTransformable != null) {
+				sizeFactor = Math.max(.1, ePickedTransformable.getBoundingSphere().getRadius());
 				sgCamera = renderTarget.getCameras()[0];
-				sgCameraTransformable = (edu.cmu.cs.stage3.alice.scenegraph.Transformable)sgCamera.getParent();
-				eCameraTransformable = (edu.cmu.cs.stage3.alice.core.Transformable)sgCameraTransformable.getBonus();
-				sgScene = (edu.cmu.cs.stage3.alice.scenegraph.Scene)sgCamera.getRoot();
+				sgCameraTransformable = (edu.cmu.cs.stage3.alice.scenegraph.Transformable) sgCamera.getParent();
+				eCameraTransformable = (edu.cmu.cs.stage3.alice.core.Transformable) sgCameraTransformable.getBonus();
+				sgScene = (edu.cmu.cs.stage3.alice.scenegraph.Scene) sgCamera.getRoot();
 
-				oldTransformation = new edu.cmu.cs.stage3.math.Matrix44( sgCameraTransformable.getLocalTransformation() );
-				//DEBUG System.out.println( "picked: " + sgPickedTransformable );
-				helper.setParent( sgScene );
-				sgIdentity.setParent( sgScene );
+				oldTransformation = new edu.cmu.cs.stage3.math.Matrix44(sgCameraTransformable.getLocalTransformation());
+				// DEBUG System.out.println( "picked: " + sgPickedTransformable
+				// );
+				helper.setParent(sgScene);
+				sgIdentity.setParent(sgScene);
 			}
 		}
 	}
 
-	
-	public void mouseReleased( java.awt.event.MouseEvent ev ) {
-		//DEBUG System.out.println( "mouseReleased" );
-		if( mouseIsDown ) {
-			if( eCameraTransformable != null ) {
-				undoRedoStack.push( new PointOfViewUndoableRedoable( eCameraTransformable, oldTransformation, new edu.cmu.cs.stage3.math.Matrix44( sgCameraTransformable.getLocalTransformation() ), scheduler ) );
+	@Override
+	public void mouseReleased(java.awt.event.MouseEvent ev) {
+		// DEBUG System.out.println( "mouseReleased" );
+		if (mouseIsDown) {
+			if (eCameraTransformable != null) {
+				undoRedoStack.push(new PointOfViewUndoableRedoable(eCameraTransformable, oldTransformation, new edu.cmu.cs.stage3.math.Matrix44(sgCameraTransformable.getLocalTransformation()), scheduler));
 			}
 		}
 
-		super.mouseReleased( ev );
+		super.mouseReleased(ev);
 	}
 
-	
-	public void mouseDragged( java.awt.event.MouseEvent ev ) {
-		//DEBUG System.out.println( "mouseDragged" );
-		if( enabled ) {
-			super.mouseDragged( ev );
+	@Override
+	public void mouseDragged(java.awt.event.MouseEvent ev) {
+		// DEBUG System.out.println( "mouseDragged" );
+		if (enabled) {
+			super.mouseDragged(ev);
 
-			if( mouseIsDown ) {
-				//DEBUG System.out.println( "mouseIsDown" );
-				if( sgPickedTransformable != null ) {
-					//DEBUG System.out.println( "sgPickedTransformable: " + sgPickedTransformable );
+			if (mouseIsDown) {
+				// DEBUG System.out.println( "mouseIsDown" );
+				if (sgPickedTransformable != null) {
+					// DEBUG System.out.println( "sgPickedTransformable: " +
+					// sgPickedTransformable );
 
-					if( clippingPlaneAdjustmentEnabled ) {
+					if (clippingPlaneAdjustmentEnabled) {
 						double objectRadius = ePickedTransformable.getBoundingSphere().getRadius();
-						double objectDist = sgPickedTransformable.getPosition( sgCameraTransformable ).getLength();
-						double farDist = Math.max( objectDist*3, objectDist + objectRadius );
-						double nearDist = Math.max( (objectDist - objectRadius)*.01, .0001 );
-						//System.out.println( "farDist: " + farDist + ",  nearDist: " + nearDist );
-						sgCamera.setFarClippingPlaneDistance( farDist );
+						double objectDist = sgPickedTransformable.getPosition(sgCameraTransformable).getLength();
+						double farDist = Math.max(objectDist * 3, objectDist + objectRadius);
+						double nearDist = Math.max((objectDist - objectRadius) * .01, .0001);
+						// System.out.println( "farDist: " + farDist +
+						// ",  nearDist: " + nearDist );
+						sgCamera.setFarClippingPlaneDistance(farDist);
 					}
 
 					boolean controlDown = ev.isControlDown();
@@ -134,32 +136,32 @@ public class RenderTargetOrbitManipulator extends RenderTargetPickManipulator {
 					tempVec.x = 0.0;
 					tempVec.y = 0.0;
 					tempVec.z = 0.0;
-					helper.setPosition( tempVec, sgPickedTransformable );
+					helper.setPosition(tempVec, sgPickedTransformable);
 					// TODO: handle singularity (waiting for Dennis)
-					helper.pointAt( sgCameraTransformable, null, edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), null );
-					helper.standUp( sgScene );
+					helper.pointAt(sgCameraTransformable, null, edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), null);
+					helper.standUp(sgScene);
 
 					// TODO: this shouldn't be necessary
-					sgCameraTransformable.pointAt( helper, null, edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), null );
+					sgCameraTransformable.pointAt(helper, null, edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), null);
 
-					if( controlDown ) {
-						if( shiftDown ) {
-							//TODO: handle this modifier?
+					if (controlDown) {
+						if (shiftDown) {
+							// TODO: handle this modifier?
 						}
-						//TODO: handle this modifier?
+						// TODO: handle this modifier?
 					}
 
-					//TODO: avoid singularities
-					if( shiftDown ) {
-						sgCameraTransformable.rotate( edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), dx*orbitRotationFactor, helper );
-						sgCameraTransformable.rotate( edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy*orbitRotationFactor, helper );
+					// TODO: avoid singularities
+					if (shiftDown) {
+						sgCameraTransformable.rotate(edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), dx * orbitRotationFactor, helper);
+						sgCameraTransformable.rotate(edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy * orbitRotationFactor, helper);
 					} else {
-						sgCameraTransformable.translate( edu.cmu.cs.stage3.math.MathUtilities.multiply( edu.cmu.cs.stage3.math.MathUtilities.getZAxis(), dy*orbitZoomFactor*sizeFactor ), sgCameraTransformable );
-						sgCameraTransformable.rotate( edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), dx*orbitRotationFactor, helper );
+						sgCameraTransformable.translate(edu.cmu.cs.stage3.math.MathUtilities.multiply(edu.cmu.cs.stage3.math.MathUtilities.getZAxis(), dy * orbitZoomFactor * sizeFactor), sgCameraTransformable);
+						sgCameraTransformable.rotate(edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), dx * orbitRotationFactor, helper);
 					}
 
-					if( eCameraTransformable != null ) {
-						eCameraTransformable.localTransformation.set( sgCameraTransformable.getLocalTransformation() );
+					if (eCameraTransformable != null) {
+						eCameraTransformable.localTransformation.set(sgCameraTransformable.getLocalTransformation());
 					}
 				}
 			}

@@ -26,37 +26,38 @@ package edu.cmu.cs.stage3.alice.core;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public abstract class Response extends Code {
-	public final NumberProperty duration = new NumberProperty( this, "duration", getDefaultDuration() );
-	
+	public final NumberProperty duration = new NumberProperty(this, "duration", getDefaultDuration());
+
 	protected Number getDefaultDuration() {
-		return new Double( 1 );
+		return new Double(1);
 	}
 
 	protected Class getRuntimeResponseClass() {
 		Class cls = getClass();
 		Class[] declaredClasses = cls.getDeclaredClasses();
-		for( int i=0; i<declaredClasses.length; i++ ) {
-			if( RuntimeResponse.class.isAssignableFrom( declaredClasses[i] ) ) {
-				return declaredClasses[i];
+		for (Class declaredClasse : declaredClasses) {
+			if (RuntimeResponse.class.isAssignableFrom(declaredClasse)) {
+				return declaredClasse;
 			}
 		}
 		return null;
 	}
 	public RuntimeResponse manufactureRuntimeResponse() {
 		Class runtimeResponseClass = getRuntimeResponseClass();
-		if( runtimeResponseClass!=null ) {
+		if (runtimeResponseClass != null) {
 			java.lang.reflect.Constructor[] constructors = runtimeResponseClass.getConstructors();
-			if( constructors.length>0 ) {
+			if (constructors.length > 0) {
 				try {
-					Object[] initargs = { this };
-					RuntimeResponse runtimeResponse = (RuntimeResponse)constructors[0].newInstance( initargs );
+					Object[] initargs = {this};
+					RuntimeResponse runtimeResponse = (RuntimeResponse) constructors[0].newInstance(initargs);
 					return runtimeResponse;
-				} catch( IllegalAccessException iae ) {
-					throw new ExceptionWrapper( iae, null );
-				} catch( InstantiationException ie ) {
-					throw new ExceptionWrapper( ie, null );
-				} catch( java.lang.reflect.InvocationTargetException ite ) {
-					throw new ExceptionWrapper( ite, null ); //todo? ite.getTargetException()
+				} catch (IllegalAccessException iae) {
+					throw new ExceptionWrapper(iae, null);
+				} catch (InstantiationException ie) {
+					throw new ExceptionWrapper(ie, null);
+				} catch (java.lang.reflect.InvocationTargetException ite) {
+					throw new ExceptionWrapper(ite, null); // todo?
+															// ite.getTargetException()
 				}
 			}
 		}
@@ -64,14 +65,13 @@ public abstract class Response extends Code {
 	}
 
 	public abstract class RuntimeResponse {
-        private boolean HACK_m_isMarkedForRemoval = false;
-        public void HACK_markForRemoval() {
-            HACK_m_isMarkedForRemoval = true;
-        }
-        public boolean HACK_isMarkedForRemoval() {
-            return HACK_m_isMarkedForRemoval;
-        }
-
+		private boolean HACK_m_isMarkedForRemoval = false;
+		public void HACK_markForRemoval() {
+			HACK_m_isMarkedForRemoval = true;
+		}
+		public boolean HACK_isMarkedForRemoval() {
+			return HACK_m_isMarkedForRemoval;
+		}
 
 		private boolean m_isActive = false;
 		private double m_t0 = Double.NaN;
@@ -85,58 +85,58 @@ public abstract class Response extends Code {
 		protected double getDuration() {
 			return m_duration;
 		}
-		protected void setDuration( double duration ) {
+		protected void setDuration(double duration) {
 			m_duration = duration;
 		}
-		protected double getTimeElapsed( double t ) {
-			return t-m_t0;
+		protected double getTimeElapsed(double t) {
+			return t - m_t0;
 		}
 		protected double getDT() {
 			return m_dt;
 		}
-		public double getTimeRemaining( double t ) {
-			return m_duration - getTimeElapsed( t );
+		public double getTimeRemaining(double t) {
+			return m_duration - getTimeElapsed(t);
 		}
-		public void prologue( double t ) {
-            m_t0 = t;
+		public void prologue(double t) {
+			m_t0 = t;
 			m_tPrev = t;
 			m_dt = 0;
-			m_duration = Response.this.duration.doubleValue( Double.NaN );
+			m_duration = duration.doubleValue(Double.NaN);
 			m_isActive = true;
 		}
-		public void update( double t ) {
+		public void update(double t) {
 			m_dt = t - m_tPrev;
 			m_tPrev = t;
 		}
-		public void epilogue( double t ) {
+		public void epilogue(double t) {
 			m_isActive = false;
 		}
-		public void stop( double t ) {
-            if( isActive() ) {
-    			epilogue( t );
-            }
+		public void stop(double t) {
+			if (isActive()) {
+				epilogue(t);
+			}
 		}
 		public void finish() {
 			m_t0 = Double.NEGATIVE_INFINITY;
 		}
 
 		protected edu.cmu.cs.stage3.alice.core.Behavior getCurrentBehavior() {
-			edu.cmu.cs.stage3.alice.core.World world = Response.this.getWorld();
-			if( world != null ) {
+			edu.cmu.cs.stage3.alice.core.World world = getWorld();
+			if (world != null) {
 				edu.cmu.cs.stage3.alice.core.Sandbox sandbox = world.getCurrentSandbox();
-				if( sandbox != null ) {
+				if (sandbox != null) {
 					return sandbox.getCurrentBehavior();
 				}
 			}
 			return null;
 		}
-		
+
 		protected java.util.Stack getCurrentStack() {
 			edu.cmu.cs.stage3.alice.core.Behavior behavior = getCurrentBehavior();
-			if( behavior != null ) {
+			if (behavior != null) {
 				return behavior.getCurrentStack();
 			} else {
-				return null;				
+				return null;
 			}
 		}
 

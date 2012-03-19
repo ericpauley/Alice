@@ -26,27 +26,29 @@ package edu.cmu.cs.stage3.alice.core.response;
 public class VehiclePropertyAnimation extends PropertyAnimation {
 	public VehiclePropertyAnimation() {
 		super();
-		propertyName.set( "vehicle" );
+		propertyName.set("vehicle");
 	}
-	
-	protected void propertyChanging( edu.cmu.cs.stage3.alice.core.Property property, Object value ) {
-		if( property == propertyName ) {
-			if( ((String)value).equals( "vehicle" ) ) {
-				//pass
+
+	@Override
+	protected void propertyChanging(edu.cmu.cs.stage3.alice.core.Property property, Object value) {
+		if (property == propertyName) {
+			if (((String) value).equals("vehicle")) {
+				// pass
 			} else {
-                System.err.println( "propertyName: " + value );
-				throw new RuntimeException( "VehiclePropertyAnimation should be animating \"vehicle\" property.  Attempted to change to the \"" + value + "\" property." );
+				System.err.println("propertyName: " + value);
+				throw new RuntimeException("VehiclePropertyAnimation should be animating \"vehicle\" property.  Attempted to change to the \"" + value + "\" property.");
 			}
 		} else {
-			super.propertyChanging( property, value );
+			super.propertyChanging(property, value);
 		}
 	}
 	public class RuntimeVehiclePropertyAnimation extends RuntimePropertyAnimation {
-		
-		protected void set( Object value ) {
-			edu.cmu.cs.stage3.alice.core.property.VehicleProperty vehicleProperty = (edu.cmu.cs.stage3.alice.core.property.VehicleProperty)getProperty();
-			if( vehicleProperty != null ) {
-				vehicleProperty.set( value, true );
+
+		@Override
+		protected void set(Object value) {
+			edu.cmu.cs.stage3.alice.core.property.VehicleProperty vehicleProperty = (edu.cmu.cs.stage3.alice.core.property.VehicleProperty) getProperty();
+			if (vehicleProperty != null) {
+				vehicleProperty.set(value, true);
 			} else {
 				throw new RuntimeException();
 			}

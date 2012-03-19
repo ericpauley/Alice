@@ -29,30 +29,31 @@ import edu.cmu.cs.stage3.alice.core.camera.PerspectiveCamera;
 public class PerspectiveViewVolumeDecorator extends ViewVolumeDecorator {
 	private PerspectiveCamera m_perspectiveCamera = null;
 
-	
+	@Override
 	protected Camera getCamera() {
 		return getPerspectiveCamera();
 	}
 	public PerspectiveCamera getPerspectiveCamera() {
 		return m_perspectiveCamera;
 	}
-	public void setPerspectiveCamera( PerspectiveCamera perspectiveCamera ) {
-		if( perspectiveCamera != m_perspectiveCamera ) {
+	public void setPerspectiveCamera(PerspectiveCamera perspectiveCamera) {
+		if (perspectiveCamera != m_perspectiveCamera) {
 			m_perspectiveCamera = perspectiveCamera;
-            markDirty();
+			markDirty();
 			updateIfShowing();
 		}
 	}
-	
-	protected double[] getXYNearAndXYFar( double zNear, double zFar ) {
-		//todo
+
+	@Override
+	protected double[] getXYNearAndXYFar(double zNear, double zFar) {
+		// todo
 		double angle = 0.5;
-		double aspect = 4.0/3.0;
-		double yNear = zNear * Math.tan( angle );
-		double yFar = zFar * Math.tan( angle );
+		double aspect = 4.0 / 3.0;
+		double yNear = zNear * Math.tan(angle);
+		double yFar = zFar * Math.tan(angle);
 		double xNear = aspect * yNear;
 		double xFar = aspect * yFar;
-		double[] r = { xNear, yNear, xFar, yFar };
+		double[] r = {xNear, yNear, xFar, yFar};
 		return r;
 	}
 }

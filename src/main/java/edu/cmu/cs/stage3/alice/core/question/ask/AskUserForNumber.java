@@ -30,38 +30,40 @@ import edu.cmu.cs.stage3.alice.core.property.StringProperty;
  */
 
 public class AskUserForNumber extends edu.cmu.cs.stage3.alice.core.question.NumberQuestion {
-    public final StringProperty title = new StringProperty( this, "title", "Question");
-    public final StringProperty question = new StringProperty( this, "question", "Enter a Number:" );
+	public final StringProperty title = new StringProperty(this, "title", "Question");
+	public final StringProperty question = new StringProperty(this, "question", "Enter a Number:");
 
 	private edu.cmu.cs.stage3.alice.core.Clock m_clock;
 
-    
+	@Override
 	public Object getValue() {
-		if( m_clock != null ) {
+		if (m_clock != null) {
 			m_clock.pause();
 		}
 		try {
-			String string = edu.cmu.cs.stage3.swing.DialogManager.showInputDialog( question.getStringValue(), title.getStringValue(), javax.swing.JOptionPane.QUESTION_MESSAGE );
-			if (string != null && ( string.matches( "-?\\d+" ) || string.matches( "-?\\d+.\\d+" ) ))
-				return new Double( string );
-			return new Double( 0 );
+			String string = edu.cmu.cs.stage3.swing.DialogManager.showInputDialog(question.getStringValue(), title.getStringValue(), javax.swing.JOptionPane.QUESTION_MESSAGE);
+			if (string != null && (string.matches("-?\\d+") || string.matches("-?\\d+.\\d+"))) {
+				return new Double(string);
+			}
+			return new Double(0);
 		} finally {
-			if( m_clock != null ) {
+			if (m_clock != null) {
 				m_clock.resume();
 			}
 		}
-    }
-
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		if( world != null ) {
-			m_clock = world.getClock();
-		} 
 	}
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		if (world != null) {
+			m_clock = world.getClock();
+		}
+	}
+
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
 		m_clock = null;
-		super.stopped( world, time );
+		super.stopped(world, time);
 	}
 }

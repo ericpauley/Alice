@@ -24,7 +24,7 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public class AbsoluteTransformationEvent extends java.util.EventObject {
-    public AbsoluteTransformationEvent( edu.cmu.cs.stage3.alice.scenegraph.Component source ) {
-        super( source );
-    }
+	public AbsoluteTransformationEvent(edu.cmu.cs.stage3.alice.scenegraph.Component source) {
+		super(source);
+	}
 }

@@ -24,19 +24,19 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public class Array extends Collection {
-	public Object itemAtIndex( int i ) {
-		return values.get( i );
+	public Object itemAtIndex(int i) {
+		return values.get(i);
 	}
-	public Object itemValueAtIndex( int i ) {
-		return values.getValue( i );
+	public Object itemValueAtIndex(int i) {
+		return values.getValue(i);
 	}
-	public void setItemAtIndex( int i, Object item ) {
-		values.set( i, item );
+	public void setItemAtIndex(int i, Object item) {
+		values.set(i, item);
 	}
-	public void setItemValueAtIndex( int i, Object item ) {
-		values.set( i, item );
+	public void setItemValueAtIndex(int i, Object item) {
+		values.set(i, item);
 	}
-    public int size() {
-        return values.size();
-    }
+	public int size() {
+		return values.size();
+	}
 }

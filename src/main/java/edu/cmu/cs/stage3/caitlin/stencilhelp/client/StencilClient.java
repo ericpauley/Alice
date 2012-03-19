@@ -9,14 +9,14 @@ package edu.cmu.cs.stage3.caitlin.stencilhelp.client;
  * @version 1.0
  */
 
- import java.awt.Component;
+import java.awt.Component;
 
 public interface StencilClient {
-    public boolean isDropAccessible( java.awt.Point p );
-    public void update();
-    public void stateChanged();
-    public Component getStencilComponent();
-    public void showStencils( boolean show );
-    public boolean getIsShowing();
-    public void loadStencilTutorial( java.io.File tutorialFile );
+	public boolean isDropAccessible(java.awt.Point p);
+	public void update();
+	public void stateChanged();
+	public Component getStencilComponent();
+	public void showStencils(boolean show);
+	public boolean getIsShowing();
+	public void loadStencilTutorial(java.io.File tutorialFile);
 }

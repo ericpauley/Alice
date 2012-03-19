@@ -32,47 +32,42 @@ import edu.cmu.cs.stage3.alice.core.property.ElementArrayProperty;
 import edu.cmu.cs.stage3.alice.core.property.UserDefinedQuestionProperty;
 
 public class CallToUserDefinedQuestion extends Question {
-	public final UserDefinedQuestionProperty userDefinedQuestion = new UserDefinedQuestionProperty( this, "userDefinedQuestion", null );
-	public final ElementArrayProperty requiredActualParameters = new ElementArrayProperty( this, "requiredActualParameters", null, Variable[].class );
-	public final ElementArrayProperty keywordActualParameters = new ElementArrayProperty( this, "keywordActualParameters", null, Variable[].class );
-    
+	public final UserDefinedQuestionProperty userDefinedQuestion = new UserDefinedQuestionProperty(this, "userDefinedQuestion", null);
+	public final ElementArrayProperty requiredActualParameters = new ElementArrayProperty(this, "requiredActualParameters", null, Variable[].class);
+	public final ElementArrayProperty keywordActualParameters = new ElementArrayProperty(this, "keywordActualParameters", null, Variable[].class);
+
+	@Override
 	public Object getValue() {
-        UserDefinedQuestion userDefinedQuestionValue = userDefinedQuestion.getUserDefinedQuestionValue();
-        Behavior currentBehavior = null;
-        World world = getWorld();
-        if( world != null ) {
-            Sandbox sandbox = world.getCurrentSandbox();
-            if( sandbox!=null ) {
-                currentBehavior = sandbox.getCurrentBehavior();
-            } else {
-                //System.err.println( "current sandbox is null" );
-            }
-        } else {
-            //System.err.println( "world is null" );
-        }
-		if( currentBehavior != null ) {
-			currentBehavior.pushStack(
-				(Variable[])CallToUserDefinedQuestion.this.requiredActualParameters.getArrayValue(),
-				(Variable[])CallToUserDefinedQuestion.this.keywordActualParameters.getArrayValue(),
-				(Variable[])userDefinedQuestionValue.requiredFormalParameters.getArrayValue(),
-				(Variable[])userDefinedQuestionValue.keywordFormalParameters.getArrayValue(),
-				(Variable[])userDefinedQuestionValue.localVariables.getArrayValue(),
-				true
-			);
+		UserDefinedQuestion userDefinedQuestionValue = userDefinedQuestion.getUserDefinedQuestionValue();
+		Behavior currentBehavior = null;
+		World world = getWorld();
+		if (world != null) {
+			Sandbox sandbox = world.getCurrentSandbox();
+			if (sandbox != null) {
+				currentBehavior = sandbox.getCurrentBehavior();
+			} else {
+				// System.err.println( "current sandbox is null" );
+			}
+		} else {
+			// System.err.println( "world is null" );
+		}
+		if (currentBehavior != null) {
+			currentBehavior.pushStack((Variable[]) CallToUserDefinedQuestion.this.requiredActualParameters.getArrayValue(), (Variable[]) CallToUserDefinedQuestion.this.keywordActualParameters.getArrayValue(), (Variable[]) userDefinedQuestionValue.requiredFormalParameters.getArrayValue(), (Variable[]) userDefinedQuestionValue.keywordFormalParameters.getArrayValue(), (Variable[]) userDefinedQuestionValue.localVariables.getArrayValue(), true);
 			Object returnValue = userDefinedQuestionValue.getValue();
 			currentBehavior.popStack();
 			return returnValue;
 		} else {
 			return null;
 		}
-    }
-    
+	}
+
+	@Override
 	public Class getValueClass() {
-        UserDefinedQuestion userDefinedQuestionValue = userDefinedQuestion.getUserDefinedQuestionValue();
-        if( userDefinedQuestionValue != null ) {
-            return userDefinedQuestionValue.getValueClass();
-        } else {
-            return null;
-        }
-    }
+		UserDefinedQuestion userDefinedQuestionValue = userDefinedQuestion.getUserDefinedQuestionValue();
+		if (userDefinedQuestionValue != null) {
+			return userDefinedQuestionValue.getValueClass();
+		} else {
+			return null;
+		}
+	}
 }

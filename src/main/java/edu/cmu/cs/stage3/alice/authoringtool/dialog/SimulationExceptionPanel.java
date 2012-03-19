@@ -23,6 +23,8 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.dialog;
 
+import edu.cmu.cs.stage3.alice.core.Element;
+
 /**
  * @author Jason Pratt, Dennis Cosgrove
  */
@@ -30,73 +32,73 @@ public class SimulationExceptionPanel extends javax.swing.JPanel {
 	private edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool m_authoringTool;
 	private edu.cmu.cs.stage3.alice.core.SimulationException m_simulationException;
 	private edu.cmu.cs.stage3.alice.authoringtool.util.HighlightingGlassPane m_glassPane;
-	
-	private javax.swing.JLabel m_descriptionLabel = new javax.swing.JLabel();
-	//private javax.swing.JPanel m_stackPanel = new javax.swing.JPanel();
 
-	public SimulationExceptionPanel( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool ) {
+	private javax.swing.JLabel m_descriptionLabel = new javax.swing.JLabel();
+	// private javax.swing.JPanel m_stackPanel = new javax.swing.JPanel();
+
+	public SimulationExceptionPanel(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool) {
 		m_authoringTool = authoringTool;
-		m_glassPane = new edu.cmu.cs.stage3.alice.authoringtool.util.HighlightingGlassPane( authoringTool );
-		
-		setLayout( new java.awt.GridBagLayout() );
+		m_glassPane = new edu.cmu.cs.stage3.alice.authoringtool.util.HighlightingGlassPane(authoringTool);
+
+		setLayout(new java.awt.GridBagLayout());
 
 		java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
 		gbc.anchor = java.awt.GridBagConstraints.NORTHWEST;
 		gbc.fill = java.awt.GridBagConstraints.BOTH;
 		gbc.gridwidth = java.awt.GridBagConstraints.REMAINDER;
-		
-		add( new javax.swing.JLabel( "Alice has detected a problem with your world:" ), gbc );
+
+		add(new javax.swing.JLabel("Alice has detected a problem with your world:"), gbc);
 		gbc.insets.left = 8;
-		add( m_descriptionLabel, gbc );
-		//add( m_stackPanel, gbc );
+		add(m_descriptionLabel, gbc);
+		// add( m_stackPanel, gbc );
 	}
 
-	public void setSimulationException( edu.cmu.cs.stage3.alice.core.SimulationException simulationException ) {
+	public void setSimulationException(edu.cmu.cs.stage3.alice.core.SimulationException simulationException) {
 		m_simulationException = simulationException;
 
-		m_descriptionLabel.setText( simulationException.getMessage() );
+		m_descriptionLabel.setText(simulationException.getMessage());
 
-		//java.util.Stack stack = m_simulationException.getStack();
-		//java.util.Enumeration enum = stack.elements();
-		//while( enum.hasMoreElements() ) {
-		//	System.err.println( enum.nextElement() );
-		//}
+		// java.util.Stack stack = m_simulationException.getStack();
+		// java.util.Enumeration enum = stack.elements();
+		// while( enum.hasMoreElements() ) {
+		// System.err.println( enum.nextElement() );
+		// }
 
 		edu.cmu.cs.stage3.alice.core.Element element = simulationException.getElement();
 		edu.cmu.cs.stage3.alice.core.World world = m_authoringTool.getWorld();
 		edu.cmu.cs.stage3.alice.core.Element ancestor = null;
-		edu.cmu.cs.stage3.alice.core.Element[] userDefinedResponses = world.getDescendants( edu.cmu.cs.stage3.alice.core.response.UserDefinedResponse.class );
-		for( int i = 0; i < userDefinedResponses.length; i++ ) {
-			if( userDefinedResponses[i].isAncestorOf( element ) ) {
-				ancestor = userDefinedResponses[i];
+		edu.cmu.cs.stage3.alice.core.Element[] userDefinedResponses = world.getDescendants(edu.cmu.cs.stage3.alice.core.response.UserDefinedResponse.class);
+		for (Element userDefinedResponse : userDefinedResponses) {
+			if (userDefinedResponse.isAncestorOf(element)) {
+				ancestor = userDefinedResponse;
 				break;
 			}
 		}
-		if( ancestor == null ) {
-			edu.cmu.cs.stage3.alice.core.Element[] userDefinedQuestions = world.getDescendants( edu.cmu.cs.stage3.alice.core.question.userdefined.Component.class );
-			for( int i = 0; i < userDefinedQuestions.length; i++ ) {
-				if( userDefinedQuestions[i].isAncestorOf( element ) ) {
-					ancestor = userDefinedQuestions[i];
+		if (ancestor == null) {
+			edu.cmu.cs.stage3.alice.core.Element[] userDefinedQuestions = world.getDescendants(edu.cmu.cs.stage3.alice.core.question.userdefined.Component.class);
+			for (Element userDefinedQuestion : userDefinedQuestions) {
+				if (userDefinedQuestion.isAncestorOf(element)) {
+					ancestor = userDefinedQuestion;
 					break;
 				}
 			}
 		}
 
 		String highlightID = null;
-		if( m_simulationException instanceof edu.cmu.cs.stage3.alice.core.SimulationPropertyException ) {
-			edu.cmu.cs.stage3.alice.core.SimulationPropertyException spe = (edu.cmu.cs.stage3.alice.core.SimulationPropertyException)m_simulationException;
-			highlightID = "editors:element<" + ancestor.getKey( world ) + ">:elementTile<" + element.getKey( world ) + ">:property<"+spe.getProperty().getName()+">";
+		if (m_simulationException instanceof edu.cmu.cs.stage3.alice.core.SimulationPropertyException) {
+			edu.cmu.cs.stage3.alice.core.SimulationPropertyException spe = (edu.cmu.cs.stage3.alice.core.SimulationPropertyException) m_simulationException;
+			highlightID = "editors:element<" + ancestor.getKey(world) + ">:elementTile<" + element.getKey(world) + ">:property<" + spe.getProperty().getName() + ">";
 		}
-		if( highlightID == null ) {
-			if( (element != null) && (ancestor != null) ) {
-				highlightID = "editors:element<" + ancestor.getKey( world ) + ">:elementTile<" + element.getKey( world ) + ">";
+		if (highlightID == null) {
+			if (element != null && ancestor != null) {
+				highlightID = "editors:element<" + ancestor.getKey(world) + ">:elementTile<" + element.getKey(world) + ">";
 			}
 		}
-		m_glassPane.setHighlightID( highlightID );
+		m_glassPane.setHighlightID(highlightID);
 	}
 
-	public void setErrorHighlightingEnabled( boolean enabled ) {
-		m_glassPane.setHighlightingEnabled( enabled );
+	public void setErrorHighlightingEnabled(boolean enabled) {
+		m_glassPane.setHighlightingEnabled(enabled);
 	}
 
 	public java.awt.Rectangle getErrorRect() {

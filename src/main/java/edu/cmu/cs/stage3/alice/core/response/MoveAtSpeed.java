@@ -27,24 +27,27 @@ import edu.cmu.cs.stage3.alice.core.Direction;
 import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 
 public class MoveAtSpeed extends DirectionSpeedTransformResponse {
-	public final BooleanProperty isScaledBySize = new BooleanProperty( this, "isScaledBySize", Boolean.FALSE );
-	
+	public final BooleanProperty isScaledBySize = new BooleanProperty(this, "isScaledBySize", Boolean.FALSE);
+
+	@Override
 	protected Direction getDefaultDirection() {
 		return Direction.FORWARD;
 	}
-	
-	protected boolean acceptsDirection( Direction direction ) {
-		return direction.getMoveAxis()!=null;
+
+	@Override
+	protected boolean acceptsDirection(Direction direction) {
+		return direction.getMoveAxis() != null;
 	}
 	public class RuntimeMoveAtSpeed extends RuntimeDirectionSpeedTransformResponse {
 		private javax.vecmath.Vector3d m_directionVector;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
 			Direction directionValue = MoveAtSpeed.this.direction.getDirectionValue();
-			if( directionValue!=null ) {
+			if (directionValue != null) {
 				m_directionVector = directionValue.getMoveAxis();
-				if( MoveAtSpeed.this.isScaledBySize.booleanValue() ) {
+				if (isScaledBySize.booleanValue()) {
 					javax.vecmath.Vector3d subjectSize = m_subject.getSize();
 					m_directionVector.x *= subjectSize.x;
 					m_directionVector.y *= subjectSize.y;
@@ -54,11 +57,12 @@ public class MoveAtSpeed extends DirectionSpeedTransformResponse {
 				m_directionVector = new javax.vecmath.Vector3d();
 			}
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-            double delta = getDT()*getSpeed();
-			m_subject.moveRightNow( edu.cmu.cs.stage3.math.MathUtilities.multiply( m_directionVector, delta ), m_asSeenBy );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			double delta = getDT() * getSpeed();
+			m_subject.moveRightNow(edu.cmu.cs.stage3.math.MathUtilities.multiply(m_directionVector, delta), m_asSeenBy);
 		}
 	}
 }

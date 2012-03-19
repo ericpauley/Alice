@@ -26,7 +26,7 @@ package edu.cmu.cs.stage3.alice.scenegraph;
 /**
  * an ambient light illumates all visual elements equally.<br>
  * useful in simulating bouncing light.<br>
- *
+ * 
  * @author Dennis Cosgrove
  */
 public class AmbientLight extends Light {

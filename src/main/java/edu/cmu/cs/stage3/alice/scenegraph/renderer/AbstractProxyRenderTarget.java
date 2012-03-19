@@ -25,19 +25,20 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
 public abstract class AbstractProxyRenderTarget extends AbstractRenderTarget {
 	protected AbstractProxyRenderer m_abstractProxyRenderer;
-	protected AbstractProxyRenderTarget( AbstractProxyRenderer abstractProxyRenderer ) {
-		super( abstractProxyRenderer );
+	protected AbstractProxyRenderTarget(AbstractProxyRenderer abstractProxyRenderer) {
+		super(abstractProxyRenderer);
 		m_abstractProxyRenderer = abstractProxyRenderer;
 	}
-    protected AbstractProxy getProxyFor( edu.cmu.cs.stage3.alice.scenegraph.Element sgElement ) {
-        return m_abstractProxyRenderer.getProxyFor( sgElement );
-    }
-    protected AbstractProxy[] getProxiesFor( edu.cmu.cs.stage3.alice.scenegraph.Element[] sgElements, Class componentType ) {
-        return m_abstractProxyRenderer.getProxiesFor( sgElements, componentType );
-    }
-	
-	public void addCamera( edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		m_abstractProxyRenderer.createNecessaryProxies( camera.getRoot() );
-		super.addCamera( camera );
+	protected AbstractProxy getProxyFor(edu.cmu.cs.stage3.alice.scenegraph.Element sgElement) {
+		return m_abstractProxyRenderer.getProxyFor(sgElement);
+	}
+	protected AbstractProxy[] getProxiesFor(edu.cmu.cs.stage3.alice.scenegraph.Element[] sgElements, Class componentType) {
+		return m_abstractProxyRenderer.getProxiesFor(sgElements, componentType);
+	}
+
+	@Override
+	public void addCamera(edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		m_abstractProxyRenderer.createNecessaryProxies(camera.getRoot());
+		super.addCamera(camera);
 	}
 }

@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.math;
 
 public interface Interpolable {
-    Interpolable interpolate( Interpolable b, double portion );
+	Interpolable interpolate(Interpolable b, double portion);
 }

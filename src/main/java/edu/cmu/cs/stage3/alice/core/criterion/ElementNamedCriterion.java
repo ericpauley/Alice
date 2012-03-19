@@ -26,10 +26,10 @@ package edu.cmu.cs.stage3.alice.core.criterion;
 public class ElementNamedCriterion implements edu.cmu.cs.stage3.util.Criterion {
 	private String m_name;
 	private boolean m_ignoreCase;
-	public ElementNamedCriterion( String name ) {
-		this( name, true );
+	public ElementNamedCriterion(String name) {
+		this(name, true);
 	}
-	public ElementNamedCriterion( String name, boolean ignoreCase ) {
+	public ElementNamedCriterion(String name, boolean ignoreCase) {
 		m_name = name;
 		m_ignoreCase = ignoreCase;
 	}
@@ -39,16 +39,17 @@ public class ElementNamedCriterion implements edu.cmu.cs.stage3.util.Criterion {
 	public boolean getIgnoreCase() {
 		return m_ignoreCase;
 	}
-	public boolean accept( Object o ) {
-		if( o instanceof edu.cmu.cs.stage3.alice.core.Element ) {
-			String nameValue = ((edu.cmu.cs.stage3.alice.core.Element)o).name.getStringValue();
-			if( m_name==null ) {
-				return nameValue==null;
+	@Override
+	public boolean accept(Object o) {
+		if (o instanceof edu.cmu.cs.stage3.alice.core.Element) {
+			String nameValue = ((edu.cmu.cs.stage3.alice.core.Element) o).name.getStringValue();
+			if (m_name == null) {
+				return nameValue == null;
 			} else {
-				if( m_ignoreCase ) {
-					return m_name.equalsIgnoreCase( nameValue );
+				if (m_ignoreCase) {
+					return m_name.equalsIgnoreCase(nameValue);
 				} else {
-					return m_name.equals( nameValue );
+					return m_name.equals(nameValue);
 				}
 			}
 		} else {

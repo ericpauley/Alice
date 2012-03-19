@@ -26,19 +26,20 @@ package edu.cmu.cs.stage3.alice.core.geometry;
 import edu.cmu.cs.stage3.alice.core.property.IntArrayProperty;
 
 public class IndexedTriangleArray extends VertexGeometry {
-	public final IntArrayProperty indices = new IntArrayProperty( this, "indices", null );
+	public final IntArrayProperty indices = new IntArrayProperty(this, "indices", null);
 	public IndexedTriangleArray() {
-		super( new edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray() );
+		super(new edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray());
 	}
 	public edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray getSceneGraphIndexedTriangleArray() {
-		return (edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray)getSceneGraphGeometry();
+		return (edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray) getSceneGraphGeometry();
 	}
-	
-	protected void propertyChanged( edu.cmu.cs.stage3.alice.core.Property property, Object value ) {
-		if( property == indices ) {
-			getSceneGraphIndexedTriangleArray().setIndices( (int[])value );
+
+	@Override
+	protected void propertyChanged(edu.cmu.cs.stage3.alice.core.Property property, Object value) {
+		if (property == indices) {
+			getSceneGraphIndexedTriangleArray().setIndices((int[]) value);
 		} else {
-			super.propertyChanged( property, value );
+			super.propertyChanged(property, value);
 		}
 	}
 
@@ -47,61 +48,49 @@ public class IndexedTriangleArray extends VertexGeometry {
 	}
 
 	/*
-	//todo:
-	private void updateVertices() {
-		Object o = getSceneGraphIndexedTriangleArray().getVertices();
-		vertices.set( null );
-		vertices.set( o );
-	}
-	//todo:
-	private void updateIndices() {
-		Object o = getSceneGraphIndexedTriangleArray().getIndices();
-		indices.set( null );
-		indices.set( o );
-	}
-
-	public int getProgressUpdateTotalForReverseNormals() {
-		return getSceneGraphIndexedTriangleArray().getProgressUpdateTotalForReverseNormals();
-	}
-	public void reverseNormals( edu.cmu.cs.stage3.util.ProgressObserver progressObserver ) {
-		getSceneGraphIndexedTriangleArray().reverseNormals( progressObserver );
-		updateVertices();
-	}
-	public int getProgressUpdateTotalForReverseIndexOrder() {
-		return getSceneGraphIndexedTriangleArray().getProgressUpdateTotalForReverseIndexOrder();
-	}
-	public void reverseIndexOrder( edu.cmu.cs.stage3.util.ProgressObserver progressObserver ) {
-		getSceneGraphIndexedTriangleArray().reverseIndexOrder( progressObserver );
-		updateIndices();
-	}
-	public int getProgressUpdateTotalForUnshareVertices() {
-		return getSceneGraphIndexedTriangleArray().getProgressUpdateTotalForUnshareVertices();
-	}
-	public void unshareVertices( edu.cmu.cs.stage3.util.ProgressObserver progressObserver ) {
-		getSceneGraphIndexedTriangleArray().unshareVertices( progressObserver );
-		updateVertices();
-		updateIndices();
-	}
-	public int getProgressUpdateTotalForShareVertices() {
-		return getSceneGraphIndexedTriangleArray().getProgressUpdateTotalForShareVertices();
-	}
-	public void shareVertices( edu.cmu.cs.stage3.util.ProgressObserver progressObserver ) {
-		getSceneGraphIndexedTriangleArray().unshareVertices( progressObserver );
-		updateVertices();
-	}
-	public int getProgressUpdateTotalForCalculateNormals() {
-		return getSceneGraphIndexedTriangleArray().getProgressUpdateTotalForCalculateNormals();
-	}
-	public void calculateNormals( edu.cmu.cs.stage3.util.ProgressObserver progressObserver ) {
-		getSceneGraphIndexedTriangleArray().calculateNormals( progressObserver );
-		updateVertices();
-	}
-	public int getProgressUpdateTotalForSmoothNormals() {
-		return getSceneGraphIndexedTriangleArray().getProgressUpdateTotalForSmoothNormals();
-	}
-	public void smoothNormals( double threshold, edu.cmu.cs.stage3.util.ProgressObserver progressObserver ) {
-		getSceneGraphIndexedTriangleArray().smoothNormals( threshold, progressObserver );
-		updateVertices();
-	}
-	*/
+	 * //todo: private void updateVertices() { Object o =
+	 * getSceneGraphIndexedTriangleArray().getVertices(); vertices.set( null );
+	 * vertices.set( o ); } //todo: private void updateIndices() { Object o =
+	 * getSceneGraphIndexedTriangleArray().getIndices(); indices.set( null );
+	 * indices.set( o ); }
+	 * 
+	 * public int getProgressUpdateTotalForReverseNormals() { return
+	 * getSceneGraphIndexedTriangleArray
+	 * ().getProgressUpdateTotalForReverseNormals(); } public void
+	 * reverseNormals( edu.cmu.cs.stage3.util.ProgressObserver progressObserver
+	 * ) { getSceneGraphIndexedTriangleArray().reverseNormals( progressObserver
+	 * ); updateVertices(); } public int
+	 * getProgressUpdateTotalForReverseIndexOrder() { return
+	 * getSceneGraphIndexedTriangleArray
+	 * ().getProgressUpdateTotalForReverseIndexOrder(); } public void
+	 * reverseIndexOrder( edu.cmu.cs.stage3.util.ProgressObserver
+	 * progressObserver ) {
+	 * getSceneGraphIndexedTriangleArray().reverseIndexOrder( progressObserver
+	 * ); updateIndices(); } public int
+	 * getProgressUpdateTotalForUnshareVertices() { return
+	 * getSceneGraphIndexedTriangleArray
+	 * ().getProgressUpdateTotalForUnshareVertices(); } public void
+	 * unshareVertices( edu.cmu.cs.stage3.util.ProgressObserver progressObserver
+	 * ) { getSceneGraphIndexedTriangleArray().unshareVertices( progressObserver
+	 * ); updateVertices(); updateIndices(); } public int
+	 * getProgressUpdateTotalForShareVertices() { return
+	 * getSceneGraphIndexedTriangleArray
+	 * ().getProgressUpdateTotalForShareVertices(); } public void shareVertices(
+	 * edu.cmu.cs.stage3.util.ProgressObserver progressObserver ) {
+	 * getSceneGraphIndexedTriangleArray().unshareVertices( progressObserver );
+	 * updateVertices(); } public int
+	 * getProgressUpdateTotalForCalculateNormals() { return
+	 * getSceneGraphIndexedTriangleArray
+	 * ().getProgressUpdateTotalForCalculateNormals(); } public void
+	 * calculateNormals( edu.cmu.cs.stage3.util.ProgressObserver
+	 * progressObserver ) {
+	 * getSceneGraphIndexedTriangleArray().calculateNormals( progressObserver );
+	 * updateVertices(); } public int getProgressUpdateTotalForSmoothNormals() {
+	 * return
+	 * getSceneGraphIndexedTriangleArray().getProgressUpdateTotalForSmoothNormals
+	 * (); } public void smoothNormals( double threshold,
+	 * edu.cmu.cs.stage3.util.ProgressObserver progressObserver ) {
+	 * getSceneGraphIndexedTriangleArray().smoothNormals( threshold,
+	 * progressObserver ); updateVertices(); }
+	 */
 }

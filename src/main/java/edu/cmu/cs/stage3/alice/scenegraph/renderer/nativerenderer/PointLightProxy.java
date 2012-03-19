@@ -24,19 +24,20 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class PointLightProxy extends LightProxy {
-	protected abstract void onConstantAttenuationChange( double value );
-	protected abstract void onLinearAttenuationChange( double value );
-	protected abstract void onQuadraticAttenuationChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.PointLight.CONSTANT_ATTENUATION_PROPERTY ) {
-			onConstantAttenuationChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.PointLight.LINEAR_ATTENUATION_PROPERTY ) {
-			onLinearAttenuationChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.PointLight.QUADRATIC_ATTENUATION_PROPERTY ) {
-			onQuadraticAttenuationChange( ((Double)value).doubleValue() );
+	protected abstract void onConstantAttenuationChange(double value);
+	protected abstract void onLinearAttenuationChange(double value);
+	protected abstract void onQuadraticAttenuationChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.PointLight.CONSTANT_ATTENUATION_PROPERTY) {
+			onConstantAttenuationChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.PointLight.LINEAR_ATTENUATION_PROPERTY) {
+			onLinearAttenuationChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.PointLight.QUADRATIC_ATTENUATION_PROPERTY) {
+			onQuadraticAttenuationChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

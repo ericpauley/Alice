@@ -27,7 +27,10 @@ package edu.cmu.cs.stage3.alice.scripting;
  * @author Dennis Cosgrove
  */
 public interface CompileType {
-	public final static CompileType EVAL = new CompileType() {};
-	public final static CompileType EXEC_SINGLE = new CompileType() {};
-	public final static CompileType EXEC_MULTIPLE = new CompileType() {};
+	public final static CompileType EVAL = new CompileType() {
+	};
+	public final static CompileType EXEC_SINGLE = new CompileType() {
+	};
+	public final static CompileType EXEC_MULTIPLE = new CompileType() {
+	};
 }

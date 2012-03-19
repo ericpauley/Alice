@@ -24,12 +24,14 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class TriangleFanProxy extends VertexGeometryProxy {
-    
-	public void render( RenderContext context ) {
-        //todo
-    }
-	
-	public void pick( PickContext context, boolean isSubElementRequired ) {
-        //todo
-	}    
+
+	@Override
+	public void render(RenderContext context) {
+		// todo
+	}
+
+	@Override
+	public void pick(PickContext context, boolean isSubElementRequired) {
+		// todo
+	}
 }

@@ -24,7 +24,7 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public class HierarchyEvent extends java.util.EventObject {
-	public HierarchyEvent( edu.cmu.cs.stage3.alice.scenegraph.Component source ) {
-		super( source );
+	public HierarchyEvent(edu.cmu.cs.stage3.alice.scenegraph.Component source) {
+		super(source);
 	}
 }

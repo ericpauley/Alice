@@ -27,14 +27,15 @@ import edu.cmu.cs.stage3.alice.core.Stack;
 import edu.cmu.cs.stage3.alice.core.property.StackProperty;
 
 public abstract class StackNumberQuestion extends edu.cmu.cs.stage3.alice.core.question.NumberQuestion {
-	public final StackProperty stack = new StackProperty( this, "stack", null );
-	//protected abstract double getValue( Stack stack );
-	protected abstract int getValue( Stack stack );
-	
+	public final StackProperty stack = new StackProperty(this, "stack", null);
+	// protected abstract double getValue( Stack stack );
+	protected abstract int getValue(Stack stack);
+
+	@Override
 	public Object getValue() {
 		Stack stackValue = stack.getStackValue();
-		if( stackValue!=null ) {
-            return new Integer( getValue( stackValue ) );
+		if (stackValue != null) {
+			return new Integer(getValue(stackValue));
 		} else {
 			return null;
 		}

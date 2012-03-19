@@ -27,14 +27,19 @@ package edu.cmu.cs.stage3.alice.authoringtool;
  * @author Jason Pratt
  */
 public interface Editor extends edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateListener {
-	/** implementers should override this with their own public static String name */
+	/**
+	 * implementers should override this with their own public static String
+	 * name
+	 */
 	public String editorName = "Unnamed Editor";
 
 	/**
-	 * this method should return the viewer's main JComponent, suitable for being layed out in a user-interface.
-	 *
-	 * Editors may contain heavyweight components (i.e. java.awt.Components), but this is highly discouraged,
-	 * as the main JAlice GUI is implemented in Swing and heavyweight components do not play well with some widgets.
+	 * this method should return the viewer's main JComponent, suitable for
+	 * being layed out in a user-interface.
+	 * 
+	 * Editors may contain heavyweight components (i.e. java.awt.Components),
+	 * but this is highly discouraged, as the main JAlice GUI is implemented in
+	 * Swing and heavyweight components do not play well with some widgets.
 	 */
 	public javax.swing.JComponent getJComponent();
 
@@ -44,5 +49,5 @@ public interface Editor extends edu.cmu.cs.stage3.alice.authoringtool.event.Auth
 	/**
 	 * provides the editor with access to authoringtool resources
 	 */
-	public void setAuthoringTool( AuthoringTool authoringTool );
+	public void setAuthoringTool(AuthoringTool authoringTool);
 }

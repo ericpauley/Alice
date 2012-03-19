@@ -26,11 +26,12 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public abstract class UnaryNumberResultingInBooleanQuestion extends BooleanQuestion {
-	public final NumberProperty a = new NumberProperty( this, "a", new Double( 0 ) );
-	protected abstract boolean getValue( double a );
-	
+	public final NumberProperty a = new NumberProperty(this, "a", new Double(0));
+	protected abstract boolean getValue(double a);
+
+	@Override
 	public Object getValue() {
-		if( getValue( a.doubleValue() ) ) {
+		if (getValue(a.doubleValue())) {
 			return Boolean.TRUE;
 		} else {
 			return Boolean.FALSE;

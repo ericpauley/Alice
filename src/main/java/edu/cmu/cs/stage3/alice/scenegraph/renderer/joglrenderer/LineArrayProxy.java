@@ -26,30 +26,31 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 import javax.media.opengl.GL;
 
 class LineArrayProxy extends VertexGeometryProxy {
-    
-	public void render( RenderContext context ) {
-        Integer id = context.getDisplayListID( this );
-        if( id == null ) {
-            id = context.generateDisplayListID( this );
-		    setIsGeometryChanged( true );
-        }
-        if( isGeometryChanged() ) {
-            context.gl.glNewList( id.intValue(), GL.GL_COMPILE_AND_EXECUTE );
-            context.gl.glBegin( GL.GL_LINES );
-            for( int i=0; i<getNumVertices(); i+=2 ) {
-                context.renderVertex( getVertexAt( i ) );
-                context.renderVertex( getVertexAt(i+1 ) );
-            }
-            context.gl.glEnd();
-            context.gl.glEndList();
-		    setIsGeometryChanged( false );
-        } else {
-            context.gl.glCallList( id.intValue() );
-        }
-    }
-	
-    
-	public void pick( PickContext context, boolean isSubElementRequired ) {
-        //todo picking
-	}    
+
+	@Override
+	public void render(RenderContext context) {
+		Integer id = context.getDisplayListID(this);
+		if (id == null) {
+			id = context.generateDisplayListID(this);
+			setIsGeometryChanged(true);
+		}
+		if (isGeometryChanged()) {
+			context.gl.glNewList(id.intValue(), GL.GL_COMPILE_AND_EXECUTE);
+			context.gl.glBegin(GL.GL_LINES);
+			for (int i = 0; i < getNumVertices(); i += 2) {
+				context.renderVertex(getVertexAt(i));
+				context.renderVertex(getVertexAt(i + 1));
+			}
+			context.gl.glEnd();
+			context.gl.glEndList();
+			setIsGeometryChanged(false);
+		} else {
+			context.gl.glCallList(id.intValue());
+		}
+	}
+
+	@Override
+	public void pick(PickContext context, boolean isSubElementRequired) {
+		// todo picking
+	}
 }

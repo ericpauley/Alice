@@ -27,91 +27,95 @@ package edu.cmu.cs.stage3.alice.authoringtool.dialog;
  * @author Jason Pratt, Dennis Cosgrove
  */
 public abstract class NewNamedElementContentPane extends edu.cmu.cs.stage3.swing.ContentPane {
-	private javax.swing.JButton m_okButton = new javax.swing.JButton( "OK" );
-	private javax.swing.JButton m_cancelButton = new javax.swing.JButton( "Cancel" );
+	private javax.swing.JButton m_okButton = new javax.swing.JButton("OK");
+	private javax.swing.JButton m_cancelButton = new javax.swing.JButton("Cancel");
 	private java.util.HashMap validityHashmap = new java.util.HashMap();
-	private edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback validityChecker = new edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback(){
-		public void setValidity(Object source, boolean value){
+	private edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback validityChecker = new edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback() {
+		@Override
+		public void setValidity(Object source, boolean value) {
 			okButtonEnabler(source, value);
 		}
-		
-		public void doAction(){
-			if (m_okButton.isEnabled()){
+
+		@Override
+		public void doAction() {
+			if (m_okButton.isEnabled()) {
 				m_okButton.doClick();
 			}
 		}
 	};
-	
-	private edu.cmu.cs.stage3.alice.authoringtool.util.NameTextField m_nameTextField = new edu.cmu.cs.stage3.alice.authoringtool.util.NameTextField( validityChecker );
+
+	private edu.cmu.cs.stage3.alice.authoringtool.util.NameTextField m_nameTextField = new edu.cmu.cs.stage3.alice.authoringtool.util.NameTextField(validityChecker);
 
 	public NewNamedElementContentPane() {
 		m_nameTextField.setMinimumSize(new java.awt.Dimension(4, 26));
 		m_nameTextField.setPreferredSize(new java.awt.Dimension(4, 26));
 
-
-		setLayout( new java.awt.GridBagLayout() );
+		setLayout(new java.awt.GridBagLayout());
 		java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
-		initTopComponents( gbc );
-		initBottomComponents( gbc );		
+		initTopComponents(gbc);
+		initBottomComponents(gbc);
 	}
 
-	protected void initTopComponents( java.awt.GridBagConstraints gbc ) {
+	protected void initTopComponents(java.awt.GridBagConstraints gbc) {
 		gbc.anchor = java.awt.GridBagConstraints.NORTHWEST;
 		gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		gbc.gridwidth = java.awt.GridBagConstraints.RELATIVE;
 		gbc.insets.top = 8;
 		gbc.insets.left = 8;
-		add( new javax.swing.JLabel( "Name:" ), gbc );
+		add(new javax.swing.JLabel("Name:"), gbc);
 		gbc.insets.right = 8;
 		gbc.gridwidth = java.awt.GridBagConstraints.REMAINDER;
 		gbc.weightx = 1.0;
-		add( m_nameTextField, gbc );
+		add(m_nameTextField, gbc);
 		gbc.weightx = 0.0;
 	}
-	protected void initBottomComponents( java.awt.GridBagConstraints gbc ) {
+	protected void initBottomComponents(java.awt.GridBagConstraints gbc) {
 		javax.swing.JPanel okCancelPanel = new javax.swing.JPanel();
 		java.awt.GridBagConstraints gbcOKCancel = new java.awt.GridBagConstraints();
-		okCancelPanel.add( m_okButton, gbcOKCancel );
-		okCancelPanel.add( m_cancelButton, gbcOKCancel );
+		okCancelPanel.add(m_okButton, gbcOKCancel);
+		okCancelPanel.add(m_cancelButton, gbcOKCancel);
 		gbc.anchor = java.awt.GridBagConstraints.SOUTH;
-		add( okCancelPanel, gbc );
+		add(okCancelPanel, gbc);
 	}
 
-	
-	public void addOKActionListener( java.awt.event.ActionListener l ) {
-		m_okButton.addActionListener( l );
-	}
-	
-	public void removeOKActionListener( java.awt.event.ActionListener l ) {
-		m_okButton.removeActionListener( l );
-	}
-	
-	public void addCancelActionListener( java.awt.event.ActionListener l ) {
-		m_cancelButton.addActionListener( l );
-	}
-	
-	public void removeCancelActionListener( java.awt.event.ActionListener l ) {
-		m_cancelButton.removeActionListener( l );
+	@Override
+	public void addOKActionListener(java.awt.event.ActionListener l) {
+		m_okButton.addActionListener(l);
 	}
 
-	public void reset( edu.cmu.cs.stage3.alice.core.Element parent ) {
-		m_nameTextField.setText( "" );
-		m_nameTextField.setParent( parent );
+	@Override
+	public void removeOKActionListener(java.awt.event.ActionListener l) {
+		m_okButton.removeActionListener(l);
+	}
+
+	@Override
+	public void addCancelActionListener(java.awt.event.ActionListener l) {
+		m_cancelButton.addActionListener(l);
+	}
+
+	@Override
+	public void removeCancelActionListener(java.awt.event.ActionListener l) {
+		m_cancelButton.removeActionListener(l);
+	}
+
+	public void reset(edu.cmu.cs.stage3.alice.core.Element parent) {
+		m_nameTextField.setText("");
+		m_nameTextField.setParent(parent);
 		m_nameTextField.grabFocus();
 	}
-	
+
 	public String getNameValue() {
 		return m_nameTextField.getText();
 	}
-	
-	private void okButtonEnabler(Object source, boolean value){
+
+	private void okButtonEnabler(Object source, boolean value) {
 		validityHashmap.put(source, new Boolean(value));
 		java.util.Iterator valueIterator = validityHashmap.values().iterator();
 		boolean isEnableable = true;
-		while (valueIterator.hasNext()){
+		while (valueIterator.hasNext()) {
 			Object currentValue = valueIterator.next();
-			if (currentValue instanceof Boolean){
-				if (!((Boolean)currentValue).booleanValue()){
+			if (currentValue instanceof Boolean) {
+				if (!((Boolean) currentValue).booleanValue()) {
 					isEnableable = false;
 					break;
 				}
@@ -120,7 +124,7 @@ public abstract class NewNamedElementContentPane extends edu.cmu.cs.stage3.swing
 		m_okButton.setEnabled(isEnableable);
 	}
 
-	protected edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback getValidityChecker(){
+	protected edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback getValidityChecker() {
 		return validityChecker;
 	}
 }

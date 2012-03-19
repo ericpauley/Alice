@@ -27,42 +27,48 @@ public class CompoundUndoableRedoable implements ContextAssignableUndoableRedoab
 	protected java.util.ArrayList items = new java.util.ArrayList();
 	protected Object context;
 
-	public CompoundUndoableRedoable() {}
+	public CompoundUndoableRedoable() {
+	}
 
-	public void setContext( Object context ) {
+	@Override
+	public void setContext(Object context) {
 		this.context = context;
 	}
 
-	public void addItem( UndoableRedoable item ) {
-		if (item instanceof ChildChangeUndoableRedoable){
-			ChildChangeUndoableRedoable ccur = (ChildChangeUndoableRedoable)item;
+	public void addItem(UndoableRedoable item) {
+		if (item instanceof ChildChangeUndoableRedoable) {
+			ChildChangeUndoableRedoable ccur = (ChildChangeUndoableRedoable) item;
 		}
-		items.add( item );
+		items.add(item);
 	}
 
+	@Override
 	public void undo() {
 		java.util.ListIterator iter = items.listIterator();
-		while( iter.hasNext() ) {
+		while (iter.hasNext()) {
 			iter.next();
 		}
-		while( iter.hasPrevious() ) {
-			edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable item = (edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable)iter.previous();
+		while (iter.hasPrevious()) {
+			edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable item = (edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable) iter.previous();
 			item.undo();
 		}
 	}
 
+	@Override
 	public void redo() {
 		java.util.ListIterator iter = items.listIterator();
-		while( iter.hasNext() ) {
-			edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable item = (edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable)iter.next();
+		while (iter.hasNext()) {
+			edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable item = (edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable) iter.next();
 			item.redo();
 		}
 	}
 
+	@Override
 	public Object getAffectedObject() {
 		return this;
 	}
 
+	@Override
 	public Object getContext() {
 		return context;
 	}

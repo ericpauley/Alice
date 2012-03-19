@@ -30,39 +30,41 @@ import edu.cmu.cs.stage3.alice.core.property.StringProperty;
  */
 
 public class AskUserForString extends edu.cmu.cs.stage3.alice.core.Question {
-    public final StringProperty title = new StringProperty( this, "title", "Question" );
-    public final StringProperty question = new StringProperty( this, "question", "Enter a String:" );
+	public final StringProperty title = new StringProperty(this, "title", "Question");
+	public final StringProperty question = new StringProperty(this, "question", "Enter a String:");
 
 	private edu.cmu.cs.stage3.alice.core.Clock m_clock;
 
-    
+	@Override
 	public Class getValueClass() {
-        return String.class;
-    }
-    
+		return String.class;
+	}
+
+	@Override
 	public Object getValue() {
-		if( m_clock != null ) {
+		if (m_clock != null) {
 			m_clock.pause();
 		}
 		try {
-			return edu.cmu.cs.stage3.swing.DialogManager.showInputDialog( question.getStringValue(), title.getStringValue(), javax.swing.JOptionPane.QUESTION_MESSAGE );
+			return edu.cmu.cs.stage3.swing.DialogManager.showInputDialog(question.getStringValue(), title.getStringValue(), javax.swing.JOptionPane.QUESTION_MESSAGE);
 		} finally {
-			if( m_clock != null ) {
+			if (m_clock != null) {
 				m_clock.resume();
 			}
 		}
-    }
-
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		if( world != null ) {
-			m_clock = world.getClock();
-		} 
 	}
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		if (world != null) {
+			m_clock = world.getClock();
+		}
+	}
+
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
 		m_clock = null;
-		super.stopped( world, time );
+		super.stopped(world, time);
 	}
 }

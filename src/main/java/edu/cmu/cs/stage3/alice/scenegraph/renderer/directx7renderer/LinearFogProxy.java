@@ -1,24 +1,32 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.directx7renderer;
 
 class LinearFogProxy extends edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.LinearFogProxy {
-    //from ElementProxy
-    
+	// from ElementProxy
+
+	@Override
 	protected native void createNativeInstance();
-    
+
+	@Override
 	protected native void releaseNativeInstance();
-    //from ComponentProxy
-    
-	protected native void onAbsoluteTransformationChange( javax.vecmath.Matrix4d m );
-    
-	protected native void addToScene( edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.SceneProxy scene );
-    
-	protected native void removeFromScene( edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.SceneProxy scene );
-    //from FogProxy
-    
-	protected native void onColorChange( double r, double g, double b, double a );
-    //from LinearFogProxy
-	
-	protected native void onNearDistanceChange( double value );
-	
-	protected native void onFarDistanceChange( double value );
+	// from ComponentProxy
+
+	@Override
+	protected native void onAbsoluteTransformationChange(javax.vecmath.Matrix4d m);
+
+	@Override
+	protected native void addToScene(edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.SceneProxy scene);
+
+	@Override
+	protected native void removeFromScene(edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.SceneProxy scene);
+	// from FogProxy
+
+	@Override
+	protected native void onColorChange(double r, double g, double b, double a);
+	// from LinearFogProxy
+
+	@Override
+	protected native void onNearDistanceChange(double value);
+
+	@Override
+	protected native void onFarDistanceChange(double value);
 }

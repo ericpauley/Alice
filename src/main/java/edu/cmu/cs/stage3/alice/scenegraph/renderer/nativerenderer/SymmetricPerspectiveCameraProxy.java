@@ -24,16 +24,17 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class SymmetricPerspectiveCameraProxy extends CameraProxy {
-	protected abstract void onVerticalViewingAngleChange( double value );
-	protected abstract void onHorizontalViewingAngleChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera.VERTICAL_VIEWING_ANGLE_PROPERTY ) {
-			onVerticalViewingAngleChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera.HORIZONTAL_VIEWING_ANGLE_PROPERTY ) {
-			onHorizontalViewingAngleChange( ((Double)value).doubleValue() );
+	protected abstract void onVerticalViewingAngleChange(double value);
+	protected abstract void onHorizontalViewingAngleChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera.VERTICAL_VIEWING_ANGLE_PROPERTY) {
+			onVerticalViewingAngleChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera.HORIZONTAL_VIEWING_ANGLE_PROPERTY) {
+			onHorizontalViewingAngleChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

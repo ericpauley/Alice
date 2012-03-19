@@ -26,24 +26,25 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public abstract class BinaryNumberResultingInNumberQuestion extends NumberQuestion {
-	public final NumberProperty a = new NumberProperty( this, "a", new Double( 0 ) );
-	public final NumberProperty b = new NumberProperty( this, "b", new Double( 0 ) );
-	protected abstract double getValue( double a, double b );
-	
+	public final NumberProperty a = new NumberProperty(this, "a", new Double(0));
+	public final NumberProperty b = new NumberProperty(this, "b", new Double(0));
+	protected abstract double getValue(double a, double b);
+
+	@Override
 	public Object getValue() {
-		double aValue= a.doubleValue();
-		double bValue= b.doubleValue();
-		if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.Min){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= "minimum of "+aValue+ " and "+bValue+" is ";			
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.Max){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= "maximum of "+aValue+ " and "+bValue+" is ";			
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.ATan2){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= "arctan2 "+aValue+" "+bValue+" is ";		
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.Pow){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= aValue+" raised to the "+bValue+" power is ";		
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.IEEERemainder){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= "IEEERemainder of "+aValue+"/"+bValue+" is ";		
-		} 
-		return new Double( getValue( aValue, bValue ) );
+		double aValue = a.doubleValue();
+		double bValue = b.doubleValue();
+		if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.Min) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "minimum of " + aValue + " and " + bValue + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.Max) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "maximum of " + aValue + " and " + bValue + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.ATan2) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "arctan2 " + aValue + " " + bValue + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.Pow) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = aValue + " raised to the " + bValue + " power is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.math.IEEERemainder) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "IEEERemainder of " + aValue + "/" + bValue + " is ";
+		}
+		return new Double(getValue(aValue, bValue));
 	}
 }

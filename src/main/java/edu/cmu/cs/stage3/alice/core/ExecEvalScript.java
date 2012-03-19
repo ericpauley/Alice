@@ -25,7 +25,7 @@ package edu.cmu.cs.stage3.alice.core;
 
 public interface ExecEvalScript {
 	public String getExecScriptValue();
-	public void setExecScriptValue( String execScriptValue );
+	public void setExecScriptValue(String execScriptValue);
 	public String getEvalScriptValue();
-	public void setEvalScriptValue( String evalScriptValue );
+	public void setEvalScriptValue(String evalScriptValue);
 }

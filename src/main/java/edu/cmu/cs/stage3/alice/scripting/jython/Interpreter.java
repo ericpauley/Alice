@@ -29,9 +29,9 @@ package edu.cmu.cs.stage3.alice.scripting.jython;
 public class Interpreter implements edu.cmu.cs.stage3.alice.scripting.Interpreter {
 	static final java.util.Dictionary s_map = new java.util.Hashtable();
 	static {
-		s_map.put( edu.cmu.cs.stage3.alice.scripting.CompileType.EVAL, "eval" );
-		s_map.put( edu.cmu.cs.stage3.alice.scripting.CompileType.EXEC_SINGLE, "single" );
-		s_map.put( edu.cmu.cs.stage3.alice.scripting.CompileType.EXEC_MULTIPLE, "exec" );
+		s_map.put(edu.cmu.cs.stage3.alice.scripting.CompileType.EVAL, "eval");
+		s_map.put(edu.cmu.cs.stage3.alice.scripting.CompileType.EXEC_SINGLE, "single");
+		s_map.put(edu.cmu.cs.stage3.alice.scripting.CompileType.EXEC_MULTIPLE, "exec");
 	}
 
 	private ScriptingFactory m_scriptingFactory;
@@ -40,40 +40,47 @@ public class Interpreter implements edu.cmu.cs.stage3.alice.scripting.Interprete
 
 	private edu.cmu.cs.stage3.alice.core.World m_world;
 
-	public Interpreter( ScriptingFactory scriptingFactory ) {
+	public Interpreter(ScriptingFactory scriptingFactory) {
 		m_scriptingFactory = scriptingFactory;
 
 		m_dict = new Namespace();
-		m_module = new org.python.core.PyModule( "main", m_dict );
+		m_module = new org.python.core.PyModule("main", m_dict);
 	}
 
 	private void resetNamespace() {
 		m_dict.clear();
-		m_dict.setWorld( m_world );
+		m_dict.setWorld(m_world);
 	}
-	public void setWorld( edu.cmu.cs.stage3.alice.core.World world ) {
+	@Override
+	public void setWorld(edu.cmu.cs.stage3.alice.core.World world) {
 		m_world = world;
 		resetNamespace();
 	}
+	@Override
 	public void release() {
-		m_scriptingFactory.releaseInterpreter( this );
+		m_scriptingFactory.releaseInterpreter(this);
 		m_scriptingFactory = null;
 	}
 
+	@Override
 	public void start() {
 		resetNamespace();
 	}
+	@Override
 	public void stop() {
 	}
 
-	public edu.cmu.cs.stage3.alice.scripting.Code compile( String script, Object source, edu.cmu.cs.stage3.alice.scripting.CompileType compileType ) {
-		org.python.core.PyCode pyCode = org.python.core.Py.compile_flags( script, source.toString(), (String)s_map.get( compileType ), null );
-		return new Code( pyCode, compileType );
+	@Override
+	public edu.cmu.cs.stage3.alice.scripting.Code compile(String script, Object source, edu.cmu.cs.stage3.alice.scripting.CompileType compileType) {
+		org.python.core.PyCode pyCode = org.python.core.Py.compile_flags(script, source.toString(), (String) s_map.get(compileType), null);
+		return new Code(pyCode, compileType);
 	}
-	public Object eval( edu.cmu.cs.stage3.alice.scripting.Code code ) {
-		return org.python.core.__builtin__.eval( ((Code)code).getPyCode(), m_dict, m_dict );
+	@Override
+	public Object eval(edu.cmu.cs.stage3.alice.scripting.Code code) {
+		return org.python.core.__builtin__.eval(((Code) code).getPyCode(), m_dict, m_dict);
 	}
-	public void exec( edu.cmu.cs.stage3.alice.scripting.Code code ) {
-		org.python.core.Py.exec( ((Code)code).getPyCode(), m_dict, m_dict );
+	@Override
+	public void exec(edu.cmu.cs.stage3.alice.scripting.Code code) {
+		org.python.core.Py.exec(((Code) code).getPyCode(), m_dict, m_dict);
 	}
 }

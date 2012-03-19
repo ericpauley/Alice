@@ -27,5 +27,5 @@ package edu.cmu.cs.stage3.alice.authoringtool.util.event;
  * @author Jason Pratt
  */
 public interface EditorPanelListener {
-	public void elementChanged( EditorPanelEvent ev );
+	public void elementChanged(EditorPanelEvent ev);
 }

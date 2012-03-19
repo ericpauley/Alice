@@ -23,7 +23,6 @@
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
 
-
 public class ColorSelector extends javax.swing.JPanel implements java.awt.event.ActionListener, javax.swing.event.ChangeListener {
 	protected javax.swing.JButton otherColorsButton = null;
 
@@ -32,22 +31,22 @@ public class ColorSelector extends javax.swing.JPanel implements java.awt.event.
 	protected javax.swing.JRadioButton humanColorsRadio = null;
 	protected javax.swing.JSlider colorSlider = null;
 	protected java.awt.Color skinColor;
-	
+
 	protected javax.swing.JColorChooser colorChooser;
 
 	protected ModelWrapper modelWrapper = null;
 
 	public ColorSelector(ModelWrapper modelWrapper) {
 		this.modelWrapper = modelWrapper;
-		this.setBackground(new java.awt.Color(155, 159, 206));
+		setBackground(new java.awt.Color(155, 159, 206));
 
 		init();
 	}
 
 	protected void init() {
-		this.setLayout(new java.awt.BorderLayout());
+		setLayout(new java.awt.BorderLayout());
 
-		//make radio buttons
+		// make radio buttons
 		humanColorsRadio = new javax.swing.JRadioButton();
 		humanColorsRadio.setSelected(true);
 		humanColorsRadio.setBackground(new java.awt.Color(155, 159, 206));
@@ -55,12 +54,12 @@ public class ColorSelector extends javax.swing.JPanel implements java.awt.event.
 		otherColorsRadio.setSelected(false);
 		otherColorsRadio.setBackground(new java.awt.Color(155, 159, 206));
 
-		//group them
+		// group them
 		whichColorChooserGroup = new javax.swing.ButtonGroup();
 		whichColorChooserGroup.add(humanColorsRadio);
 		whichColorChooserGroup.add(otherColorsRadio);
 
-		//add listeners
+		// add listeners
 		humanColorsRadio.addActionListener(this);
 		otherColorsRadio.addActionListener(this);
 
@@ -90,14 +89,16 @@ public class ColorSelector extends javax.swing.JPanel implements java.awt.event.
 		this.add(otherColorPanel, java.awt.BorderLayout.CENTER);
 	}
 
+	@Override
 	public void actionPerformed(java.awt.event.ActionEvent ae) {
 		if (ae.getSource() == otherColorsButton) {
-			if( colorChooser == null ) {
+			if (colorChooser == null) {
 				colorChooser = new javax.swing.JColorChooser();
 			}
-			java.awt.Color selectedColor = edu.cmu.cs.stage3.swing.DialogManager.showDialog( colorChooser, "more colors...", skinColor );
-			if (selectedColor != null)
+			java.awt.Color selectedColor = edu.cmu.cs.stage3.swing.DialogManager.showDialog(colorChooser, "more colors...", skinColor);
+			if (selectedColor != null) {
 				modelWrapper.setColor(selectedColor);
+			}
 		} else if (ae.getSource() == otherColorsRadio) {
 			colorSlider.setEnabled(false);
 			otherColorsButton.setEnabled(true);
@@ -108,13 +109,15 @@ public class ColorSelector extends javax.swing.JPanel implements java.awt.event.
 		}
 	}
 
+	@Override
 	public void stateChanged(javax.swing.event.ChangeEvent ce) {
 		int position = colorSlider.getValue();
-		float s = .89f + (-.56f * position / 100.0f);
-		float b = .33f + (.67f * position / 100.0f);
+		float s = .89f + -.56f * position / 100.0f;
+		float b = .33f + .67f * position / 100.0f;
 		skinColor = java.awt.Color.getHSBColor(25.0f / 359.0f, s, b);
 		colorSlider.setBackground(skinColor);
-		if (!(colorSlider.getValueIsAdjusting()))
+		if (!colorSlider.getValueIsAdjusting()) {
 			modelWrapper.setColor(skinColor);
+		}
 	}
 }

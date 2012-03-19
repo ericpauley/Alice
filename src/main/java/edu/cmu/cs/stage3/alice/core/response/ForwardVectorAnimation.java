@@ -26,20 +26,22 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.Vector3Property;
 
 public class ForwardVectorAnimation extends OrientationAnimation {
-	public final Vector3Property forward = new Vector3Property( this, "forward", new edu.cmu.cs.stage3.math.Vector3( 0, 0, 1 ) );
-	public final Vector3Property upGuide = new Vector3Property( this, "upGuide", null );
+	public final Vector3Property forward = new Vector3Property(this, "forward", new edu.cmu.cs.stage3.math.Vector3(0, 0, 1));
+	public final Vector3Property upGuide = new Vector3Property(this, "upGuide", null);
 	public class RuntimeForwardVectorAnimation extends RuntimeOrientationAnimation {
 		private javax.vecmath.Vector3d m_forward;
 		private javax.vecmath.Vector3d m_upGuide;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			m_forward = ForwardVectorAnimation.this.forward.getVector3Value();
-			m_upGuide = ForwardVectorAnimation.this.upGuide.getVector3Value();
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_forward = forward.getVector3Value();
+			m_upGuide = upGuide.getVector3Value();
 		}
-		
+
+		@Override
 		protected edu.cmu.cs.stage3.math.Quaternion getTargetQuaternion() {
-			return edu.cmu.cs.stage3.alice.core.Transformable.calculateOrientation( m_forward, m_upGuide ).getQuaternion();
+			return edu.cmu.cs.stage3.alice.core.Transformable.calculateOrientation(m_forward, m_upGuide).getQuaternion();
 		}
 	}
 }

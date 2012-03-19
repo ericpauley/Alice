@@ -23,38 +23,45 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.editors.questioneditor;
 
-
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2002
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author David Culyba
  * @version 1.0
  */
 
-public class ComponentQuestionPanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.ComponentElementPanel{
+public class ComponentQuestionPanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.ComponentElementPanel {
 
-    protected edu.cmu.cs.stage3.alice.core.question.userdefined.Component m_question;
+	protected edu.cmu.cs.stage3.alice.core.question.userdefined.Component m_question;
 
-    public ComponentQuestionPanel(){
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        this.remove(grip);
-    }
+	public ComponentQuestionPanel() {
+		setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		this.remove(grip);
+	}
 
-    
+	@Override
 	public void set(edu.cmu.cs.stage3.alice.core.Element element) {
-        if (element instanceof edu.cmu.cs.stage3.alice.core.question.userdefined.Component){
-            m_question = (edu.cmu.cs.stage3.alice.core.question.userdefined.Component)element;
-            super.set(element);
-        }
-        else{
-            throw(new java.lang.IllegalArgumentException());
-        }
-    }
+		if (element instanceof edu.cmu.cs.stage3.alice.core.question.userdefined.Component) {
+			m_question = (edu.cmu.cs.stage3.alice.core.question.userdefined.Component) element;
+			super.set(element);
+		} else {
+			throw new java.lang.IllegalArgumentException();
+		}
+	}
 
-    public edu.cmu.cs.stage3.alice.core.question.userdefined.Component getQuestion(){
-        return m_question;
-    }
+	public edu.cmu.cs.stage3.alice.core.question.userdefined.Component getQuestion() {
+		return m_question;
+	}
 
 }

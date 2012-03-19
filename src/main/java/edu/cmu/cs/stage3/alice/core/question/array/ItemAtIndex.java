@@ -26,15 +26,16 @@ package edu.cmu.cs.stage3.alice.core.question.array;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class ItemAtIndex extends ArrayObjectQuestion {
-	public final NumberProperty index = new NumberProperty( this, "index", new Integer( -1 ) );
-	
-	public Object getValue( edu.cmu.cs.stage3.alice.core.Array arrayValue ) {
-        int i = index.intValue();
-        int n = arrayValue.size();
-        if( i >= 0 && i < n ) {
-    		return arrayValue.itemValueAtIndex( i );
-        } else {
-            throw new edu.cmu.cs.stage3.alice.core.SimulationException( "index out of bounds exception.  " + i + " is not in range [0," + n + ")", null, this );
-        }
+	public final NumberProperty index = new NumberProperty(this, "index", new Integer(-1));
+
+	@Override
+	public Object getValue(edu.cmu.cs.stage3.alice.core.Array arrayValue) {
+		int i = index.intValue();
+		int n = arrayValue.size();
+		if (i >= 0 && i < n) {
+			return arrayValue.itemValueAtIndex(i);
+		} else {
+			throw new edu.cmu.cs.stage3.alice.core.SimulationException("index out of bounds exception.  " + i + " is not in range [0," + n + ")", null, this);
+		}
 	}
 }

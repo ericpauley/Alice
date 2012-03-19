@@ -24,13 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class ToDegrees extends edu.cmu.cs.stage3.alice.core.question.UnaryNumberResultingInNumberQuestion {
-	private static Class[] s_supportedCoercionClasses = { ToRadians.class };
-	
+	private static Class[] s_supportedCoercionClasses = {ToRadians.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected double getValue( double aValue ) {
-		return Math.toDegrees( aValue );
+
+	@Override
+	protected double getValue(double aValue) {
+		return Math.toDegrees(aValue);
 	}
 }

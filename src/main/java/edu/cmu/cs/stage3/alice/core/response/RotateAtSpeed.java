@@ -26,33 +26,36 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.Direction;
 
 public abstract class RotateAtSpeed extends DirectionSpeedTransformResponse {
-	
+
+	@Override
 	protected Direction getDefaultDirection() {
 		return Direction.LEFT;
 	}
 	public abstract class RuntimeRotateAtSpeed extends RuntimeDirectionSpeedTransformResponse {
 		private javax.vecmath.Vector3d m_axis;
-		protected abstract javax.vecmath.Vector3d getAxis( edu.cmu.cs.stage3.alice.core.Direction direction );
-		
-		public void prologue( double t ) {
-			super.prologue( t );
+		protected abstract javax.vecmath.Vector3d getAxis(edu.cmu.cs.stage3.alice.core.Direction direction);
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
 			Direction directionValue = RotateAtSpeed.this.direction.getDirectionValue();
-			m_axis = getAxis( directionValue );
-			if( m_axis == null ) {
-				StringBuffer sb = new StringBuffer( "direction value must not be " );
-				if( directionValue != null ) {
-					sb.append( directionValue.getRepr() );
+			m_axis = getAxis(directionValue);
+			if (m_axis == null) {
+				StringBuffer sb = new StringBuffer("direction value must not be ");
+				if (directionValue != null) {
+					sb.append(directionValue.getRepr());
 				} else {
-					sb.append( "null" );
+					sb.append("null");
 				}
-				sb.append( '.' );
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( sb.toString(), null, RotateAtSpeed.this.direction );
+				sb.append('.');
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException(sb.toString(), null, RotateAtSpeed.this.direction);
 			}
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-			m_subject.rotateRightNow( m_axis, getSpeed()*getDT(), m_asSeenBy );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			m_subject.rotateRightNow(m_axis, getSpeed() * getDT(), m_asSeenBy);
 		}
 	}
 }

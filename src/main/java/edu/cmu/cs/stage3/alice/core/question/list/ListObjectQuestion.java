@@ -27,23 +27,25 @@ import edu.cmu.cs.stage3.alice.core.List;
 import edu.cmu.cs.stage3.alice.core.property.ListProperty;
 
 public abstract class ListObjectQuestion extends edu.cmu.cs.stage3.alice.core.Question {
-	public final ListProperty list = new ListProperty( this, "list", null );
-	protected abstract Object getValue( List list );
-    
+	public final ListProperty list = new ListProperty(this, "list", null);
+	protected abstract Object getValue(List list);
+
+	@Override
 	public Class getValueClass() {
- 		List listValue = list.getListValue();
-		if( listValue!=null ) {
-            return listValue.valueClass.getClassValue();
+		List listValue = list.getListValue();
+		if (listValue != null) {
+			return listValue.valueClass.getClassValue();
 		} else {
-            //todo?
+			// todo?
 			return Object.class;
 		}
-    }
-	
+	}
+
+	@Override
 	public Object getValue() {
 		List listValue = list.getListValue();
-		if( listValue!=null ) {
-            return getValue( listValue );
+		if (listValue != null) {
+			return getValue(listValue);
 		} else {
 			return null;
 		}

@@ -24,7 +24,7 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public class BoundEvent extends java.util.EventObject {
-	public BoundEvent( edu.cmu.cs.stage3.alice.scenegraph.Geometry source ) {
-		super( source );
+	public BoundEvent(edu.cmu.cs.stage3.alice.scenegraph.Geometry source) {
+		super(source);
 	}
 }

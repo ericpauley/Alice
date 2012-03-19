@@ -35,11 +35,11 @@ public class Importing {
 
 	private void init() {
 		Class[] importerClasses = AuthoringToolResources.getImporterClasses();
-		for( int i = 0; i < importerClasses.length; i++ ) {
+		for (Class importerClasse : importerClasses) {
 			try {
-				importers.add( importerClasses[i].newInstance() );
-			} catch( Throwable t ) {
-				AuthoringTool.showErrorDialog( "Error creating importer of type " + importerClasses[i], t );
+				importers.add(importerClasse.newInstance());
+			} catch (Throwable t) {
+				AuthoringTool.showErrorDialog("Error creating importer of type " + importerClasse, t);
 			}
 		}
 	}

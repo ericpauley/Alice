@@ -23,9 +23,9 @@
 
 package edu.cmu.cs.stage3.alice.core.question;
 
+import edu.cmu.cs.stage3.alice.core.Element;
 import edu.cmu.cs.stage3.alice.core.Question;
 import edu.cmu.cs.stage3.alice.core.property.ObjectProperty;
-import edu.cmu.cs.stage3.alice.core.Element;
 import edu.cmu.cs.stage3.alice.core.response.Print;
 
 /**
@@ -33,70 +33,71 @@ import edu.cmu.cs.stage3.alice.core.response.Print;
  */
 
 public class ToStringQuestion extends Question {
-    public final ObjectProperty what = new ObjectProperty( this, "what", new String( "" ),Object.class ) {
-		
+	public final ObjectProperty what = new ObjectProperty(this, "what", new String(""), Object.class) {
+
+		@Override
 		protected boolean getValueOfExpression() {
 			return true;
 		}
 	};
-    
-	public Class getValueClass() {
-        return String.class;
-    }
-    
-	public Object getValue() {
-    	Object value = what.getValue();
-    	Object o = what.get();
-		if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.TimeElapsedSinceWorldStart)
-			Print.outputtext = "time elapsed as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.Year)
-			Print.outputtext = "year as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.MonthOfYear)
-			Print.outputtext = "month of year as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.DayOfYear)
-			Print.outputtext = "day of year as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.DayOfMonth)
-			Print.outputtext = "day of month as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.DayOfWeek)
-			Print.outputtext = "day of week as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.DayOfWeekInMonth)
-			Print.outputtext = "day of week in month as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.IsAM)
-			Print.outputtext = "is AM as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.IsPM)
-			Print.outputtext = "is PM as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.HourOfAMOrPM)
-			Print.outputtext = "hour of AM or PM as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.HourOfDay)
-			Print.outputtext = "hour of day as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.MinuteOfHour)
-			Print.outputtext = "minutes of hour as a string is ";
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.SecondOfMinute)
-			Print.outputtext = "seconds of minute as a string is ";
-		// Mouse
-		else if	(o instanceof edu.cmu.cs.stage3.alice.core.question.mouse.DistanceFromLeftEdge)
-			Print.outputtext = "mouse distance from left edge as a string is ";
-		else if	(o instanceof edu.cmu.cs.stage3.alice.core.question.mouse.DistanceFromTopEdge)
-			Print.outputtext = "mouse distance from top edge as a string is ";
-		//Ask User
-		else if (o instanceof edu.cmu.cs.stage3.alice.core.question.ask.AskUserForNumber)
-			Print.outputtext = "ask user for a number as a string is ";
-		else if	(o instanceof edu.cmu.cs.stage3.alice.core.question.ask.AskUserYesNo)
-			Print.outputtext = "ask user for yes or no as a string is ";
-		else if	(o instanceof edu.cmu.cs.stage3.alice.core.question.ask.AskUserForString)
-			Print.outputtext = "ask user for a string as a string is ";
-		//Random
-		else if	(o instanceof edu.cmu.cs.stage3.alice.core.question.RandomNumber)
-			Print.outputtext = "random number as a string is ";
-		else if (Print.outputtext != null)
-			Print.outputtext = Print.outputtext.substring(0, Print.outputtext.length()-4)+" as a string is ";
 
-		if( value instanceof Element ) {
-			return ((Element)value).getTrimmedKey();
-		} else if ( value != null ) {
+	@Override
+	public Class getValueClass() {
+		return String.class;
+	}
+
+	@Override
+	public Object getValue() {
+		Object value = what.getValue();
+		Object o = what.get();
+		if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.TimeElapsedSinceWorldStart) {
+			Print.outputtext = "time elapsed as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.Year) {
+			Print.outputtext = "year as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.MonthOfYear) {
+			Print.outputtext = "month of year as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.DayOfYear) {
+			Print.outputtext = "day of year as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.DayOfMonth) {
+			Print.outputtext = "day of month as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.DayOfWeek) {
+			Print.outputtext = "day of week as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.DayOfWeekInMonth) {
+			Print.outputtext = "day of week in month as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.IsAM) {
+			Print.outputtext = "is AM as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.IsPM) {
+			Print.outputtext = "is PM as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.HourOfAMOrPM) {
+			Print.outputtext = "hour of AM or PM as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.HourOfDay) {
+			Print.outputtext = "hour of day as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.MinuteOfHour) {
+			Print.outputtext = "minutes of hour as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.time.SecondOfMinute) {
+			Print.outputtext = "seconds of minute as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.mouse.DistanceFromLeftEdge) {
+			Print.outputtext = "mouse distance from left edge as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.mouse.DistanceFromTopEdge) {
+			Print.outputtext = "mouse distance from top edge as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.ask.AskUserForNumber) {
+			Print.outputtext = "ask user for a number as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.ask.AskUserYesNo) {
+			Print.outputtext = "ask user for yes or no as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.ask.AskUserForString) {
+			Print.outputtext = "ask user for a string as a string is ";
+		} else if (o instanceof edu.cmu.cs.stage3.alice.core.question.RandomNumber) {
+			Print.outputtext = "random number as a string is ";
+		} else if (Print.outputtext != null) {
+			Print.outputtext = Print.outputtext.substring(0, Print.outputtext.length() - 4) + " as a string is ";
+		}
+
+		if (value instanceof Element) {
+			return ((Element) value).getTrimmedKey();
+		} else if (value != null) {
 			return value.toString();
 		} else {
 			return null;
-    	}
-    }
+		}
+	}
 }

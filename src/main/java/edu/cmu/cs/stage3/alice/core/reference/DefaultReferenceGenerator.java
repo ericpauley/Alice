@@ -25,24 +25,25 @@ package edu.cmu.cs.stage3.alice.core.reference;
 
 public class DefaultReferenceGenerator implements edu.cmu.cs.stage3.alice.core.ReferenceGenerator {
 	edu.cmu.cs.stage3.alice.core.Element m_internalRoot;
-	public DefaultReferenceGenerator( edu.cmu.cs.stage3.alice.core.Element internalRoot ) {
+	public DefaultReferenceGenerator(edu.cmu.cs.stage3.alice.core.Element internalRoot) {
 		m_internalRoot = internalRoot;
 	}
-	protected boolean isExternal( edu.cmu.cs.stage3.alice.core.Element element ) {
-		return !element.isReferenceInternalTo( m_internalRoot );
+	protected boolean isExternal(edu.cmu.cs.stage3.alice.core.Element element) {
+		return !element.isReferenceInternalTo(m_internalRoot);
 	}
 
-	public edu.cmu.cs.stage3.util.Criterion generateReference( edu.cmu.cs.stage3.alice.core.Element element ) {
-		if( element!=null ) {
-            if( m_internalRoot != null ) {
-                if( isExternal( element ) ) {
-                    return new edu.cmu.cs.stage3.alice.core.criterion.ExternalReferenceKeyedCriterion( element.getKey( m_internalRoot.getRoot() ) );
-                } else {
-                    return new edu.cmu.cs.stage3.alice.core.criterion.InternalReferenceKeyedCriterion( element.getKey( m_internalRoot ) );
-                }
-            } else {
-                return new edu.cmu.cs.stage3.alice.core.criterion.ExternalReferenceKeyedCriterion( element.getKey() );
-            }
+	@Override
+	public edu.cmu.cs.stage3.util.Criterion generateReference(edu.cmu.cs.stage3.alice.core.Element element) {
+		if (element != null) {
+			if (m_internalRoot != null) {
+				if (isExternal(element)) {
+					return new edu.cmu.cs.stage3.alice.core.criterion.ExternalReferenceKeyedCriterion(element.getKey(m_internalRoot.getRoot()));
+				} else {
+					return new edu.cmu.cs.stage3.alice.core.criterion.InternalReferenceKeyedCriterion(element.getKey(m_internalRoot));
+				}
+			} else {
+				return new edu.cmu.cs.stage3.alice.core.criterion.ExternalReferenceKeyedCriterion(element.getKey());
+			}
 		} else {
 			return null;
 		}

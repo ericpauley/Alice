@@ -27,14 +27,15 @@ import edu.cmu.cs.stage3.alice.core.Set;
 import edu.cmu.cs.stage3.alice.core.property.SetProperty;
 
 public abstract class SetNumberQuestion extends edu.cmu.cs.stage3.alice.core.question.NumberQuestion {
-	public final SetProperty set = new SetProperty( this, "set", null );
-	//protected abstract double getValue( Set set );
-	protected abstract int getValue( Set set );
-	
+	public final SetProperty set = new SetProperty(this, "set", null);
+	// protected abstract double getValue( Set set );
+	protected abstract int getValue(Set set);
+
+	@Override
 	public Object getValue() {
 		Set setValue = set.getSetValue();
-		if( setValue!=null ) {
-            return new Integer( getValue( setValue ) );
+		if (setValue != null) {
+			return new Integer(getValue(setValue));
 		} else {
 			return null;
 		}

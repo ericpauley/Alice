@@ -26,61 +26,63 @@ package edu.cmu.cs.stage3.alice.core.camera;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class SymmetricPerspectiveCamera extends edu.cmu.cs.stage3.alice.core.Camera {
-	public final NumberProperty verticalViewingAngle = new NumberProperty( this, "verticalViewingAngle", null );
-	public final NumberProperty horizontalViewingAngle = new NumberProperty( this, "horizontalViewingAngle", null );
+	public final NumberProperty verticalViewingAngle = new NumberProperty(this, "verticalViewingAngle", null);
+	public final NumberProperty horizontalViewingAngle = new NumberProperty(this, "horizontalViewingAngle", null);
 	public SymmetricPerspectiveCamera() {
-		super( new edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera() );
+		super(new edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera());
 	}
 	public edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera getSceneGraphSymmetricPerspectiveCamera() {
-		return (edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera)getSceneGraphCamera();
+		return (edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera) getSceneGraphCamera();
 	}
-	
+
+	@Override
 	protected edu.cmu.cs.stage3.alice.core.decorator.ViewVolumeDecorator createViewVolumeDecorator() {
-		edu.cmu.cs.stage3.alice.core.decorator.SymmetricPerspectiveViewVolumeDecorator symmetricPerspectiveViewVolumeDecorator =  new edu.cmu.cs.stage3.alice.core.decorator.SymmetricPerspectiveViewVolumeDecorator();
-		symmetricPerspectiveViewVolumeDecorator.setSymmetricPerspectiveCamera( this );
+		edu.cmu.cs.stage3.alice.core.decorator.SymmetricPerspectiveViewVolumeDecorator symmetricPerspectiveViewVolumeDecorator = new edu.cmu.cs.stage3.alice.core.decorator.SymmetricPerspectiveViewVolumeDecorator();
+		symmetricPerspectiveViewVolumeDecorator.setSymmetricPerspectiveCamera(this);
 		return symmetricPerspectiveViewVolumeDecorator;
 	}
-	protected void verticalViewingAngleValueChanged( Number value ) {
+	protected void verticalViewingAngleValueChanged(Number value) {
 		double d = Double.NaN;
-		if( value!=null ) {
+		if (value != null) {
 			d = value.doubleValue();
 		}
-		getSceneGraphSymmetricPerspectiveCamera().setVerticalViewingAngle( d );
+		getSceneGraphSymmetricPerspectiveCamera().setVerticalViewingAngle(d);
 	}
-	protected void horizontalViewingAngleValueChanged( Number value ) {
+	protected void horizontalViewingAngleValueChanged(Number value) {
 		double d = Double.NaN;
-		if( value!=null ) {
+		if (value != null) {
 			d = value.doubleValue();
 		}
-		getSceneGraphSymmetricPerspectiveCamera().setHorizontalViewingAngle( d );
+		getSceneGraphSymmetricPerspectiveCamera().setHorizontalViewingAngle(d);
 	}
-	
-	protected void propertyChanged( edu.cmu.cs.stage3.alice.core.Property property, Object value ) {
-		if( property == verticalViewingAngle ) {
-			verticalViewingAngleValueChanged( (Number)value );
-		} else if( property == horizontalViewingAngle ) {
-			horizontalViewingAngleValueChanged( (Number)value );
+
+	@Override
+	protected void propertyChanged(edu.cmu.cs.stage3.alice.core.Property property, Object value) {
+		if (property == verticalViewingAngle) {
+			verticalViewingAngleValueChanged((Number) value);
+		} else if (property == horizontalViewingAngle) {
+			horizontalViewingAngleValueChanged((Number) value);
 		} else {
-			super.propertyChanged( property, value );
+			super.propertyChanged(property, value);
 		}
 	}
 
-    
+	@Override
 	protected double getViewingAngleForGetAGoodLookAt() {
-        double vva = verticalViewingAngle.doubleValue();
-        double hva = horizontalViewingAngle.doubleValue();
-        if( Double.isNaN( vva ) ) {
-            if( Double.isNaN( hva ) ) {
+		double vva = verticalViewingAngle.doubleValue();
+		double hva = horizontalViewingAngle.doubleValue();
+		if (Double.isNaN(vva)) {
+			if (Double.isNaN(hva)) {
 				return super.getViewingAngleForGetAGoodLookAt();
-            } else {
+			} else {
 				return vva;
-            }
-        } else {
-            if( Double.isNaN( hva ) ) {
+			}
+		} else {
+			if (Double.isNaN(hva)) {
 				return vva;
-            } else {
-				return Math.min( vva, hva );
-            }
-        }
-    }
+			} else {
+				return Math.min(vva, hva);
+			}
+		}
+	}
 }

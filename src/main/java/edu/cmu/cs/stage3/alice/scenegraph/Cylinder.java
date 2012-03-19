@@ -27,9 +27,9 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class Cylinder extends Shape {
-	public static final Property BASE_RADIUS_PROPERTY = new Property( Cylinder.class, "BASE_RADIUS" );
-	public static final Property TOP_RADIUS_PROPERTY = new Property( Cylinder.class, "TOP_RADIUS" );
-	public static final Property HEIGHT_PROPERTY = new Property( Cylinder.class, "HEIGHT" );
+	public static final Property BASE_RADIUS_PROPERTY = new Property(Cylinder.class, "BASE_RADIUS");
+	public static final Property TOP_RADIUS_PROPERTY = new Property(Cylinder.class, "TOP_RADIUS");
+	public static final Property HEIGHT_PROPERTY = new Property(Cylinder.class, "HEIGHT");
 
 	private double m_baseRadius = 1;
 	private double m_topRadius = 1;
@@ -38,10 +38,10 @@ public class Cylinder extends Shape {
 	public double getBaseRadius() {
 		return m_baseRadius;
 	}
-	public void setBaseRadius( double baseRadius ) {
-		if( m_baseRadius != baseRadius ) {
+	public void setBaseRadius(double baseRadius) {
+		if (m_baseRadius != baseRadius) {
 			m_baseRadius = baseRadius;
-			onPropertyChange( BASE_RADIUS_PROPERTY );
+			onPropertyChange(BASE_RADIUS_PROPERTY);
 			onBoundsChange();
 		}
 	}
@@ -49,10 +49,10 @@ public class Cylinder extends Shape {
 	public double getTopRadius() {
 		return m_topRadius;
 	}
-	public void setTopRadius( double topRadius ) {
-		if( m_topRadius != topRadius ) {
+	public void setTopRadius(double topRadius) {
+		if (m_topRadius != topRadius) {
 			m_topRadius = topRadius;
-			onPropertyChange( TOP_RADIUS_PROPERTY );
+			onPropertyChange(TOP_RADIUS_PROPERTY);
 			onBoundsChange();
 		}
 	}
@@ -60,23 +60,24 @@ public class Cylinder extends Shape {
 	public double getHeight() {
 		return m_height;
 	}
-	public void setHeight( double height ) {
-		if( m_height != height ) {
+	public void setHeight(double height) {
+		if (m_height != height) {
 			m_height = height;
-			onPropertyChange( HEIGHT_PROPERTY );
+			onPropertyChange(HEIGHT_PROPERTY);
 			onBoundsChange();
 		}
 	}
 
-	
+	@Override
 	protected void updateBoundingBox() {
-		double radius = Math.max( m_baseRadius, m_topRadius );
-		m_boundingBox = new edu.cmu.cs.stage3.math.Box( -radius, 0, -radius,   radius, m_height, radius );
+		double radius = Math.max(m_baseRadius, m_topRadius);
+		m_boundingBox = new edu.cmu.cs.stage3.math.Box(-radius, 0, -radius, radius, m_height, radius);
 	}
-	
+
+	@Override
 	protected void updateBoundingSphere() {
 		double halfHeight = m_height * 0.5;
-		double radius = Math.max( halfHeight, Math.max( m_baseRadius, m_topRadius ) );
-		m_boundingSphere = new edu.cmu.cs.stage3.math.Sphere( 0,halfHeight,0, radius );
+		double radius = Math.max(halfHeight, Math.max(m_baseRadius, m_topRadius));
+		m_boundingSphere = new edu.cmu.cs.stage3.math.Sphere(0, halfHeight, 0, radius);
 	}
 }

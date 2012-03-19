@@ -29,42 +29,42 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
 public class KeyCodePropertyViewController extends PropertyViewController {
 	protected javax.swing.JLabel keyLabel = new javax.swing.JLabel();
 
-	public void set( edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-		super.set( property, true, allowExpressions, false, true, factory );
+	public void set(edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
+		super.set(property, true, allowExpressions, false, true, factory);
 		refreshGUI();
 	}
 
-	
+	@Override
 	protected java.awt.Component getNativeComponent() {
 		return keyLabel;
 	}
 
-	
+	@Override
 	protected Class getNativeClass() {
 		return Integer.class;
 	}
 
-	
+	@Override
 	protected void updateNativeComponent() {
-		javax.swing.ImageIcon icon = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue( property.get() );
-		if( icon != null ) {
-			keyLabel.setText( null );
-			keyLabel.setIcon( icon );
+		javax.swing.ImageIcon icon = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue(property.get());
+		if (icon != null) {
+			keyLabel.setText(null);
+			keyLabel.setIcon(icon);
 		} else {
-			keyLabel.setText( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( property.get(), property, property.getOwner().data ) );
-			keyLabel.setIcon( null );
+			keyLabel.setText(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(property.get(), property, property.getOwner().data));
+			keyLabel.setIcon(null);
 		}
 	}
-	
-	
-	public void getHTML(StringBuffer toWriteTo){
-		toWriteTo.append(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( property.get(), property, property.getOwner().data ) );
+
+	@Override
+	public void getHTML(StringBuffer toWriteTo) {
+		toWriteTo.append(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(property.get(), property, property.getOwner().data));
 	}
 
-//	protected void refreshGUI() {
-//		if( this.isAncestorOf( textField ) ) {
-//			remove( textField );
-//		}
-//		super.refreshGUI();
-//	}
+	// protected void refreshGUI() {
+	// if( this.isAncestorOf( textField ) ) {
+	// remove( textField );
+	// }
+	// super.refreshGUI();
+	// }
 }

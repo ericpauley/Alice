@@ -24,33 +24,31 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.responseeditor;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2001 Company:
+ * 
  * @author
  * @version 1.0
  */
 
-public class ComponentResponsePanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.ComponentElementPanel{
+public class ComponentResponsePanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.ComponentElementPanel {
 
-    protected edu.cmu.cs.stage3.alice.core.Response m_response;
+	protected edu.cmu.cs.stage3.alice.core.Response m_response;
 
-    public ComponentResponsePanel(){
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        this.remove(grip);
-    }
+	public ComponentResponsePanel() {
+		setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		this.remove(grip);
+	}
 
-    
+	@Override
 	public void set(edu.cmu.cs.stage3.alice.core.Element element) {
-        if (element instanceof edu.cmu.cs.stage3.alice.core.Response){
-            m_response = (edu.cmu.cs.stage3.alice.core.Response)element;
-            super.set(element);
-        }
-    }
+		if (element instanceof edu.cmu.cs.stage3.alice.core.Response) {
+			m_response = (edu.cmu.cs.stage3.alice.core.Response) element;
+			super.set(element);
+		}
+	}
 
-    public edu.cmu.cs.stage3.alice.core.Response getResponse(){
-        return m_response;
-    }
+	public edu.cmu.cs.stage3.alice.core.Response getResponse() {
+		return m_response;
+	}
 
 }

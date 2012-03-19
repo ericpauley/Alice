@@ -24,13 +24,14 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class ExponentialSquaredFogProxy extends FogProxy {
-	protected abstract void onDensityChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.ExponentialSquaredFog.DENSITY_PROPERTY ) {
-			onDensityChange( ((Double)value).doubleValue() );
+	protected abstract void onDensityChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.ExponentialSquaredFog.DENSITY_PROPERTY) {
+			onDensityChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

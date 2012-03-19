@@ -23,31 +23,35 @@
 
 package edu.cmu.cs.stage3.alice.core.behavior;
 
+import edu.cmu.cs.stage3.alice.core.media.SoundMarker;
+import edu.cmu.cs.stage3.alice.core.media.SoundMarkerListener;
 import edu.cmu.cs.stage3.alice.core.property.ElementProperty;
-import edu.cmu.cs.stage3.alice.core.media.*;
 
 public class SoundMarkerPassedBehavior extends TriggerBehavior implements SoundMarkerListener {
-	public final ElementProperty marker = new ElementProperty( this, "marker", null, SoundMarker.class );
-    protected SoundMarker m_marker = null;
+	public final ElementProperty marker = new ElementProperty(this, "marker", null, SoundMarker.class);
+	protected SoundMarker m_marker = null;
 
-	public void markerPassed( SoundMarker m ) {
-        if (m==m_marker)
-		    trigger( System.currentTimeMillis()*0.001 );
-	}
-
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		m_marker = (SoundMarker)marker.getValue();
-		if( m_marker!=null ) {
-			m_marker.addSoundMarkerListener( this );
+	@Override
+	public void markerPassed(SoundMarker m) {
+		if (m == m_marker) {
+			trigger(System.currentTimeMillis() * 0.001);
 		}
 	}
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.stopped( world, time );
-		if( m_marker!=null ) {
-			m_marker.removeSoundMarkerListener( this );
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		m_marker = (SoundMarker) marker.getValue();
+		if (m_marker != null) {
+			m_marker.addSoundMarkerListener(this);
+		}
+	}
+
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.stopped(world, time);
+		if (m_marker != null) {
+			m_marker.removeSoundMarkerListener(this);
 		}
 	}
 }

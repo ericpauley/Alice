@@ -27,15 +27,15 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class ComponentArray extends VertexGeometry {
-	public static final Property COMPONENT_PROPERTY = new Property( ComponentArray.class, "COMPONENT" );
+	public static final Property COMPONENT_PROPERTY = new Property(ComponentArray.class, "COMPONENT");
 	private Component m_component = null;
 	public Component getComponent() {
 		return m_component;
 	}
-	public void setComponent( Component component ) {
-		if( m_component != component ) {
+	public void setComponent(Component component) {
+		if (m_component != component) {
 			m_component = component;
-			onPropertyChange( COMPONENT_PROPERTY );
+			onPropertyChange(COMPONENT_PROPERTY);
 		}
 	}
 }

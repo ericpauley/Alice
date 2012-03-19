@@ -27,14 +27,15 @@ import edu.cmu.cs.stage3.alice.core.Array;
 import edu.cmu.cs.stage3.alice.core.property.ArrayProperty;
 
 public abstract class ArrayNumberQuestion extends edu.cmu.cs.stage3.alice.core.question.NumberQuestion {
-	public final ArrayProperty array = new ArrayProperty( this, "array", null );
-	//protected abstract double getValue( Array array );
-	protected abstract int getValue( Array array );
-	
+	public final ArrayProperty array = new ArrayProperty(this, "array", null);
+	// protected abstract double getValue( Array array );
+	protected abstract int getValue(Array array);
+
+	@Override
 	public Object getValue() {
 		Array arrayValue = array.getArrayValue();
-		if( arrayValue!=null ) {
-            return new Integer( getValue( arrayValue ) );
+		if (arrayValue != null) {
+			return new Integer(getValue(arrayValue));
 		} else {
 			return null;
 		}

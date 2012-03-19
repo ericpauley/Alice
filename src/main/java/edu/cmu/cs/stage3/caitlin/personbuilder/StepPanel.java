@@ -23,10 +23,12 @@
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
 
-import javax.swing.JPanel;
 import java.util.Vector;
+
 import javax.swing.ImageIcon;
-import org.w3c.dom.*;
+import javax.swing.JPanel;
+
+import org.w3c.dom.Node;
 
 public class StepPanel extends JPanel {
 	ImageIcon backImage = null;
@@ -34,7 +36,7 @@ public class StepPanel extends JPanel {
 	Vector choosers = new Vector();
 
 	public StepPanel(Node stepNode, ImageIcon nextImage, ImageIcon backImage, ModelWrapper modelWrapper) {
-		this.setBackground(new java.awt.Color(155, 159, 206));
+		setBackground(new java.awt.Color(155, 159, 206));
 		this.backImage = backImage;
 		this.nextImage = nextImage;
 
@@ -51,7 +53,7 @@ public class StepPanel extends JPanel {
 		}
 	}
 
-	private Vector getChoosers(Node stepNode, ModelWrapper modelWrapper ) {
+	private Vector getChoosers(Node stepNode, ModelWrapper modelWrapper) {
 
 		Vector choosers = new Vector();
 
@@ -74,7 +76,7 @@ public class StepPanel extends JPanel {
 	}
 
 	private void addChoosers(Vector choosers) {
-		this.setLayout(new java.awt.GridLayout(3, 1));
+		setLayout(new java.awt.GridLayout(3, 1));
 		for (int i = 0; i < choosers.size(); i++) {
 			this.add((JPanel) choosers.elementAt(i));
 		}

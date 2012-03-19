@@ -33,27 +33,31 @@ public class GUIElementContainerListener extends java.awt.event.ContainerAdapter
 		return staticListener;
 	}
 
-	
-	public void componentRemoved( java.awt.event.ContainerEvent ev ) {
-//		releaseRecursively( ev.getChild() );
-//
-		if( ev.getChild() instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable ) {
-			((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable)ev.getChild()).release();
+	@Override
+	public void componentRemoved(java.awt.event.ContainerEvent ev) {
+		// releaseRecursively( ev.getChild() );
+		//
+		if (ev.getChild() instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable) {
+			((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable) ev.getChild()).release();
 		}
 
-//		if( ev.getChild() instanceof edu.cmu.cs.stage3.alice.authoringtool.util.GUIElement ) {
-//			GUIFactory.releaseGUI( (edu.cmu.cs.stage3.alice.authoringtool.util.GUIElement)ev.getChild() );
-//		}
+		// if( ev.getChild() instanceof
+		// edu.cmu.cs.stage3.alice.authoringtool.util.GUIElement ) {
+		// GUIFactory.releaseGUI(
+		// (edu.cmu.cs.stage3.alice.authoringtool.util.GUIElement)ev.getChild()
+		// );
+		// }
 	}
 
-//	protected void releaseRecursively( java.awt.Component c ) {
-//		if( c instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable ) {
-//			((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable)c).release();
-//		} else if( c instanceof java.awt.Container ) {
-//			java.awt.Component[] children = ((java.awt.Container)c).getComponents();
-//			for( int i = 0; i < children.length; i++ ) {
-//				releaseRecursively( children[i] );
-//			}
-//		}
-//	}
+	// protected void releaseRecursively( java.awt.Component c ) {
+	// if( c instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable )
+	// {
+	// ((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable)c).release();
+	// } else if( c instanceof java.awt.Container ) {
+	// java.awt.Component[] children = ((java.awt.Container)c).getComponents();
+	// for( int i = 0; i < children.length; i++ ) {
+	// releaseRecursively( children[i] );
+	// }
+	// }
+	// }
 }

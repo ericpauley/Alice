@@ -31,7 +31,7 @@ import edu.cmu.cs.stage3.util.Criterion;
 public class PropertyReference {
 	private Property m_property;
 	private Criterion m_criterion;
-	public PropertyReference( Property property, Criterion criterion ) {
+	public PropertyReference(Property property, Criterion criterion) {
 		m_property = property;
 		m_criterion = criterion;
 	}
@@ -41,19 +41,19 @@ public class PropertyReference {
 	public Criterion getCriterion() {
 		return m_criterion;
 	}
-    public Element getReference() {
-        return (Element)m_property.get();
-    }
-    // allow for override
-    protected Object resolveReference( ReferenceResolver referenceResolver ) throws edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException {
-    	return referenceResolver.resolveReference( m_criterion );
-    }
-	public void resolve( ReferenceResolver referenceResolver ) throws edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException {
-		m_property.set( resolveReference( referenceResolver ) );
+	public Element getReference() {
+		return (Element) m_property.get();
 	}
-	
+	// allow for override
+	protected Object resolveReference(ReferenceResolver referenceResolver) throws edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException {
+		return referenceResolver.resolveReference(m_criterion);
+	}
+	public void resolve(ReferenceResolver referenceResolver) throws edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException {
+		m_property.set(resolveReference(referenceResolver));
+	}
+
+	@Override
 	public String toString() {
-		return "PropertyReference[property="+getProperty()+",criterion="+getCriterion()+"]";
+		return "PropertyReference[property=" + getProperty() + ",criterion=" + getCriterion() + "]";
 	}
 }
-

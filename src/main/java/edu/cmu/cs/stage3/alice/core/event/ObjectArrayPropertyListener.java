@@ -24,6 +24,6 @@
 package edu.cmu.cs.stage3.alice.core.event;
 
 public interface ObjectArrayPropertyListener {
-	public void objectArrayPropertyChanging( ObjectArrayPropertyEvent objectArrayPropertyEvent );
-	public void objectArrayPropertyChanged( ObjectArrayPropertyEvent objectArrayPropertyEvent );
+	public void objectArrayPropertyChanging(ObjectArrayPropertyEvent objectArrayPropertyEvent);
+	public void objectArrayPropertyChanged(ObjectArrayPropertyEvent objectArrayPropertyEvent);
 }

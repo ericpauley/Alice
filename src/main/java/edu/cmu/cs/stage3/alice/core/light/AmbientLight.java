@@ -25,9 +25,9 @@ package edu.cmu.cs.stage3.alice.core.light;
 
 public class AmbientLight extends edu.cmu.cs.stage3.alice.core.Light {
 	public AmbientLight() {
-	    super( new edu.cmu.cs.stage3.alice.scenegraph.AmbientLight() );
+		super(new edu.cmu.cs.stage3.alice.scenegraph.AmbientLight());
 	}
-    public edu.cmu.cs.stage3.alice.scenegraph.AmbientLight getSceneGraphAmbientLight() {
-        return (edu.cmu.cs.stage3.alice.scenegraph.AmbientLight)getSceneGraphLight();
-    }
+	public edu.cmu.cs.stage3.alice.scenegraph.AmbientLight getSceneGraphAmbientLight() {
+		return (edu.cmu.cs.stage3.alice.scenegraph.AmbientLight) getSceneGraphLight();
+	}
 }

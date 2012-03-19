@@ -24,14 +24,15 @@
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
 public interface UndoRedoStack extends java.util.List {
-	public void push( UndoableRedoable ur );
+	public void push(UndoableRedoable ur);
 	public UndoableRedoable pop_();
 
 	public UndoableRedoable undo();
 	public UndoableRedoable redo();
-	public UndoableRedoable removeUndoable( int index );
+	public UndoableRedoable removeUndoable(int index);
 
 	public int getCurrentUndoableRedoableIndex();
 
+	@Override
 	public void clear();
 }

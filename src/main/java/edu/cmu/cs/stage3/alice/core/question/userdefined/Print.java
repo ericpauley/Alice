@@ -28,27 +28,29 @@ import edu.cmu.cs.stage3.alice.core.property.ObjectProperty;
 import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 
 public class Print extends Component {
-	public final StringProperty text = new StringProperty( this, "text", "" );
-	public final ObjectProperty object = new ObjectProperty( this, "object", null, Object.class ) {
-		
+	public final StringProperty text = new StringProperty(this, "text", "");
+	public final ObjectProperty object = new ObjectProperty(this, "object", null, Object.class) {
+
+		@Override
 		protected boolean getValueOfExpression() {
 			return true;
 		}
 	};
-	public final BooleanProperty addNewLine = new BooleanProperty( this, "addNewLine", Boolean.TRUE );
-    
+	public final BooleanProperty addNewLine = new BooleanProperty(this, "addNewLine", Boolean.TRUE);
+
+	@Override
 	public Object[] execute() {
-        String output = text.getStringValue();
-        Object o = object.get();
-        if( o != null ) {
-            o = object.getValue();
-            output += o;
-        }
-        if( Print.this.addNewLine.booleanValue() ) {
-            System.out.println( output );
-        } else {
-            System.out.print( output );
-        }
-        return null;
-    }
+		String output = text.getStringValue();
+		Object o = object.get();
+		if (o != null) {
+			o = object.getValue();
+			output += o;
+		}
+		if (Print.this.addNewLine.booleanValue()) {
+			System.out.println(output);
+		} else {
+			System.out.print(output);
+		}
+		return null;
+	}
 }

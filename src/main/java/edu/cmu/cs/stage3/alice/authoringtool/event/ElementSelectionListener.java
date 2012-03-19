@@ -27,5 +27,5 @@ package edu.cmu.cs.stage3.alice.authoringtool.event;
  * @author Jason Pratt
  */
 public interface ElementSelectionListener {
-	public void elementSelected( edu.cmu.cs.stage3.alice.core.Element element );
+	public void elementSelected(edu.cmu.cs.stage3.alice.core.Element element);
 }

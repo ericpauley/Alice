@@ -26,17 +26,19 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 
 public class PointAtConstraint extends AbstractPointAtConstraint {
-	public final BooleanProperty onlyAffectYaw = new BooleanProperty( this, "onlyAffectYaw", Boolean.FALSE );
+	public final BooleanProperty onlyAffectYaw = new BooleanProperty(this, "onlyAffectYaw", Boolean.FALSE);
 	public class RuntimePointAtConstraint extends RuntimeAbstractPointAtConstraint {
-		
+
+		@Override
 		protected boolean onlyAffectYaw() {
-			return PointAtConstraint.this.onlyAffectYaw.booleanValue();
+			return onlyAffectYaw.booleanValue();
 		}
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			if( PointAtConstraint.this.onlyAffectYaw.getValue() == null ) {
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( "only affect yaw value must not be null.", null, PointAtConstraint.this.onlyAffectYaw );
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			if (onlyAffectYaw.getValue() == null) {
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException("only affect yaw value must not be null.", null, onlyAffectYaw);
 			}
 		}
 	}

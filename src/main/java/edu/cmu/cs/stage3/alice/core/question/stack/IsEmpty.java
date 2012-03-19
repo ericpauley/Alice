@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.stack;
 
 public class IsEmpty extends StackBooleanQuestion {
-	
-	protected boolean getValue( edu.cmu.cs.stage3.alice.core.Stack stackValue ) {
-        return stackValue.isEmpty();
-    }
+
+	@Override
+	protected boolean getValue(edu.cmu.cs.stage3.alice.core.Stack stackValue) {
+		return stackValue.isEmpty();
+	}
 }

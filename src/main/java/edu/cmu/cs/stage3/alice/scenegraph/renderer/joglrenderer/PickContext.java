@@ -24,63 +24,64 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class PickContext extends Context {
-    private RenderTarget m_renderTarget;
+	private RenderTarget m_renderTarget;
 
-    private java.util.Hashtable m_pickNameMap = new java.util.Hashtable();
-    private PickParameters m_pickParameters;
-    private PickInfo m_pickInfo;
-    
-    public PickContext( RenderTarget renderTarget ) {
-        m_renderTarget = renderTarget;
-    }
+	private java.util.Hashtable m_pickNameMap = new java.util.Hashtable();
+	private PickParameters m_pickParameters;
+	private PickInfo m_pickInfo;
 
-    
-	public void display( javax.media.opengl.GLAutoDrawable drawable ) {
-        super.display( drawable );
-        if( m_pickParameters != null ) {
-            m_renderTarget.commitAnyPendingChanges();
-    	    m_pickNameMap.clear();
-    	    try {
-	    	    m_pickInfo = m_renderTarget.performPick( this, m_pickParameters );
-    	    } finally {
-    	        m_pickParameters = null;
-    	    }
-        }
-    }
-    public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick( javax.media.opengl.GLAutoDrawable drawable, int x, int y, boolean isSubElementRequired, boolean isOnlyFrontMostRequired ) {
-        m_pickParameters = new PickParameters( x, y, isSubElementRequired, isOnlyFrontMostRequired );
-        //System.err.println( m_pickParameters );
-        /*
-        drawable.setRenderingThread( Thread.currentThread() );
-        //drawable.setNoAutoRedrawMode( true );
-        drawable.setAutoSwapBufferMode( false );
-        */
-        try {
-            //System.err.println( "about to display: " + m_pickParameters );
-            drawable.display();
-        } finally {
-            /*
-            drawable.setRenderingThread( null );
-            //drawable.setNoAutoRedrawMode( false );
-            drawable.setAutoSwapBufferMode( true );
-            */
-        }
-        return m_pickInfo;
-    }
-    public int getPickNameForVisualProxy( VisualProxy visualProxy ) {
-        int name = m_pickNameMap.size();
-        m_pickNameMap.put( new Integer( name ), visualProxy );
-        return name;
-    }
-    public VisualProxy getPickVisualProxyForName( int name ) {
-//        System.err.println( "getPickVisualProxyForName" );
-//        System.err.println( name );
-//        System.err.println( m_pickNameMap );
-//        System.err.println( (VisualProxy)m_pickNameMap.get( new Integer( name ) ) );
-        return (VisualProxy)m_pickNameMap.get( new Integer( name ) );
-    }
+	public PickContext(RenderTarget renderTarget) {
+		m_renderTarget = renderTarget;
+	}
 
-	protected void renderPickVertex( edu.cmu.cs.stage3.alice.scenegraph.Vertex3d vertex ) {
-		gl.glVertex3d( vertex.position.x, vertex.position.y, -vertex.position.z );
+	@Override
+	public void display(javax.media.opengl.GLAutoDrawable drawable) {
+		super.display(drawable);
+		if (m_pickParameters != null) {
+			m_renderTarget.commitAnyPendingChanges();
+			m_pickNameMap.clear();
+			try {
+				m_pickInfo = m_renderTarget.performPick(this, m_pickParameters);
+			} finally {
+				m_pickParameters = null;
+			}
+		}
+	}
+	public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick(javax.media.opengl.GLAutoDrawable drawable, int x, int y, boolean isSubElementRequired, boolean isOnlyFrontMostRequired) {
+		m_pickParameters = new PickParameters(x, y, isSubElementRequired, isOnlyFrontMostRequired);
+		// System.err.println( m_pickParameters );
+		/*
+		 * drawable.setRenderingThread( Thread.currentThread() );
+		 * //drawable.setNoAutoRedrawMode( true );
+		 * drawable.setAutoSwapBufferMode( false );
+		 */
+		try {
+			// System.err.println( "about to display: " + m_pickParameters );
+			drawable.display();
+		} finally {
+			/*
+			 * drawable.setRenderingThread( null );
+			 * //drawable.setNoAutoRedrawMode( false );
+			 * drawable.setAutoSwapBufferMode( true );
+			 */
+		}
+		return m_pickInfo;
+	}
+	public int getPickNameForVisualProxy(VisualProxy visualProxy) {
+		int name = m_pickNameMap.size();
+		m_pickNameMap.put(new Integer(name), visualProxy);
+		return name;
+	}
+	public VisualProxy getPickVisualProxyForName(int name) {
+		// System.err.println( "getPickVisualProxyForName" );
+		// System.err.println( name );
+		// System.err.println( m_pickNameMap );
+		// System.err.println( (VisualProxy)m_pickNameMap.get( new Integer( name
+		// ) ) );
+		return (VisualProxy) m_pickNameMap.get(new Integer(name));
+	}
+
+	protected void renderPickVertex(edu.cmu.cs.stage3.alice.scenegraph.Vertex3d vertex) {
+		gl.glVertex3d(vertex.position.x, vertex.position.y, -vertex.position.z);
 	}
 }

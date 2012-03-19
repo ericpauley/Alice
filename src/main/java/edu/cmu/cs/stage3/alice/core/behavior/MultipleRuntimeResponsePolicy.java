@@ -27,7 +27,7 @@ public class MultipleRuntimeResponsePolicy extends edu.cmu.cs.stage3.util.Enumer
 	public static final MultipleRuntimeResponsePolicy IGNORE_MULTIPLE = new MultipleRuntimeResponsePolicy();
 	public static final MultipleRuntimeResponsePolicy ENQUEUE_MULTIPLE = new MultipleRuntimeResponsePolicy();
 	public static final MultipleRuntimeResponsePolicy INTERLEAVE_MULTIPLE = new MultipleRuntimeResponsePolicy();
-	public static MultipleRuntimeResponsePolicy valueOf( String s ) {
-		return (MultipleRuntimeResponsePolicy)edu.cmu.cs.stage3.util.Enumerable.valueOf( s, MultipleRuntimeResponsePolicy.class );
+	public static MultipleRuntimeResponsePolicy valueOf(String s) {
+		return (MultipleRuntimeResponsePolicy) edu.cmu.cs.stage3.util.Enumerable.valueOf(s, MultipleRuntimeResponsePolicy.class);
 	}
 }

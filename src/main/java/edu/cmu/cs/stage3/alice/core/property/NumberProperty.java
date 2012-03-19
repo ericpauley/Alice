@@ -26,32 +26,32 @@ package edu.cmu.cs.stage3.alice.core.property;
 import edu.cmu.cs.stage3.alice.core.Element;
 
 public class NumberProperty extends ObjectProperty {
-	public NumberProperty( Element owner, String name, Number defaultValue ) {
-		super( owner, name, defaultValue, Number.class );
+	public NumberProperty(Element owner, String name, Number defaultValue) {
+		super(owner, name, defaultValue, Number.class);
 	}
 	public Number getNumberValue() {
-		return (Number)getValue();
+		return (Number) getValue();
 	}
-	public double doubleValue( double valueIfNull ) {
+	public double doubleValue(double valueIfNull) {
 		Number number = getNumberValue();
-		if( number != null ) {
+		if (number != null) {
 			return number.doubleValue();
 		} else {
 			return valueIfNull;
 		}
 	}
 	public double doubleValue() {
-		return doubleValue( Double.NaN );
+		return doubleValue(Double.NaN);
 	}
-	public int intValue( int valueIfNull ) {
+	public int intValue(int valueIfNull) {
 		Number number = getNumberValue();
-		if( number != null ) {
+		if (number != null) {
 			return number.intValue();
 		} else {
 			return valueIfNull;
 		}
 	}
 	public int intValue() {
-		return intValue( 0 );
+		return intValue(0);
 	}
 }

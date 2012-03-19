@@ -30,20 +30,22 @@ import edu.cmu.cs.stage3.alice.core.property.ElementProperty;
 import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 
 public class ChildNamed extends Question {
-	public final ElementProperty parent = new ElementProperty( this, "parent", null );
-	public final StringProperty name = new StringProperty( this, "name", "" );
-	public final BooleanProperty ignoreCase = new BooleanProperty( this, "ignoreCase", Boolean.TRUE );
-	
+	public final ElementProperty parent = new ElementProperty(this, "parent", null);
+	public final StringProperty name = new StringProperty(this, "name", "");
+	public final BooleanProperty ignoreCase = new BooleanProperty(this, "ignoreCase", Boolean.TRUE);
+
+	@Override
 	public Object getValue() {
 		Element parentValue = parent.getElementValue();
 		String nameValue = name.getStringValue();
-		if( ignoreCase.booleanValue() ) {
-			return parentValue.getChildNamed( nameValue );
+		if (ignoreCase.booleanValue()) {
+			return parentValue.getChildNamed(nameValue);
 		} else {
-			return parentValue.getChildNamedIgnoreCase( nameValue );
+			return parentValue.getChildNamedIgnoreCase(nameValue);
 		}
 	}
-	
+
+	@Override
 	public Class getValueClass() {
 		return Element.class;
 	}

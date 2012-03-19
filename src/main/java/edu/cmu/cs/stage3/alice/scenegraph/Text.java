@@ -27,51 +27,54 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class Text extends Geometry {
-	public static final Property TEXT_PROPERTY = new Property( Text.class, "TEXT" );
-	public static final Property FONT_PROPERTY = new Property( Text.class, "FONT" );
-	public static final Property EXTRUSION_PROPERTY = new Property( Text.class, "EXTRUSION" );
+	public static final Property TEXT_PROPERTY = new Property(Text.class, "TEXT");
+	public static final Property FONT_PROPERTY = new Property(Text.class, "FONT");
+	public static final Property EXTRUSION_PROPERTY = new Property(Text.class, "EXTRUSION");
 	private String m_text = null;
 	private java.awt.Font m_font = null;
-	private javax.vecmath.Vector3d m_extrusion = new javax.vecmath.Vector3d( 0, 0, 1 );
+	private javax.vecmath.Vector3d m_extrusion = new javax.vecmath.Vector3d(0, 0, 1);
 
 	public String getText() {
 		return m_text;
 	}
-	public void setText( String text ) {
-		if( notequal( m_text, text ) ) {
+	public void setText(String text) {
+		if (notequal(m_text, text)) {
 			m_text = text;
-			onPropertyChange( TEXT_PROPERTY );
+			onPropertyChange(TEXT_PROPERTY);
 		}
 	}
 	public java.awt.Font getFont() {
 		return m_font;
 	}
-	public void setFont( java.awt.Font font ) {
-		if( notequal( m_font, font ) ) {
+	public void setFont(java.awt.Font font) {
+		if (notequal(m_font, font)) {
 			m_font = font;
-			onPropertyChange( FONT_PROPERTY );
+			onPropertyChange(FONT_PROPERTY);
 		}
 	}
-	//todo javax.vecmath.Vector3d->spline
+	// todo javax.vecmath.Vector3d->spline
 	public javax.vecmath.Vector3d getExtrusion() {
 		return m_extrusion;
 	}
-	public void setExtrusion( javax.vecmath.Vector3d extrusion ) {
-		if( notequal( m_extrusion, extrusion ) ) {
+	public void setExtrusion(javax.vecmath.Vector3d extrusion) {
+		if (notequal(m_extrusion, extrusion)) {
 			m_extrusion = extrusion;
-			onPropertyChange( EXTRUSION_PROPERTY );
+			onPropertyChange(EXTRUSION_PROPERTY);
 		}
 	}
-	
+
+	@Override
 	protected void updateBoundingBox() {
-		//todo
+		// todo
 	}
-	
+
+	@Override
 	protected void updateBoundingSphere() {
-		//todo
+		// todo
 	}
-	
-	public void transform( javax.vecmath.Matrix4d trans ) {
-		//todo
+
+	@Override
+	public void transform(javax.vecmath.Matrix4d trans) {
+		// todo
 	}
 }

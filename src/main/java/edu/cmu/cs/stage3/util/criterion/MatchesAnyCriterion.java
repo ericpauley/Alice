@@ -23,17 +23,20 @@
 
 package edu.cmu.cs.stage3.util.criterion;
 
+import edu.cmu.cs.stage3.util.Criterion;
+
 public class MatchesAnyCriterion implements edu.cmu.cs.stage3.util.Criterion {
 	protected edu.cmu.cs.stage3.util.Criterion[] m_criteria;
 
-	public MatchesAnyCriterion( edu.cmu.cs.stage3.util.Criterion[] criteria ) {
+	public MatchesAnyCriterion(edu.cmu.cs.stage3.util.Criterion[] criteria) {
 		m_criteria = criteria;
 	}
 
-	public boolean accept( Object o ) {
-		if( m_criteria != null ) {
-			for( int i = 0; i < m_criteria.length; i++ ) {
-				if( m_criteria[i].accept( o ) ) {
+	@Override
+	public boolean accept(Object o) {
+		if (m_criteria != null) {
+			for (Criterion element : m_criteria) {
+				if (element.accept(o)) {
 					return true;
 				}
 			}
@@ -43,4 +46,3 @@ public class MatchesAnyCriterion implements edu.cmu.cs.stage3.util.Criterion {
 		}
 	}
 }
-

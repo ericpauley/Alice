@@ -24,63 +24,51 @@
 package edu.cmu.cs.stage3.alice.core.media;
 
 import edu.cmu.cs.stage3.alice.core.Element;
-
-/**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2001</p>
- * <p>Company: Stage3</p>
- * @author Ben Buchwald
- * @version 1.0
- */
-
-import edu.cmu.cs.stage3.alice.core.property.*;
+import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class SoundMarker extends Element {
-    public final NumberProperty time = new NumberProperty(this,"time",new Double(0));
+	public final NumberProperty time = new NumberProperty(this, "time", new Double(0));
 
-    protected java.util.Vector soundMarkerListeners = new java.util.Vector();
+	protected java.util.Vector soundMarkerListeners = new java.util.Vector();
 
-    public SoundMarker() {
-    }
+	public SoundMarker() {
+	}
 
-    public SoundMarker(String n, double t) {
-        if (n!=null)
-            this.name.set(n);
-        time.set(new Double(t));
-    }
+	public SoundMarker(String n, double t) {
+		if (n != null) {
+			name.set(n);
+		}
+		time.set(new Double(t));
+	}
 
-    public SoundMarker(double t) {
-        time.set(new Double(t));
-    }
+	public SoundMarker(double t) {
+		time.set(new Double(t));
+	}
 
-    public void setTime(double t) {
-        time.set(new Double(t));
-    }
+	public void setTime(double t) {
+		time.set(new Double(t));
+	}
 
-    public double getTime() {
-        return time.doubleValue();
-    }
+	public double getTime() {
+		return time.doubleValue();
+	}
 
-    public void addSoundMarkerListener(SoundMarkerListener sml) {
-        if (soundMarkerListeners.contains(sml)) {
-            // warn
-        } else {
-            soundMarkerListeners.addElement(sml);
-        }
-    }
+	public void addSoundMarkerListener(SoundMarkerListener sml) {
+		if (soundMarkerListeners.contains(sml)) {
+			// warn
+		} else {
+			soundMarkerListeners.addElement(sml);
+		}
+	}
 
-    public void removeSoundMarkerListener(SoundMarkerListener sml) {
-        soundMarkerListeners.removeElement(sml);
-    }
+	public void removeSoundMarkerListener(SoundMarkerListener sml) {
+		soundMarkerListeners.removeElement(sml);
+	}
 
-/*
-    public void passed() {
-        java.util.Enumeration enum0 = soundMarkerListeners.elements();
-        while( enum0.hasMoreElements() ) {
-            SoundMarkerListener sml = (SoundMarkerListener)enum0.nextElement();
-            sml.markerPassed( this );
-        }
-    }
-*/
+	/*
+	 * public void passed() { java.util.Enumeration enum0 =
+	 * soundMarkerListeners.elements(); while( enum0.hasMoreElements() ) {
+	 * SoundMarkerListener sml = (SoundMarkerListener)enum0.nextElement();
+	 * sml.markerPassed( this ); } }
+	 */
 }

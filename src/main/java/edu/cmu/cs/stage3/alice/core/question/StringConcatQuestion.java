@@ -27,30 +27,48 @@ import edu.cmu.cs.stage3.alice.core.Question;
 import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: Stage3</p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2002
+ * </p>
+ * <p>
+ * Company: Stage3
+ * </p>
+ * 
  * @author Ben Buchwald
  * @version 1.0
  */
 
-
 public class StringConcatQuestion extends Question {
-	public final StringProperty a = new StringProperty( this, "a", new String( "" )/*,Object.class*/ );
-	public final StringProperty b = new StringProperty( this, "b", new String( "" )/*,Object.class*/ );
+	public final StringProperty a = new StringProperty(this, "a", new String("")/*
+																				 * ,
+																				 * Object
+																				 * .
+																				 * class
+																				 */);
+	public final StringProperty b = new StringProperty(this, "b", new String("")/*
+																				 * ,
+																				 * Object
+																				 * .
+																				 * class
+																				 */);
 
-    public StringConcatQuestion() {
-    }
+	public StringConcatQuestion() {
+	}
 
-    
+	@Override
 	public Class getValueClass() {
-        return String.class;
-    }
+		return String.class;
+	}
 
-    
+	@Override
 	public Object getValue() {
-        //return a.getValue().toString()+b.getValue().toString();
-        return a.getStringValue()+b.getStringValue();
-    }
+		// return a.getValue().toString()+b.getValue().toString();
+		return a.getStringValue() + b.getStringValue();
+	}
 }

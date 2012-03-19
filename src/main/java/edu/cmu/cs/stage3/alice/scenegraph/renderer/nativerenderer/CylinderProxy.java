@@ -24,19 +24,20 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class CylinderProxy extends ShapeProxy {
-	protected abstract void onBaseRadiusChange( double value );
-	protected abstract void onTopRadiusChange( double value );
-	protected abstract void onHeightChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Cylinder.BASE_RADIUS_PROPERTY ) {
-			onBaseRadiusChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Cylinder.TOP_RADIUS_PROPERTY ) {
-			onTopRadiusChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Cylinder.HEIGHT_PROPERTY ) {
-			onHeightChange( ((Double)value).doubleValue() );
+	protected abstract void onBaseRadiusChange(double value);
+	protected abstract void onTopRadiusChange(double value);
+	protected abstract void onHeightChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Cylinder.BASE_RADIUS_PROPERTY) {
+			onBaseRadiusChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Cylinder.TOP_RADIUS_PROPERTY) {
+			onTopRadiusChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Cylinder.HEIGHT_PROPERTY) {
+			onHeightChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

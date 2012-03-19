@@ -25,10 +25,11 @@ package edu.cmu.cs.stage3.alice.core.response.list;
 
 public class InsertItemAtEnd extends ListItemResponse {
 	public class RuntimeInsertItemAtEnd extends RuntimeListItemResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			getList().insertItemValueAtEnd( getItem() );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			getList().insertItemValueAtEnd(getItem());
 		}
 	}
 }

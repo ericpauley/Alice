@@ -24,31 +24,40 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.questioneditor;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2002
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author David Culyba
  * @version 1.0
  */
 
-public abstract class CompositeQuestionPanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.CompositeElementPanel{
+public abstract class CompositeQuestionPanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.CompositeElementPanel {
 
-    protected edu.cmu.cs.stage3.alice.core.question.userdefined.Composite m_question;
+	protected edu.cmu.cs.stage3.alice.core.question.userdefined.Composite m_question;
 
-    public CompositeQuestionPanel(){
-        super();
-        headerText = "Composite Question";
-    }
+	public CompositeQuestionPanel() {
+		super();
+		headerText = "Composite Question";
+	}
 
-    
-	public void set(edu.cmu.cs.stage3.alice.core.Element question, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        m_question = (edu.cmu.cs.stage3.alice.core.question.userdefined.Composite)m_element;
-        super.set(question, authoringToolIn);
-    }
+	@Override
+	public void set(edu.cmu.cs.stage3.alice.core.Element question, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		m_question = (edu.cmu.cs.stage3.alice.core.question.userdefined.Composite) m_element;
+		super.set(question, authoringToolIn);
+	}
 
-    public edu.cmu.cs.stage3.alice.core.question.userdefined.Composite getQuestion(){
-        return m_question;
-    }
+	public edu.cmu.cs.stage3.alice.core.question.userdefined.Composite getQuestion() {
+		return m_question;
+	}
 
 }

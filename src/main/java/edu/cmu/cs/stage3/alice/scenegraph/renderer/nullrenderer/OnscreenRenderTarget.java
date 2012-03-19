@@ -25,19 +25,21 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer.nullrenderer;
 
 public class OnscreenRenderTarget extends RenderTarget implements edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget {
 	private java.awt.Canvas m_canvas = new java.awt.Canvas();
-	OnscreenRenderTarget( Renderer renderer ) {
-		super( renderer );
+	OnscreenRenderTarget(Renderer renderer) {
+		super(renderer);
 	}
-	public java.awt.Dimension getSize( java.awt.Dimension rv ) {
-        java.awt.Component awtComponent = getAWTComponent();
-		if( awtComponent != null ) {
-			awtComponent.getSize( rv );
+	@Override
+	public java.awt.Dimension getSize(java.awt.Dimension rv) {
+		java.awt.Component awtComponent = getAWTComponent();
+		if (awtComponent != null) {
+			awtComponent.getSize(rv);
 		} else {
 			rv.width = 0;
-            rv.height = 0;
+			rv.height = 0;
 		}
-        return rv;
-    }
+		return rv;
+	}
+	@Override
 	public java.awt.Component getAWTComponent() {
 		return m_canvas;
 	}

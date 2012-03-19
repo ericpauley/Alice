@@ -23,37 +23,39 @@
 
 package edu.cmu.cs.stage3.util;
 
+import java.lang.reflect.Field;
+
 public abstract class Enumerable implements java.io.Serializable {
 	private String m_repr = null;
-	public static Enumerable[] getItems( Class cls ) {
+	public static Enumerable[] getItems(Class cls) {
 		java.util.Vector v = new java.util.Vector();
 		java.lang.reflect.Field[] fields = cls.getFields();
-		for( int i=0; i<fields.length; i++ ) {
-			int modifiers = fields[i].getModifiers();
-			if( java.lang.reflect.Modifier.isPublic( modifiers ) && java.lang.reflect.Modifier.isFinal( modifiers ) && java.lang.reflect.Modifier.isStatic( modifiers ) ) {
+		for (Field field : fields) {
+			int modifiers = field.getModifiers();
+			if (java.lang.reflect.Modifier.isPublic(modifiers) && java.lang.reflect.Modifier.isFinal(modifiers) && java.lang.reflect.Modifier.isStatic(modifiers)) {
 				try {
-					v.addElement( fields[i].get( null ) );
-				} catch( IllegalAccessException iae ) {
+					v.addElement(field.get(null));
+				} catch (IllegalAccessException iae) {
 					iae.printStackTrace();
 				}
 			}
 		}
-		Enumerable[] array = new Enumerable[ v.size() ];
-		v.copyInto( array );
+		Enumerable[] array = new Enumerable[v.size()];
+		v.copyInto(array);
 		return array;
 	}
 	public String getRepr() {
-		if( m_repr==null ) {
+		if (m_repr == null) {
 			java.lang.reflect.Field[] fields = getClass().getFields();
-			for( int i=0; i<fields.length; i++ ) {
-				int modifiers = fields[i].getModifiers();
-				if( java.lang.reflect.Modifier.isPublic( modifiers ) && java.lang.reflect.Modifier.isFinal( modifiers ) && java.lang.reflect.Modifier.isStatic( modifiers ) ) {
+			for (Field field : fields) {
+				int modifiers = field.getModifiers();
+				if (java.lang.reflect.Modifier.isPublic(modifiers) && java.lang.reflect.Modifier.isFinal(modifiers) && java.lang.reflect.Modifier.isStatic(modifiers)) {
 					try {
-						if( this.equals( fields[i].get( null ) ) ) {
-							m_repr = fields[i].getName();
+						if (equals(field.get(null))) {
+							m_repr = field.getName();
 							return m_repr;
 						}
-					} catch( IllegalAccessException iae ) {
+					} catch (IllegalAccessException iae) {
 						iae.printStackTrace();
 					}
 				}
@@ -63,23 +65,24 @@ public abstract class Enumerable implements java.io.Serializable {
 			return m_repr;
 		}
 	}
-	
+
+	@Override
 	public String toString() {
-		return getClass().getName()+"["+getRepr()+"]";
+		return getClass().getName() + "[" + getRepr() + "]";
 	}
-	protected static Enumerable valueOf( String s, Class cls ) {
-		String[] markers = { cls.getName()+"[", "]" };
-		int begin = s.indexOf( markers[0] ) + markers[0].length();
-		int end = s.indexOf( markers[1] );
-		String fieldName = s.substring( begin, end );
+	protected static Enumerable valueOf(String s, Class cls) {
+		String[] markers = {cls.getName() + "[", "]"};
+		int begin = s.indexOf(markers[0]) + markers[0].length();
+		int end = s.indexOf(markers[1]);
+		String fieldName = s.substring(begin, end);
 		java.lang.reflect.Field[] fields = cls.getFields();
-		for( int i=0; i<fields.length; i++ ) {
-			int modifiers = fields[i].getModifiers();
-			if( java.lang.reflect.Modifier.isPublic( modifiers ) && java.lang.reflect.Modifier.isFinal( modifiers ) && java.lang.reflect.Modifier.isStatic( modifiers ) ) {
-				if( fieldName.equals( fields[i].getName() ) ) {
+		for (Field field : fields) {
+			int modifiers = field.getModifiers();
+			if (java.lang.reflect.Modifier.isPublic(modifiers) && java.lang.reflect.Modifier.isFinal(modifiers) && java.lang.reflect.Modifier.isStatic(modifiers)) {
+				if (fieldName.equals(field.getName())) {
 					try {
-						return (Enumerable)fields[i].get( null );
-					} catch( IllegalAccessException iae ) {
+						return (Enumerable) field.get(null);
+					} catch (IllegalAccessException iae) {
 						iae.printStackTrace();
 					}
 				}

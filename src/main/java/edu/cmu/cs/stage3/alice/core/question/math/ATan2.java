@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class ATan2 extends edu.cmu.cs.stage3.alice.core.question.BinaryNumberResultingInNumberQuestion {
-	
-	protected double getValue( double aValue, double bValue ) {
-		return Math.atan2( aValue, bValue );
+
+	@Override
+	protected double getValue(double aValue, double bValue) {
+		return Math.atan2(aValue, bValue);
 	}
 }

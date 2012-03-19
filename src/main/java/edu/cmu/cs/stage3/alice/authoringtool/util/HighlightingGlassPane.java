@@ -20,7 +20,7 @@
  *    must display the following acknowledgement:
  *    "This product includes software developed by Carnegie Mellon University"
  */
- 
+
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
 /**
@@ -34,55 +34,55 @@ public class HighlightingGlassPane extends javax.swing.JPanel {
 	protected java.awt.Color highlightColor = java.awt.Color.red;
 	protected MousePassThroughListener mousePassThroughListener = new MousePassThroughListener();
 
-	public HighlightingGlassPane( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool ) {
+	public HighlightingGlassPane(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool) {
 		this.authoringTool = authoringTool;
 
-		setOpaque( false );
-		addMouseListener( mousePassThroughListener );
-		addMouseMotionListener( mousePassThroughListener );
+		setOpaque(false);
+		addMouseListener(mousePassThroughListener);
+		addMouseMotionListener(mousePassThroughListener);
 
-		blinkTimer = new javax.swing.Timer( 10, new java.awt.event.ActionListener() {
-			public void actionPerformed( java.awt.event.ActionEvent ev ) {
+		blinkTimer = new javax.swing.Timer(10, new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				java.awt.Rectangle r = HighlightingGlassPane.this.getHighlightRect();
-				if( r != null ) {
-					HighlightingGlassPane.this.highlightColor = new java.awt.Color( 1.0f, 0.0f, 0.0f, (float)(.5*Math.sin( System.currentTimeMillis()/400.0 ) + .5) );
+				if (r != null) {
+					highlightColor = new java.awt.Color(1.0f, 0.0f, 0.0f, (float) (.5 * Math.sin(System.currentTimeMillis() / 400.0) + .5));
 					r.x -= 4;
 					r.y -= 4;
 					r.width += 8;
 					r.height += 8;
-					HighlightingGlassPane.this.repaint( r );
+					HighlightingGlassPane.this.repaint(r);
 				}
 			}
-		} );
+		});
 	}
 
-	public void setHighlightID( String highlightID ) {
+	public void setHighlightID(String highlightID) {
 		boolean oldEnabled = blinkTimer.isRunning();
 		setHighlightingEnabled(false);
 		this.highlightID = highlightID;
-		if (oldEnabled){
+		if (oldEnabled) {
 			setHighlightingEnabled(true);
 		}
-		
+
 	}
 
-	public void setHighlightingEnabled( boolean enabled ) {
-		if( enabled ) {
-			if( authoringTool.getJAliceFrame().getGlassPane() != this ) {
+	public void setHighlightingEnabled(boolean enabled) {
+		if (enabled) {
+			if (authoringTool.getJAliceFrame().getGlassPane() != this) {
 				savedGlassPane = authoringTool.getJAliceFrame().getGlassPane();
-				authoringTool.setGlassPane( this );
-				setVisible( true );
+				authoringTool.setGlassPane(this);
+				setVisible(true);
 				blinkTimer.start();
 				revalidate();
 				repaint();
 			}
 		} else {
-			if( authoringTool.getJAliceFrame().getGlassPane() != savedGlassPane ) {
-				if (savedGlassPane == null){
+			if (authoringTool.getJAliceFrame().getGlassPane() != savedGlassPane) {
+				if (savedGlassPane == null) {
 					savedGlassPane = authoringTool.getJAliceFrame().getGlassPane();
-				}
-				else{
-					authoringTool.setGlassPane( savedGlassPane );
+				} else {
+					authoringTool.setGlassPane(savedGlassPane);
 				}
 				blinkTimer.stop();
 			}
@@ -92,20 +92,20 @@ public class HighlightingGlassPane extends javax.swing.JPanel {
 	public java.awt.Rectangle getHighlightRect() {
 		java.awt.Rectangle r = null;
 
-		if( highlightID != null ) {
+		if (highlightID != null) {
 			try {
-				if( ! authoringTool.isIDVisible( highlightID ) ) {
-					authoringTool.makeIDVisible( highlightID );
+				if (!authoringTool.isIDVisible(highlightID)) {
+					authoringTool.makeIDVisible(highlightID);
 				}
 
-				r = authoringTool.getBoxForID( highlightID );
-				if( (r != null) && (! r.isEmpty()) ) {
+				r = authoringTool.getBoxForID(highlightID);
+				if (r != null && !r.isEmpty()) {
 					r.x -= 2;
 					r.y -= 2;
 					r.width += 4;
 					r.height += 4;
 				}
-			} catch( edu.cmu.cs.stage3.caitlin.stencilhelp.application.IDDoesNotExistException e ) {
+			} catch (edu.cmu.cs.stage3.caitlin.stencilhelp.application.IDDoesNotExistException e) {
 				// do nothing
 			}
 		}
@@ -113,52 +113,59 @@ public class HighlightingGlassPane extends javax.swing.JPanel {
 		return r;
 	}
 
-	
-	protected void paintComponent( java.awt.Graphics g ) {
-		super.paintComponent( g );
-	
+	@Override
+	protected void paintComponent(java.awt.Graphics g) {
+		super.paintComponent(g);
+
 		java.awt.Rectangle r = getHighlightRect();
-		if( (r != null) && (! r.isEmpty()) ) {
-			g.setColor( highlightColor );
-	
-			for( int i = 0; i < 4; i++ ) {
-				g.drawRect( r.x - i, r.y - i, r.width + 2*i, r.height + 2*i );
+		if (r != null && !r.isEmpty()) {
+			g.setColor(highlightColor);
+
+			for (int i = 0; i < 4; i++) {
+				g.drawRect(r.x - i, r.y - i, r.width + 2 * i, r.height + 2 * i);
 			}
 		}
 	}
 
 	class MousePassThroughListener extends javax.swing.event.MouseInputAdapter {
-		
-		public void mouseMoved( java.awt.event.MouseEvent ev ) {
-			redispatchMouseEvent( ev );
-		}
-		
-		public void mouseDragged( java.awt.event.MouseEvent ev ) {
-			redispatchMouseEvent( ev );
-		}
-		
-		public void mouseClicked( java.awt.event.MouseEvent ev ) {
-			redispatchMouseEvent( ev );
-		}
-		
-		public void mouseEntered( java.awt.event.MouseEvent ev ) {
-			redispatchMouseEvent( ev );
-		}
-		
-		public void mouseExited( java.awt.event.MouseEvent ev ) {
-			redispatchMouseEvent( ev );
-		}
-		
-		public void mousePressed( java.awt.event.MouseEvent ev ) {
-			redispatchMouseEvent( ev );
-		}
-		
-		public void mouseReleased( java.awt.event.MouseEvent ev ) {
-			redispatchMouseEvent( ev );
+
+		@Override
+		public void mouseMoved(java.awt.event.MouseEvent ev) {
+			redispatchMouseEvent(ev);
 		}
 
-		private void redispatchMouseEvent( java.awt.event.MouseEvent ev ) {
-			HighlightingGlassPane.this.authoringTool.handleMouseEvent( ev );
+		@Override
+		public void mouseDragged(java.awt.event.MouseEvent ev) {
+			redispatchMouseEvent(ev);
+		}
+
+		@Override
+		public void mouseClicked(java.awt.event.MouseEvent ev) {
+			redispatchMouseEvent(ev);
+		}
+
+		@Override
+		public void mouseEntered(java.awt.event.MouseEvent ev) {
+			redispatchMouseEvent(ev);
+		}
+
+		@Override
+		public void mouseExited(java.awt.event.MouseEvent ev) {
+			redispatchMouseEvent(ev);
+		}
+
+		@Override
+		public void mousePressed(java.awt.event.MouseEvent ev) {
+			redispatchMouseEvent(ev);
+		}
+
+		@Override
+		public void mouseReleased(java.awt.event.MouseEvent ev) {
+			redispatchMouseEvent(ev);
+		}
+
+		private void redispatchMouseEvent(java.awt.event.MouseEvent ev) {
+			authoringTool.handleMouseEvent(ev);
 		}
 	}
 }

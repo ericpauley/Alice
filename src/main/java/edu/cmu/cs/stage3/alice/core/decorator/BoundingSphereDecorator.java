@@ -31,82 +31,82 @@ public class BoundingSphereDecorator extends Decorator {
 	private static double[] sines = new double[RESOLUTION_THETA];
 	private static double[] cosines = new double[RESOLUTION_THETA];
 	static {
-		double dtheta = (2.0*Math.PI)/RESOLUTION_THETA;
+		double dtheta = 2.0 * Math.PI / RESOLUTION_THETA;
 		double theta = 0;
-		for( int i=0; i<RESOLUTION_THETA; i++ ) {
-			sines[i] = Math.sin( theta );
-			cosines[i] = Math.cos( theta );
+		for (int i = 0; i < RESOLUTION_THETA; i++) {
+			sines[i] = Math.sin(theta);
+			cosines[i] = Math.cos(theta);
 			theta += dtheta;
 		}
 	}
 	private edu.cmu.cs.stage3.alice.scenegraph.LineStrip m_sgLineStrip = null;
 	private ReferenceFrame m_referenceFrame = null;
 
-	
+	@Override
 	public ReferenceFrame getReferenceFrame() {
 		return m_referenceFrame;
 	}
-	public void setReferenceFrame( ReferenceFrame referenceFrame ) {
-		if( referenceFrame != m_referenceFrame ) {
+	public void setReferenceFrame(ReferenceFrame referenceFrame) {
+		if (referenceFrame != m_referenceFrame) {
 			m_referenceFrame = referenceFrame;
-            markDirty();
+			markDirty();
 			updateIfShowing();
 		}
 	}
-    
-	public void internalRelease( int pass ) {
-        switch( pass ) {
-        case 2:
-            if( m_sgLineStrip != null ) {
-                m_sgLineStrip.release();
-                m_sgLineStrip = null;
-            }
-            break;
-        }
-        super.internalRelease( pass );
-    }
 
-	
+	@Override
+	public void internalRelease(int pass) {
+		switch (pass) {
+			case 2 :
+				if (m_sgLineStrip != null) {
+					m_sgLineStrip.release();
+					m_sgLineStrip = null;
+				}
+				break;
+		}
+		super.internalRelease(pass);
+	}
+
+	@Override
 	protected void update() {
 		super.update();
 		edu.cmu.cs.stage3.math.Sphere sphere = m_referenceFrame.getBoundingSphere();
-		if( sphere==null || sphere.getCenter()==null || Double.isNaN( sphere.getRadius() ) ) {
+		if (sphere == null || sphere.getCenter() == null || Double.isNaN(sphere.getRadius())) {
 			return;
 		}
-        boolean requiresVerticesToBeUpdated = isDirty();
-		if( m_sgLineStrip==null ) {
-            m_sgLineStrip = new edu.cmu.cs.stage3.alice.scenegraph.LineStrip();
-            m_sgVisual.setGeometry( m_sgLineStrip );
-            m_sgLineStrip.setBonus( getReferenceFrame() );
-            requiresVerticesToBeUpdated = true;
+		boolean requiresVerticesToBeUpdated = isDirty();
+		if (m_sgLineStrip == null) {
+			m_sgLineStrip = new edu.cmu.cs.stage3.alice.scenegraph.LineStrip();
+			m_sgVisual.setGeometry(m_sgLineStrip);
+			m_sgLineStrip.setBonus(getReferenceFrame());
+			requiresVerticesToBeUpdated = true;
 		}
-        if( requiresVerticesToBeUpdated ) {
-            double r = sphere.getRadius();
-            double x = sphere.getCenter().x;
-            double y = sphere.getCenter().y;
-            double z = sphere.getCenter().z;
-            edu.cmu.cs.stage3.alice.scenegraph.Color xColor = edu.cmu.cs.stage3.alice.scenegraph.Color.RED;
-            edu.cmu.cs.stage3.alice.scenegraph.Color yColor = edu.cmu.cs.stage3.alice.scenegraph.Color.GREEN;
-            edu.cmu.cs.stage3.alice.scenegraph.Color zColor = edu.cmu.cs.stage3.alice.scenegraph.Color.BLUE;
-            edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] xVertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[RESOLUTION_THETA+1];
-            edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] yVertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[RESOLUTION_THETA+1];
-            edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] zVertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[RESOLUTION_THETA+1];
-            for( int i=0; i<RESOLUTION_THETA; i++ ) {
-                xVertices[i] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( x, y+cosines[i]*r, z+sines[i]*r ), null, xColor, null, null );
-                yVertices[i] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( x+cosines[i]*r, y, z+sines[i]*r ), null, yColor, null, null );
-                zVertices[i] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( x+cosines[i]*r, y+sines[i]*r, z ), null, zColor, null, null );
-            }
-            xVertices[RESOLUTION_THETA] = xVertices[0];
-            yVertices[RESOLUTION_THETA] = yVertices[0];
-            zVertices[RESOLUTION_THETA] = zVertices[0];
+		if (requiresVerticesToBeUpdated) {
+			double r = sphere.getRadius();
+			double x = sphere.getCenter().x;
+			double y = sphere.getCenter().y;
+			double z = sphere.getCenter().z;
+			edu.cmu.cs.stage3.alice.scenegraph.Color xColor = edu.cmu.cs.stage3.alice.scenegraph.Color.RED;
+			edu.cmu.cs.stage3.alice.scenegraph.Color yColor = edu.cmu.cs.stage3.alice.scenegraph.Color.GREEN;
+			edu.cmu.cs.stage3.alice.scenegraph.Color zColor = edu.cmu.cs.stage3.alice.scenegraph.Color.BLUE;
+			edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] xVertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[RESOLUTION_THETA + 1];
+			edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] yVertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[RESOLUTION_THETA + 1];
+			edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] zVertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[RESOLUTION_THETA + 1];
+			for (int i = 0; i < RESOLUTION_THETA; i++) {
+				xVertices[i] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(x, y + cosines[i] * r, z + sines[i] * r), null, xColor, null, null);
+				yVertices[i] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(x + cosines[i] * r, y, z + sines[i] * r), null, yColor, null, null);
+				zVertices[i] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(x + cosines[i] * r, y + sines[i] * r, z), null, zColor, null, null);
+			}
+			xVertices[RESOLUTION_THETA] = xVertices[0];
+			yVertices[RESOLUTION_THETA] = yVertices[0];
+			zVertices[RESOLUTION_THETA] = zVertices[0];
 
-            edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] vertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[xVertices.length+yVertices.length+zVertices.length];
-            System.arraycopy( xVertices, 0, vertices, 0, xVertices.length );
-            System.arraycopy( yVertices, 0, vertices, xVertices.length, yVertices.length );
-            System.arraycopy( zVertices, 0, vertices, xVertices.length+yVertices.length, zVertices.length );
-            m_sgLineStrip.setVertices( vertices );
-        }
-        setIsDirty( false );
+			edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] vertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[xVertices.length + yVertices.length + zVertices.length];
+			System.arraycopy(xVertices, 0, vertices, 0, xVertices.length);
+			System.arraycopy(yVertices, 0, vertices, xVertices.length, yVertices.length);
+			System.arraycopy(zVertices, 0, vertices, xVertices.length + yVertices.length, zVertices.length);
+			m_sgLineStrip.setVertices(vertices);
+		}
+		setIsDirty(false);
 	}
 }
-

@@ -26,35 +26,35 @@ package edu.cmu.cs.stage3.alice.core.geometry;
 import edu.cmu.cs.stage3.alice.core.property.VertexArrayProperty;
 
 public class VertexGeometry extends edu.cmu.cs.stage3.alice.core.Geometry {
-	public final VertexArrayProperty vertices = new VertexArrayProperty( this, "vertices", null );
-	public VertexGeometry( edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry sgVertexGeometry ) {
-		super( sgVertexGeometry );
+	public final VertexArrayProperty vertices = new VertexArrayProperty(this, "vertices", null);
+	public VertexGeometry(edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry sgVertexGeometry) {
+		super(sgVertexGeometry);
 	}
 	public edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry getSceneGraphVertexGeometry() {
-		return (edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry)getSceneGraphGeometry();
-	}
-	
-	protected void propertyChanged( edu.cmu.cs.stage3.alice.core.Property property, Object value ) {
-		if( property == vertices ) {
-			getSceneGraphVertexGeometry().setVertices( (edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[])value );
-		} else {
-			super.propertyChanged( property, value );
-		}
+		return (edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry) getSceneGraphGeometry();
 	}
 
+	@Override
+	protected void propertyChanged(edu.cmu.cs.stage3.alice.core.Property property, Object value) {
+		if (property == vertices) {
+			getSceneGraphVertexGeometry().setVertices((edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[]) value);
+		} else {
+			super.propertyChanged(property, value);
+		}
+	}
 
 	public int getVertexCount() {
 		return getSceneGraphVertexGeometry().getVertexCount();
 	}
-	public void setNormals( javax.vecmath.Vector3d[] normals ) {
+	public void setNormals(javax.vecmath.Vector3d[] normals) {
 		edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] sgVertices = getSceneGraphVertexGeometry().getVertices();
-		if( sgVertices != null ) {
-			for( int i=0; i<sgVertices.length; i++ ) {
-				sgVertices[ i ].normal = normals[ i ];
+		if (sgVertices != null) {
+			for (int i = 0; i < sgVertices.length; i++) {
+				sgVertices[i].normal = normals[i];
 			}
 		}
-		//todo: need a better way to force update
-		vertices.set( null );
-		vertices.set( sgVertices );
+		// todo: need a better way to force update
+		vertices.set(null);
+		vertices.set(sgVertices);
 	}
 }

@@ -25,42 +25,22 @@ package edu.cmu.cs.stage3.alice.core.response;
 
 public class ChoiceResponse extends CompositeResponse {
 	/*
-	public class RuntimeChoiceResponse extends RuntimeCompositeResponse {
-		private int m_index;
-		public void prologue( double t ) {
-			super.prologue( t );
-			m_index = 0;
-			for( int i=0; i<m_runtimeResponses.length; i++ ) {
-				if( m_runtimeResponses[i] instanceof ConditionalResponse.RuntimeConditionalResponse ) {
-					ConditionalResponse.RuntimeConditionalResponse conditionalRuntimeResponse = (ConditionalResponse.RuntimeConditionalResponse)m_runtimeResponses[i];
-					if( conditionalRuntimeResponse.testFirstTime( t ) ) {
-						m_index = i;
-						break;
-					}
-				}
-			}
-			if( m_index<m_runtimeResponses.length ) {
-				m_runtimeResponses[m_index].prologue( t );
-			}
-		}
-		public void update( double t ) {
-			if( m_index<m_runtimeResponses.length ) {
-				m_runtimeResponses[m_index].update( t );
-			}
-		}
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			if( m_index<m_runtimeResponses.length ) {
-				m_runtimeResponses[m_index].epilogue( t );
-			}
-		}
-		public double getTimeRemaining( double t ) {
-			if( m_index<m_runtimeResponses.length ) {
-				return m_runtimeResponses[m_index].getTimeRemaining( t );
-			} else {
-				return -getTimeElapsed( t );
-			}
-		}
-	}
-	*/
+	 * public class RuntimeChoiceResponse extends RuntimeCompositeResponse {
+	 * private int m_index; public void prologue( double t ) { super.prologue( t
+	 * ); m_index = 0; for( int i=0; i<m_runtimeResponses.length; i++ ) { if(
+	 * m_runtimeResponses[i] instanceof
+	 * ConditionalResponse.RuntimeConditionalResponse ) {
+	 * ConditionalResponse.RuntimeConditionalResponse conditionalRuntimeResponse
+	 * = (ConditionalResponse.RuntimeConditionalResponse)m_runtimeResponses[i];
+	 * if( conditionalRuntimeResponse.testFirstTime( t ) ) { m_index = i; break;
+	 * } } } if( m_index<m_runtimeResponses.length ) {
+	 * m_runtimeResponses[m_index].prologue( t ); } } public void update( double
+	 * t ) { if( m_index<m_runtimeResponses.length ) {
+	 * m_runtimeResponses[m_index].update( t ); } } public void epilogue( double
+	 * t ) { super.epilogue( t ); if( m_index<m_runtimeResponses.length ) {
+	 * m_runtimeResponses[m_index].epilogue( t ); } } public double
+	 * getTimeRemaining( double t ) { if( m_index<m_runtimeResponses.length ) {
+	 * return m_runtimeResponses[m_index].getTimeRemaining( t ); } else { return
+	 * -getTimeElapsed( t ); } } }
+	 */
 }

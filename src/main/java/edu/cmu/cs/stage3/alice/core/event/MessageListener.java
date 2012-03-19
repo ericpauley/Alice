@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.core.event;
 
 public interface MessageListener {
-	public void messageSent( MessageEvent messageEvent );
+	public void messageSent(MessageEvent messageEvent);
 }

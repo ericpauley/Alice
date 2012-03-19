@@ -24,10 +24,10 @@
 package edu.cmu.cs.stage3.pratt.maxkeyframing;
 
 public abstract class KeyframeResponse extends edu.cmu.cs.stage3.alice.core.response.TransformResponse {
-	public final edu.cmu.cs.stage3.alice.core.property.ObjectProperty spline = new edu.cmu.cs.stage3.alice.core.property.ObjectProperty( this, "spline", null, edu.cmu.cs.stage3.pratt.maxkeyframing.Spline.class );
+	public final edu.cmu.cs.stage3.alice.core.property.ObjectProperty spline = new edu.cmu.cs.stage3.alice.core.property.ObjectProperty(this, "spline", null, edu.cmu.cs.stage3.pratt.maxkeyframing.Spline.class);
 
 	public KeyframeResponse() {
-//		spline.setIsAcceptingOfNull( true );
+		// spline.setIsAcceptingOfNull( true );
 	}
 
 	public abstract class RuntimeKeyframeResponse extends Hack_RuntimeTransformResponse {
@@ -35,26 +35,26 @@ public abstract class KeyframeResponse extends edu.cmu.cs.stage3.alice.core.resp
 		protected double splineDuration = 0.0;
 		protected double timeFactor = 1.0;
 
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			runtimeSpline = (edu.cmu.cs.stage3.pratt.maxkeyframing.Spline)spline.getValue();
-			if( runtimeSpline != null ) {
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			runtimeSpline = (edu.cmu.cs.stage3.pratt.maxkeyframing.Spline) spline.getValue();
+			if (runtimeSpline != null) {
 				splineDuration = runtimeSpline.getDuration();
 			} else {
 				splineDuration = 0.0;
 			}
 			timeFactor = 1.0;
-			if( ! Double.isNaN( getDuration() ) ) {
-				timeFactor = splineDuration/getDuration();
+			if (!Double.isNaN(getDuration())) {
+				timeFactor = splineDuration / getDuration();
 			} else {
-				setDuration( splineDuration );
+				setDuration(splineDuration);
 			}
 		}
 
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
 			runtimeSpline = null;
 		}
 	}
@@ -62,11 +62,12 @@ public abstract class KeyframeResponse extends edu.cmu.cs.stage3.alice.core.resp
 	abstract class Hack_RuntimeTransformResponse extends RuntimeResponse {
 		protected edu.cmu.cs.stage3.alice.core.Transformable m_transformable;
 		protected edu.cmu.cs.stage3.alice.core.ReferenceFrame m_asSeenBy;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			m_transformable = (edu.cmu.cs.stage3.alice.core.Transformable)subject.getValue();
-			m_asSeenBy = (edu.cmu.cs.stage3.alice.core.ReferenceFrame)asSeenBy.getValue();
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_transformable = (edu.cmu.cs.stage3.alice.core.Transformable) subject.getValue();
+			m_asSeenBy = (edu.cmu.cs.stage3.alice.core.ReferenceFrame) asSeenBy.getValue();
 		}
 	}
 }

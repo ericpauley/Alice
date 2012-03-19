@@ -29,43 +29,44 @@ import edu.cmu.cs.stage3.alice.core.camera.SymmetricPerspectiveCamera;
 public class SymmetricPerspectiveViewVolumeDecorator extends ViewVolumeDecorator {
 	private SymmetricPerspectiveCamera m_symmetricPerspectiveCamera = null;
 
-	
+	@Override
 	protected Camera getCamera() {
 		return getSymmetricPerspectiveCamera();
 	}
 	public SymmetricPerspectiveCamera getSymmetricPerspectiveCamera() {
 		return m_symmetricPerspectiveCamera;
 	}
-	public void setSymmetricPerspectiveCamera( SymmetricPerspectiveCamera symmetricPerspectiveCamera ) {
-		if( symmetricPerspectiveCamera != m_symmetricPerspectiveCamera ) {
+	public void setSymmetricPerspectiveCamera(SymmetricPerspectiveCamera symmetricPerspectiveCamera) {
+		if (symmetricPerspectiveCamera != m_symmetricPerspectiveCamera) {
 			m_symmetricPerspectiveCamera = symmetricPerspectiveCamera;
-            markDirty();
+			markDirty();
 			updateIfShowing();
 		}
 	}
 
-	
-	protected double[] getXYNearAndXYFar( double zNear, double zFar ) {
+	@Override
+	protected double[] getXYNearAndXYFar(double zNear, double zFar) {
 		/*
-		Number verticalViewingAngleValue = SymmetricPerspectiveCamera.this.verticalViewingAngle.getNumberValue();
-		Number horizontalViewingAngleValue = SymmetricPerspectiveCamera.this.horizontalViewingAngle.getNumberValue();
-		double angle = 0.5;
-		if( verticalViewingAngleValue!=null ) {
-			angle = verticalViewingAngleValue.doubleValue()*0.5;
-		}
-		*/
-		double angle = m_symmetricPerspectiveCamera.verticalViewingAngle.doubleValue( 0.5 );
+		 * Number verticalViewingAngleValue =
+		 * SymmetricPerspectiveCamera.this.verticalViewingAngle
+		 * .getNumberValue(); Number horizontalViewingAngleValue =
+		 * SymmetricPerspectiveCamera
+		 * .this.horizontalViewingAngle.getNumberValue(); double angle = 0.5;
+		 * if( verticalViewingAngleValue!=null ) { angle =
+		 * verticalViewingAngleValue.doubleValue()*0.5; }
+		 */
+		double angle = m_symmetricPerspectiveCamera.verticalViewingAngle.doubleValue(0.5);
 
-		//angle = self._object._camera.VerticalViewingAngle
-		//x, y = self._object._camera.ViewportSize
-		//aspect = float(x)/float(y)
-		double aspect = 4.0/3.0;
+		// angle = self._object._camera.VerticalViewingAngle
+		// x, y = self._object._camera.ViewportSize
+		// aspect = float(x)/float(y)
+		double aspect = 4.0 / 3.0;
 
-		double yNear = zNear * Math.tan( angle );
-		double yFar = zFar * Math.tan( angle );
+		double yNear = zNear * Math.tan(angle);
+		double yFar = zFar * Math.tan(angle);
 		double xNear = aspect * yNear;
 		double xFar = aspect * yFar;
-		double[] r = { xNear, yNear, xFar, yFar };
+		double[] r = {xNear, yNear, xFar, yFar};
 		return r;
 	}
 }

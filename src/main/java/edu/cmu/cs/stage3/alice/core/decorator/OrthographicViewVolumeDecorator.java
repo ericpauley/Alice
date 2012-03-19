@@ -29,31 +29,31 @@ import edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera;
 public class OrthographicViewVolumeDecorator extends ViewVolumeDecorator {
 	private OrthographicCamera m_orthographicCamera = null;
 
-	
+	@Override
 	protected Camera getCamera() {
 		return getOrthographicCamera();
 	}
 	public OrthographicCamera getOrthographicCamera() {
 		return m_orthographicCamera;
 	}
-	public void setOrthographicCamera( OrthographicCamera orthographicCamera ) {
-		if( orthographicCamera != m_orthographicCamera ) {
+	public void setOrthographicCamera(OrthographicCamera orthographicCamera) {
+		if (orthographicCamera != m_orthographicCamera) {
 			m_orthographicCamera = orthographicCamera;
-            markDirty();
+			markDirty();
 			updateIfShowing();
 		}
 	}
 
-	
-	protected double[] getXYNearAndXYFar( double zNear, double zFar ) {
-		//todo
+	@Override
+	protected double[] getXYNearAndXYFar(double zNear, double zFar) {
+		// todo
 		double angle = 0.5;
-		double aspect = 4.0/3.0;
-		double yNear = zNear * Math.tan( angle );
-		double yFar = zFar * Math.tan( angle );
+		double aspect = 4.0 / 3.0;
+		double yNear = zNear * Math.tan(angle);
+		double yFar = zFar * Math.tan(angle);
 		double xNear = aspect * yNear;
 		double xFar = aspect * yFar;
-		double[] r = { xNear, yNear, xFar, yFar };
+		double[] r = {xNear, yNear, xFar, yFar};
 		return r;
 	}
 }

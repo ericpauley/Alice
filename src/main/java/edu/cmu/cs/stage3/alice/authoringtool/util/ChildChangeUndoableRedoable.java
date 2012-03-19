@@ -31,53 +31,59 @@ public class ChildChangeUndoableRedoable implements ContextAssignableUndoableRed
 	protected int newIndex;
 	protected Object context;
 
-	public ChildChangeUndoableRedoable( edu.cmu.cs.stage3.alice.core.event.ChildrenEvent childrenEvent ) {
-		this.parent = (edu.cmu.cs.stage3.alice.core.Element)childrenEvent.getSource();
-		this.child = childrenEvent.getChild();
-		this.changeType = childrenEvent.getChangeType();
-		this.oldIndex = childrenEvent.getOldIndex();
-		this.newIndex = childrenEvent.getNewIndex();
+	public ChildChangeUndoableRedoable(edu.cmu.cs.stage3.alice.core.event.ChildrenEvent childrenEvent) {
+		parent = (edu.cmu.cs.stage3.alice.core.Element) childrenEvent.getSource();
+		child = childrenEvent.getChild();
+		changeType = childrenEvent.getChangeType();
+		oldIndex = childrenEvent.getOldIndex();
+		newIndex = childrenEvent.getNewIndex();
 	}
 
 	/**
-	 * @deprecated  use other constructor
+	 * @deprecated use other constructor
 	 */
-	public ChildChangeUndoableRedoable( edu.cmu.cs.stage3.alice.core.event.ChildrenEvent childrenEvent, Object context ) {
-		this.parent = (edu.cmu.cs.stage3.alice.core.Element)childrenEvent.getSource();
-		this.child = childrenEvent.getChild();
-		this.changeType = childrenEvent.getChangeType();
-		this.oldIndex = childrenEvent.getOldIndex();
-		this.newIndex = childrenEvent.getNewIndex();
+	@Deprecated
+	public ChildChangeUndoableRedoable(edu.cmu.cs.stage3.alice.core.event.ChildrenEvent childrenEvent, Object context) {
+		parent = (edu.cmu.cs.stage3.alice.core.Element) childrenEvent.getSource();
+		child = childrenEvent.getChild();
+		changeType = childrenEvent.getChangeType();
+		oldIndex = childrenEvent.getOldIndex();
+		newIndex = childrenEvent.getNewIndex();
 	}
 
-	public void setContext( Object context ) {
+	@Override
+	public void setContext(Object context) {
 		this.context = context;
 	}
 
+	@Override
 	public void undo() {
-		if( changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_INSERTED ) {
+		if (changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_INSERTED) {
 			child.removeFromParent();
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_REMOVED ) {
-			parent.insertChildAt( child, oldIndex );
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_SHIFTED ) {
-			parent.insertChildAt( child, oldIndex );
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_REMOVED) {
+			parent.insertChildAt(child, oldIndex);
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_SHIFTED) {
+			parent.insertChildAt(child, oldIndex);
 		}
 	}
 
+	@Override
 	public void redo() {
-		if( changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_INSERTED ) {
-			parent.insertChildAt( child, newIndex );
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_REMOVED ) {
-			parent.removeChild( child );
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_SHIFTED ) {
-			parent.insertChildAt( child, newIndex );
+		if (changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_INSERTED) {
+			parent.insertChildAt(child, newIndex);
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_REMOVED) {
+			parent.removeChild(child);
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_SHIFTED) {
+			parent.insertChildAt(child, newIndex);
 		}
 	}
 
+	@Override
 	public Object getAffectedObject() {
 		return child;
 	}
 
+	@Override
 	public Object getContext() {
 		return context;
 	}

@@ -24,38 +24,42 @@
 package edu.cmu.cs.stage3.alice.core.response;
 
 public class ForEachInOrder extends ForEach {
-	//todo:
-	//private static Class[] s_supportedCoercionClasses = { ForEachTogether.class };
+	// todo:
+	// private static Class[] s_supportedCoercionClasses = {
+	// ForEachTogether.class };
 	private static Class[] s_supportedCoercionClasses = {};
-	
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
 	public class RuntimeForEachInOrder extends RuntimeForEach {
-        private int m_loopIndex;
-		
-		protected boolean preLoopTest( double t ) {
-            m_loopIndex++;
-            if( m_loopIndex < m_listSize ) {
+		private int m_loopIndex;
+
+		@Override
+		protected boolean preLoopTest(double t) {
+			m_loopIndex++;
+			if (m_loopIndex < m_listSize) {
 				edu.cmu.cs.stage3.alice.core.Behavior currentBehavior = getCurrentBehavior();
-				if( currentBehavior != null ) {
-					currentBehavior.setForkIndex( this, m_loopIndex );
+				if (currentBehavior != null) {
+					currentBehavior.setForkIndex(this, m_loopIndex);
 				}
-                return true;
+				return true;
 			} else {
 				return false;
 			}
-        }
-		
-		protected boolean postLoopTest( double t ) {
-            return true;
 		}
 
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-            m_loopIndex = -1;
+		@Override
+		protected boolean postLoopTest(double t) {
+			return true;
 		}
-        //todo: getTimeRemaining
-    }
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_loopIndex = -1;
+		}
+		// todo: getTimeRemaining
+	}
 }

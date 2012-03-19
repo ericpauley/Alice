@@ -27,32 +27,37 @@ import edu.cmu.cs.stage3.math.Matrix44;
 
 /**
  * the root of the scenegraph
+ * 
  * @author Dennis Cosgrove
  */
 public class Scene extends ReferenceFrame {
-	public static final Property BACKGROUND_PROPERTY = new Property( Scene.class, "BACKGROUND" );
+	public static final Property BACKGROUND_PROPERTY = new Property(Scene.class, "BACKGROUND");
 	private Background m_background = null;
-	
+
+	@Override
 	protected void releasePass1() {
-		if( m_background != null ) {
-			warnln( "WARNING: released scene " + this + " still has background " + m_background + "." );
-			setBackground( null );
+		if (m_background != null) {
+			warnln("WARNING: released scene " + this + " still has background " + m_background + ".");
+			setBackground(null);
 		}
 		super.releasePass1();
 	}
-	
+
+	@Override
 	public javax.vecmath.Matrix4d getAbsoluteTransformation() {
 		javax.vecmath.Matrix4d m = new javax.vecmath.Matrix4d();
 		m.setIdentity();
 		return m;
 	}
-	
+
+	@Override
 	public javax.vecmath.Matrix4d getInverseAbsoluteTransformation() {
 		javax.vecmath.Matrix4d m = new javax.vecmath.Matrix4d();
 		m.setIdentity();
 		return m;
 	}
-	
+
+	@Override
 	public Container getRoot() {
 		return this;
 	}
@@ -64,19 +69,20 @@ public class Scene extends ReferenceFrame {
 		return m_background;
 	}
 	/**
-	 *
-	 * @param Background (default: null)
+	 * 
+	 * @param Background
+	 *            (default: null)
 	 * @see #getBackground
 	 */
-	public void setBackground( Background background ) {
-		if( m_background != background ) {
+	public void setBackground(Background background) {
+		if (m_background != background) {
 			m_background = background;
-			onPropertyChange( BACKGROUND_PROPERTY );
+			onPropertyChange(BACKGROUND_PROPERTY);
 		}
 	}
 
-	
-	public Matrix44 getTransformation( ReferenceFrame asSeenBy ) {
-		return new Matrix44( asSeenBy.getInverseAbsoluteTransformation() );
+	@Override
+	public Matrix44 getTransformation(ReferenceFrame asSeenBy) {
+		return new Matrix44(asSeenBy.getInverseAbsoluteTransformation());
 	}
 }

@@ -25,10 +25,11 @@ package edu.cmu.cs.stage3.alice.core.response.stack;
 
 public class Push extends StackItemResponse {
 	public class RuntimePush extends RuntimeStackItemResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			getStack().pushValue( getItem() );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			getStack().pushValue(getItem());
 		}
 	}
 }

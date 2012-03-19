@@ -28,8 +28,8 @@ public class ChildrenEvent extends java.util.EventObject {
 	public static final int CHILD_REMOVED = 2;
 	private edu.cmu.cs.stage3.alice.scenegraph.Component m_child;
 	private int m_id;
-	public ChildrenEvent( edu.cmu.cs.stage3.alice.scenegraph.Container source, int id, edu.cmu.cs.stage3.alice.scenegraph.Component child ) {
-		super( source );
+	public ChildrenEvent(edu.cmu.cs.stage3.alice.scenegraph.Container source, int id, edu.cmu.cs.stage3.alice.scenegraph.Component child) {
+		super(source);
 		m_id = id;
 		m_child = child;
 	}
@@ -40,16 +40,17 @@ public class ChildrenEvent extends java.util.EventObject {
 		return m_child;
 	}
 	private String getIDText() {
-		switch( m_id ) {
-		case CHILD_ADDED:
-			return "CHILD_ADDED";
-		case CHILD_REMOVED:
-			return "CHILD_REMOVED";
+		switch (m_id) {
+			case CHILD_ADDED :
+				return "CHILD_ADDED";
+			case CHILD_REMOVED :
+				return "CHILD_REMOVED";
 		}
 		return "UNKNOWN";
 	}
-	
+
+	@Override
 	public String toString() {
-		return getClass().getName() + "[source=" + source + ",id=" + getIDText()+ ",child=" + m_child + "]";
+		return getClass().getName() + "[source=" + source + ",id=" + getIDText() + ",child=" + m_child + "]";
 	}
 }

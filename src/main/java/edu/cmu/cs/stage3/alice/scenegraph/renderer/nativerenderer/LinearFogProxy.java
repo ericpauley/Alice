@@ -24,16 +24,17 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class LinearFogProxy extends FogProxy {
-	protected abstract void onNearDistanceChange( double value );
-	protected abstract void onFarDistanceChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.LinearFog.NEAR_DISTANCE_PROPERTY ) {
-			onNearDistanceChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.LinearFog.FAR_DISTANCE_PROPERTY ) {
-			onFarDistanceChange( ((Double)value).doubleValue() );
+	protected abstract void onNearDistanceChange(double value);
+	protected abstract void onFarDistanceChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.LinearFog.NEAR_DISTANCE_PROPERTY) {
+			onNearDistanceChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.LinearFog.FAR_DISTANCE_PROPERTY) {
+			onFarDistanceChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

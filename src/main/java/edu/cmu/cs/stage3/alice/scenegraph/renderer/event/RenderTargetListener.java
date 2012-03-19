@@ -24,6 +24,6 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.event;
 
 public interface RenderTargetListener {
-	public void cleared( RenderTargetEvent renderTargetEvent );
-	public void rendered( RenderTargetEvent renderTargetEvent );
+	public void cleared(RenderTargetEvent renderTargetEvent);
+	public void rendered(RenderTargetEvent renderTargetEvent);
 }

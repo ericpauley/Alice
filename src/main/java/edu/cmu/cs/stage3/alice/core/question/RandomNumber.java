@@ -28,30 +28,32 @@ import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class RandomNumber extends Question {
-	public final NumberProperty minimum = new NumberProperty( this, "minimum", new Double( 0 ) );
-	public final NumberProperty maximum = new NumberProperty( this, "maximum", new Double( 1 ) );
-	public final BooleanProperty integerOnly = new BooleanProperty( this, "integerOnly", Boolean.FALSE );
-	
+	public final NumberProperty minimum = new NumberProperty(this, "minimum", new Double(0));
+	public final NumberProperty maximum = new NumberProperty(this, "maximum", new Double(1));
+	public final BooleanProperty integerOnly = new BooleanProperty(this, "integerOnly", Boolean.FALSE);
+
+	@Override
 	public Object getValue() {
 		double minimumValue = minimum.doubleValue();
 		double maximumValue = maximum.doubleValue();
-		if( minimumValue > maximumValue ) {
+		if (minimumValue > maximumValue) {
 			double temp = minimumValue;
 			minimumValue = maximumValue;
 			maximumValue = temp;
 		}
 		double r = Math.random();
-		double value = r*(maximumValue-minimumValue) + minimumValue;
-		if( integerOnly.booleanValue() ) {
-			//todo: handle [min, max] as opposed to [ min, max )
-			return new Double( (int)value );//return new Integer( (int)value );
+		double value = r * (maximumValue - minimumValue) + minimumValue;
+		if (integerOnly.booleanValue()) {
+			// todo: handle [min, max] as opposed to [ min, max )
+			return new Double((int) value);// return new Integer( (int)value );
 		} else {
-			return new Double( value );
+			return new Double(value);
 		}
 	}
-	
+
+	@Override
 	public Class getValueClass() {
-		if( integerOnly.booleanValue() ) {
+		if (integerOnly.booleanValue()) {
 			return Integer.class;
 		} else {
 			return Number.class;

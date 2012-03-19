@@ -27,17 +27,18 @@ import edu.cmu.cs.stage3.alice.core.List;
 import edu.cmu.cs.stage3.alice.core.property.ListProperty;
 
 public abstract class ListBooleanQuestion extends edu.cmu.cs.stage3.alice.core.question.BooleanQuestion {
-	public final ListProperty list = new ListProperty( this, "list", null );
-	protected abstract boolean getValue( List list );
-	
+	public final ListProperty list = new ListProperty(this, "list", null);
+	protected abstract boolean getValue(List list);
+
+	@Override
 	public Object getValue() {
 		List listValue = list.getListValue();
-		if( listValue!=null ) {
-            if( getValue( listValue ) ) {
-                return Boolean.TRUE;
-            } else {
-                return Boolean.FALSE;
-            }
+		if (listValue != null) {
+			if (getValue(listValue)) {
+				return Boolean.TRUE;
+			} else {
+				return Boolean.FALSE;
+			}
 		} else {
 			return Boolean.FALSE;
 		}

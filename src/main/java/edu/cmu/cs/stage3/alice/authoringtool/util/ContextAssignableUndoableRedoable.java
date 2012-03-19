@@ -27,5 +27,5 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public interface ContextAssignableUndoableRedoable extends UndoableRedoable {
-	public void setContext( Object context );
+	public void setContext(Object context);
 }

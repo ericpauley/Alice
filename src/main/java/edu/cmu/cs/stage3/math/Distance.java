@@ -24,11 +24,11 @@
 package edu.cmu.cs.stage3.math;
 
 public class Distance extends Measurement {
-    public static final double METERS = 1.0;
-    public static final double INCHES = 0.0254;
-    public static final double FEET = INCHES*12;
-    public static final double MILES = FEET*5280;
-    public Distance( double value, double factor ) {
-		super( value, factor );
-    }
+	public static final double METERS = 1.0;
+	public static final double INCHES = 0.0254;
+	public static final double FEET = INCHES * 12;
+	public static final double MILES = FEET * 5280;
+	public Distance(double value, double factor) {
+		super(value, factor);
+	}
 }

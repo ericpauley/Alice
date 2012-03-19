@@ -27,6 +27,6 @@ package edu.cmu.cs.stage3.alice.core.event;
  * @author Jason Pratt
  */
 public interface RenderTargetPickManipulatorListener {
-	public void prePick( RenderTargetPickManipulatorEvent ev );
-	public void postPick( RenderTargetPickManipulatorEvent ev );
+	public void prePick(RenderTargetPickManipulatorEvent ev);
+	public void postPick(RenderTargetPickManipulatorEvent ev);
 }

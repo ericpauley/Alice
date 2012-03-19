@@ -29,7 +29,7 @@ package edu.cmu.cs.stage3.alice.authoringtool.util.event;
 public class EditorPanelEvent {
 	protected edu.cmu.cs.stage3.alice.core.Element element;
 
-	public EditorPanelEvent( edu.cmu.cs.stage3.alice.core.Element element ) {
+	public EditorPanelEvent(edu.cmu.cs.stage3.alice.core.Element element) {
 		this.element = element;
 	}
 

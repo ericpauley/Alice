@@ -24,7 +24,7 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public class ReleaseEvent extends java.util.EventObject {
-	public ReleaseEvent( edu.cmu.cs.stage3.alice.scenegraph.Element source ) {
-		super( source );
+	public ReleaseEvent(edu.cmu.cs.stage3.alice.scenegraph.Element source) {
+		super(source);
 	}
 }

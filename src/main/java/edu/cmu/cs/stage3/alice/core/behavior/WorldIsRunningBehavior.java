@@ -24,23 +24,27 @@
 package edu.cmu.cs.stage3.alice.core.behavior;
 
 public class WorldIsRunningBehavior extends AbstractConditionalBehavior {
-	private static Class[] s_supportedCoercionClasses = { WorldStartBehavior.class };
-	
+	private static Class[] s_supportedCoercionClasses = {WorldStartBehavior.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
+
+	@Override
 	protected boolean invokeEndOnStop() {
 		return true;
 	}
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		set( true );
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		set(true);
 	}
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		set( false );
-		super.stopped( world, time );
+
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		set(false);
+		super.stopped(world, time);
 	}
 }

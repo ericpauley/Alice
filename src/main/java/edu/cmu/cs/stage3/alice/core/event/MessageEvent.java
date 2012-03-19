@@ -32,8 +32,8 @@ public class MessageEvent extends java.util.EventObject {
 	private Transformable m_toWhom;
 	private long m_when;
 
-	public MessageEvent( Element source, String message, Transformable fromWho, Transformable toWhom, long when ) {
-		super( source );
+	public MessageEvent(Element source, String message, Transformable fromWho, Transformable toWhom, long when) {
+		super(source);
 		m_message = message;
 		m_fromWho = fromWho;
 		m_toWhom = toWhom;

@@ -51,16 +51,15 @@ import java.io.IOException;
  */
 public class FPXImageDecoder extends ImageDecoderImpl {
 
-    public FPXImageDecoder(SeekableStream input,
-                           ImageDecodeParam param) {
-        super(input, param);
-    }
+	public FPXImageDecoder(SeekableStream input, ImageDecodeParam param) {
+		super(input, param);
+	}
 
-    
+	@Override
 	public RenderedImage decodeAsRenderedImage(int page) throws IOException {
-        if (page != 0) {
-            throw new IOException(JaiI18N.getString("FPXImageDecoder0"));
-        }
-        return new FPXImage(input, (FPXDecodeParam)param);
-    }
+		if (page != 0) {
+			throw new IOException(JaiI18N.getString("FPXImageDecoder0"));
+		}
+		return new FPXImage(input, (FPXDecodeParam) param);
+	}
 }

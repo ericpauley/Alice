@@ -24,12 +24,12 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public class SimulationExceptionWrapper extends SimulationException {
-    private Exception m_exception;
-	public SimulationExceptionWrapper( String detail, java.util.Stack stack, Element element, Exception exception ) {
-		super( detail, stack, element );
-        m_exception = exception;
+	private Exception m_exception;
+	public SimulationExceptionWrapper(String detail, java.util.Stack stack, Element element, Exception exception) {
+		super(detail, stack, element);
+		m_exception = exception;
 	}
-    public Exception getWrappedException() {
-        return m_exception;
-    }
+	public Exception getWrappedException() {
+		return m_exception;
+	}
 }

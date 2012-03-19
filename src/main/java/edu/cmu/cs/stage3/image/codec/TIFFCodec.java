@@ -44,7 +44,6 @@ package edu.cmu.cs.stage3.image.codec;
  * Contributor(s): _______________________________________
  */
 
-
 import java.awt.image.RenderedImage;
 import java.io.OutputStream;
 
@@ -52,62 +51,54 @@ import java.io.OutputStream;
  */
 public final class TIFFCodec extends ImageCodec {
 
-    public TIFFCodec() {}
+	public TIFFCodec() {
+	}
 
-    
+	@Override
 	public String getFormatName() {
-        return "tiff";
-    }
+		return "tiff";
+	}
 
-    
+	@Override
 	public Class getEncodeParamClass() {
-        return TIFFEncodeParam.class;
-    }
+		return TIFFEncodeParam.class;
+	}
 
-    
+	@Override
 	public Class getDecodeParamClass() {
-        return TIFFDecodeParam.class;
-    }
+		return TIFFDecodeParam.class;
+	}
 
-    
-	public boolean canEncodeImage(RenderedImage im,
-                                  ImageEncodeParam param) {
-        return true;
-    }
+	@Override
+	public boolean canEncodeImage(RenderedImage im, ImageEncodeParam param) {
+		return true;
+	}
 
-    
-	protected ImageEncoder createImageEncoder(OutputStream dst,
-                                              ImageEncodeParam param) {
-        return new TIFFImageEncoder(dst, param);
-    }
+	@Override
+	protected ImageEncoder createImageEncoder(OutputStream dst, ImageEncodeParam param) {
+		return new TIFFImageEncoder(dst, param);
+	}
 
-    
-	protected ImageDecoder createImageDecoder(SeekableStream src,
-                                              ImageDecodeParam param) {
-        return new TIFFImageDecoder(src, param);
-    }
+	@Override
+	protected ImageDecoder createImageDecoder(SeekableStream src, ImageDecodeParam param) {
+		return new TIFFImageDecoder(src, param);
+	}
 
-    
+	@Override
 	public int getNumHeaderBytes() {
-        return 4;
-    }
+		return 4;
+	}
 
-    
+	@Override
 	public boolean isFormatRecognized(byte[] header) {
-        if ((header[0] == 0x49) &&
-            (header[1] == 0x49) &&
-            (header[2] == 0x2a) &&
-            (header[3] == 0x00)) {
-            return true;
-        }
+		if (header[0] == 0x49 && header[1] == 0x49 && header[2] == 0x2a && header[3] == 0x00) {
+			return true;
+		}
 
-        if ((header[0] == 0x4d) &&
-            (header[1] == 0x4d) &&
-            (header[2] == 0x00) &&
-            (header[3] == 0x2a)) {
-            return true;
-        }
+		if (header[0] == 0x4d && header[1] == 0x4d && header[2] == 0x00 && header[3] == 0x2a) {
+			return true;
+		}
 
-        return false;
-    }
+		return false;
+	}
 }

@@ -29,13 +29,14 @@ package edu.cmu.cs.stage3.alice.scripting.jython;
 public class Code implements edu.cmu.cs.stage3.alice.scripting.Code {
 	private org.python.core.PyCode m_pyCode;
 	private edu.cmu.cs.stage3.alice.scripting.CompileType m_compileType;
-	public Code( org.python.core.PyCode pyCode, edu.cmu.cs.stage3.alice.scripting.CompileType compileType ) {
+	public Code(org.python.core.PyCode pyCode, edu.cmu.cs.stage3.alice.scripting.CompileType compileType) {
 		m_pyCode = pyCode;
 		m_compileType = compileType;
 	}
 	public org.python.core.PyCode getPyCode() {
 		return m_pyCode;
 	}
+	@Override
 	public edu.cmu.cs.stage3.alice.scripting.CompileType getCompileType() {
 		return m_compileType;
 	}

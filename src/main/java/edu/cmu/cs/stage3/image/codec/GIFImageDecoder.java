@@ -50,7 +50,6 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-//import java.awt.image.ImageProducer;
 import java.awt.image.RenderedImage;
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -59,76 +58,71 @@ import java.io.InputStream;
 import sun.awt.image.FileImageSource;
 import sun.awt.image.GifImageDecoder;
 import sun.awt.image.InputStreamImageSource;
-// Name conflict, can't use import
-// import sun.awt.image.ImageDecoder;
 
 class GIFImageSource extends FileImageSource {
 
-    InputStream is;
+	InputStream is;
 
-    public GIFImageSource(InputStream is) {
-        super("junk");	// security?
+	public GIFImageSource(InputStream is) {
+		super("junk"); // security?
 
-        if (is instanceof BufferedInputStream) {
-            this.is = is;
-        } else {
-            this.is = new BufferedInputStream(is);
-        }
-    }
+		if (is instanceof BufferedInputStream) {
+			this.is = is;
+		} else {
+			this.is = new BufferedInputStream(is);
+		}
+	}
 
-    
+	@Override
 	protected sun.awt.image.ImageDecoder getDecoder() {
-        return new GifImageDecoder(this, is);
-    }
+		return new GifImageDecoder(this, is);
+	}
 }
 
 /**
  */
 public class GIFImageDecoder extends ImageDecoderImpl {
 
-    BufferedImage bufferedImage = null;
+	BufferedImage bufferedImage = null;
 
-    public GIFImageDecoder(InputStream input,
-                           ImageDecodeParam param) {
-        super(input, param);
-    }
+	public GIFImageDecoder(InputStream input, ImageDecodeParam param) {
+		super(input, param);
+	}
 
-    private synchronized RenderedImage decode() throws IOException {
-        if (bufferedImage == null) {
-            InputStreamImageSource source = new GIFImageSource(input);
-            Image image =
-                Toolkit.getDefaultToolkit().createImage(source);
+	private synchronized RenderedImage decode() throws IOException {
+		if (bufferedImage == null) {
+			InputStreamImageSource source = new GIFImageSource(input);
+			Image image = Toolkit.getDefaultToolkit().createImage(source);
 
-            MediaTracker tracker = new MediaTracker(new Canvas());
-            tracker.addImage(image, 0);
-            try {
-                tracker.waitForID(0);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(JaiI18N.getString("GIFImageDecoder0"));
-            }
-	    if (tracker.isErrorID(0)) {	// not standard file format
-                throw new RuntimeException(JaiI18N.getString("GIFImageDecoder1"));
-            }
-            tracker.removeImage(image);
+			MediaTracker tracker = new MediaTracker(new Canvas());
+			tracker.addImage(image, 0);
+			try {
+				tracker.waitForID(0);
+			} catch (InterruptedException e) {
+				throw new RuntimeException(JaiI18N.getString("GIFImageDecoder0"));
+			}
+			if (tracker.isErrorID(0)) { // not standard file format
+				throw new RuntimeException(JaiI18N.getString("GIFImageDecoder1"));
+			}
+			tracker.removeImage(image);
 
-            /* Ignore width and height from ImageLayout. */
-            int width = image.getWidth(null);
-            int height = image.getHeight(null);
+			/* Ignore width and height from ImageLayout. */
+			int width = image.getWidth(null);
+			int height = image.getHeight(null);
 
-            bufferedImage =
-                new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-            Graphics g = bufferedImage.getGraphics();
-            g.drawImage(image, 0, 0, null);
-        }
+			bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+			Graphics g = bufferedImage.getGraphics();
+			g.drawImage(image, 0, 0, null);
+		}
 
-        return bufferedImage;
-    }
+		return bufferedImage;
+	}
 
-    
+	@Override
 	public RenderedImage decodeAsRenderedImage(int page) throws IOException {
-        if (page != 0) {
-            throw new IOException(JaiI18N.getString("GIFImageDecoder2"));
-        }
-        return decode();
-    }
+		if (page != 0) {
+			throw new IOException(JaiI18N.getString("GIFImageDecoder2"));
+		}
+		return decode();
+	}
 }

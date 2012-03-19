@@ -25,86 +25,88 @@ package edu.cmu.cs.stage3.alice.core.behavior;
 
 import edu.cmu.cs.stage3.alice.core.Behavior;
 import edu.cmu.cs.stage3.alice.core.Response;
+import edu.cmu.cs.stage3.alice.core.Response.RuntimeResponse;
 import edu.cmu.cs.stage3.alice.core.property.ObjectProperty;
 import edu.cmu.cs.stage3.alice.core.property.ResponseProperty;
 
 public class TriggerBehavior extends Behavior {
-	public final ResponseProperty triggerResponse = new ResponseProperty( this, "triggerResponse", null );
-	public final ObjectProperty multipleRuntimeResponsePolicy = new ObjectProperty( this, "multipleRuntimeResponsePolicy", MultipleRuntimeResponsePolicy.ENQUEUE_MULTIPLE, MultipleRuntimeResponsePolicy.class );
+	public final ResponseProperty triggerResponse = new ResponseProperty(this, "triggerResponse", null);
+	public final ObjectProperty multipleRuntimeResponsePolicy = new ObjectProperty(this, "multipleRuntimeResponsePolicy", MultipleRuntimeResponsePolicy.ENQUEUE_MULTIPLE, MultipleRuntimeResponsePolicy.class);
 	private java.util.Vector m_runtimeResponses = new java.util.Vector();
 	private Response.RuntimeResponse[] m_runtimeResponseArray = null;
-    private Response.RuntimeResponse[] getRuntimeResponseArray() {
-        if( m_runtimeResponseArray == null ) {
-            m_runtimeResponseArray = new Response.RuntimeResponse[ m_runtimeResponses.size() ];
-            m_runtimeResponses.copyInto( m_runtimeResponseArray );
-        }
-        return m_runtimeResponseArray;
-    }
-	public void trigger( double time ) {
-		//debugln( "trigger: " + time );
-		if( m_runtimeResponses.size() > 0 ) {
-			if( multipleRuntimeResponsePolicy.getValue()==MultipleRuntimeResponsePolicy.IGNORE_MULTIPLE ) {
+	private Response.RuntimeResponse[] getRuntimeResponseArray() {
+		if (m_runtimeResponseArray == null) {
+			m_runtimeResponseArray = new Response.RuntimeResponse[m_runtimeResponses.size()];
+			m_runtimeResponses.copyInto(m_runtimeResponseArray);
+		}
+		return m_runtimeResponseArray;
+	}
+	public void trigger(double time) {
+		// debugln( "trigger: " + time );
+		if (m_runtimeResponses.size() > 0) {
+			if (multipleRuntimeResponsePolicy.getValue() == MultipleRuntimeResponsePolicy.IGNORE_MULTIPLE) {
 				return;
 			}
 		}
 		Response response = triggerResponse.getResponseValue();
-		if( response != null ) {
+		if (response != null) {
 			Response.RuntimeResponse runtimeResponse = response.manufactureRuntimeResponse();
-			m_runtimeResponses.addElement( runtimeResponse );
-            m_runtimeResponseArray = null;
+			m_runtimeResponses.addElement(runtimeResponse);
+			m_runtimeResponseArray = null;
 		}
 	}
 	public void trigger() {
-		trigger( System.currentTimeMillis()*0.001 );
+		trigger(System.currentTimeMillis() * 0.001);
 	}
 
-	
-	protected void internalSchedule( double time, double dt ) {
-		MultipleRuntimeResponsePolicy mrrp = (MultipleRuntimeResponsePolicy)multipleRuntimeResponsePolicy.getValue();
-        Response.RuntimeResponse[] rra = getRuntimeResponseArray();
-		for( int i=0; i<rra.length; i++ ) {
-			Response.RuntimeResponse runtimeResponse = rra[ i ];
-			if( !runtimeResponse.isActive() ) {
-				runtimeResponse.prologue( time );
+	@Override
+	protected void internalSchedule(double time, double dt) {
+		MultipleRuntimeResponsePolicy mrrp = (MultipleRuntimeResponsePolicy) multipleRuntimeResponsePolicy.getValue();
+		Response.RuntimeResponse[] rra = getRuntimeResponseArray();
+		for (RuntimeResponse element : rra) {
+			Response.RuntimeResponse runtimeResponse = element;
+			if (!runtimeResponse.isActive()) {
+				runtimeResponse.prologue(time);
 			}
-			runtimeResponse.update( time );
-			double timeRemaining = runtimeResponse.getTimeRemaining( time );
-			if( timeRemaining<=0 ) {
-				runtimeResponse.epilogue( time );
-                runtimeResponse.HACK_markForRemoval();
+			runtimeResponse.update(time);
+			double timeRemaining = runtimeResponse.getTimeRemaining(time);
+			if (timeRemaining <= 0) {
+				runtimeResponse.epilogue(time);
+				runtimeResponse.HACK_markForRemoval();
 			} else {
-				if( mrrp != MultipleRuntimeResponsePolicy.INTERLEAVE_MULTIPLE ) {
+				if (mrrp != MultipleRuntimeResponsePolicy.INTERLEAVE_MULTIPLE) {
 					break;
 				}
 			}
 		}
-        if( m_runtimeResponses.size()>0 ) {
-            synchronized( m_runtimeResponses ) {
-                java.util.Enumeration enum0 = m_runtimeResponses.elements();
-                while( enum0.hasMoreElements() ) {
-                    Response.RuntimeResponse runtimeResponse = (Response.RuntimeResponse)enum0.nextElement();
-                    if( runtimeResponse.HACK_isMarkedForRemoval() ) {
-                        m_runtimeResponses.removeElement( runtimeResponse );
-                        m_runtimeResponseArray = null;
-                    }
-                }
-            }
-        }
+		if (m_runtimeResponses.size() > 0) {
+			synchronized (m_runtimeResponses) {
+				java.util.Enumeration enum0 = m_runtimeResponses.elements();
+				while (enum0.hasMoreElements()) {
+					Response.RuntimeResponse runtimeResponse = (Response.RuntimeResponse) enum0.nextElement();
+					if (runtimeResponse.HACK_isMarkedForRemoval()) {
+						m_runtimeResponses.removeElement(runtimeResponse);
+						m_runtimeResponseArray = null;
+					}
+				}
+			}
+		}
 	}
-	
-	public void stopAllRuntimeResponses( double time ) {
-        Response.RuntimeResponse[] rra = getRuntimeResponseArray();
-		for( int i=0; i<rra.length; i++ ) {
-			Response.RuntimeResponse runtimeResponse = rra[ i ];
-            runtimeResponse.stop( time );
+
+	@Override
+	public void stopAllRuntimeResponses(double time) {
+		Response.RuntimeResponse[] rra = getRuntimeResponseArray();
+		for (RuntimeResponse runtimeResponse : rra) {
+			runtimeResponse.stop(time);
 		}
 		m_runtimeResponses.removeAllElements();
-        m_runtimeResponseArray = null;
+		m_runtimeResponseArray = null;
 	}
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
 		m_runtimeResponses.removeAllElements();
-        m_runtimeResponseArray = null;
+		m_runtimeResponseArray = null;
 	}
 }

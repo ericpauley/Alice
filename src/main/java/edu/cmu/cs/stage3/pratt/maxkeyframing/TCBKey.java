@@ -27,13 +27,13 @@ package edu.cmu.cs.stage3.pratt.maxkeyframing;
  * @author Jason Pratt
  */
 public abstract class TCBKey extends Key {
-	private double tension;      // ranges from -1.0 to 1.0
-	private double continuity;   // ranges from -1.0 to 1.0
-	private double bias;         // ranges from -1.0 to 1.0
+	private double tension; // ranges from -1.0 to 1.0
+	private double continuity; // ranges from -1.0 to 1.0
+	private double bias; // ranges from -1.0 to 1.0
 
-	protected TCBKey( double time, double[] components, double tension, double continuity, double bias ) {
-		setTime( time );
-		setValueComponents( components );
+	protected TCBKey(double time, double[] components, double tension, double continuity, double bias) {
+		setTime(time);
+		setValueComponents(components);
 		this.tension = tension;
 		this.continuity = continuity;
 		this.bias = bias;
@@ -51,27 +51,27 @@ public abstract class TCBKey extends Key {
 		return bias;
 	}
 
-	
+	@Override
 	public String toString() {
 		String className = this.getClass().getName();
 		double[] components = getValueComponents();
 		int numComponents = components.length;
 
 		StringBuffer repr = new StringBuffer();
-		repr.append( className );
-		repr.append( "[" );
-		repr.append( getTime() );
-		repr.append( "," );
-		for( int i = 0; i < numComponents; i++ ) {
-			repr.append( components[i] );
-			repr.append( "," );
+		repr.append(className);
+		repr.append("[");
+		repr.append(getTime());
+		repr.append(",");
+		for (int i = 0; i < numComponents; i++) {
+			repr.append(components[i]);
+			repr.append(",");
 		}
-		repr.append( tension );
-		repr.append( "," );
-		repr.append( continuity );
-		repr.append( "," );
-		repr.append( bias );
-		repr.append( "]" );
+		repr.append(tension);
+		repr.append(",");
+		repr.append(continuity);
+		repr.append(",");
+		repr.append(bias);
+		repr.append("]");
 
 		return repr.toString();
 	}

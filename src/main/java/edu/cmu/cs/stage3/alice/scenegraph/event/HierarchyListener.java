@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public interface HierarchyListener {
-	public void hierarchyChanged( HierarchyEvent hierarchyEvent );
+	public void hierarchyChanged(HierarchyEvent hierarchyEvent);
 }

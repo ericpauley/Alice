@@ -52,16 +52,16 @@ public class PropertyUtil {
 
 	private static ResourceBundle b;
 
-	//commented out by dennisc on Aug 26 2001
-	///** Get bundle from .properties files in the current dir. */
+	// commented out by dennisc on Aug 26 2001
+	// /** Get bundle from .properties files in the current dir. */
 	private static ResourceBundle getBundle() {
 		ResourceBundle bundle = null;
 		InputStream in = null;
-	try {
-		//commented out and reimplemented by dennisc on Aug 26 2001
-		//in = new FileInputStream("properties");
-		in = PropertyUtil.class.getResourceAsStream("properties");
-		if (in != null) {
+		try {
+			// commented out and reimplemented by dennisc on Aug 26 2001
+			// in = new FileInputStream("properties");
+			in = PropertyUtil.class.getResourceAsStream("properties");
+			if (in != null) {
 				bundle = new PropertyResourceBundle(in);
 				return bundle;
 			}
@@ -76,5 +76,5 @@ public class PropertyUtil {
 			b = getBundle();
 		}
 		return b.getString(key);
-   }
+	}
 }

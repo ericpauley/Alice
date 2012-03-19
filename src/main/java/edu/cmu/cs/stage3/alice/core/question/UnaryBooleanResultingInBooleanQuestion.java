@@ -26,15 +26,16 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 
 public abstract class UnaryBooleanResultingInBooleanQuestion extends BooleanQuestion {
-	public final BooleanProperty a = new BooleanProperty( this, "a", Boolean.TRUE );
-	protected abstract boolean getValue( boolean a );
-	
+	public final BooleanProperty a = new BooleanProperty(this, "a", Boolean.TRUE);
+	protected abstract boolean getValue(boolean a);
+
+	@Override
 	public Object getValue() {
-		boolean aValue = getValue( a.booleanValue() );
-		if (this instanceof edu.cmu.cs.stage3.alice.core.question.Not){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= "not "+!aValue+ " is ";		
+		boolean aValue = getValue(a.booleanValue());
+		if (this instanceof edu.cmu.cs.stage3.alice.core.question.Not) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "not " + !aValue + " is ";
 		}
-		if( aValue ) {
+		if (aValue) {
 			return Boolean.TRUE;
 		} else {
 			return Boolean.FALSE;

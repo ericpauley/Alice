@@ -26,33 +26,28 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public abstract class BinaryNumberResultingInBooleanQuestion extends BooleanQuestion {
-	public final NumberProperty a = new NumberProperty( this, "a", new Double( 0 ) );
-	public final NumberProperty b = new NumberProperty( this, "b", new Double( 0 ) );
-	protected abstract boolean getValue( double a, double b );
-	
+	public final NumberProperty a = new NumberProperty(this, "a", new Double(0));
+	public final NumberProperty b = new NumberProperty(this, "b", new Double(0));
+	protected abstract boolean getValue(double a, double b);
+
+	@Override
 	public Object getValue() {
 		double aValue = a.doubleValue();
 		double bValue = b.doubleValue();
-		if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsEqualTo){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= 
-				aValue + " == " + bValue + " is ";		
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsNotEqualTo){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= 
-				aValue + " != " + bValue + " is ";		
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsGreaterThan){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= 
-				aValue + " > " + bValue + " is ";		
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsGreaterThanOrEqualTo){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= 
-				aValue + " >= " + bValue + " is ";		
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsLessThan){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= 
-				aValue + " <= " + bValue + " is ";		
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsLessThanOrEqualTo){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= 
-				aValue + " <= " + bValue + " is ";		
+		if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsEqualTo) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = aValue + " == " + bValue + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsNotEqualTo) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = aValue + " != " + bValue + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsGreaterThan) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = aValue + " > " + bValue + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsGreaterThanOrEqualTo) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = aValue + " >= " + bValue + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsLessThan) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = aValue + " <= " + bValue + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.NumberIsLessThanOrEqualTo) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = aValue + " <= " + bValue + " is ";
 		}
-		if( getValue( aValue , bValue ) ) {
+		if (getValue(aValue, bValue)) {
 			return Boolean.TRUE;
 		} else {
 			return Boolean.FALSE;

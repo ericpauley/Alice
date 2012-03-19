@@ -29,21 +29,22 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
 public class PropertyLabel extends javax.swing.JLabel {
 	protected edu.cmu.cs.stage3.alice.core.Property property;
 
-	public PropertyLabel( edu.cmu.cs.stage3.alice.core.Property property ) {
+	public PropertyLabel(edu.cmu.cs.stage3.alice.core.Property property) {
 		this.property = property;
-		setOpaque( false );
-		property.addPropertyListener(
-			new edu.cmu.cs.stage3.alice.core.event.PropertyListener() {
-				public void propertyChanging( edu.cmu.cs.stage3.alice.core.event.PropertyEvent propertyEvent ) {}
-				public void propertyChanged( edu.cmu.cs.stage3.alice.core.event.PropertyEvent propertyEvent ) {
-					PropertyLabel.this.update();
-				}
+		setOpaque(false);
+		property.addPropertyListener(new edu.cmu.cs.stage3.alice.core.event.PropertyListener() {
+			@Override
+			public void propertyChanging(edu.cmu.cs.stage3.alice.core.event.PropertyEvent propertyEvent) {
 			}
-		);
+			@Override
+			public void propertyChanged(edu.cmu.cs.stage3.alice.core.event.PropertyEvent propertyEvent) {
+				PropertyLabel.this.update();
+			}
+		});
 		update();
 	}
 
 	public void update() {
-		setText( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( property.get(), property ) );
+		setText(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(property.get(), property));
 	}
 }

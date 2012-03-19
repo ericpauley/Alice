@@ -27,25 +27,26 @@ public class ObjectArrayPropertyEvent extends java.util.EventObject {
 	public static final int ITEM_INSERTED = 1;
 	public static final int ITEM_SHIFTED = 2;
 	public static final int ITEM_REMOVED = 3;
-	//todo?
-	//public static final int ITEM_SET = 4;
+	// todo?
+	// public static final int ITEM_SET = 4;
 	protected Object m_item;
 	protected int m_changeType;
 	protected int m_oldIndex;
 	protected int m_newIndex;
-	public ObjectArrayPropertyEvent( edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty source, Object item, int changeType, int oldIndex, int newIndex ) {
-		super( source );
+	public ObjectArrayPropertyEvent(edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty source, Object item, int changeType, int oldIndex, int newIndex) {
+		super(source);
 		m_item = item;
 		m_changeType = changeType;
 		m_oldIndex = oldIndex;
 		m_newIndex = newIndex;
 	}
 	/** @deprecated */
+	@Deprecated
 	public edu.cmu.cs.stage3.alice.core.Property getProperty() {
-		return (edu.cmu.cs.stage3.alice.core.Property)getSource();
+		return (edu.cmu.cs.stage3.alice.core.Property) getSource();
 	}
 	public edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty getObjectArrayProperty() {
-		return (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty)getSource();
+		return (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) getSource();
 	}
 	public Object getItem() {
 		return m_item;

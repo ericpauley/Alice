@@ -24,19 +24,20 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class SpotLightProxy extends PointLightProxy {
-	protected abstract void onInnerBeamAngleChange( double value );
-	protected abstract void onOuterBeamAngleChange( double value );
-	protected abstract void onFalloffChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.SpotLight.INNER_BEAM_ANGLE_PROPERTY ) {
-			onInnerBeamAngleChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.SpotLight.OUTER_BEAM_ANGLE_PROPERTY ) {
-			onOuterBeamAngleChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.SpotLight.FALLOFF_PROPERTY ) {
-			onFalloffChange( ((Double)value).doubleValue() );
+	protected abstract void onInnerBeamAngleChange(double value);
+	protected abstract void onOuterBeamAngleChange(double value);
+	protected abstract void onFalloffChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.SpotLight.INNER_BEAM_ANGLE_PROPERTY) {
+			onInnerBeamAngleChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.SpotLight.OUTER_BEAM_ANGLE_PROPERTY) {
+			onOuterBeamAngleChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.SpotLight.FALLOFF_PROPERTY) {
+			onFalloffChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

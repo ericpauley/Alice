@@ -27,7 +27,7 @@ public class FogStyle extends edu.cmu.cs.stage3.util.Enumerable {
 	public static final FogStyle NONE = new FogStyle();
 	public static final FogStyle LINEAR = new FogStyle();
 	public static final FogStyle EXPONENTIAL = new FogStyle();
-	public static FogStyle valueOf( String s ) {
-		return (FogStyle)edu.cmu.cs.stage3.util.Enumerable.valueOf( s, FogStyle.class );
+	public static FogStyle valueOf(String s) {
+		return (FogStyle) edu.cmu.cs.stage3.util.Enumerable.valueOf(s, FogStyle.class);
 	}
 }

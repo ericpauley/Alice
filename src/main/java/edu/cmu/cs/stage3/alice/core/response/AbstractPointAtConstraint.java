@@ -27,9 +27,9 @@ import edu.cmu.cs.stage3.alice.core.property.ReferenceFrameProperty;
 import edu.cmu.cs.stage3.alice.core.property.Vector3Property;
 
 public class AbstractPointAtConstraint extends TransformResponse {
-	public final ReferenceFrameProperty target = new ReferenceFrameProperty( this, "target", null );
-	public final Vector3Property offset = new Vector3Property( this, "offset", null );
-	public final Vector3Property upGuide = new Vector3Property( this, "upGuide", null );
+	public final ReferenceFrameProperty target = new ReferenceFrameProperty(this, "target", null);
+	public final Vector3Property offset = new Vector3Property(this, "offset", null);
+	public final Vector3Property upGuide = new Vector3Property(this, "upGuide", null);
 
 	public abstract class RuntimeAbstractPointAtConstraint extends RuntimeTransformResponse {
 		private javax.vecmath.Vector3d m_upGuide;
@@ -37,30 +37,32 @@ public class AbstractPointAtConstraint extends TransformResponse {
 		private edu.cmu.cs.stage3.alice.core.ReferenceFrame m_target;
 		private boolean m_onlyAffectYaw;
 		protected abstract boolean onlyAffectYaw();
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			m_target = AbstractPointAtConstraint.this.target.getReferenceFrameValue();
-			m_offset = AbstractPointAtConstraint.this.offset.getVector3Value();
-			m_upGuide = AbstractPointAtConstraint.this.upGuide.getVector3Value();
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_target = target.getReferenceFrameValue();
+			m_offset = offset.getVector3Value();
+			m_upGuide = upGuide.getVector3Value();
 			m_onlyAffectYaw = onlyAffectYaw();
-			if( m_target == null ) {
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( "target value must not be null.", null, AbstractPointAtConstraint.this.target );
+			if (m_target == null) {
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException("target value must not be null.", null, target);
 			}
-			if( m_target == m_subject ) {
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( "target value must not be equal to the subject value.", getCurrentStack(), AbstractPointAtConstraint.this.target );            
+			if (m_target == m_subject) {
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException("target value must not be equal to the subject value.", getCurrentStack(), target);
 			}
 		}
-		//todo: rework this hack added from TurnAwayFromConstraint
+		// todo: rework this hack added from TurnAwayFromConstraint
 		protected boolean isTurnAroundNecessary() {
 			return false;
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-			m_subject.pointAtRightNow( m_target, m_offset, m_upGuide, m_asSeenBy, m_onlyAffectYaw );
-			if( isTurnAroundNecessary() ) {
-				m_subject.rotateRightNow( edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), 0.5 );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			m_subject.pointAtRightNow(m_target, m_offset, m_upGuide, m_asSeenBy, m_onlyAffectYaw);
+			if (isTurnAroundNecessary()) {
+				m_subject.rotateRightNow(edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), 0.5);
 			}
 		}
 	}

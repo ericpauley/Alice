@@ -30,7 +30,7 @@ public class RenderPanel extends JPanel {
 
 	public RenderPanel(ModelWrapper modelWrapper) {
 		this.modelWrapper = modelWrapper;
-		this.setLayout(new java.awt.BorderLayout());
+		setLayout(new java.awt.BorderLayout());
 	}
 
 	public void initialize() {

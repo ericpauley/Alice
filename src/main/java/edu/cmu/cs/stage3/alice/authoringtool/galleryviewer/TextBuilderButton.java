@@ -20,47 +20,40 @@
  *    must display the following acknowledgement:
  *    "This product includes software developed by Carnegie Mellon University"
  */
- 
+
 package edu.cmu.cs.stage3.alice.authoringtool.galleryviewer;
 
-import edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool;
 import javax.swing.ImageIcon;
+
+import edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool;
 
 /**
  * @author culyba
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * 
+ *         To change the template for this generated type comment go to
+ *         Window>Preferences>Java>Code Generation>Code and Comments
  */
 public class TextBuilderButton extends GenericBuilderButton {
 	protected AuthoringTool authoringTool;
-	
-	public TextBuilderButton()
-	   {
-	   }
 
-   
-protected String getToolTipString()
-   {
-	   return "Click to create 3D text";
-   }
+	public TextBuilderButton() {
+	}
 
-   public void set(GalleryViewer.ObjectXmlData dataIn, ImageIcon icon, AuthoringTool authoringTool)
-	   throws IllegalArgumentException
-   {
-	   super.set(dataIn, icon);
-	   this.authoringTool = authoringTool;
-   }
+	@Override
+	protected String getToolTipString() {
+		return "Click to create 3D text";
+	}
 
-   
-public void respondToMouse()
-   {
-	   if(authoringTool != null)
-		   authoringTool.getActions().add3DTextAction.actionPerformed(null);
-   }
+	public void set(GalleryViewer.ObjectXmlData dataIn, ImageIcon icon, AuthoringTool authoringTool) throws IllegalArgumentException {
+		super.set(dataIn, icon);
+		this.authoringTool = authoringTool;
+	}
 
-	   
-
-	
+	@Override
+	public void respondToMouse() {
+		if (authoringTool != null) {
+			authoringTool.getActions().add3DTextAction.actionPerformed(null);
+		}
+	}
 
 }

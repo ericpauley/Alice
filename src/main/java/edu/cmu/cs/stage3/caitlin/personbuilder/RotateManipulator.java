@@ -43,8 +43,7 @@ public class RotateManipulator extends edu.cmu.cs.stage3.alice.authoringtool.uti
 
 	protected edu.cmu.cs.stage3.alice.core.Scheduler scheduler;
 
-	private edu.cmu.cs.stage3.alice.authoringtool.util.Configuration orbitConfig =
-		edu.cmu.cs.stage3.alice.authoringtool.util.Configuration.getLocalConfiguration(RenderTargetOrbitManipulator.class.getPackage());
+	private edu.cmu.cs.stage3.alice.authoringtool.util.Configuration orbitConfig = edu.cmu.cs.stage3.alice.authoringtool.util.Configuration.getLocalConfiguration(RenderTargetOrbitManipulator.class.getPackage());
 
 	public RotateManipulator(edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget renderTarget) {
 		super(renderTarget);
@@ -69,9 +68,9 @@ public class RotateManipulator extends edu.cmu.cs.stage3.alice.authoringtool.uti
 		}
 	}
 
-	
+	@Override
 	public void mousePressed(java.awt.event.MouseEvent ev) {
-		//DEBUG System.out.println( "mousePressed" );
+		// DEBUG System.out.println( "mousePressed" );
 		if (enabled) {
 			super.mousePressed(ev);
 
@@ -82,8 +81,9 @@ public class RotateManipulator extends edu.cmu.cs.stage3.alice.authoringtool.uti
 			if (toRotate != null) {
 				ePickedTransformable = toRotate;
 				sgPickedTransformable = toRotate.getSceneGraphTransformable();
-			} else
+			} else {
 				sgPickedTransformable = null;
+			}
 
 			if (sgPickedTransformable != null) {
 				sizeFactor = Math.max(.1, ePickedTransformable.getBoundingSphere().getRadius());
@@ -93,36 +93,40 @@ public class RotateManipulator extends edu.cmu.cs.stage3.alice.authoringtool.uti
 				sgScene = (edu.cmu.cs.stage3.alice.scenegraph.Scene) sgCamera.getRoot();
 
 				oldTransformation = new edu.cmu.cs.stage3.math.Matrix44(sgCameraTransformable.getLocalTransformation());
-				//DEBUG System.out.println( "picked: " + sgPickedTransformable );
+				// DEBUG System.out.println( "picked: " + sgPickedTransformable
+				// );
 				helper.setParent(sgScene);
 				sgIdentity.setParent(sgScene);
 			}
 		}
 	}
 
-	
+	@Override
 	public void mouseReleased(java.awt.event.MouseEvent ev) {
-		//DEBUG System.out.println( "mouseReleased" );
+		// DEBUG System.out.println( "mouseReleased" );
 
 		super.mouseReleased(ev);
 	}
-	
+
+	@Override
 	public void mouseDragged(java.awt.event.MouseEvent ev) {
-		//DEBUG System.out.println( "mouseDragged" );
+		// DEBUG System.out.println( "mouseDragged" );
 		if (enabled) {
 			super.mouseDragged(ev);
 
 			if (mouseIsDown) {
-				//DEBUG System.out.println( "mouseIsDown" );
+				// DEBUG System.out.println( "mouseIsDown" );
 				if (sgPickedTransformable != null) {
-					//DEBUG System.out.println( "sgPickedTransformable: " + sgPickedTransformable );
+					// DEBUG System.out.println( "sgPickedTransformable: " +
+					// sgPickedTransformable );
 
 					if (clippingPlaneAdjustmentEnabled) {
 						double objectRadius = ePickedTransformable.getBoundingSphere().getRadius();
 						double objectDist = sgPickedTransformable.getPosition(sgCameraTransformable).getLength();
 						double farDist = Math.max(objectDist * 3, objectDist + objectRadius);
 						double nearDist = Math.max((objectDist - objectRadius) * .01, .0001);
-						//System.out.println( "farDist: " + farDist + ",  nearDist: " + nearDist );
+						// System.out.println( "farDist: " + farDist +
+						// ",  nearDist: " + nearDist );
 						sgCamera.setFarClippingPlaneDistance(farDist);
 					}
 
@@ -142,17 +146,21 @@ public class RotateManipulator extends edu.cmu.cs.stage3.alice.authoringtool.uti
 
 					if (controlDown) {
 						if (shiftDown) {
-							//TODO: handle this modifier?
+							// TODO: handle this modifier?
 						}
-						//TODO: handle this modifier?
+						// TODO: handle this modifier?
 					}
 
-					//TODO: avoid singularities
+					// TODO: avoid singularities
 					if (shiftDown) {
 						sgCameraTransformable.rotate(edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), dx * orbitRotationFactor, helper);
 						sgCameraTransformable.rotate(edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy * orbitRotationFactor, helper);
 					} else {
-						//sgCameraTransformable.translate( edu.cmu.cs.stage3.math.Vector3.multiply( edu.cmu.cs.stage3.math.Vector3.Z_AXIS, dy*orbitZoomFactor*sizeFactor ), sgCameraTransformable );
+						// sgCameraTransformable.translate(
+						// edu.cmu.cs.stage3.math.Vector3.multiply(
+						// edu.cmu.cs.stage3.math.Vector3.Z_AXIS,
+						// dy*orbitZoomFactor*sizeFactor ),
+						// sgCameraTransformable );
 						sgCameraTransformable.rotate(edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), dx * orbitRotationFactor, helper);
 					}
 

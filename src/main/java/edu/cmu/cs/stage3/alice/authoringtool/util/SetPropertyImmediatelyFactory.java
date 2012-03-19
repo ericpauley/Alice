@@ -29,31 +29,33 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
 public class SetPropertyImmediatelyFactory implements PopupItemFactory {
 	protected edu.cmu.cs.stage3.alice.core.Property property;
 
-	public SetPropertyImmediatelyFactory( edu.cmu.cs.stage3.alice.core.Property property ) {
+	public SetPropertyImmediatelyFactory(edu.cmu.cs.stage3.alice.core.Property property) {
 		this.property = property;
 	}
 
-	public Object createItem( final Object value ) {
+	@Override
+	public Object createItem(final Object value) {
 		return new Runnable() {
+			@Override
 			public void run() {
-				SetPropertyImmediatelyFactory.this.run( value );
+				SetPropertyImmediatelyFactory.this.run(value);
 			}
 		};
 	}
 
-	protected void run( Object value ) {
-		if( value instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ElementPrototype ) {
-			value = ((edu.cmu.cs.stage3.alice.authoringtool.util.ElementPrototype)value).createNewElement();
+	protected void run(Object value) {
+		if (value instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ElementPrototype) {
+			value = ((edu.cmu.cs.stage3.alice.authoringtool.util.ElementPrototype) value).createNewElement();
 		}
 		// HACK; is this too aggressive?
-		if( value instanceof edu.cmu.cs.stage3.alice.core.Element ) {
-			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element)value;
-			if( (element.getParent() == null) && (! (element instanceof edu.cmu.cs.stage3.alice.core.World)) ) {
-				property.getOwner().addChild( element );
-				element.data.put( "associatedProperty", property.getName() );
+		if (value instanceof edu.cmu.cs.stage3.alice.core.Element) {
+			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) value;
+			if (element.getParent() == null && !(element instanceof edu.cmu.cs.stage3.alice.core.World)) {
+				property.getOwner().addChild(element);
+				element.data.put("associatedProperty", property.getName());
 			}
 		}
 		// END HACK
-		SetPropertyImmediatelyFactory.this.property.set( value );
+		SetPropertyImmediatelyFactory.this.property.set(value);
 	}
 }

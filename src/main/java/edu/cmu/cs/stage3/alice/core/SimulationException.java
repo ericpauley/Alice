@@ -24,17 +24,17 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public class SimulationException extends RuntimeException {
-    private Element m_element;
-    private java.util.Stack m_stack;
-	public SimulationException( String detail, java.util.Stack stack, Element element ) {
-        super( detail );
+	private Element m_element;
+	private java.util.Stack m_stack;
+	public SimulationException(String detail, java.util.Stack stack, Element element) {
+		super(detail);
 		m_element = element;
-        m_stack = stack;
+		m_stack = stack;
 	}
-    public Element getElement() {
-        return m_element;
-    }
-    public java.util.Stack getStack() {
-        return m_stack;
-    }
+	public Element getElement() {
+		return m_element;
+	}
+	public java.util.Stack getStack() {
+		return m_stack;
+	}
 }

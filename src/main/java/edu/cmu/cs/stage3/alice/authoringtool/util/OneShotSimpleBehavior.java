@@ -29,21 +29,22 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
 public class OneShotSimpleBehavior extends edu.cmu.cs.stage3.alice.core.util.OneShot {
 	protected edu.cmu.cs.stage3.alice.core.Property[] affectedProperties;
 	public edu.cmu.cs.stage3.alice.core.Property[] getAffectedProperties() {
-		return this.affectedProperties;
+		return affectedProperties;
 	}
-	public void setAffectedProperties( edu.cmu.cs.stage3.alice.core.Property[] affectedProperties ) {
+	public void setAffectedProperties(edu.cmu.cs.stage3.alice.core.Property[] affectedProperties) {
 		this.affectedProperties = affectedProperties;
 	}
 }
 
-
-//public class OneShotSimpleBehavior extends edu.cmu.cs.stage3.alice.core.behavior.SimpleBehavior {
-//	protected edu.cmu.cs.stage3.alice.core.Property[] affectedProperties;
-//	public edu.cmu.cs.stage3.alice.core.Property[] getAffectedProperties() {
-//		return this.affectedProperties;
-//	}
-//	public void setAffectedProperties( edu.cmu.cs.stage3.alice.core.Property[] affectedProperties ) {
-//		this.affectedProperties = affectedProperties;
-//	}
-//}
+// public class OneShotSimpleBehavior extends
+// edu.cmu.cs.stage3.alice.core.behavior.SimpleBehavior {
+// protected edu.cmu.cs.stage3.alice.core.Property[] affectedProperties;
+// public edu.cmu.cs.stage3.alice.core.Property[] getAffectedProperties() {
+// return this.affectedProperties;
+// }
+// public void setAffectedProperties( edu.cmu.cs.stage3.alice.core.Property[]
+// affectedProperties ) {
+// this.affectedProperties = affectedProperties;
+// }
+// }
 

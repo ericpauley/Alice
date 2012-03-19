@@ -32,51 +32,54 @@ public class ResizeMode extends RenderTargetManipulatorMode {
 	protected edu.cmu.cs.stage3.alice.core.Scheduler scheduler;
 	protected javax.vecmath.Vector3d oldSize;
 
-	public ResizeMode( edu.cmu.cs.stage3.alice.authoringtool.MainUndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler  ) {
+	public ResizeMode(edu.cmu.cs.stage3.alice.authoringtool.MainUndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
 		this.undoRedoStack = undoRedoStack;
 		this.scheduler = scheduler;
 	}
 
-	
+	@Override
 	public boolean requiresPickedObject() {
 		return true;
 	}
 
-	
+	@Override
 	public boolean hideCursorOnDrag() {
 		return true;
 	}
 
-	
-	public void mousePressed( java.awt.event.MouseEvent ev, edu.cmu.cs.stage3.alice.core.Transformable pickedTransformable, edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo ) {
+	@Override
+	public void mousePressed(java.awt.event.MouseEvent ev, edu.cmu.cs.stage3.alice.core.Transformable pickedTransformable, edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo) {
 		this.pickedTransformable = pickedTransformable;
-		if( pickedTransformable != null ) {
+		if (pickedTransformable != null) {
 			oldSize = pickedTransformable.getSize();
 		}
 	}
 
-	
-	public void mouseReleased( java.awt.event.MouseEvent ev ) {
-		if( (pickedTransformable != null) && (undoRedoStack != null)  ) {
-			if( ! ev.isPopupTrigger() ) { // TODO: this is a hack.  this method should never be called if the popup is triggered
-				undoRedoStack.push( new SizeUndoableRedoable( pickedTransformable, oldSize, pickedTransformable.getSize(), scheduler ) );
+	@Override
+	public void mouseReleased(java.awt.event.MouseEvent ev) {
+		if (pickedTransformable != null && undoRedoStack != null) {
+			if (!ev.isPopupTrigger()) { // TODO: this is a hack. this method
+										// should never be called if the popup
+										// is triggered
+				undoRedoStack.push(new SizeUndoableRedoable(pickedTransformable, oldSize, pickedTransformable.getSize(), scheduler));
 			}
 
-			if( pickedTransformable.poses.size() > 0 ) {
-				edu.cmu.cs.stage3.swing.DialogManager.showMessageDialog( "Warning: resizing objects with poses may make those poses unusable.", "Pose warning", javax.swing.JOptionPane.WARNING_MESSAGE );
+			if (pickedTransformable.poses.size() > 0) {
+				edu.cmu.cs.stage3.swing.DialogManager.showMessageDialog("Warning: resizing objects with poses may make those poses unusable.", "Pose warning", javax.swing.JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}
 
-	
-	public void mouseDragged( java.awt.event.MouseEvent ev, int dx, int dy ) {
+	@Override
+	public void mouseDragged(java.awt.event.MouseEvent ev, int dx, int dy) {
 		javax.vecmath.Vector3d currentSize = pickedTransformable.getSize();
-//		if ( (currentSize.x > 0 && currentSize.y > 0 ) || dy < 0 ) { //Aik Min
-			if( (pickedTransformable != null) && (dy != 0) ) {
-				double divisor = ev.isShiftDown() ? 1000.0 : 100.0;
-				double scaleFactor = 1.0 - (dy)/divisor;
-				pickedTransformable.resizeRightNow( scaleFactor );
-			}
-//		} 
+		// if ( (currentSize.x > 0 && currentSize.y > 0 ) || dy < 0 ) { //Aik
+		// Min
+		if (pickedTransformable != null && dy != 0) {
+			double divisor = ev.isShiftDown() ? 1000.0 : 100.0;
+			double scaleFactor = 1.0 - dy / divisor;
+			pickedTransformable.resizeRightNow(scaleFactor);
+		}
+		// }
 	}
 }

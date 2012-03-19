@@ -30,53 +30,61 @@ public class FixedFrameRateClock implements edu.cmu.cs.stage3.alice.core.Clock {
 	private double m_time;
 
 	public FixedFrameRateClock() {
-		this( 24 );
+		this(24);
 	}
-	public FixedFrameRateClock( int frameRate ) {
-		setFrameRate( frameRate );
+	public FixedFrameRateClock(int frameRate) {
+		setFrameRate(frameRate);
 	}
+	@Override
 	public edu.cmu.cs.stage3.alice.core.World getWorld() {
 		return m_world;
 	}
-	public void setWorld( edu.cmu.cs.stage3.alice.core.World world ) {
+	@Override
+	public void setWorld(edu.cmu.cs.stage3.alice.core.World world) {
 		m_world = world;
 	}
 
 	public int getFrameRate() {
 		return m_frameRate;
 	}
-	public void setFrameRate( int frameRate ) {
+	public void setFrameRate(int frameRate) {
 		m_frameRate = frameRate;
-		m_dt = 1.0/m_frameRate;
+		m_dt = 1.0 / m_frameRate;
 	}
-	
+
+	@Override
 	public void start() {
 		m_time = -m_dt;
-		if( m_world != null ) {
+		if (m_world != null) {
 			m_world.start();
 		}
 	}
+	@Override
 	public void stop() {
-		if( m_world != null ) {
+		if (m_world != null) {
 			m_world.stop();
 		}
 	}
+	@Override
 	public void pause() {
 	}
+	@Override
 	public void resume() {
 	}
 
+	@Override
 	public double getTime() {
 		return m_time;
 	}
+	@Override
 	public double getTimeElapsed() {
 		return getTime();
 	}
+	@Override
 	public void schedule() {
-		if( m_world != null ) {
+		if (m_world != null) {
 			m_time += m_dt;
 			m_world.schedule();
 		}
 	}
 }
-

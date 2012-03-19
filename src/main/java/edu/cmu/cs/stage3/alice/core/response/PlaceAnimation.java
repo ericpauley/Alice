@@ -27,44 +27,47 @@ import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 import edu.cmu.cs.stage3.alice.core.property.SpatialRelationProperty;
 
 public class PlaceAnimation extends AbstractPositionAnimation {
-	public final SpatialRelationProperty spatialRelation = new SpatialRelationProperty( this, "spatialRelation", edu.cmu.cs.stage3.alice.core.SpatialRelation.IN_FRONT_OF );
-	public final NumberProperty amount = new NumberProperty( this, "amount", new Double( 0 ) );
+	public final SpatialRelationProperty spatialRelation = new SpatialRelationProperty(this, "spatialRelation", edu.cmu.cs.stage3.alice.core.SpatialRelation.IN_FRONT_OF);
+	public final NumberProperty amount = new NumberProperty(this, "amount", new Double(0));
 	public class RuntimePlaceAnimation extends RuntimeAbstractPositionAnimation {
 		private edu.cmu.cs.stage3.math.Box m_subjectBoundingBox;
 		private edu.cmu.cs.stage3.math.Box m_asSeenByBoundingBox;
-		
+
+		@Override
 		protected javax.vecmath.Vector3d getPositionBegin() {
-			return m_subject.getPosition( edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE );
+			return m_subject.getPosition(edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE);
 		}
-		
+
+		@Override
 		protected javax.vecmath.Vector3d getPositionEnd() {
-			if( m_subjectBoundingBox==null ) {
+			if (m_subjectBoundingBox == null) {
 				m_subjectBoundingBox = m_subject.getBoundingBox();
-				
+
 				if (m_subjectBoundingBox.getMaximum() == null) {
-					m_subjectBoundingBox = new edu.cmu.cs.stage3.math.Box(m_subject.getPosition( m_subject ), m_subject.getPosition( m_subject ));
+					m_subjectBoundingBox = new edu.cmu.cs.stage3.math.Box(m_subject.getPosition(m_subject), m_subject.getPosition(m_subject));
 				}
 			}
-			if( m_asSeenByBoundingBox ==null ) {
+			if (m_asSeenByBoundingBox == null) {
 				m_asSeenByBoundingBox = m_asSeenBy.getBoundingBox();
-				
+
 				if (m_asSeenByBoundingBox.getMaximum() == null) {
-					m_asSeenByBoundingBox = new edu.cmu.cs.stage3.math.Box(m_asSeenBy.getPosition( m_asSeenBy ), m_asSeenBy.getPosition( m_asSeenBy ));
+					m_asSeenByBoundingBox = new edu.cmu.cs.stage3.math.Box(m_asSeenBy.getPosition(m_asSeenBy), m_asSeenBy.getPosition(m_asSeenBy));
 				}
 			}
 
-			edu.cmu.cs.stage3.alice.core.SpatialRelation sv = PlaceAnimation.this.spatialRelation.getSpatialRelationValue();
-			javax.vecmath.Vector3d v = sv.getPlaceVector( PlaceAnimation.this.amount.doubleValue(), m_subjectBoundingBox, m_asSeenByBoundingBox );
-			return m_asSeenBy.getPosition( v, edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE );
+			edu.cmu.cs.stage3.alice.core.SpatialRelation sv = spatialRelation.getSpatialRelationValue();
+			javax.vecmath.Vector3d v = sv.getPlaceVector(amount.doubleValue(), m_subjectBoundingBox, m_asSeenByBoundingBox);
+			return m_asSeenBy.getPosition(v, edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE);
 		}
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			if( PlaceAnimation.this.spatialRelation.getSpatialRelationValue() == null ) {
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( "spatial relation value must not be null.", null, PlaceAnimation.this.spatialRelation );
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			if (spatialRelation.getSpatialRelationValue() == null) {
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException("spatial relation value must not be null.", null, spatialRelation);
 			}
-			if( PlaceAnimation.this.amount.getValue() == null ) {
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( "amount value must not be null.", null, PlaceAnimation.this.amount );
+			if (amount.getValue() == null) {
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException("amount value must not be null.", null, amount);
 			}
 		}
 	}

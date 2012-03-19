@@ -27,7 +27,7 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * a directional light emits parallel rays (as if it were at infinity).<br>
  * the direction is inherent from absolute transformation of its container.<br>
  * useful in simulating sunlight.<br>
- *
+ * 
  * @author Dennis Cosgrove
  */
 public class DirectionalLight extends Light {

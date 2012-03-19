@@ -24,7 +24,5 @@
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
 public interface Callback {
-	public void callback( Object context, Object source );
+	public void callback(Object context, Object source);
 }
-
-

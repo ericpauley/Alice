@@ -25,7 +25,8 @@ package edu.cmu.cs.stage3.alice.core.response;
 
 public class TurnToFaceAnimation extends AbstractPointAtAnimation {
 	public class RuntimeTurnToFaceAnimation extends RuntimeAbstractPointAtAnimation {
-		
+
+		@Override
 		protected boolean onlyAffectYaw() {
 			return true;
 		}

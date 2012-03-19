@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class ClippingPlaneProxy extends AffectorProxy {
-    
-	public void setup( RenderContext context ) {
-        //todo
-    }
+
+	@Override
+	public void setup(RenderContext context) {
+		// todo
+	}
 }

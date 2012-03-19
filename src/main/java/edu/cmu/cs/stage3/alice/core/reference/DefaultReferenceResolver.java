@@ -28,61 +28,62 @@ import edu.cmu.cs.stage3.alice.core.Element;
 public class DefaultReferenceResolver implements edu.cmu.cs.stage3.alice.core.ReferenceResolver {
 	private Element m_internalRoot;
 	private Element m_externalRoot;
-	public DefaultReferenceResolver( Element internalRoot, Element externalRoot ) {
+	public DefaultReferenceResolver(Element internalRoot, Element externalRoot) {
 		m_internalRoot = internalRoot;
 		m_externalRoot = externalRoot;
 	}
-	
+
 	public Element getInternalRoot() {
 		return m_internalRoot;
 	}
-	public void setInternalRoot( Element internalRoot ) {
+	public void setInternalRoot(Element internalRoot) {
 		m_internalRoot = internalRoot;
 	}
-	
+
 	public Element getExternalRoot() {
 		return m_externalRoot;
 	}
-	public void setExternalRoot( Element externalRoot ) {
+	public void setExternalRoot(Element externalRoot) {
 		m_externalRoot = externalRoot;
 	}
-	
-	public Element resolveReference( edu.cmu.cs.stage3.util.Criterion criterion ) throws edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException {
-		if( criterion instanceof edu.cmu.cs.stage3.alice.core.criterion.ElementKeyedCriterion ) {
-			String key = ((edu.cmu.cs.stage3.alice.core.criterion.ElementKeyedCriterion)criterion).getKey();
+
+	@Override
+	public Element resolveReference(edu.cmu.cs.stage3.util.Criterion criterion) throws edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException {
+		if (criterion instanceof edu.cmu.cs.stage3.alice.core.criterion.ElementKeyedCriterion) {
+			String key = ((edu.cmu.cs.stage3.alice.core.criterion.ElementKeyedCriterion) criterion).getKey();
 			Element resolved = null;
-			if( criterion instanceof edu.cmu.cs.stage3.alice.core.criterion.InternalReferenceKeyedCriterion ) {
-				resolved = m_internalRoot.getDescendantKeyedIgnoreCase( key );
-			} else if( criterion instanceof edu.cmu.cs.stage3.alice.core.criterion.ExternalReferenceKeyedCriterion ) {
-				if( m_externalRoot != null ) {
-                    resolved = m_externalRoot.getDescendantKeyedIgnoreCase( key );
+			if (criterion instanceof edu.cmu.cs.stage3.alice.core.criterion.InternalReferenceKeyedCriterion) {
+				resolved = m_internalRoot.getDescendantKeyedIgnoreCase(key);
+			} else if (criterion instanceof edu.cmu.cs.stage3.alice.core.criterion.ExternalReferenceKeyedCriterion) {
+				if (m_externalRoot != null) {
+					resolved = m_externalRoot.getDescendantKeyedIgnoreCase(key);
 				} else {
-                    throw new edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException( criterion, "external root is null" );
+					throw new edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException(criterion, "external root is null");
 				}
 			} else {
 				Element root;
-				if( m_externalRoot != null ) {
+				if (m_externalRoot != null) {
 					root = m_externalRoot;
 				} else {
 					root = m_internalRoot;
 				}
-				int index = key.indexOf( Element.SEPARATOR );
+				int index = key.indexOf(Element.SEPARATOR);
 				String trimmedKey;
-				if( index == -1 ) {
+				if (index == -1) {
 					trimmedKey = "";
 				} else {
-					trimmedKey = key.substring( index+1 );
+					trimmedKey = key.substring(index + 1);
 				}
-				resolved = root.getDescendantKeyedIgnoreCase( trimmedKey );
+				resolved = root.getDescendantKeyedIgnoreCase(trimmedKey);
 			}
-			if( resolved!=null ) {
+			if (resolved != null) {
 				return resolved;
 			} else {
-                throw new edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException( criterion, "internal root: " + m_internalRoot + " external root: " + m_externalRoot );
+				throw new edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException(criterion, "internal root: " + m_internalRoot + " external root: " + m_externalRoot);
 			}
 		} else {
-            //todo
-            throw new edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException( criterion, "must be edu.cmu.cs.stage3.alice.core.criterion.ElementKeyedCriterion" );
+			// todo
+			throw new edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException(criterion, "must be edu.cmu.cs.stage3.alice.core.criterion.ElementKeyedCriterion");
 		}
 	}
 }

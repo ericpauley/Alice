@@ -24,16 +24,17 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class TorusProxy extends ShapeProxy {
-	protected abstract void onInnerRadiusChange( double value );
-	protected abstract void onOuterRadiusChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Torus.INNER_RADIUS_PROPERTY ) {
-			onInnerRadiusChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Torus.OUTER_RADIUS_PROPERTY ) {
-			onOuterRadiusChange( ((Double)value).doubleValue() );
+	protected abstract void onInnerRadiusChange(double value);
+	protected abstract void onOuterRadiusChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Torus.INNER_RADIUS_PROPERTY) {
+			onInnerRadiusChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Torus.OUTER_RADIUS_PROPERTY) {
+			onOuterRadiusChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

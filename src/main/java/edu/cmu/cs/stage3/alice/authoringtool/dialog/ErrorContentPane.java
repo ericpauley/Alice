@@ -33,48 +33,46 @@ public class ErrorContentPane extends AliceAlertContentPane {
 	protected Throwable throwable;
 	protected String message;
 
-
 	public ErrorContentPane() {
 		super();
 	}
-	
-	
-	public void preDialogShow( javax.swing.JDialog dialog ) {
-		super.preDialogShow( dialog );
+
+	@Override
+	public void preDialogShow(javax.swing.JDialog dialog) {
+		super.preDialogShow(dialog);
 		writeAliceHeaderToTextPane();
 		writeThrowableToTextPane();
 	}
 
-	
+	@Override
 	public String getTitle() {
 		return "Alice - Error";
 	}
-	
 
-	public void setThrowable( Throwable t ) {
+	public void setThrowable(Throwable t) {
 		throwable = t;
 	}
 
-
-	public void setDetails( String m ) {
+	public void setDetails(String m) {
 		message = m;
 	}
-	
+
 	protected void writeThrowableToTextPane() {
-		if( throwable != null ) {
-			detailStream.println( "Throwable that caused the error:" );
-			throwable.printStackTrace( detailStream );
-			if( throwable instanceof edu.cmu.cs.stage3.alice.core.ExceptionWrapper ) {
-				edu.cmu.cs.stage3.alice.core.ExceptionWrapper ew = (edu.cmu.cs.stage3.alice.core.ExceptionWrapper)throwable;
+		if (throwable != null) {
+			detailStream.println("Throwable that caused the error:");
+			throwable.printStackTrace(detailStream);
+			if (throwable instanceof edu.cmu.cs.stage3.alice.core.ExceptionWrapper) {
+				edu.cmu.cs.stage3.alice.core.ExceptionWrapper ew = (edu.cmu.cs.stage3.alice.core.ExceptionWrapper) throwable;
 				Exception e = ew.getWrappedException();
-				detailStream.println( "Wrapped exception:" );
-				e.printStackTrace( detailStream );
+				detailStream.println("Wrapped exception:");
+				e.printStackTrace(detailStream);
 			}
 		} else {
-			if (message != null)
-				detailStream.println( message );
-			else
+			if (message != null) {
+				detailStream.println(message);
+			} else {
 				new Exception("No throwable given. Here's the stack trace:").printStackTrace(detailStream);
+			}
 		}
 		detailStream.println();
 	}

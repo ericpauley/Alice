@@ -26,25 +26,28 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.Vector3Property;
 
 public class SizeAnimation extends TransformAnimation {
-	public final Vector3Property size = new Vector3Property( this, "size", new javax.vecmath.Vector3d( 1,1,1 ) );
+	public final Vector3Property size = new Vector3Property(this, "size", new javax.vecmath.Vector3d(1, 1, 1));
 	public class RuntimePositionAnimation extends RuntimeTransformAnimation {
 		private javax.vecmath.Vector3d m_sizeBegin;
 		private javax.vecmath.Vector3d m_sizeEnd;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
 			m_sizeBegin = m_subject.getSize();
-			m_sizeEnd = SizeAnimation.this.size.getVector3Value();
+			m_sizeEnd = size.getVector3Value();
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-			m_subject.setSizeRightNow( edu.cmu.cs.stage3.math.MathUtilities.interpolate( m_sizeBegin, m_sizeEnd, getPortion( t ) ), m_asSeenBy );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			m_subject.setSizeRightNow(edu.cmu.cs.stage3.math.MathUtilities.interpolate(m_sizeBegin, m_sizeEnd, getPortion(t)), m_asSeenBy);
 		}
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			m_subject.setSizeRightNow( m_sizeEnd, m_asSeenBy );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			m_subject.setSizeRightNow(m_sizeEnd, m_asSeenBy);
 		}
 	}
 }

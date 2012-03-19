@@ -23,62 +23,77 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.dialog;
 
+import edu.cmu.cs.stage3.alice.core.reference.PropertyReference;
+
 public class LoadElementProgressPane extends edu.cmu.cs.stage3.progress.ProgressPane {
 	private edu.cmu.cs.stage3.io.DirectoryTreeLoader m_loader;
 	private edu.cmu.cs.stage3.alice.core.Element m_externalRoot;
 	private edu.cmu.cs.stage3.alice.core.Element m_loadedElement;
-	public LoadElementProgressPane( String title, String preDescription ) {
-		super( title, preDescription );
+	public LoadElementProgressPane(String title, String preDescription) {
+		super(title, preDescription);
 	}
-	
+
+	@Override
 	protected void construct() throws edu.cmu.cs.stage3.progress.ProgressCancelException {
 		m_loadedElement = null;
 		try {
-			m_loadedElement = edu.cmu.cs.stage3.alice.core.Element.load( m_loader, m_externalRoot, this );
-		} catch( edu.cmu.cs.stage3.progress.ProgressCancelException pce ) {
+			m_loadedElement = edu.cmu.cs.stage3.alice.core.Element.load(m_loader, m_externalRoot, this);
+		} catch (edu.cmu.cs.stage3.progress.ProgressCancelException pce) {
 			throw pce;
-		} catch( edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre ) {
-			//edu.cmu.cs.stage3.alice.authoringtool.dialog.UnresolvablePropertyReferencesPane unresolvablePropertyReferencesPane = new edu.cmu.cs.stage3.alice.authoringtool.dialog.UnresolvablePropertyReferencesPane( upre );
-			//edu.cmu.cs.stage3.swing.DialogManager.showDialog( unresolvablePropertyReferencesPane );
+		} catch (edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre) {
+			// edu.cmu.cs.stage3.alice.authoringtool.dialog.UnresolvablePropertyReferencesPane
+			// unresolvablePropertyReferencesPane = new
+			// edu.cmu.cs.stage3.alice.authoringtool.dialog.UnresolvablePropertyReferencesPane(
+			// upre );
+			// edu.cmu.cs.stage3.swing.DialogManager.showDialog(
+			// unresolvablePropertyReferencesPane );
 			StringBuffer sb = new StringBuffer();
-			sb.append( "WARNING: unable to resolve references: \n" );
+			sb.append("WARNING: unable to resolve references: \n");
 			edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] propertyReferences = upre.getPropertyReferences();
-			for( int i=0; i<propertyReferences.length; i++ ) {
-				edu.cmu.cs.stage3.alice.core.Property property = propertyReferences[ i ].getProperty();
-				sb.append( "    " );
-				sb.append( property.getOwner().toString() );
-				sb.append( '[' );
-				sb.append( property.getName() );
-				sb.append( "] -> " );
-				sb.append( propertyReferences[ i ].getCriterion() );
-				sb.append( '\n' );
+			for (PropertyReference propertyReference : propertyReferences) {
+				edu.cmu.cs.stage3.alice.core.Property property = propertyReference.getProperty();
+				sb.append("    ");
+				sb.append(property.getOwner().toString());
+				sb.append('[');
+				sb.append(property.getName());
+				sb.append("] -> ");
+				sb.append(propertyReference.getCriterion());
+				sb.append('\n');
 			}
-			sb.append( '\n' );
-			sb.append( "Would you like to continue, setting all values to None?" );
-			if( edu.cmu.cs.stage3.swing.DialogManager.showConfirmDialog( sb.toString(), "Unable to load world", javax.swing.JOptionPane.YES_NO_OPTION ) == javax.swing.JOptionPane.YES_OPTION ) {
+			sb.append('\n');
+			sb.append("Would you like to continue, setting all values to None?");
+			if (edu.cmu.cs.stage3.swing.DialogManager.showConfirmDialog(sb.toString(), "Unable to load world", javax.swing.JOptionPane.YES_NO_OPTION) == javax.swing.JOptionPane.YES_OPTION) {
 				m_loadedElement = upre.getElement();
 			}
-		} catch( Throwable t ) {
-			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Unable to load world", t );
+		} catch (Throwable t) {
+			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Unable to load world", t);
 		}
-//		} catch( edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre ) {
-//			javax.swing.SwingUtilities.invokeAndWait( new Runnable() {
-//				public void run() {
-//					edu.cmu.cs.stage3.alice.authoringtool.dialog.UnresolvablePropertyReferencesPane unresolvablePropertyReferencesPane = new edu.cmu.cs.stage3.alice.authoringtool.dialog.UnresolvablePropertyReferencesPane( upre );
-//					edu.cmu.cs.stage3.swing.DialogManager.showDialog( unresolvablePropertyReferencesPane );
-//				}
-//			} );
-//			edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] propertyReferences = e.getPropertyReferences();
-//			//System.err.println("Unable to load object: " + pathname + ".  Couldn't resolve the following references:");
-//			for (int i = 0; i < propertyReferences.length; i++) {
-//				System.err.println("\t" + propertyReferences[i]);
-//			}
-//		}
+		// } catch(
+		// edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException
+		// upre ) {
+		// javax.swing.SwingUtilities.invokeAndWait( new Runnable() {
+		// public void run() {
+		// edu.cmu.cs.stage3.alice.authoringtool.dialog.UnresolvablePropertyReferencesPane
+		// unresolvablePropertyReferencesPane = new
+		// edu.cmu.cs.stage3.alice.authoringtool.dialog.UnresolvablePropertyReferencesPane(
+		// upre );
+		// edu.cmu.cs.stage3.swing.DialogManager.showDialog(
+		// unresolvablePropertyReferencesPane );
+		// }
+		// } );
+		// edu.cmu.cs.stage3.alice.core.reference.PropertyReference[]
+		// propertyReferences = e.getPropertyReferences();
+		// //System.err.println("Unable to load object: " + pathname +
+		// ".  Couldn't resolve the following references:");
+		// for (int i = 0; i < propertyReferences.length; i++) {
+		// System.err.println("\t" + propertyReferences[i]);
+		// }
+		// }
 	}
-	public void setLoader( edu.cmu.cs.stage3.io.DirectoryTreeLoader loader ) {
+	public void setLoader(edu.cmu.cs.stage3.io.DirectoryTreeLoader loader) {
 		m_loader = loader;
 	}
-	public void setExternalRoot( edu.cmu.cs.stage3.alice.core.Element externalRoot ) {
+	public void setExternalRoot(edu.cmu.cs.stage3.alice.core.Element externalRoot) {
 		m_externalRoot = externalRoot;
 	}
 	public edu.cmu.cs.stage3.alice.core.Element getLoadedElement() {

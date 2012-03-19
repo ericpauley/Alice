@@ -23,81 +23,86 @@
 
 package edu.cmu.cs.stage3.alice.core.behavior;
 
+import edu.cmu.cs.stage3.alice.core.RenderTarget;
 import edu.cmu.cs.stage3.alice.core.Transformable;
 
 /**
  * @author Jason Pratt
  */
 public class DefaultMouseInteractionBehavior extends InternalResponseBehavior {
-	public final edu.cmu.cs.stage3.alice.core.property.ElementArrayProperty renderTargets = new edu.cmu.cs.stage3.alice.core.property.ElementArrayProperty( this, "renderTargets", null, edu.cmu.cs.stage3.alice.core.RenderTarget[].class );
-	public final edu.cmu.cs.stage3.alice.core.property.ListProperty objects = new edu.cmu.cs.stage3.alice.core.property.ListProperty( this, "objects", null );
+	public final edu.cmu.cs.stage3.alice.core.property.ElementArrayProperty renderTargets = new edu.cmu.cs.stage3.alice.core.property.ElementArrayProperty(this, "renderTargets", null, edu.cmu.cs.stage3.alice.core.RenderTarget[].class);
+	public final edu.cmu.cs.stage3.alice.core.property.ListProperty objects = new edu.cmu.cs.stage3.alice.core.property.ListProperty(this, "objects", null);
 
 	protected java.util.Vector manipulators = new java.util.Vector();
 
-	protected void scheduled( double t ) {
+	protected void scheduled(double t) {
 	}
 
-	protected void objectsValueChanged( edu.cmu.cs.stage3.alice.core.List value ) {
+	protected void objectsValueChanged(edu.cmu.cs.stage3.alice.core.List value) {
 		java.util.Enumeration enum0 = DefaultMouseInteractionBehavior.this.manipulators.elements();
-		while( enum0.hasMoreElements() ) {
-			edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator rtmm = (edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator)enum0.nextElement();
+		while (enum0.hasMoreElements()) {
+			edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator rtmm = (edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator) enum0.nextElement();
 			rtmm.clearObjectsOfInterestList();
-			if( value != null ) {
-                for (int i=0; i<value.values.getArrayValue().length; i++)
-				    rtmm.addObjectOfInterest( (Transformable)value.values.getArrayValue()[i] );
+			if (value != null) {
+				for (int i = 0; i < value.values.getArrayValue().length; i++) {
+					rtmm.addObjectOfInterest((Transformable) value.values.getArrayValue()[i]);
+				}
 			}
 		}
 	}
 
-	private void setIsEnabled( boolean value ) {
-		if( manipulators != null ) {
+	private void setIsEnabled(boolean value) {
+		if (manipulators != null) {
 			java.util.Enumeration enum0 = manipulators.elements();
-			while( enum0.hasMoreElements() ) {
-				((edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator)enum0.nextElement()).setEnabled( isEnabled.booleanValue() );
+			while (enum0.hasMoreElements()) {
+				((edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator) enum0.nextElement()).setEnabled(isEnabled.booleanValue());
 			}
 		}
 	}
-	
+
+	@Override
 	protected void enabled() {
-		setIsEnabled( true );
+		setIsEnabled(true);
 	}
-	
+
+	@Override
 	protected void disabled() {
-		setIsEnabled( false );
+		setIsEnabled(false);
 	}
-	
-	protected void propertyChanged( edu.cmu.cs.stage3.alice.core.Property property, Object value ) {
-		if( property == objects ) {
-		    objectsValueChanged( objects.getListValue() );
+
+	@Override
+	protected void propertyChanged(edu.cmu.cs.stage3.alice.core.Property property, Object value) {
+		if (property == objects) {
+			objectsValueChanged(objects.getListValue());
 		} else {
-			super.propertyChanged( property, value );
+			super.propertyChanged(property, value);
 		}
 	}
 
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
 		manipulators.clear();
-		edu.cmu.cs.stage3.alice.core.RenderTarget[] renderTargetsValue = (edu.cmu.cs.stage3.alice.core.RenderTarget[])renderTargets.get();
-		if( renderTargetsValue == null ) {
-			renderTargetsValue = (edu.cmu.cs.stage3.alice.core.RenderTarget[])world.getDescendants( edu.cmu.cs.stage3.alice.core.RenderTarget.class );
+		edu.cmu.cs.stage3.alice.core.RenderTarget[] renderTargetsValue = (edu.cmu.cs.stage3.alice.core.RenderTarget[]) renderTargets.get();
+		if (renderTargetsValue == null) {
+			renderTargetsValue = (edu.cmu.cs.stage3.alice.core.RenderTarget[]) world.getDescendants(edu.cmu.cs.stage3.alice.core.RenderTarget.class);
 		}
-		for( int i = 0; i < renderTargetsValue.length; i++ ) {
-			edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator rtmm = new edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator( renderTargetsValue[i].getInternal() );
-			//rtmm.setPopupEnabled( false );
-			rtmm.setPickAllForOneObjectOfInterestEnabled( false );
-			manipulators.addElement( rtmm );
+		for (RenderTarget element : renderTargetsValue) {
+			edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator rtmm = new edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator(element.getInternal());
+			// rtmm.setPopupEnabled( false );
+			rtmm.setPickAllForOneObjectOfInterestEnabled(false);
+			manipulators.addElement(rtmm);
 		}
-		objectsValueChanged( objects.getListValue() );
-		setIsEnabled( isEnabled.booleanValue() );
+		objectsValueChanged(objects.getListValue());
+		setIsEnabled(isEnabled.booleanValue());
 	}
 
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.stopped( world, time );
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.stopped(world, time);
 		java.util.Enumeration enum0 = manipulators.elements();
-		while( enum0.hasMoreElements() ) {
-			((edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator)enum0.nextElement()).setRenderTarget( null );
+		while (enum0.hasMoreElements()) {
+			((edu.cmu.cs.stage3.alice.core.manipulator.RenderTargetModelManipulator) enum0.nextElement()).setRenderTarget(null);
 		}
 		manipulators.clear();
 	}

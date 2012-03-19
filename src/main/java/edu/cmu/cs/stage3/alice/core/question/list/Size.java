@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.list;
 
 public class Size extends ListNumberQuestion {
-	
-	public int getValue( edu.cmu.cs.stage3.alice.core.List listValue ) {
+
+	@Override
+	public int getValue(edu.cmu.cs.stage3.alice.core.List listValue) {
 		return listValue.size();
 	}
 }

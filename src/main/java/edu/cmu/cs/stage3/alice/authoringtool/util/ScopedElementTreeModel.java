@@ -33,15 +33,15 @@ public class ScopedElementTreeModel extends FilteringElementTreeModel {
 		return currentScope;
 	}
 
-	public void setCurrentScope( edu.cmu.cs.stage3.alice.core.Element scope ) {
+	public void setCurrentScope(edu.cmu.cs.stage3.alice.core.Element scope) {
 		currentScope = scope;
 	}
 
-	public boolean isElementInScope( edu.cmu.cs.stage3.alice.core.Element element ) {
-		if( currentScope != null ) {
-			if( element == currentScope ) {
+	public boolean isElementInScope(edu.cmu.cs.stage3.alice.core.Element element) {
+		if (currentScope != null) {
+			if (element == currentScope) {
 				return true;
-			} else if( element.isDescendantOf( currentScope ) ) {
+			} else if (element.isDescendantOf(currentScope)) {
 				return true;
 			}
 		}

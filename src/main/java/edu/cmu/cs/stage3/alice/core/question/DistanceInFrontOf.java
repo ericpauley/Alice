@@ -26,12 +26,14 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.SpatialRelation;
 
 public class DistanceInFrontOf extends SpatialRelationDistanceQuestion {
-	private static Class[] s_supportedCoercionClasses = { DistanceBehind.class, DistanceAbove.class, DistanceBelow.class, DistanceToTheLeftOf.class, DistanceToTheRightOf.class };
-	
+	private static Class[] s_supportedCoercionClasses = {DistanceBehind.class, DistanceAbove.class, DistanceBelow.class, DistanceToTheLeftOf.class, DistanceToTheRightOf.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
+
+	@Override
 	protected SpatialRelation getSpatialRelation() {
 		return SpatialRelation.IN_FRONT_OF;
 	}

@@ -35,116 +35,120 @@ public abstract class Container extends Component {
 	private java.util.Vector m_childrenListeners = new java.util.Vector();
 	private ChildrenListener[] m_childrenListenerArray = null;
 
-	public boolean isAncestorOf( Component component ) {
-		if( component == null ) {
+	public boolean isAncestorOf(Component component) {
+		if (component == null) {
 			return false;
 		} else {
-			return component.isDescendantOf( this );
+			return component.isDescendantOf(this);
 		}
 	}
 
-	
+	@Override
 	protected void releasePass1() {
 		Component[] children = getChildren();
-		for( int i=0; i<children.length; i++ ) {
-			warnln( "WARNING: released container " + this + " still has child " + children[ i ] + "." );
-			children[ i ].setParent( null );
+		for (Component element : children) {
+			warnln("WARNING: released container " + this + " still has child " + element + ".");
+			element.setParent(null);
 		}
 		super.releasePass1();
 	}
-	
+
+	@Override
 	protected void releasePass2() {
 		m_children = null;
 		m_childArray = null;
 		super.releasePass2();
 	}
-	
+
+	@Override
 	protected void releasePass3() {
 		java.util.Enumeration enum0 = m_childrenListeners.elements();
-		while( enum0.hasMoreElements() ) {
-			ChildrenListener childrenListener = (ChildrenListener)enum0.nextElement();
-			warnln( "WARNING: released container " + this + " still has childrenListener " + childrenListener + "." );
+		while (enum0.hasMoreElements()) {
+			ChildrenListener childrenListener = (ChildrenListener) enum0.nextElement();
+			warnln("WARNING: released container " + this + " still has childrenListener " + childrenListener + ".");
 		}
 		m_childrenListeners = null;
 		m_childrenListenerArray = null;
 		super.releasePass3();
 	}
-	protected void onAddChild( Component child ) {
-		if( isReleased() ) {
-			warnln( "WARNING: scenegraph addChild " + child + " on already released " + this + "." );
+	protected void onAddChild(Component child) {
+		if (isReleased()) {
+			warnln("WARNING: scenegraph addChild " + child + " on already released " + this + ".");
 		} else {
-			if( child.isReleased() ) {
-				warnln( "WARNING: scenegraph addChild from " + this + " on already released child " + child + "." );
+			if (child.isReleased()) {
+				warnln("WARNING: scenegraph addChild from " + this + " on already released child " + child + ".");
 			} else {
-				m_children.addElement( child );
+				m_children.addElement(child);
 				m_childArray = null;
-				ChildrenEvent childrenEvent = new ChildrenEvent( this, ChildrenEvent.CHILD_ADDED, child );
+				ChildrenEvent childrenEvent = new ChildrenEvent(this, ChildrenEvent.CHILD_ADDED, child);
 				ChildrenListener[] childrenListeners = getChildrenListeners();
-				for( int i=0; i<childrenListeners.length; i++ ) {
-					childrenListeners[ i ].childAdded( childrenEvent );
+				for (ChildrenListener childrenListener : childrenListeners) {
+					childrenListener.childAdded(childrenEvent);
 				}
 			}
 		}
 	}
-	protected void onRemoveChild( Component child ) {
-		if( isReleased() ) {
-			warnln( "WARNING: scenegraph removeChild " + child + " on already released " + this + "." );
+	protected void onRemoveChild(Component child) {
+		if (isReleased()) {
+			warnln("WARNING: scenegraph removeChild " + child + " on already released " + this + ".");
 		} else {
-			if( child.isReleased() ) {
-				warnln( "WARNING: scenegraph removeChild from " + this + " on already released child " + child + "." );
+			if (child.isReleased()) {
+				warnln("WARNING: scenegraph removeChild from " + this + " on already released child " + child + ".");
 			} else {
-				m_children.removeElement( child );
+				m_children.removeElement(child);
 				m_childArray = null;
-				ChildrenEvent childrenEvent = new ChildrenEvent( this, ChildrenEvent.CHILD_REMOVED, child );
+				ChildrenEvent childrenEvent = new ChildrenEvent(this, ChildrenEvent.CHILD_REMOVED, child);
 				ChildrenListener[] childrenListeners = getChildrenListeners();
-				for( int i=0; i<childrenListeners.length; i++ ) {
-					childrenListeners[ i ].childRemoved( childrenEvent );
+				for (ChildrenListener childrenListener : childrenListeners) {
+					childrenListener.childRemoved(childrenEvent);
 				}
 			}
 		}
 	}
 	public Component[] getChildren() {
-		if( m_childArray == null ) {
-			m_childArray = new Component[ m_children.size() ];
-			m_children.copyInto( m_childArray );
+		if (m_childArray == null) {
+			m_childArray = new Component[m_children.size()];
+			m_children.copyInto(m_childArray);
 		}
 		return m_childArray;
 	}
 	public int getChildCount() {
 		return m_children.size();
 	}
-	public Component getChildAt( int i ) {
-		return (Component)m_children.elementAt( i );
+	public Component getChildAt(int i) {
+		return (Component) m_children.elementAt(i);
 	}
-	public void addChildrenListener( ChildrenListener childrenListener ) {
-		m_childrenListeners.addElement( childrenListener );
+	public void addChildrenListener(ChildrenListener childrenListener) {
+		m_childrenListeners.addElement(childrenListener);
 		m_childrenListenerArray = null;
 	}
-	public void removeChildrenListener( ChildrenListener childrenListener ) {
-		m_childrenListeners.removeElement( childrenListener );
+	public void removeChildrenListener(ChildrenListener childrenListener) {
+		m_childrenListeners.removeElement(childrenListener);
 		m_childrenListenerArray = null;
 	}
 	public ChildrenListener[] getChildrenListeners() {
-		if( m_childrenListenerArray == null ) {
-			m_childrenListenerArray = new ChildrenListener[ m_childrenListeners.size() ];
-			m_childrenListeners.copyInto( m_childrenListenerArray );
+		if (m_childrenListenerArray == null) {
+			m_childrenListenerArray = new ChildrenListener[m_childrenListeners.size()];
+			m_childrenListeners.copyInto(m_childrenListenerArray);
 		}
 		return m_childrenListenerArray;
 	}
-	
+
+	@Override
 	protected void onAbsoluteTransformationChange() {
 		super.onAbsoluteTransformationChange();
 		Component[] children = getChildren();
-		for( int i=0; i<children.length; i++ ) {
-			children[ i ].onAbsoluteTransformationChange();
+		for (Component element : children) {
+			element.onAbsoluteTransformationChange();
 		}
 	}
-	
+
+	@Override
 	protected void onHierarchyChange() {
 		super.onHierarchyChange();
 		Component[] children = getChildren();
-		for( int i=0; i<children.length; i++ ) {
-			children[ i ].onHierarchyChange();
+		for (Component element : children) {
+			element.onHierarchyChange();
 		}
 	}
 }

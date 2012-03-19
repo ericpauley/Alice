@@ -27,27 +27,28 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class Sphere extends Shape {
-	public static final Property RADIUS_PROPERTY = new Property( Sphere.class, "RADIUS" );
+	public static final Property RADIUS_PROPERTY = new Property(Sphere.class, "RADIUS");
 
 	private double m_radius = 1;
 
 	public double getRadius() {
 		return m_radius;
 	}
-	public void setRadius( double radius ) {
-		if( m_radius != radius ) {
+	public void setRadius(double radius) {
+		if (m_radius != radius) {
 			m_radius = radius;
-			onPropertyChange( RADIUS_PROPERTY );
+			onPropertyChange(RADIUS_PROPERTY);
 			onBoundsChange();
 		}
 	}
 
-	
+	@Override
 	protected void updateBoundingBox() {
-		m_boundingBox = new edu.cmu.cs.stage3.math.Box( -m_radius, -m_radius, -m_radius,   m_radius, m_radius, m_radius );
+		m_boundingBox = new edu.cmu.cs.stage3.math.Box(-m_radius, -m_radius, -m_radius, m_radius, m_radius, m_radius);
 	}
-	
+
+	@Override
 	protected void updateBoundingSphere() {
-		m_boundingSphere = new edu.cmu.cs.stage3.math.Sphere( 0,0,0, m_radius );
+		m_boundingSphere = new edu.cmu.cs.stage3.math.Sphere(0, 0, 0, m_radius);
 	}
 }

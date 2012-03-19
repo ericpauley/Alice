@@ -27,12 +27,12 @@ package edu.cmu.cs.stage3.alice.authoringtool.datatransfer;
  * @author Jason Pratt
  */
 public class TextureMapReferenceTransferable extends ElementReferenceTransferable {
-	public final static java.awt.datatransfer.DataFlavor textureMapReferenceFlavor = new java.awt.datatransfer.DataFlavor( java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.core.TextureMap", "textureMapReferenceFlavor" );
+	public final static java.awt.datatransfer.DataFlavor textureMapReferenceFlavor = new java.awt.datatransfer.DataFlavor(java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.core.TextureMap", "textureMapReferenceFlavor");
 
 	protected edu.cmu.cs.stage3.alice.core.TextureMap textureMap;
 
-	public TextureMapReferenceTransferable( edu.cmu.cs.stage3.alice.core.TextureMap textureMap ) {
-		super( textureMap );
+	public TextureMapReferenceTransferable(edu.cmu.cs.stage3.alice.core.TextureMap textureMap) {
+		super(textureMap);
 		this.textureMap = textureMap;
 
 		flavors = new java.awt.datatransfer.DataFlavor[3];
@@ -41,24 +41,24 @@ public class TextureMapReferenceTransferable extends ElementReferenceTransferabl
 		flavors[2] = java.awt.datatransfer.DataFlavor.stringFlavor;
 	}
 
-	
-	public Object getTransferData( java.awt.datatransfer.DataFlavor flavor ) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
-		if( flavor.equals( textureMapReferenceFlavor ) ) {
+	@Override
+	public Object getTransferData(java.awt.datatransfer.DataFlavor flavor) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
+		if (flavor.equals(textureMapReferenceFlavor)) {
 			return textureMap;
-		} else if( flavor.equals( ElementReferenceTransferable.elementReferenceFlavor ) ) {
+		} else if (flavor.equals(ElementReferenceTransferable.elementReferenceFlavor)) {
 			return textureMap;
-		} else if( flavor.equals( java.awt.datatransfer.DataFlavor.stringFlavor ) ) {
+		} else if (flavor.equals(java.awt.datatransfer.DataFlavor.stringFlavor)) {
 			return textureMap.toString();
 		} else {
-			throw new java.awt.datatransfer.UnsupportedFlavorException( flavor );
+			throw new java.awt.datatransfer.UnsupportedFlavorException(flavor);
 		}
 	}
 
-	
+	@Override
 	public ElementReferenceTransferable createCopy() {
-		if( element != null ) {
-			edu.cmu.cs.stage3.alice.core.Element copy = element.createCopyNamed( element.name.getStringValue() );
-			return new TextureMapReferenceTransferable( (edu.cmu.cs.stage3.alice.core.TextureMap)copy );
+		if (element != null) {
+			edu.cmu.cs.stage3.alice.core.Element copy = element.createCopyNamed(element.name.getStringValue());
+			return new TextureMapReferenceTransferable((edu.cmu.cs.stage3.alice.core.TextureMap) copy);
 		} else {
 			return null;
 		}

@@ -23,6 +23,10 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool;
 
+import edu.cmu.cs.stage3.alice.core.Element;
+import edu.cmu.cs.stage3.alice.core.Property;
+import edu.cmu.cs.stage3.alice.core.event.ChildrenListener;
+
 /**
  * @author Jason Pratt
  */
@@ -36,16 +40,16 @@ public class MainUndoRedoStack extends edu.cmu.cs.stage3.alice.authoringtool.uti
 	private boolean scriptHasChanged = false;
 	protected java.util.HashSet listeners = new java.util.HashSet();
 
-	public MainUndoRedoStack( AuthoringTool authoringTool ) {
+	public MainUndoRedoStack(AuthoringTool authoringTool) {
 		this.authoringTool = authoringTool;
 	}
 
-	public void addUndoRedoListener( edu.cmu.cs.stage3.alice.authoringtool.event.UndoRedoListener listener ) {
-		listeners.add( listener );
+	public void addUndoRedoListener(edu.cmu.cs.stage3.alice.authoringtool.event.UndoRedoListener listener) {
+		listeners.add(listener);
 	}
 
-	public void removeUndoRedoListener( edu.cmu.cs.stage3.alice.authoringtool.event.UndoRedoListener listener ) {
-		listeners.remove( listener );
+	public void removeUndoRedoListener(edu.cmu.cs.stage3.alice.authoringtool.event.UndoRedoListener listener) {
+		listeners.remove(listener);
 	}
 
 	public int getUnmodifiedIndex() {
@@ -57,8 +61,8 @@ public class MainUndoRedoStack extends edu.cmu.cs.stage3.alice.authoringtool.uti
 	}
 
 	synchronized protected void fireChange() {
-		for( java.util.Iterator iter = listeners.iterator(); iter.hasNext(); ) {
-			((edu.cmu.cs.stage3.alice.authoringtool.event.UndoRedoListener)iter.next()).onChange();
+		for (java.util.Iterator iter = listeners.iterator(); iter.hasNext();) {
+			((edu.cmu.cs.stage3.alice.authoringtool.event.UndoRedoListener) iter.next()).onChange();
 		}
 	}
 
@@ -68,19 +72,19 @@ public class MainUndoRedoStack extends edu.cmu.cs.stage3.alice.authoringtool.uti
 		fireChange();
 	}
 
-	synchronized public void setIsListening( boolean isListening ) {
+	synchronized public void setIsListening(boolean isListening) {
 		this.isListening = isListening;
 	}
-	
+
 	synchronized public boolean getIsListening() {
 		return isListening;
 	}
 
 	synchronized public void startCompound() {
-		if( ! inCompound ) {
+		if (!inCompound) {
 			compoundItem = new edu.cmu.cs.stage3.alice.authoringtool.util.CompoundUndoableRedoable();
-			compoundItem.setContext( authoringTool.getContext() );
-			push( compoundItem );
+			compoundItem.setContext(authoringTool.getContext());
+			push(compoundItem);
 			inCompound = true;
 		}
 	}
@@ -89,26 +93,26 @@ public class MainUndoRedoStack extends edu.cmu.cs.stage3.alice.authoringtool.uti
 		inCompound = false;
 	}
 
-	
+	@Override
 	synchronized public edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable undo() {
 		stopCompound();
 		boolean temp = isListening;
 		isListening = false;
 		edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable ur = super.undo();
-		loadContext( ur.getContext() );
+		loadContext(ur.getContext());
 		isListening = temp;
 		fireChange();
 		return ur;
 	}
 
-	
+	@Override
 	synchronized public edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable redo() {
 		stopCompound();
 		boolean temp = isListening;
 		isListening = false;
 		int currentIndex = getCurrentUndoableRedoableIndex();
-		if( currentIndex < (size() - 1) ) {
-			loadContext( ((edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable)get( currentIndex + 1 )).getContext() );
+		if (currentIndex < size() - 1) {
+			loadContext(((edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable) get(currentIndex + 1)).getContext());
 		}
 		edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable ur = super.redo();
 		isListening = temp;
@@ -116,25 +120,25 @@ public class MainUndoRedoStack extends edu.cmu.cs.stage3.alice.authoringtool.uti
 		return ur;
 	}
 
-	synchronized protected void loadContext( Object context ) {
-		authoringTool.setContext( context );
+	synchronized protected void loadContext(Object context) {
+		authoringTool.setContext(context);
 	}
 
-	
-	synchronized public void push( edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable ur ) {
-//		Thread.dumpStack();
-		if( ur instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ContextAssignableUndoableRedoable ) {
-			((edu.cmu.cs.stage3.alice.authoringtool.util.ContextAssignableUndoableRedoable)ur).setContext( authoringTool.getContext() );
+	@Override
+	synchronized public void push(edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable ur) {
+		// Thread.dumpStack();
+		if (ur instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ContextAssignableUndoableRedoable) {
+			((edu.cmu.cs.stage3.alice.authoringtool.util.ContextAssignableUndoableRedoable) ur).setContext(authoringTool.getContext());
 		}
-		if( inCompound ) {
-			compoundItem.addItem( ur );
+		if (inCompound) {
+			compoundItem.addItem(ur);
 		} else {
-			super.push( ur );
+			super.push(ur);
 		}
 		fireChange();
 	}
 
-	
+	@Override
 	synchronized public edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable pop_() {
 		stopCompound();
 		edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable ur = super.pop_();
@@ -142,148 +146,187 @@ public class MainUndoRedoStack extends edu.cmu.cs.stage3.alice.authoringtool.uti
 		return ur;
 	}
 
-	
+	@Override
 	synchronized public void clear() {
 		super.clear();
 		setUnmodified();
 		fireChange();
 	}
 
-	
-	synchronized public edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable removeUndoable( int index ) {
-		edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable ur = super.removeUndoable( index );
+	@Override
+	synchronized public edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable removeUndoable(int index) {
+		edu.cmu.cs.stage3.alice.authoringtool.util.UndoableRedoable ur = super.removeUndoable(index);
 		fireChange();
 		return ur;
 	}
 
 	protected Object preChangeValue;
-	synchronized public void propertyChanging( edu.cmu.cs.stage3.alice.core.event.PropertyEvent propertyEvent ) {
-		if( isListening ) {
-			//TODO: I need to be getting a clone here...?
+	@Override
+	synchronized public void propertyChanging(edu.cmu.cs.stage3.alice.core.event.PropertyEvent propertyEvent) {
+		if (isListening) {
+			// TODO: I need to be getting a clone here...?
 			preChangeValue = propertyEvent.getProperty().get();
 		}
 	}
 
-	synchronized public void propertyChanged( edu.cmu.cs.stage3.alice.core.event.PropertyEvent propertyEvent ) {
-		if( isListening ) {
+	@Override
+	synchronized public void propertyChanged(edu.cmu.cs.stage3.alice.core.event.PropertyEvent propertyEvent) {
+		if (isListening) {
 			// ObjectArrayProperties are handled separately
-			if( propertyEvent.getProperty() instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
+			if (propertyEvent.getProperty() instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
 				return;
 			}
 
-			// if the property change is for a property being changed by a currently running one-shot, we ignore the change
-			if( authoringTool.getOneShotScheduler().isPropertyAffected( propertyEvent.getProperty() ) ) {
+			// if the property change is for a property being changed by a
+			// currently running one-shot, we ignore the change
+			if (authoringTool.getOneShotScheduler().isPropertyAffected(propertyEvent.getProperty())) {
 				return;
 			}
 
-			// don't push script changes onto the stack, but realize that they've been made
-			if( propertyEvent.getProperty() instanceof edu.cmu.cs.stage3.alice.core.property.ScriptProperty ) {
+			// don't push script changes onto the stack, but realize that
+			// they've been made
+			if (propertyEvent.getProperty() instanceof edu.cmu.cs.stage3.alice.core.property.ScriptProperty) {
 				scriptHasChanged = true;
 				fireChange();
 				return;
 			}
 
-			push( new edu.cmu.cs.stage3.alice.authoringtool.util.PropertyUndoableRedoable( propertyEvent.getProperty(), preChangeValue, propertyEvent.getProperty().get() ) );
-			//DEBUG System.out.println( "context: " + context );
-			//DEBUG System.out.println( "undoRedoStack.propertyChanged pushed: " + propertyEvent.getProperty() + ", " + preChangeValue + ", " + propertyEvent.getProperty().get() );
+			push(new edu.cmu.cs.stage3.alice.authoringtool.util.PropertyUndoableRedoable(propertyEvent.getProperty(), preChangeValue, propertyEvent.getProperty().get()));
+			// DEBUG System.out.println( "context: " + context );
+			// DEBUG System.out.println(
+			// "undoRedoStack.propertyChanged pushed: " +
+			// propertyEvent.getProperty() + ", " + preChangeValue + ", " +
+			// propertyEvent.getProperty().get() );
 		}
 	}
 
-	synchronized public void objectArrayPropertyChanging( edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev ) {}
-	synchronized public void objectArrayPropertyChanged( edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev ) {
-		if( isListening ) {
-			// if the property change is for a property being changed by a currently running one-shot, we ignore the change
-			if( authoringTool.getOneShotScheduler().isPropertyAffected( ev.getObjectArrayProperty() ) ) {
+	@Override
+	synchronized public void objectArrayPropertyChanging(edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev) {
+	}
+	@Override
+	synchronized public void objectArrayPropertyChanged(edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev) {
+		if (isListening) {
+			// if the property change is for a property being changed by a
+			// currently running one-shot, we ignore the change
+			if (authoringTool.getOneShotScheduler().isPropertyAffected(ev.getObjectArrayProperty())) {
 				return;
 			}
 
-			push( new edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyUndoableRedoable( ev.getObjectArrayProperty(), ev.getChangeType(), ev.getOldIndex(), ev.getNewIndex(), ev.getItem() ) );
+			push(new edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyUndoableRedoable(ev.getObjectArrayProperty(), ev.getChangeType(), ev.getOldIndex(), ev.getNewIndex(), ev.getItem()));
 		}
 	}
 
-	synchronized public void childrenChanging( edu.cmu.cs.stage3.alice.core.event.ChildrenEvent childrenEvent ) {}
-	synchronized public void childrenChanged( edu.cmu.cs.stage3.alice.core.event.ChildrenEvent childrenEvent ) {
-		if( isListening ) {
-			push( new edu.cmu.cs.stage3.alice.authoringtool.util.ChildChangeUndoableRedoable( childrenEvent ) );
+	@Override
+	synchronized public void childrenChanging(edu.cmu.cs.stage3.alice.core.event.ChildrenEvent childrenEvent) {
+	}
+	@Override
+	synchronized public void childrenChanged(edu.cmu.cs.stage3.alice.core.event.ChildrenEvent childrenEvent) {
+		if (isListening) {
+			push(new edu.cmu.cs.stage3.alice.authoringtool.util.ChildChangeUndoableRedoable(childrenEvent));
 		}
 
 		int changeType = childrenEvent.getChangeType();
-		if( changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_INSERTED ) {
-			listenTo( childrenEvent.getChild() );
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_REMOVED ) {
-			stopListeningTo( childrenEvent.getChild() );
+		if (changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_INSERTED) {
+			listenTo(childrenEvent.getChild());
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ChildrenEvent.CHILD_REMOVED) {
+			stopListeningTo(childrenEvent.getChild());
 		}
 	}
 
-	synchronized public void listenTo( edu.cmu.cs.stage3.alice.core.Element element ) {
-		if( element != null ) {
+	synchronized public void listenTo(edu.cmu.cs.stage3.alice.core.Element element) {
+		if (element != null) {
 			edu.cmu.cs.stage3.alice.core.Element[] elements = element.getDescendants();
-			for( int i = 0; i < elements.length; i++ ) {
-				edu.cmu.cs.stage3.alice.core.Property[] properties = elements[i].getProperties();
-				for( int j = 0; j < properties.length; j++ ) {
-					properties[j].addPropertyListener( this );
-					if( properties[j] instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
-						((edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty)properties[j]).addObjectArrayPropertyListener( this );
+			for (Element element2 : elements) {
+				edu.cmu.cs.stage3.alice.core.Property[] properties = element2.getProperties();
+				for (Property propertie : properties) {
+					propertie.addPropertyListener(this);
+					if (propertie instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
+						((edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) propertie).addObjectArrayPropertyListener(this);
 					}
 				}
 				boolean alreadyChildrenListening = false;
-				edu.cmu.cs.stage3.alice.core.event.ChildrenListener[] childrenListeners = elements[i].getChildrenListeners();
-				for( int j = 0; j < childrenListeners.length; j++ ) {
-					if( childrenListeners[j] == this ) {
+				edu.cmu.cs.stage3.alice.core.event.ChildrenListener[] childrenListeners = element2.getChildrenListeners();
+				for (ChildrenListener childrenListener : childrenListeners) {
+					if (childrenListener == this) {
 						alreadyChildrenListening = true;
 					}
 				}
-				if( ! alreadyChildrenListening ) {
-					elements[i].addChildrenListener( this );
+				if (!alreadyChildrenListening) {
+					element2.addChildrenListener(this);
 				}
 			}
 		}
 	}
 
-	synchronized public void stopListeningTo( edu.cmu.cs.stage3.alice.core.Element element ) {
-		if( element != null ) {
+	synchronized public void stopListeningTo(edu.cmu.cs.stage3.alice.core.Element element) {
+		if (element != null) {
 			edu.cmu.cs.stage3.alice.core.Element[] elements = element.getDescendants();
-			for( int i = 0; i < elements.length; i++ ) {
-				edu.cmu.cs.stage3.alice.core.Property[] properties = elements[i].getProperties();
-				for( int j = 0; j < properties.length; j++ ) {
-					properties[j].removePropertyListener( this );
-					if( properties[j] instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
-						((edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty)properties[j]).removeObjectArrayPropertyListener( this );
+			for (Element element2 : elements) {
+				edu.cmu.cs.stage3.alice.core.Property[] properties = element2.getProperties();
+				for (Property propertie : properties) {
+					propertie.removePropertyListener(this);
+					if (propertie instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
+						((edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) propertie).removeObjectArrayPropertyListener(this);
 					}
 				}
-				elements[i].removeChildrenListener( this );
+				element2.removeChildrenListener(this);
 			}
 		}
 	}
 
-	///////////////////////////////////////////////
+	// /////////////////////////////////////////////
 	// AuthoringToolStateListener interface
-	///////////////////////////////////////////////
-	public void stateChanged( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {
-		if( ev.getCurrentState() == edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent.RUNTIME_STATE ) {
-			stopListeningTo( ev.getWorld() );
+	// /////////////////////////////////////////////
+	@Override
+	public void stateChanged(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+		if (ev.getCurrentState() == edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent.RUNTIME_STATE) {
+			stopListeningTo(ev.getWorld());
 		} else {
-			listenTo( ev.getWorld() );
+			listenTo(ev.getWorld());
 		}
 	}
 
-	public void worldUnLoading( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {
-		stopListeningTo( ev.getWorld() );
+	@Override
+	public void worldUnLoading(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+		stopListeningTo(ev.getWorld());
 	}
 
-	public void worldLoaded( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {
-		listenTo( ev.getWorld() );
+	@Override
+	public void worldLoaded(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+		listenTo(ev.getWorld());
 	}
 
-	public void stateChanging( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldLoading( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStarting( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStopping( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldPausing( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldSaving( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldUnLoaded( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStarted( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStopped( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldPaused( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldSaved( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
+	@Override
+	public void stateChanging(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldLoading(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStarting(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStopping(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldPausing(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldSaving(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldUnLoaded(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStarted(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStopped(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldPaused(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldSaved(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
 }

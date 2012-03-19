@@ -26,15 +26,17 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.QuaternionProperty;
 
 public class QuaternionAnimation extends OrientationAnimation {
-	public final QuaternionProperty quaternion = new QuaternionProperty( this, "quaternion", new edu.cmu.cs.stage3.math.Quaternion() );
+	public final QuaternionProperty quaternion = new QuaternionProperty(this, "quaternion", new edu.cmu.cs.stage3.math.Quaternion());
 	public class RuntimeQuaternionAnimation extends RuntimeOrientationAnimation {
 		private edu.cmu.cs.stage3.math.Quaternion m_quaternion;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			m_quaternion = QuaternionAnimation.this.quaternion.getQuaternionValue();
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_quaternion = quaternion.getQuaternionValue();
 		}
-		
+
+		@Override
 		protected edu.cmu.cs.stage3.math.Quaternion getTargetQuaternion() {
 			return m_quaternion;
 		}

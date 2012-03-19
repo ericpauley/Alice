@@ -29,28 +29,28 @@ import javax.swing.tree.DefaultTreeCellEditor;
  * @author Jason Pratt
  */
 public class DefaultElementTreeCellEditor extends DefaultTreeCellEditor {
-	public DefaultElementTreeCellEditor( javax.swing.JTree tree, javax.swing.tree.DefaultTreeCellRenderer renderer ) {
-		super( tree, renderer );
+	public DefaultElementTreeCellEditor(javax.swing.JTree tree, javax.swing.tree.DefaultTreeCellRenderer renderer) {
+		super(tree, renderer);
 	}
 
-	public DefaultElementTreeCellEditor( javax.swing.JTree tree, javax.swing.tree.DefaultTreeCellRenderer renderer, javax.swing.tree.TreeCellEditor editor ) {
-		super( tree, renderer, editor );
+	public DefaultElementTreeCellEditor(javax.swing.JTree tree, javax.swing.tree.DefaultTreeCellRenderer renderer, javax.swing.tree.TreeCellEditor editor) {
+		super(tree, renderer, editor);
 	}
 
-	
-	public java.awt.Component getTreeCellEditorComponent( javax.swing.JTree tree, Object value, boolean isSelected, boolean expanded, boolean leaf, int row ) {
-		if( value instanceof edu.cmu.cs.stage3.alice.core.Element ) {
-			return super.getTreeCellEditorComponent( tree, ((edu.cmu.cs.stage3.alice.core.Element)value).name.getStringValue(), isSelected, expanded, leaf, row  );
+	@Override
+	public java.awt.Component getTreeCellEditorComponent(javax.swing.JTree tree, Object value, boolean isSelected, boolean expanded, boolean leaf, int row) {
+		if (value instanceof edu.cmu.cs.stage3.alice.core.Element) {
+			return super.getTreeCellEditorComponent(tree, ((edu.cmu.cs.stage3.alice.core.Element) value).name.getStringValue(), isSelected, expanded, leaf, row);
 		} else {
-			return super.getTreeCellEditorComponent( tree, value, isSelected, expanded, leaf, row  );
+			return super.getTreeCellEditorComponent(tree, value, isSelected, expanded, leaf, row);
 		}
 	}
 
-	
+	@Override
 	protected void prepareForEditing() {
 		super.prepareForEditing();
-		if( editingComponent instanceof javax.swing.JTextField ) {
-			((javax.swing.JTextField)editingComponent).selectAll();
+		if (editingComponent instanceof javax.swing.JTextField) {
+			((javax.swing.JTextField) editingComponent).selectAll();
 		}
 	}
 }

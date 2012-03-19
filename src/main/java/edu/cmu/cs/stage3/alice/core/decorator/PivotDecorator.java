@@ -32,17 +32,17 @@ public class PivotDecorator extends Decorator {
 	private Transformable m_transformable = null;
 	private edu.cmu.cs.stage3.math.Box m_overrideBoundingBox = null;
 
-	
+	@Override
 	protected ReferenceFrame getReferenceFrame() {
 		return getTransformable();
 	}
 	public Transformable getTransformable() {
 		return m_transformable;
 	}
-	public void setTransformable( Transformable transformable ) {
-		if( transformable != m_transformable ) {
+	public void setTransformable(Transformable transformable) {
+		if (transformable != m_transformable) {
 			m_transformable = transformable;
-            markDirty();
+			markDirty();
 			updateIfShowing();
 		}
 	}
@@ -50,62 +50,62 @@ public class PivotDecorator extends Decorator {
 	public edu.cmu.cs.stage3.math.Box getOverrideBoundingBox() {
 		return m_overrideBoundingBox;
 	}
-	public void setOverrideBoundingBox( edu.cmu.cs.stage3.math.Box overrideBoundingBox ) {
+	public void setOverrideBoundingBox(edu.cmu.cs.stage3.math.Box overrideBoundingBox) {
 		m_overrideBoundingBox = overrideBoundingBox;
 		markDirty();
 	}
-	
 
-    
-	public void internalRelease( int pass ) {
-        switch( pass ) {
-        case 2:
-            if( m_sgLineArray != null ) {
-                m_sgLineArray.release();
-                m_sgLineArray = null;
-            }
-            break;
-        }
-        super.internalRelease( pass );
-    }
-	
+	@Override
+	public void internalRelease(int pass) {
+		switch (pass) {
+			case 2 :
+				if (m_sgLineArray != null) {
+					m_sgLineArray.release();
+					m_sgLineArray = null;
+				}
+				break;
+		}
+		super.internalRelease(pass);
+	}
+
+	@Override
 	protected void update() {
 		super.update();
 
 		edu.cmu.cs.stage3.math.Box box;
-		if( m_overrideBoundingBox == null ) {
+		if (m_overrideBoundingBox == null) {
 			box = m_transformable.getBoundingBox();
 		} else {
 			box = m_overrideBoundingBox;
 		}
-		if( box==null || box.getMinimum()==null || box.getMaximum()==null ) {
+		if (box == null || box.getMinimum() == null || box.getMaximum() == null) {
 			return;
 		}
 
-        boolean requiresVerticesToBeUpdated = isDirty();
-		if( m_sgLineArray==null ) {
+		boolean requiresVerticesToBeUpdated = isDirty();
+		if (m_sgLineArray == null) {
 			m_sgLineArray = new edu.cmu.cs.stage3.alice.scenegraph.LineArray();
-			m_sgVisual.setGeometry( m_sgLineArray );
-			m_sgLineArray.setBonus( getTransformable() );
-            requiresVerticesToBeUpdated = true;
-        }
-        if( requiresVerticesToBeUpdated ) {
+			m_sgVisual.setGeometry(m_sgLineArray);
+			m_sgLineArray.setBonus(getTransformable());
+			requiresVerticesToBeUpdated = true;
+		}
+		if (requiresVerticesToBeUpdated) {
 			javax.vecmath.Vector3d min = box.getMinimum();
 			javax.vecmath.Vector3d max = box.getMaximum();
-			double distanceAcross = edu.cmu.cs.stage3.math.MathUtilities.subtract( max, min ).length();
+			double distanceAcross = edu.cmu.cs.stage3.math.MathUtilities.subtract(max, min).length();
 			double delta = distanceAcross * 0.1;
 			edu.cmu.cs.stage3.alice.scenegraph.Color xColor = edu.cmu.cs.stage3.alice.scenegraph.Color.RED;
 			edu.cmu.cs.stage3.alice.scenegraph.Color yColor = edu.cmu.cs.stage3.alice.scenegraph.Color.GREEN;
 			edu.cmu.cs.stage3.alice.scenegraph.Color zColor = edu.cmu.cs.stage3.alice.scenegraph.Color.BLUE;
 			edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] vertices = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[6];
-			vertices[0] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( 0,0,0 ), null, xColor, null, null );
-			vertices[1] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( max.x+delta,0,0 ), null, xColor, null, null );
-			vertices[2] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( 0,0,0 ), null, yColor, null, null );
-			vertices[3] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( 0,max.y+delta,0 ), null, yColor, null, null );
-			vertices[4] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( 0,0,0 ), null, zColor, null, null );
-			vertices[5] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d( new javax.vecmath.Point3d( 0,0,max.z+delta ), null, zColor, null, null );
-			m_sgLineArray.setVertices( vertices );
-        }
-        setIsDirty( false );
+			vertices[0] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(0, 0, 0), null, xColor, null, null);
+			vertices[1] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(max.x + delta, 0, 0), null, xColor, null, null);
+			vertices[2] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(0, 0, 0), null, yColor, null, null);
+			vertices[3] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(0, max.y + delta, 0), null, yColor, null, null);
+			vertices[4] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(0, 0, 0), null, zColor, null, null);
+			vertices[5] = new edu.cmu.cs.stage3.alice.scenegraph.Vertex3d(new javax.vecmath.Point3d(0, 0, max.z + delta), null, zColor, null, null);
+			m_sgLineArray.setVertices(vertices);
+		}
+		setIsDirty(false);
 	}
 }

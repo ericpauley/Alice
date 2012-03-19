@@ -25,9 +25,9 @@ package edu.cmu.cs.stage3.alice.core.light;
 
 public class DirectionalLight extends edu.cmu.cs.stage3.alice.core.Light {
 	public DirectionalLight() {
-	    super( new edu.cmu.cs.stage3.alice.scenegraph.DirectionalLight() );
+		super(new edu.cmu.cs.stage3.alice.scenegraph.DirectionalLight());
 	}
-    public edu.cmu.cs.stage3.alice.scenegraph.DirectionalLight getSceneGraphDirectionalLight() {
-        return (edu.cmu.cs.stage3.alice.scenegraph.DirectionalLight)getSceneGraphLight();
-    }
+	public edu.cmu.cs.stage3.alice.scenegraph.DirectionalLight getSceneGraphDirectionalLight() {
+		return (edu.cmu.cs.stage3.alice.scenegraph.DirectionalLight) getSceneGraphLight();
+	}
 }

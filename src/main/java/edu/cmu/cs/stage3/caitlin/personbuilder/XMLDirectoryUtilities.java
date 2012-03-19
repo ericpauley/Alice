@@ -22,15 +22,20 @@
  */
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
-import javax.xml.parsers.*;
-import org.w3c.dom.*;
 import java.util.Vector;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2002
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2002 Company:
+ * 
  * @author
  * @version 1.0
  */
@@ -68,8 +73,9 @@ public class XMLDirectoryUtilities {
 		Node pathNode = nodeMap.getNamedItem("path");
 		if (pathNode != null) {
 			return pathNode.getNodeValue();
-		} else
+		} else {
 			return null;
+		}
 	}
 
 	public static Node loadFile(String fileName) {
@@ -113,8 +119,9 @@ public class XMLDirectoryUtilities {
 				if (pathNode != null) {
 					path = pathNode.getNodeValue();
 					java.net.URL url = PersonBuilder.class.getResource(path);
-					if (url != null)
+					if (url != null) {
 						files.addElement(url);
+					}
 				}
 			}
 		}
@@ -133,8 +140,9 @@ public class XMLDirectoryUtilities {
 			java.net.URL url = (java.net.URL) urls.elementAt(i);
 			try {
 				java.awt.Image img = tk.createImage(url);
-				if (img != null)
+				if (img != null) {
 					images.addElement(img);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

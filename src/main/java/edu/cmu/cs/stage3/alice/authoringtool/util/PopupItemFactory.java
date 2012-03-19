@@ -27,5 +27,5 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public interface PopupItemFactory {
-	public Object createItem( Object object );
+	public Object createItem(Object object);
 }

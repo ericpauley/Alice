@@ -27,35 +27,51 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public class RaiseLowerMode extends DefaultMoveMode {
-	public RaiseLowerMode( edu.cmu.cs.stage3.alice.authoringtool.MainUndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler  ) {
-		super( undoRedoStack, scheduler );
+	public RaiseLowerMode(edu.cmu.cs.stage3.alice.authoringtool.MainUndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
+		super(undoRedoStack, scheduler);
 	}
 
-	
-	public void mouseDragged( java.awt.event.MouseEvent ev, int dx, int dy ) {
-		if( pickedTransformable != null ) {
+	@Override
+	public void mouseDragged(java.awt.event.MouseEvent ev, int dx, int dy) {
+		if (pickedTransformable != null) {
 			double deltaFactor;
-			if( camera instanceof edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera ) {
-				edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera orthoCamera = (edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera)camera;
-				double nearClipHeightInScreen = renderTarget.getAWTComponent().getHeight();  //TODO: should be viewport, but not working right now
+			if (camera instanceof edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera) {
+				edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera orthoCamera = (edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera) camera;
+				double nearClipHeightInScreen = renderTarget.getAWTComponent().getHeight(); // TODO:
+																							// should
+																							// be
+																							// viewport,
+																							// but
+																							// not
+																							// working
+																							// right
+																							// now
 				double nearClipHeightInWorld = orthoCamera.getSceneGraphOrthographicCamera().getPlane()[3] - orthoCamera.getSceneGraphOrthographicCamera().getPlane()[1];
-				deltaFactor = nearClipHeightInWorld/nearClipHeightInScreen;
+				deltaFactor = nearClipHeightInWorld / nearClipHeightInScreen;
 			} else {
-				double projectionMatrix11 = renderTarget.getProjectionMatrix( camera.getSceneGraphCamera() ).getElement( 1, 1 );
+				double projectionMatrix11 = renderTarget.getProjectionMatrix(camera.getSceneGraphCamera()).getElement(1, 1);
 				double nearClipDist = camera.nearClippingPlaneDistance.doubleValue();
-				double nearClipHeightInWorld = 2*(nearClipDist/projectionMatrix11);
-				double nearClipHeightInScreen = renderTarget.getAWTComponent().getHeight();  //TODO: should be viewport, but not working right now
-				double pixelHeight = nearClipHeightInWorld/nearClipHeightInScreen;
-				double objectDist = pickedTransformable.getPosition( camera ).getLength();
-				deltaFactor = (objectDist*pixelHeight)/nearClipDist;
+				double nearClipHeightInWorld = 2 * (nearClipDist / projectionMatrix11);
+				double nearClipHeightInScreen = renderTarget.getAWTComponent().getHeight(); // TODO:
+																							// should
+																							// be
+																							// viewport,
+																							// but
+																							// not
+																							// working
+																							// right
+																							// now
+				double pixelHeight = nearClipHeightInWorld / nearClipHeightInScreen;
+				double objectDist = pickedTransformable.getPosition(camera).getLength();
+				deltaFactor = objectDist * pixelHeight / nearClipDist;
 			}
 
-			helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), world );
-			helper.setPositionRightNow( zeroVec, pickedTransformable );
+			helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), world);
+			helper.setPositionRightNow(zeroVec, pickedTransformable);
 			tempVec.x = 0.0;
-			tempVec.y = -dy*deltaFactor;
+			tempVec.y = -dy * deltaFactor;
 			tempVec.z = 0.0;
-			pickedTransformable.moveRightNow( tempVec, helper );
+			pickedTransformable.moveRightNow(tempVec, helper);
 		}
 	}
 }

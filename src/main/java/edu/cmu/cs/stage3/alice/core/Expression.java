@@ -28,27 +28,27 @@ public abstract class Expression extends Element {
 	public abstract Class getValueClass();
 	private java.util.Vector m_expressionListeners = new java.util.Vector();
 	private edu.cmu.cs.stage3.alice.core.event.ExpressionListener[] m_expressionListenerArray = null;
-	public void addExpressionListener( edu.cmu.cs.stage3.alice.core.event.ExpressionListener expressionListener ) {
-		m_expressionListeners.addElement( expressionListener );
+	public void addExpressionListener(edu.cmu.cs.stage3.alice.core.event.ExpressionListener expressionListener) {
+		m_expressionListeners.addElement(expressionListener);
 		m_expressionListenerArray = null;
 	}
-	public void removeExpressionListener( edu.cmu.cs.stage3.alice.core.event.ExpressionListener expressionListener ) {
-		m_expressionListeners.removeElement( expressionListener );
+	public void removeExpressionListener(edu.cmu.cs.stage3.alice.core.event.ExpressionListener expressionListener) {
+		m_expressionListeners.removeElement(expressionListener);
 		m_expressionListenerArray = null;
 	}
 	public edu.cmu.cs.stage3.alice.core.event.ExpressionListener[] getExpressionListeners() {
-		if( m_expressionListenerArray==null ) {
+		if (m_expressionListenerArray == null) {
 			m_expressionListenerArray = new edu.cmu.cs.stage3.alice.core.event.ExpressionListener[m_expressionListeners.size()];
-			m_expressionListeners.copyInto( m_expressionListenerArray );
+			m_expressionListeners.copyInto(m_expressionListenerArray);
 		}
 		return m_expressionListenerArray;
 	}
 	protected void onExpressionChange() {
-		edu.cmu.cs.stage3.alice.core.event.ExpressionEvent expressionEvent = new edu.cmu.cs.stage3.alice.core.event.ExpressionEvent( this );
+		edu.cmu.cs.stage3.alice.core.event.ExpressionEvent expressionEvent = new edu.cmu.cs.stage3.alice.core.event.ExpressionEvent(this);
 		java.util.Enumeration enum0 = m_expressionListeners.elements();
-		while( enum0.hasMoreElements() ) {
-			edu.cmu.cs.stage3.alice.core.event.ExpressionListener expressionListener = (edu.cmu.cs.stage3.alice.core.event.ExpressionListener)enum0.nextElement();
-			expressionListener.expressionChanged( expressionEvent );
+		while (enum0.hasMoreElements()) {
+			edu.cmu.cs.stage3.alice.core.event.ExpressionListener expressionListener = (edu.cmu.cs.stage3.alice.core.event.ExpressionListener) enum0.nextElement();
+			expressionListener.expressionChanged(expressionEvent);
 		}
 	}
 }

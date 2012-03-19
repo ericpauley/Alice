@@ -25,6 +25,6 @@ package edu.cmu.cs.stage3.caitlin.stencilhelp.application;
 
 public interface StateCapsule {
 
-  public void parse( String storableRepr );
-  public String getStorableRepr();
+	public void parse(String storableRepr);
+	public String getStorableRepr();
 }

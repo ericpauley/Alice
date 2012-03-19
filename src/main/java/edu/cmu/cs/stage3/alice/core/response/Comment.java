@@ -26,9 +26,9 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 
 public class Comment extends edu.cmu.cs.stage3.alice.core.Response {
-	public final StringProperty text = new StringProperty( this, "text", "" );
+	public final StringProperty text = new StringProperty(this, "text", "");
 	public Comment() {
-		duration.set( new Double( 0 ) );
+		duration.set(new Double(0));
 	}
 	public class RuntimeComment extends RuntimeResponse {
 	}

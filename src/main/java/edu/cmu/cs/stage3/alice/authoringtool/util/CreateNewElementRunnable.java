@@ -30,25 +30,26 @@ public class CreateNewElementRunnable implements Runnable {
 	private Class elementClass;
 	private edu.cmu.cs.stage3.alice.core.Element parent;
 
-	public CreateNewElementRunnable( Class elementClass, edu.cmu.cs.stage3.alice.core.Element parent ) {
+	public CreateNewElementRunnable(Class elementClass, edu.cmu.cs.stage3.alice.core.Element parent) {
 		this.elementClass = elementClass;
 		this.parent = parent;
 	}
 
+	@Override
 	public void run() {
 		try {
 			Object instance = elementClass.newInstance();
-			if( instance instanceof edu.cmu.cs.stage3.alice.core.Element ) {
+			if (instance instanceof edu.cmu.cs.stage3.alice.core.Element) {
 				String simpleName = elementClass.getName();
-				simpleName = simpleName.substring( simpleName.lastIndexOf( '.' ) + 1 );
-				((edu.cmu.cs.stage3.alice.core.Element)instance).name.set( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getNameForNewChild( simpleName, parent ) );
-				((edu.cmu.cs.stage3.alice.core.Element)instance).setParent( parent );
+				simpleName = simpleName.substring(simpleName.lastIndexOf('.') + 1);
+				((edu.cmu.cs.stage3.alice.core.Element) instance).name.set(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getNameForNewChild(simpleName, parent));
+				((edu.cmu.cs.stage3.alice.core.Element) instance).setParent(parent);
 			}
-		} catch( Throwable t ) {
-			if( elementClass != null ) {
-				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Error creating new instance of " + elementClass.getName(), t );
+		} catch (Throwable t) {
+			if (elementClass != null) {
+				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Error creating new instance of " + elementClass.getName(), t);
 			} else {
-				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Error creating new intance of null.", t );
+				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Error creating new intance of null.", t);
 			}
 		}
 	}

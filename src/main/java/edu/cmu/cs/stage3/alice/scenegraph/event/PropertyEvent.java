@@ -29,13 +29,13 @@ public class PropertyEvent extends java.util.EventObject {
 	protected Property m_property;
 	protected Object m_previousValue;
 	protected boolean m_isPreviousValueValid;
-	public PropertyEvent( edu.cmu.cs.stage3.alice.scenegraph.Element source, Property property ) {
-		super( source );
+	public PropertyEvent(edu.cmu.cs.stage3.alice.scenegraph.Element source, Property property) {
+		super(source);
 		m_property = property;
 		m_isPreviousValueValid = false;
 	}
-	public PropertyEvent( edu.cmu.cs.stage3.alice.scenegraph.Element source, Property property, Object previousValue ) {
-		super( source );
+	public PropertyEvent(edu.cmu.cs.stage3.alice.scenegraph.Element source, Property property, Object previousValue) {
+		super(source);
 		m_property = property;
 		m_previousValue = previousValue;
 		m_isPreviousValueValid = true;
@@ -47,10 +47,10 @@ public class PropertyEvent extends java.util.EventObject {
 		return m_isPreviousValueValid;
 	}
 	public Object getPreviousValue() {
-		if( m_isPreviousValueValid ) {
+		if (m_isPreviousValueValid) {
 			return m_previousValue;
 		} else {
-			throw new RuntimeException( "previous value in not valid" );
+			throw new RuntimeException("previous value in not valid");
 		}
 	}
 }

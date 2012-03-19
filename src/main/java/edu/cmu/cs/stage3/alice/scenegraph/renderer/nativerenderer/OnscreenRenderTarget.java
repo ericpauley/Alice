@@ -26,36 +26,40 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 public class OnscreenRenderTarget extends RenderTarget implements edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget {
 	private RenderCanvas m_renderCanvas;
 	private boolean m_isRepaintAlreadyCalled = false;
-	OnscreenRenderTarget( Renderer renderer ) {
-		super( renderer );
-		m_renderCanvas = renderer.createRenderCanvas( this );
+	OnscreenRenderTarget(Renderer renderer) {
+		super(renderer);
+		m_renderCanvas = renderer.createRenderCanvas(this);
 	}
+	@Override
 	public java.awt.Component getAWTComponent() {
 		return m_renderCanvas;
 	}
-	public java.awt.Dimension getSize( java.awt.Dimension rv ) {
-        java.awt.Component awtComponent = getAWTComponent();
-		if( awtComponent != null ) {
-			awtComponent.getSize( rv );
+	@Override
+	public java.awt.Dimension getSize(java.awt.Dimension rv) {
+		java.awt.Component awtComponent = getAWTComponent();
+		if (awtComponent != null) {
+			awtComponent.getSize(rv);
 		} else {
 			rv.width = 0;
-            rv.height = 0;
+			rv.height = 0;
 		}
-        return rv;
-    }
-	
+		return rv;
+	}
+
+	@Override
 	public void markDirty() {
 		super.markDirty();
-		if( m_isRepaintAlreadyCalled ) {
-			//pass
+		if (m_isRepaintAlreadyCalled) {
+			// pass
 		} else {
 			getAWTComponent().repaint();
 			m_isRepaintAlreadyCalled = true;
 		}
 	}
-	
+
+	@Override
 	public synchronized void clearAndRenderOffscreen() {
-		if( m_renderCanvas.acquireDrawingSurface() ) {
+		if (m_renderCanvas.acquireDrawingSurface()) {
 			try {
 				super.clearAndRenderOffscreen();
 			} finally {
@@ -64,7 +68,7 @@ public class OnscreenRenderTarget extends RenderTarget implements edu.cmu.cs.sta
 		}
 	}
 	public synchronized void update() {
-		if( m_renderCanvas.acquireDrawingSurface() ) {
+		if (m_renderCanvas.acquireDrawingSurface()) {
 			try {
 				m_renderCanvas.swapBuffers();
 				m_isRepaintAlreadyCalled = false;
@@ -73,5 +77,5 @@ public class OnscreenRenderTarget extends RenderTarget implements edu.cmu.cs.sta
 			}
 		}
 	}
-	
+
 }

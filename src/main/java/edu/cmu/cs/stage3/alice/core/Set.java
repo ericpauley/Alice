@@ -24,28 +24,28 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public class Set extends Collection {
-	public boolean contains( Object item ) {
-		return values.contains( item );
+	public boolean contains(Object item) {
+		return values.contains(item);
 	}
-	public boolean containsValue( Object item ) {
-		return values.containsValue( item );
+	public boolean containsValue(Object item) {
+		return values.containsValue(item);
 	}
-    public boolean isEmpty() {
-        return values.isEmpty();
-    }
-    public int size() {
-        return values.size();
-    }
-	public void add( Object item ) {
-		values.add( item );
+	public boolean isEmpty() {
+		return values.isEmpty();
 	}
-	public void addValue( Object item ) {
-		values.addValue( item );
+	public int size() {
+		return values.size();
 	}
-	public void remove( Object item ) {
-		values.remove( item );
+	public void add(Object item) {
+		values.add(item);
 	}
-	public void removeValue( Object item ) {
-		values.removeValue( item );
+	public void addValue(Object item) {
+		values.addValue(item);
+	}
+	public void remove(Object item) {
+		values.remove(item);
+	}
+	public void removeValue(Object item) {
+		values.removeValue(item);
 	}
 }

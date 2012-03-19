@@ -30,53 +30,63 @@ public class PropertyUndoableRedoable implements ContextAssignableUndoableRedoab
 	protected Object context;
 
 	/**
-	 * @deprecated  please use other constructor
+	 * @deprecated please use other constructor
 	 */
-	public PropertyUndoableRedoable( edu.cmu.cs.stage3.alice.core.Property property, Object oldValue, Object newValue, Object context ) {
+	@Deprecated
+	public PropertyUndoableRedoable(edu.cmu.cs.stage3.alice.core.Property property, Object oldValue, Object newValue, Object context) {
 		this.property = property;
 		this.oldValue = oldValue;
 		this.newValue = newValue;
 	}
 
-	public PropertyUndoableRedoable( edu.cmu.cs.stage3.alice.core.Property property, Object oldValue, Object newValue ) {
+	public PropertyUndoableRedoable(edu.cmu.cs.stage3.alice.core.Property property, Object oldValue, Object newValue) {
 		this.property = property;
 		this.oldValue = oldValue;
 		this.newValue = newValue;
 	}
 
-	public void setContext( Object context ) {
+	@Override
+	public void setContext(Object context) {
 		this.context = context;
 	}
 
+	@Override
 	public void undo() {
-		property.set( oldValue );
+		property.set(oldValue);
 	}
 
+	@Override
 	public void redo() {
-		property.set( newValue );
+		property.set(newValue);
 	}
 
+	@Override
 	public Object getAffectedObject() {
 		return property.getOwner();
 	}
 
+	@Override
 	public Object getContext() {
 		return context;
 	}
 
-	
+	@Override
 	public String toString() {
 		StringBuffer s = new StringBuffer();
-		s.append( "edu.cmu.cs.stage3.alice.authoringtool.util.PropertyUndoableRedoable[ " );
-		s.append( "property=" + property + "; " );
-		s.append( "oldValue=" + oldValue + "; " );
-		s.append( "newValue=" + newValue + "; " );
-		if( (context != this) && !(context instanceof DefaultUndoRedoStack) ) {  // watch out for infinite loops
-			s.append( "context=" + context + "; " );
+		s.append("edu.cmu.cs.stage3.alice.authoringtool.util.PropertyUndoableRedoable[ ");
+		s.append("property=" + property + "; ");
+		s.append("oldValue=" + oldValue + "; ");
+		s.append("newValue=" + newValue + "; ");
+		if (context != this && !(context instanceof DefaultUndoRedoStack)) { // watch
+																				// out
+																				// for
+																				// infinite
+																				// loops
+			s.append("context=" + context + "; ");
 		} else {
-			s.append( "context=" + context.getClass() + "; " );
+			s.append("context=" + context.getClass() + "; ");
 		}
-		s.append( " ]" );
+		s.append(" ]");
 		return s.toString();
 	}
 }

@@ -24,26 +24,24 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.responseeditor;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2001 Company:
+ * 
  * @author
  * @version 1.0
  */
 
-public class LoopIfTrueResponsePanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.WhileElementPanel{
-    public LoopIfTrueResponsePanel(){
-        super();
-    }
+public class LoopIfTrueResponsePanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.WhileElementPanel {
+	public LoopIfTrueResponsePanel() {
+		super();
+	}
 
-     public void set(edu.cmu.cs.stage3.alice.core.response.WhileLoopInOrder r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        super.set(r, authoringToolIn);
-    }
+	public void set(edu.cmu.cs.stage3.alice.core.response.WhileLoopInOrder r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		super.set(r, authoringToolIn);
+	}
 
-    
-	protected java.awt.Color getCustomBackgroundColor(){
-        return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("WhileLoopInOrder");
-    }
+	@Override
+	protected java.awt.Color getCustomBackgroundColor() {
+		return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("WhileLoopInOrder");
+	}
 
 }

@@ -24,32 +24,36 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class ProjectionCameraProxy extends CameraProxy {
-    private double[] m_projection = new double[ 16 ];
-    private java.nio.DoubleBuffer m_projectionBuffer = java.nio.DoubleBuffer.wrap( m_projection );
-	
-	protected java.awt.Rectangle getActualLetterboxedViewport( int width, int height ) {
-	    //don't know
-	    return new java.awt.Rectangle( 0, 0, width, height );
+	private double[] m_projection = new double[16];
+	private java.nio.DoubleBuffer m_projectionBuffer = java.nio.DoubleBuffer.wrap(m_projection);
+
+	@Override
+	protected java.awt.Rectangle getActualLetterboxedViewport(int width, int height) {
+		// don't know
+		return new java.awt.Rectangle(0, 0, width, height);
 	}
-	
-	protected double[] getActualNearPlane( double[] ret, int width, int height, double near ) {
-	    //don't know
-	    ret[ 0 ] = Double.NaN;
-	    ret[ 1 ] = Double.NaN;
-	    ret[ 2 ] = Double.NaN;
-	    ret[ 3 ] = Double.NaN;
-	    return ret;
+
+	@Override
+	protected double[] getActualNearPlane(double[] ret, int width, int height, double near) {
+		// don't know
+		ret[0] = Double.NaN;
+		ret[1] = Double.NaN;
+		ret[2] = Double.NaN;
+		ret[3] = Double.NaN;
+		return ret;
 	}
-    
-	protected void projection( Context context, int width, int height, float near, float far ) {
-        context.gl.glLoadMatrixd( m_projectionBuffer );
-    }
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.ProjectionCamera.PROJECTION_PROPERTY ) {
-		    copy( m_projection, (javax.vecmath.Matrix4d)value );
+
+	@Override
+	protected void projection(Context context, int width, int height, float near, float far) {
+		context.gl.glLoadMatrixd(m_projectionBuffer);
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.ProjectionCamera.PROJECTION_PROPERTY) {
+			copy(m_projection, (javax.vecmath.Matrix4d) value);
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

@@ -25,61 +25,67 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer.directx7renderer;
 
 public class Renderer extends edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.Renderer {
 	static {
-		System.loadLibrary( "jni_directx7renderer" );
+		System.loadLibrary("jni_directx7renderer");
 	}
-    
+
+	@Override
 	protected native void createNativeInstance();
-    
+
+	@Override
 	protected native void releaseNativeInstance();
 
-	
-	protected native void pick( edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.ComponentProxy componentProxy, double x, double y, double z, double planeMinX, double planeMinY, double planeMaxX, double planeMaxY, double nearClippingPlaneDistance, double farClippingPlaneDistance, boolean isSubElementRequired, boolean isOnlyFrontMostRequired, int[] atVisual, boolean[] atIsFrontFacing, int[] atSubElement, double[] atZ );
-	
-	protected native void internalSetIsSoftwareEmulationForced( boolean isSoftwareEmulationForced );
+	@Override
+	protected native void pick(edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.ComponentProxy componentProxy, double x, double y, double z, double planeMinX, double planeMinY, double planeMaxX, double planeMaxY, double nearClippingPlaneDistance, double farClippingPlaneDistance, boolean isSubElementRequired, boolean isOnlyFrontMostRequired, int[] atVisual, boolean[] atIsFrontFacing, int[] atSubElement, double[] atZ);
 
-	
+	@Override
+	protected native void internalSetIsSoftwareEmulationForced(boolean isSoftwareEmulationForced);
+
+	@Override
 	protected boolean requiresHierarchyAndAbsoluteTransformationListening() {
 		return true;
 	}
-	
+
+	@Override
 	protected boolean requiresBoundListening() {
 		return true;
 	}
 
-    
-	protected edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.RenderTargetAdapter createRenderTargetAdapter( edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.RenderTarget renderTarget ) {
-        return new RenderTargetAdapter( renderTarget );
-    }
-    
-	protected edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.RenderCanvas createRenderCanvas( edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.OnscreenRenderTarget onscreenRenderTarget ) {
-        return new RenderCanvas( onscreenRenderTarget );
-    }
+	@Override
+	protected edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.RenderTargetAdapter createRenderTargetAdapter(edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.RenderTarget renderTarget) {
+		return new RenderTargetAdapter(renderTarget);
+	}
 
-    private static final String RENDERER_PACKAGE_NAME = "edu.cmu.cs.stage3.alice.scenegraph.renderer.directx7renderer.";
-    private static final String SCENEGRAPH_PACKAGE_NAME = "edu.cmu.cs.stage3.alice.scenegraph.";
-    private static final int SCENEGRAPH_PACKAGE_NAME_COUNT = SCENEGRAPH_PACKAGE_NAME.length();
-    
-	protected edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxy createProxyFor( edu.cmu.cs.stage3.alice.scenegraph.Element sgElement ) {
-        Class sgClass = sgElement.getClass();
-        while( sgClass!=null ) {
-            String className = sgClass.getName();
-            if( className.startsWith( SCENEGRAPH_PACKAGE_NAME ) ) {
-                break;
-            } else {
-                sgClass = sgClass.getSuperclass();
-            }
-        }
-        try {
-            Class proxyClass = Class.forName( RENDERER_PACKAGE_NAME+sgClass.getName().substring( SCENEGRAPH_PACKAGE_NAME_COUNT )+"Proxy" );
-            return (edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxy)proxyClass.newInstance();
-        } catch( ClassNotFoundException cnfe ) {
-            cnfe.printStackTrace();
-        } catch( IllegalAccessException iae ) {
-            iae.printStackTrace();
-        } catch( InstantiationException ie ) {
-            ie.printStackTrace();
-        }
-        return null;
-    }
+	@Override
+	protected edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.RenderCanvas createRenderCanvas(edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.OnscreenRenderTarget onscreenRenderTarget) {
+		return new RenderCanvas(onscreenRenderTarget);
+	}
+
+	private static final String RENDERER_PACKAGE_NAME = "edu.cmu.cs.stage3.alice.scenegraph.renderer.directx7renderer.";
+	private static final String SCENEGRAPH_PACKAGE_NAME = "edu.cmu.cs.stage3.alice.scenegraph.";
+	private static final int SCENEGRAPH_PACKAGE_NAME_COUNT = SCENEGRAPH_PACKAGE_NAME.length();
+
+	@Override
+	protected edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxy createProxyFor(edu.cmu.cs.stage3.alice.scenegraph.Element sgElement) {
+		Class sgClass = sgElement.getClass();
+		while (sgClass != null) {
+			String className = sgClass.getName();
+			if (className.startsWith(SCENEGRAPH_PACKAGE_NAME)) {
+				break;
+			} else {
+				sgClass = sgClass.getSuperclass();
+			}
+		}
+		try {
+			Class proxyClass = Class.forName(RENDERER_PACKAGE_NAME + sgClass.getName().substring(SCENEGRAPH_PACKAGE_NAME_COUNT) + "Proxy");
+			return (edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxy) proxyClass.newInstance();
+		} catch (ClassNotFoundException cnfe) {
+			cnfe.printStackTrace();
+		} catch (IllegalAccessException iae) {
+			iae.printStackTrace();
+		} catch (InstantiationException ie) {
+			ie.printStackTrace();
+		}
+		return null;
+	}
 
 }

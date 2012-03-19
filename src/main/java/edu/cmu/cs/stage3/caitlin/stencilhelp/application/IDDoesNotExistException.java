@@ -25,11 +25,11 @@ package edu.cmu.cs.stage3.caitlin.stencilhelp.application;
 
 public class IDDoesNotExistException extends Exception {
 
-  public IDDoesNotExistException() {
-    super();
-  }
+	public IDDoesNotExistException() {
+		super();
+	}
 
-  public IDDoesNotExistException(String id) {
-    super(id);
-  }
+	public IDDoesNotExistException(String id) {
+		super(id);
+	}
 }

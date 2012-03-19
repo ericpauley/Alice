@@ -35,39 +35,38 @@ public class ZipTreeStorer implements DirectoryTreeStorer {
 		return true;
 	}
 	/**
-	 * pathname can be a String (representing a file on disk),
-	 * a java.io.File, or a java.io.OutputStream
+	 * pathname can be a String (representing a file on disk), a java.io.File,
+	 * or a java.io.OutputStream
 	 */
-	public void open( Object pathname ) throws IllegalArgumentException, java.io.IOException {
-		if( zipOut != null ) {
+	@Override
+	public void open(Object pathname) throws IllegalArgumentException, java.io.IOException {
+		if (zipOut != null) {
 			close();
 		}
 
 		java.io.OutputStream out = null;
-		if( pathname instanceof String ) {
-			out = new java.io.FileOutputStream( (String)pathname );
-		}
-		else if( pathname instanceof java.io.File ) {
-			out = new java.io.FileOutputStream( (java.io.File)pathname );
-		}
-		else if( pathname instanceof java.io.OutputStream ) {
-			out = (java.io.OutputStream)pathname;
-		}
-		else {
-			throw new IllegalArgumentException( "pathname must be an instance of String, java.io.File, or java.io.OutputStream" );
+		if (pathname instanceof String) {
+			out = new java.io.FileOutputStream((String) pathname);
+		} else if (pathname instanceof java.io.File) {
+			out = new java.io.FileOutputStream((java.io.File) pathname);
+		} else if (pathname instanceof java.io.OutputStream) {
+			out = (java.io.OutputStream) pathname;
+		} else {
+			throw new IllegalArgumentException("pathname must be an instance of String, java.io.File, or java.io.OutputStream");
 		}
 
-		zipOut = new java.util.zip.ZipOutputStream( new java.io.BufferedOutputStream( out ) );
-		if( isCompressed() ) {
-			//pass
+		zipOut = new java.util.zip.ZipOutputStream(new java.io.BufferedOutputStream(out));
+		if (isCompressed()) {
+			// pass
 		} else {
-			zipOut.setMethod( java.util.zip.ZipOutputStream.STORED );
+			zipOut.setMethod(java.util.zip.ZipOutputStream.STORED);
 		}
 		currentDirectory = "";
 	}
 
+	@Override
 	public void close() throws java.io.IOException {
-		if( zipOut != null ) {
+		if (zipOut != null) {
 			closeCurrentFile();
 			zipOut.flush();
 			zipOut.finish();
@@ -76,48 +75,47 @@ public class ZipTreeStorer implements DirectoryTreeStorer {
 		}
 	}
 
-	public void createDirectory( String pathname ) throws IllegalArgumentException, java.io.IOException {
-		if( (pathname.indexOf( '/' ) != -1) || (pathname.indexOf( '\\' ) != -1) ) {
-			throw new IllegalArgumentException( "pathname cannot contain path separators" );
+	@Override
+	public void createDirectory(String pathname) throws IllegalArgumentException, java.io.IOException {
+		if (pathname.indexOf('/') != -1 || pathname.indexOf('\\') != -1) {
+			throw new IllegalArgumentException("pathname cannot contain path separators");
 		}
-		if( pathname.length() <= 0 ) {
-			throw new IllegalArgumentException( "pathname has no length" );
+		if (pathname.length() <= 0) {
+			throw new IllegalArgumentException("pathname has no length");
 		}
 
-		java.util.zip.ZipEntry newEntry = new java.util.zip.ZipEntry( currentDirectory + pathname + "/" );
-		if( zipOut != null ) {
-			zipOut.putNextEntry( newEntry );
+		java.util.zip.ZipEntry newEntry = new java.util.zip.ZipEntry(currentDirectory + pathname + "/");
+		if (zipOut != null) {
+			zipOut.putNextEntry(newEntry);
 			zipOut.closeEntry();
-		}
-		else {
-			throw new java.io.IOException( "No zip file currently open" );
+		} else {
+			throw new java.io.IOException("No zip file currently open");
 		}
 	}
 
-	public void setCurrentDirectory( String pathname ) throws IllegalArgumentException {
-		if( pathname == null ) {
+	@Override
+	public void setCurrentDirectory(String pathname) throws IllegalArgumentException {
+		if (pathname == null) {
 			pathname = "";
-		}
-		else if( pathname.length() > 0 ) {
-			pathname = pathname.replace( '\\', '/' );
+		} else if (pathname.length() > 0) {
+			pathname = pathname.replace('\\', '/');
 
 			// remove double separators
 			int index;
-			while( (index = pathname.indexOf( "//" )) != -1 ) {
-				pathname = pathname.substring( 0, index + 1 ) + pathname.substring( index + 2 );
+			while ((index = pathname.indexOf("//")) != -1) {
+				pathname = pathname.substring(0, index + 1) + pathname.substring(index + 2);
 			}
 
-			if( pathname.charAt( 0 ) == '/' ) {
-				pathname = pathname.substring( 1 );
-			}
-			else {
+			if (pathname.charAt(0) == '/') {
+				pathname = pathname.substring(1);
+			} else {
 				pathname = currentDirectory + pathname;
 			}
 
-			if( ! pathname.endsWith( "/" ) ) {
+			if (!pathname.endsWith("/")) {
 				pathname = pathname + "/";
 			}
-			if( ! pathname.startsWith( "/" ) ) {
+			if (!pathname.startsWith("/")) {
 				pathname = "/" + pathname;
 			}
 		}
@@ -125,45 +123,50 @@ public class ZipTreeStorer implements DirectoryTreeStorer {
 		currentDirectory = pathname;
 	}
 
+	@Override
 	public String getCurrentDirectory() {
 		return currentDirectory;
 	}
 
-	public java.io.OutputStream createFile( String filename, boolean compressItIfYouGotIt ) throws IllegalArgumentException, java.io.IOException {
+	@Override
+	public java.io.OutputStream createFile(String filename, boolean compressItIfYouGotIt) throws IllegalArgumentException, java.io.IOException {
 		// TODO: respect compressItIfYouGotIt
-		if( zipOut != null ) {
-			currentEntry = new java.util.zip.ZipEntry( currentDirectory + filename );
-			if( isCompressed() ) {
-				//pass
+		if (zipOut != null) {
+			currentEntry = new java.util.zip.ZipEntry(currentDirectory + filename);
+			if (isCompressed()) {
+				// pass
 			} else {
-				currentEntry.setMethod( java.util.zip.ZipEntry.STORED );
+				currentEntry.setMethod(java.util.zip.ZipEntry.STORED);
 			}
-			zipOut.putNextEntry( currentEntry );
-		}
-		else {
-			throw new java.io.IOException( "No zip file currently open" );
+			zipOut.putNextEntry(currentEntry);
+		} else {
+			throw new java.io.IOException("No zip file currently open");
 		}
 
 		return zipOut;
 	}
 
+	@Override
 	public void closeCurrentFile() throws java.io.IOException {
-		if( currentEntry != null ) {
+		if (currentEntry != null) {
 			zipOut.flush();
 			zipOut.closeEntry();
 			currentEntry = null;
 		}
 	}
 
-	public Object getKeepKey( String filename ) {
+	@Override
+	public Object getKeepKey(String filename) {
 		return null;
 	}
 
+	@Override
 	public boolean isKeepFileSupported() {
 		return false;
 	}
 
-	public void keepFile( String filename ) throws KeepFileNotSupportedException, KeepFileDoesNotExistException {
+	@Override
+	public void keepFile(String filename) throws KeepFileNotSupportedException, KeepFileDoesNotExistException {
 		throw new KeepFileNotSupportedException();
 	}
 }

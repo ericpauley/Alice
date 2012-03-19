@@ -30,15 +30,15 @@ public class AliceMenuWithDelayedPopup extends AliceMenu {
 	protected java.util.Vector structure;
 	protected boolean menuHasBeenPopulated = false;
 
-	public AliceMenuWithDelayedPopup( String title, java.util.Vector structure ) {
-		super( title );
+	public AliceMenuWithDelayedPopup(String title, java.util.Vector structure) {
+		super(title);
 		this.structure = structure;
 	}
 
-	
+	@Override
 	public javax.swing.JPopupMenu getPopupMenu() {
-		if( ! menuHasBeenPopulated ) {
-			PopupMenuUtilities.populateDelayedMenu( this, structure );
+		if (!menuHasBeenPopulated) {
+			PopupMenuUtilities.populateDelayedMenu(this, structure);
 			menuHasBeenPopulated = true;
 		}
 		return super.getPopupMenu();

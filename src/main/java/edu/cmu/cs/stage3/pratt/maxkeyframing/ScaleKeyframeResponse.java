@@ -25,17 +25,19 @@ package edu.cmu.cs.stage3.pratt.maxkeyframing;
 
 public class ScaleKeyframeResponse extends edu.cmu.cs.stage3.pratt.maxkeyframing.KeyframeResponse {
 	public class RuntimeScaleKeyframeResponse extends RuntimeKeyframeResponse {
-		
-		public void update( double t ) {
-			double timeElapsed = getTimeElapsed( t );
-			double splineTimeElapsed = timeElapsed*timeFactor;
+
+		@Override
+		public void update(double t) {
+			double timeElapsed = getTimeElapsed(t);
+			double splineTimeElapsed = timeElapsed * timeFactor;
 
 			try {
-				javax.vecmath.Vector3d scale = (javax.vecmath.Vector3d)runtimeSpline.getSample( splineTimeElapsed );
-				//TODO
-				//m_transformable.setScaledSpaceRightNow( scale.x, scale.y, scale.z );
-			} catch( ClassCastException e ) {
-				System.err.println( "Incorrect sample type from spline " + runtimeSpline + ".  Vector3 expected." );
+				javax.vecmath.Vector3d scale = (javax.vecmath.Vector3d) runtimeSpline.getSample(splineTimeElapsed);
+				// TODO
+				// m_transformable.setScaledSpaceRightNow( scale.x, scale.y,
+				// scale.z );
+			} catch (ClassCastException e) {
+				System.err.println("Incorrect sample type from spline " + runtimeSpline + ".  Vector3 expected.");
 			}
 		}
 	}

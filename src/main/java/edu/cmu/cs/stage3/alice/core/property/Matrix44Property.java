@@ -26,47 +26,50 @@ package edu.cmu.cs.stage3.alice.core.property;
 import edu.cmu.cs.stage3.alice.core.Element;
 
 public class Matrix44Property extends ObjectProperty {
-	public Matrix44Property( Element owner, String name, javax.vecmath.Matrix4d defaultValue ) {
-		super( owner, name, defaultValue, javax.vecmath.Matrix4d.class );
+	public Matrix44Property(Element owner, String name, javax.vecmath.Matrix4d defaultValue) {
+		super(owner, name, defaultValue, javax.vecmath.Matrix4d.class);
 	}
 	public javax.vecmath.Matrix4d getMatrix4dValue() {
-		return (javax.vecmath.Matrix4d)getValue();
+		return (javax.vecmath.Matrix4d) getValue();
 	}
 	public edu.cmu.cs.stage3.math.Matrix44 getMatrix44Value() {
 		javax.vecmath.Matrix4d m = getMatrix4dValue();
-		if( m == null || m instanceof edu.cmu.cs.stage3.math.Matrix44 ) {
-			return (edu.cmu.cs.stage3.math.Matrix44)m;
+		if (m == null || m instanceof edu.cmu.cs.stage3.math.Matrix44) {
+			return (edu.cmu.cs.stage3.math.Matrix44) m;
 		} else {
-			return new edu.cmu.cs.stage3.math.Matrix44( m );
+			return new edu.cmu.cs.stage3.math.Matrix44(m);
 		}
 	}
-    
-	protected void decodeObject( org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version ) throws java.io.IOException {
-        javax.vecmath.Matrix4d m = new javax.vecmath.Matrix4d();
-        org.w3c.dom.NodeList rowNodeList = node.getElementsByTagName( "row" );
-        for( int i=0; i<4; i++ ) {
-            org.w3c.dom.Element rowNode = (org.w3c.dom.Element)rowNodeList.item( i );
-            org.w3c.dom.NodeList itemNodeList = rowNode.getElementsByTagName( "item" );
-            for( int j=0; j<4; j++ ) {
-                org.w3c.dom.Node itemNode = itemNodeList.item( j );
-                m.setElement( i, j, Double.parseDouble( getNodeText( itemNode ) ) );
-            }
-        }
-        set( m );
-    }
-    
-	protected void encodeObject( org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator ) throws java.io.IOException {
-        javax.vecmath.Matrix4d m = getMatrix44Value();
-        for( int rowIndex=0; rowIndex<4; rowIndex++ ) {
-            org.w3c.dom.Element rowNode = document.createElement( "row" );
-            //rowNode.setAttribute( "index", Integer.toString( rowIndex ) );
-            for( int colIndex=0; colIndex<4; colIndex++ ) {
-                org.w3c.dom.Element itemNode = document.createElement( "item" );
-                //itemNode.setAttribute( "index", Integer.toString( colIndex ) );
-                itemNode.appendChild( createNodeForString( document, Double.toString( m.getElement( rowIndex, colIndex ) ) ) );
-                rowNode.appendChild( itemNode );
-            }
-            node.appendChild( rowNode );
-        }
-    }
+
+	@Override
+	protected void decodeObject(org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version) throws java.io.IOException {
+		javax.vecmath.Matrix4d m = new javax.vecmath.Matrix4d();
+		org.w3c.dom.NodeList rowNodeList = node.getElementsByTagName("row");
+		for (int i = 0; i < 4; i++) {
+			org.w3c.dom.Element rowNode = (org.w3c.dom.Element) rowNodeList.item(i);
+			org.w3c.dom.NodeList itemNodeList = rowNode.getElementsByTagName("item");
+			for (int j = 0; j < 4; j++) {
+				org.w3c.dom.Node itemNode = itemNodeList.item(j);
+				m.setElement(i, j, Double.parseDouble(getNodeText(itemNode)));
+			}
+		}
+		set(m);
+	}
+
+	@Override
+	protected void encodeObject(org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator) throws java.io.IOException {
+		javax.vecmath.Matrix4d m = getMatrix44Value();
+		for (int rowIndex = 0; rowIndex < 4; rowIndex++) {
+			org.w3c.dom.Element rowNode = document.createElement("row");
+			// rowNode.setAttribute( "index", Integer.toString( rowIndex ) );
+			for (int colIndex = 0; colIndex < 4; colIndex++) {
+				org.w3c.dom.Element itemNode = document.createElement("item");
+				// itemNode.setAttribute( "index", Integer.toString( colIndex )
+				// );
+				itemNode.appendChild(createNodeForString(document, Double.toString(m.getElement(rowIndex, colIndex))));
+				rowNode.appendChild(itemNode);
+			}
+			node.appendChild(rowNode);
+		}
+	}
 }

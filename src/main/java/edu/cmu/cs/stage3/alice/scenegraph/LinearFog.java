@@ -25,21 +25,22 @@ package edu.cmu.cs.stage3.alice.scenegraph;
 
 /**
  * linear fog affects visual elements based on their distance from a camera.
- *
+ * 
  * <pre>
  *    z = distance from camera
  *    near = near distance
  *    far = far distance
- *
+ * 
  *         far - z
  *    f = ----------
  *        far - near
  * </pre>
+ * 
  * @author Dennis Cosgrove
  */
 public class LinearFog extends Fog {
-	public static final Property NEAR_DISTANCE_PROPERTY = new Property( LinearFog.class, "NEAR_DISTANCE" );
-	public static final Property FAR_DISTANCE_PROPERTY = new Property( LinearFog.class, "FAR_DISTANCE" );
+	public static final Property NEAR_DISTANCE_PROPERTY = new Property(LinearFog.class, "NEAR_DISTANCE");
+	public static final Property FAR_DISTANCE_PROPERTY = new Property(LinearFog.class, "FAR_DISTANCE");
 	private double m_nearDistance = 1;
 	private double m_farDistance = 256;
 	/**
@@ -50,15 +51,15 @@ public class LinearFog extends Fog {
 	}
 	/**
 	 * sets the near distance property.<br>
-	 *
+	 * 
 	 * @param double (default: 1)
 	 * @see #getNearDistance
 	 * @see #setFarDistance
 	 */
-	public void setNearDistance( double nearDistance ) {
-		if( m_nearDistance != nearDistance ) {
+	public void setNearDistance(double nearDistance) {
+		if (m_nearDistance != nearDistance) {
 			m_nearDistance = nearDistance;
-			onPropertyChange( NEAR_DISTANCE_PROPERTY );
+			onPropertyChange(NEAR_DISTANCE_PROPERTY);
 		}
 	}
 	/**
@@ -69,15 +70,15 @@ public class LinearFog extends Fog {
 	}
 	/**
 	 * sets the far distance property.<br>
-	 *
+	 * 
 	 * @param double (default: 256)
 	 * @see #getFarDistance
 	 * @see #setNearDistance
 	 */
-	public void setFarDistance( double farDistance ) {
-		if( m_farDistance != farDistance ) {
+	public void setFarDistance(double farDistance) {
+		if (m_farDistance != farDistance) {
 			m_farDistance = farDistance;
-			onPropertyChange( FAR_DISTANCE_PROPERTY );
+			onPropertyChange(FAR_DISTANCE_PROPERTY);
 		}
 	}
 

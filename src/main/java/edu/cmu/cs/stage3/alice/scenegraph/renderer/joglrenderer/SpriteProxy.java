@@ -24,20 +24,23 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class SpriteProxy extends GeometryProxy {
-    
-	public void render( RenderContext context ) {
-        //todo
-    }
-	
-	public void pick( PickContext context, boolean isSubElementRequired ) {
-        //todo
-	}    
-    
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-        if( property == edu.cmu.cs.stage3.alice.scenegraph.Sprite.RADIUS_PROPERTY ) {
-            //todo
-        } else {
-            super.changed( property, value );
-        }
-    }
+
+	@Override
+	public void render(RenderContext context) {
+		// todo
+	}
+
+	@Override
+	public void pick(PickContext context, boolean isSubElementRequired) {
+		// todo
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Sprite.RADIUS_PROPERTY) {
+			// todo
+		} else {
+			super.changed(property, value);
+		}
+	}
 }

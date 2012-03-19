@@ -24,21 +24,21 @@
 package edu.cmu.cs.stage3.xml;
 
 public class NodeUtilities {
-	public static String getNodeText( org.w3c.dom.Node node ) {
+	public static String getNodeText(org.w3c.dom.Node node) {
 		StringBuffer propertyTextBuffer = new StringBuffer();
 		org.w3c.dom.NodeList children = node.getChildNodes();
-		for( int j = 0; j < children.getLength(); j++ ) {
-			org.w3c.dom.Node childNode = children.item( j );
-			if( childNode instanceof org.w3c.dom.CDATASection ) {
-				propertyTextBuffer.append( ((org.w3c.dom.CDATASection)childNode).getData() );
-			} else if( childNode instanceof org.w3c.dom.Text ) {
-				propertyTextBuffer.append( ((org.w3c.dom.Text)childNode).getData().trim() );
-			} else if( childNode instanceof org.w3c.dom.EntityReference ) {
+		for (int j = 0; j < children.getLength(); j++) {
+			org.w3c.dom.Node childNode = children.item(j);
+			if (childNode instanceof org.w3c.dom.CDATASection) {
+				propertyTextBuffer.append(((org.w3c.dom.CDATASection) childNode).getData());
+			} else if (childNode instanceof org.w3c.dom.Text) {
+				propertyTextBuffer.append(((org.w3c.dom.Text) childNode).getData().trim());
+			} else if (childNode instanceof org.w3c.dom.EntityReference) {
 				org.w3c.dom.NodeList grandchildren = childNode.getChildNodes();
-				for( int k = 0; k < grandchildren.getLength(); k++ ) {
-					org.w3c.dom.Node grandchildNode = grandchildren.item( k );
-					if( grandchildNode instanceof org.w3c.dom.Text ) {
-						propertyTextBuffer.append( ((org.w3c.dom.Text)grandchildNode).getData() );
+				for (int k = 0; k < grandchildren.getLength(); k++) {
+					org.w3c.dom.Node grandchildNode = grandchildren.item(k);
+					if (grandchildNode instanceof org.w3c.dom.Text) {
+						propertyTextBuffer.append(((org.w3c.dom.Text) grandchildNode).getData());
 					}
 				}
 			}

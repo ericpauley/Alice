@@ -24,13 +24,14 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class ProjectionCameraProxy extends CameraProxy {
-	protected abstract void onProjectionChange( javax.vecmath.Matrix4d m );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.ProjectionCamera.PROJECTION_PROPERTY ) {
-            onProjectionChange( (javax.vecmath.Matrix4d)value );
+	protected abstract void onProjectionChange(javax.vecmath.Matrix4d m);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.ProjectionCamera.PROJECTION_PROPERTY) {
+			onProjectionChange((javax.vecmath.Matrix4d) value);
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

@@ -27,24 +27,24 @@ package edu.cmu.cs.stage3.pratt.maxkeyframing;
  * @author Jason Pratt
  */
 public class DoubleBezierKey extends BezierKey {
-	public DoubleBezierKey( double time, double value, double incomingControl, double outgoingControl ) {
-		super( time, new double[] { value }, new double[] { incomingControl }, new double[] { outgoingControl } );
+	public DoubleBezierKey(double time, double value, double incomingControl, double outgoingControl) {
+		super(time, new double[]{value}, new double[]{incomingControl}, new double[]{outgoingControl});
 	}
 
-	
-	public Object createSample( double[] components ) {
-		return new Double( components[0] );
+	@Override
+	public Object createSample(double[] components) {
+		return new Double(components[0]);
 	}
 
-	public static DoubleBezierKey valueOf( String s ) {
-		java.util.StringTokenizer st = new java.util.StringTokenizer( s, " \t,[]" );
+	public static DoubleBezierKey valueOf(String s) {
+		java.util.StringTokenizer st = new java.util.StringTokenizer(s, " \t,[]");
 
 		String className = st.nextToken(); // unused
-		double time = Double.parseDouble( st.nextToken() );
-		double value = Double.parseDouble( st.nextToken() );
-		double incomingControl = Double.parseDouble( st.nextToken() );
-		double outgoingControl = Double.parseDouble( st.nextToken() );
+		double time = Double.parseDouble(st.nextToken());
+		double value = Double.parseDouble(st.nextToken());
+		double incomingControl = Double.parseDouble(st.nextToken());
+		double outgoingControl = Double.parseDouble(st.nextToken());
 
-		return new DoubleBezierKey( time, value, incomingControl, outgoingControl );
+		return new DoubleBezierKey(time, value, incomingControl, outgoingControl);
 	}
 }

@@ -24,23 +24,25 @@
 package edu.cmu.cs.stage3.alice.scenegraph;
 
 /**
- * exponential fog affects visual elements based on their distance from a camera.
- *
+ * exponential fog affects visual elements based on their distance from a
+ * camera.
+ * 
  * <pre>
  *    z = distance from camera
- *
- *
+ * 
+ * 
  *                1
  *    f = ------------------
  *          ( density * z )
  *        e
- *
- *
+ * 
+ * 
  * </pre>
+ * 
  * @author Dennis Cosgrove
  */
 public class ExponentialFog extends Fog {
-	public static final Property DENSITY_PROPERTY = new Property( ExponentialFog.class, "DENSITY" );
+	public static final Property DENSITY_PROPERTY = new Property(ExponentialFog.class, "DENSITY");
 	private double m_density = 1;
 	/**
 	 * @see #setDensity
@@ -50,14 +52,14 @@ public class ExponentialFog extends Fog {
 	}
 	/**
 	 * sets the density property.<br>
-	 *
+	 * 
 	 * @param double (default: 1)
 	 * @see #getDensity
 	 */
-	public void setDensity( double density ) {
-		if( m_density != density ) {
+	public void setDensity(double density) {
+		if (m_density != density) {
 			m_density = density;
-			onPropertyChange( DENSITY_PROPERTY );
+			onPropertyChange(DENSITY_PROPERTY);
 		}
 	}
 

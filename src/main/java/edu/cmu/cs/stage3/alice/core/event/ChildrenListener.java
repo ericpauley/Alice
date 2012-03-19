@@ -24,7 +24,7 @@
 package edu.cmu.cs.stage3.alice.core.event;
 
 public interface ChildrenListener {
-	//todo
-	public void childrenChanging( ChildrenEvent childrenEvent );
-	public void childrenChanged( ChildrenEvent childrenEvent );
+	// todo
+	public void childrenChanging(ChildrenEvent childrenEvent);
+	public void childrenChanged(ChildrenEvent childrenEvent);
 }

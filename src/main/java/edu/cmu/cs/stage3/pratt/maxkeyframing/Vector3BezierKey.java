@@ -27,29 +27,31 @@ package edu.cmu.cs.stage3.pratt.maxkeyframing;
  * @author Jason Pratt
  */
 public class Vector3BezierKey extends BezierKey {
-	public Vector3BezierKey( double time, javax.vecmath.Vector3d value, javax.vecmath.Vector3d incomingControlPoint, javax.vecmath.Vector3d outgoingControlPoint ) {
-		super( time, new double[] { value.x, value.y, value.z }, new double[] { incomingControlPoint.x, incomingControlPoint.y, incomingControlPoint.z }, new double[] { outgoingControlPoint.x, outgoingControlPoint.y, outgoingControlPoint.z } );
+	public Vector3BezierKey(double time, javax.vecmath.Vector3d value, javax.vecmath.Vector3d incomingControlPoint, javax.vecmath.Vector3d outgoingControlPoint) {
+		super(time, new double[]{value.x, value.y, value.z}, new double[]{incomingControlPoint.x, incomingControlPoint.y, incomingControlPoint.z}, new double[]{outgoingControlPoint.x, outgoingControlPoint.y, outgoingControlPoint.z});
 	}
 
 	private javax.vecmath.Vector3d vSample = new javax.vecmath.Vector3d();
-	
-	public Object createSample( double[] components ) {
+
+	@Override
+	public Object createSample(double[] components) {
 		vSample.x = components[0];
 		vSample.y = components[1];
 		vSample.z = components[2];
 		return vSample;
-		//return new edu.cmu.cs.stage3.math.Vector3( components[0], components[1], components[2] );
+		// return new edu.cmu.cs.stage3.math.Vector3( components[0],
+		// components[1], components[2] );
 	}
 
-	public static Vector3BezierKey valueOf( String s ) {
-		java.util.StringTokenizer st = new java.util.StringTokenizer( s, " \t,[]" );
+	public static Vector3BezierKey valueOf(String s) {
+		java.util.StringTokenizer st = new java.util.StringTokenizer(s, " \t,[]");
 
 		String className = st.nextToken(); // unused
-		double time = Double.parseDouble( st.nextToken() );
-		javax.vecmath.Vector3d value = new javax.vecmath.Vector3d( Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ) );
-		javax.vecmath.Vector3d incomingControlPoint = new javax.vecmath.Vector3d( Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ) );
-		javax.vecmath.Vector3d outgoingControlPoint = new javax.vecmath.Vector3d( Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ) );
+		double time = Double.parseDouble(st.nextToken());
+		javax.vecmath.Vector3d value = new javax.vecmath.Vector3d(Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()));
+		javax.vecmath.Vector3d incomingControlPoint = new javax.vecmath.Vector3d(Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()));
+		javax.vecmath.Vector3d outgoingControlPoint = new javax.vecmath.Vector3d(Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()));
 
-		return new Vector3BezierKey( time, value, incomingControlPoint, outgoingControlPoint );
+		return new Vector3BezierKey(time, value, incomingControlPoint, outgoingControlPoint);
 	}
 }

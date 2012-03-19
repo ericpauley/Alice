@@ -23,34 +23,45 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.importers;
 
-import java.util.Map;
-import edu.cmu.cs.stage3.alice.authoringtool.*;
-import edu.cmu.cs.stage3.alice.core.Element;
 import java.io.InputStream;
+import java.util.Map;
+
+import edu.cmu.cs.stage3.alice.authoringtool.AbstractImporter;
+import edu.cmu.cs.stage3.alice.core.Element;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2001</p>
- * <p>Company: Stage3</p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2001
+ * </p>
+ * <p>
+ * Company: Stage3
+ * </p>
+ * 
  * @author Ben Buchwald
  * @version 1.0
  */
 
 public class ScenegraphImporter extends AbstractImporter {
 
-    public ScenegraphImporter() {
-    }
-    
+	public ScenegraphImporter() {
+	}
+
+	@Override
 	public Map getExtensionMap() {
 		java.util.HashMap map = new java.util.HashMap();
-		map.put( "ASG", "Alice SceneGraph" );
+		map.put("ASG", "Alice SceneGraph");
 		return map;
-    }
+	}
 
-	
+	@Override
 	protected Element load(InputStream is, String ext) throws java.io.IOException {
-        edu.cmu.cs.stage3.alice.scenegraph.Component sgSrc = edu.cmu.cs.stage3.alice.scenegraph.io.XML.load( is );
-        return edu.cmu.cs.stage3.alice.core.util.ScenegraphConverter.convert( (edu.cmu.cs.stage3.alice.scenegraph.Container)sgSrc );
-    }
+		edu.cmu.cs.stage3.alice.scenegraph.Component sgSrc = edu.cmu.cs.stage3.alice.scenegraph.io.XML.load(is);
+		return edu.cmu.cs.stage3.alice.core.util.ScenegraphConverter.convert((edu.cmu.cs.stage3.alice.scenegraph.Container) sgSrc);
+	}
 }

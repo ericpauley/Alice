@@ -23,13 +23,15 @@
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
 
-import javax.swing.JPanel;
+import java.awt.Color;
+import java.util.Vector;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import java.util.Vector;
-import java.awt.Color;
-import org.w3c.dom.*;
+import javax.swing.JPanel;
+
+import org.w3c.dom.Node;
 
 //TODO: disable the next and previous buttons for first/last step
 
@@ -37,8 +39,8 @@ public class NavigationPanel extends JPanel implements java.awt.event.ActionList
 	protected Vector stepButtons = new Vector();
 	protected Vector stepImages = new Vector();
 	protected Vector selStepImages = new Vector();
-	protected JButton backButton = null; //new JButton("back");
-	protected JButton nextButton = null; //new JButton("next");
+	protected JButton backButton = null; // new JButton("back");
+	protected JButton nextButton = null; // new JButton("next");
 	protected ImageIcon spacerIcon = null;
 	protected ImageIcon noBackImage = null;
 	protected ImageIcon noNextImage = null;
@@ -60,11 +62,11 @@ public class NavigationPanel extends JPanel implements java.awt.event.ActionList
 		setSelectedStep(0, index - 1);
 	}
 
+	@Override
 	public void actionPerformed(java.awt.event.ActionEvent ae) {
 		Object actionObj = ae.getSource();
 		int index = stepButtons.indexOf(actionObj);
-		if ((index > 0) && (index < stepButtons.size() - 1)) {
-		} else if (index == 0) {
+		if (index > 0 && index < stepButtons.size() - 1) {} else if (index == 0) {
 			index = allStepsPanel.getSelected();
 			index--;
 		} else if (index == stepButtons.size() - 1) {
@@ -81,13 +83,13 @@ public class NavigationPanel extends JPanel implements java.awt.event.ActionList
 	}
 
 	protected void setSelectedStep(int curStep, int prevStep) {
-		if ((prevStep >= 0) && (curStep != prevStep)) {
+		if (prevStep >= 0 && curStep != prevStep) {
 			JButton curButton = (JButton) stepButtons.elementAt(prevStep + 1);
 			ImageIcon curImage = (ImageIcon) stepImages.elementAt(prevStep);
 			curButton.setIcon(curImage);
 		}
 
-		if ((prevStep < selStepImages.size()) && (curStep != prevStep)) {
+		if (prevStep < selStepImages.size() && curStep != prevStep) {
 			JButton newButton = (JButton) stepButtons.elementAt(curStep + 1);
 			ImageIcon newImage = (ImageIcon) selStepImages.elementAt(curStep);
 			newButton.setIcon(newImage);
@@ -107,11 +109,12 @@ public class NavigationPanel extends JPanel implements java.awt.event.ActionList
 	}
 
 	private void addGuiElements() {
-		//this.setLayout(new java.awt.GridLayout(1, stepButtons.size() + stepButtons.size()-1, 0,0));
-		this.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 5));
-		this.setBackground(new Color(155, 159, 206));
+		// this.setLayout(new java.awt.GridLayout(1, stepButtons.size() +
+		// stepButtons.size()-1, 0,0));
+		setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 5));
+		setBackground(new Color(155, 159, 206));
 		for (int i = 0; i < stepButtons.size(); i++) {
-			this.add(((JButton) stepButtons.elementAt(i)));
+			this.add((JButton) stepButtons.elementAt(i));
 			if (i != stepButtons.size() - 1) {
 				JLabel spLabel = new JLabel(spacerIcon);
 				this.add(spLabel);
@@ -149,7 +152,7 @@ public class NavigationPanel extends JPanel implements java.awt.event.ActionList
 		for (int i = 0; i < stepNodes.size(); i++) {
 			Node currentStepNode = (Node) stepNodes.elementAt(i);
 			Vector currentStepImages = XMLDirectoryUtilities.getImageURLs(currentStepNode);
-			if ((currentStepImages != null) && (currentStepImages.size() > 1)) {
+			if (currentStepImages != null && currentStepImages.size() > 1) {
 				ImageIcon icon = new ImageIcon((java.net.URL) currentStepImages.elementAt(0));
 				ImageIcon selIcon = new ImageIcon((java.net.URL) currentStepImages.elementAt(1));
 				stepImages.addElement(icon);

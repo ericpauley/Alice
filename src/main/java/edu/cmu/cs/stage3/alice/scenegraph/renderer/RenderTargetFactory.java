@@ -25,10 +25,10 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
 public interface RenderTargetFactory {
 	public boolean isSoftwareEmulationForced();
-	public void setIsSoftwareEmulationForced( boolean isSoftwareEmulationForced );
+	public void setIsSoftwareEmulationForced(boolean isSoftwareEmulationForced);
 	public OffscreenRenderTarget createOffscreenRenderTarget();
 	public OnscreenRenderTarget createOnscreenRenderTarget();
-	public void releaseOffscreenRenderTarget( OffscreenRenderTarget offscreenRenderTarget );
-	public void releaseOnscreenRenderTarget( OnscreenRenderTarget onscreenRenderTarget );
+	public void releaseOffscreenRenderTarget(OffscreenRenderTarget offscreenRenderTarget);
+	public void releaseOnscreenRenderTarget(OnscreenRenderTarget onscreenRenderTarget);
 	public void release();
 }

@@ -25,8 +25,9 @@ package edu.cmu.cs.stage3.alice.authoringtool;
 
 public interface Importer {
 	public java.util.Map getExtensionMap();
-	public edu.cmu.cs.stage3.alice.core.Element load( String filename ) throws java.io.IOException;
-	public edu.cmu.cs.stage3.alice.core.Element load( java.io.File file ) throws java.io.IOException;
-	public edu.cmu.cs.stage3.alice.core.Element load( java.net.URL url ) throws java.io.IOException;
-	//public edu.cmu.cs.stage3.alice.core.Element load( java.io.InputStream istream, String ext ) throws java.io.IOException;
+	public edu.cmu.cs.stage3.alice.core.Element load(String filename) throws java.io.IOException;
+	public edu.cmu.cs.stage3.alice.core.Element load(java.io.File file) throws java.io.IOException;
+	public edu.cmu.cs.stage3.alice.core.Element load(java.net.URL url) throws java.io.IOException;
+	// public edu.cmu.cs.stage3.alice.core.Element load( java.io.InputStream
+	// istream, String ext ) throws java.io.IOException;
 }

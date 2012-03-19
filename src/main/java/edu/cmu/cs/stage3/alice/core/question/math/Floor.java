@@ -24,13 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class Floor extends edu.cmu.cs.stage3.alice.core.question.UnaryNumberResultingInNumberQuestion {
-	private static Class[] s_supportedCoercionClasses = { Ceil.class };
-	
+	private static Class[] s_supportedCoercionClasses = {Ceil.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected double getValue( double aValue ) {
-		return Math.floor( aValue );
+
+	@Override
+	protected double getValue(double aValue) {
+		return Math.floor(aValue);
 	}
 }

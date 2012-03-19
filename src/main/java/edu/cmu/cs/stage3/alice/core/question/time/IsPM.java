@@ -24,12 +24,13 @@
 package edu.cmu.cs.stage3.alice.core.question.time;
 
 public class IsPM extends edu.cmu.cs.stage3.alice.core.question.BooleanQuestion {
-	
+
+	@Override
 	public Object getValue() {
 		java.util.Calendar calendar = new java.util.GregorianCalendar();
 		java.util.Date date = new java.util.Date();
-		calendar.setTime( date );
-		if( calendar.get( java.util.Calendar.AM_PM )==java.util.Calendar.PM ) {
+		calendar.setTime(date);
+		if (calendar.get(java.util.Calendar.AM_PM) == java.util.Calendar.PM) {
 			return Boolean.TRUE;
 		} else {
 			return Boolean.FALSE;

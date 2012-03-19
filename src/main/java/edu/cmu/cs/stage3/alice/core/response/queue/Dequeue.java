@@ -25,9 +25,10 @@ package edu.cmu.cs.stage3.alice.core.response.queue;
 
 public class Dequeue extends QueueResponse {
 	public class RuntimeDequeue extends RuntimeQueueResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
 			getQueue().dequeue();
 		}
 	}

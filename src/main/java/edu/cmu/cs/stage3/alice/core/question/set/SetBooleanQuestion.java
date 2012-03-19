@@ -27,17 +27,18 @@ import edu.cmu.cs.stage3.alice.core.Set;
 import edu.cmu.cs.stage3.alice.core.property.SetProperty;
 
 public abstract class SetBooleanQuestion extends edu.cmu.cs.stage3.alice.core.question.BooleanQuestion {
-	public final SetProperty set = new SetProperty( this, "set", null );
-	protected abstract boolean getValue( Set set );
-	
+	public final SetProperty set = new SetProperty(this, "set", null);
+	protected abstract boolean getValue(Set set);
+
+	@Override
 	public Object getValue() {
 		Set setValue = set.getSetValue();
-		if( setValue!=null ) {
-            if( getValue( setValue ) ) {
-                return Boolean.TRUE;
-            } else {
-                return Boolean.FALSE;
-            }
+		if (setValue != null) {
+			if (getValue(setValue)) {
+				return Boolean.TRUE;
+			} else {
+				return Boolean.FALSE;
+			}
 		} else {
 			return Boolean.FALSE;
 		}

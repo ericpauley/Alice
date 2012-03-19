@@ -21,7 +21,6 @@
  *    "This product includes software developed by Carnegie Mellon University"
  */
 
-
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
 public class ScreenWrappingMouseListener implements java.awt.event.MouseListener, java.awt.event.MouseMotionListener {
@@ -78,26 +77,28 @@ public class ScreenWrappingMouseListener implements java.awt.event.MouseListener
 	synchronized public void abortAction() {
 		actionAborted = true;
 		mouseIsDown = false;
-		component.removeMouseMotionListener( this );
+		component.removeMouseMotionListener(this);
 	}
 
-	synchronized public void mousePressed( java.awt.event.MouseEvent ev ) {
+	@Override
+	synchronized public void mousePressed(java.awt.event.MouseEvent ev) {
 		component = ev.getComponent();
 
-		if( edu.cmu.cs.stage3.awt.AWTUtilities.isSetCursorLocationSupported() ) {
+		if (edu.cmu.cs.stage3.awt.AWTUtilities.isSetCursorLocationSupported()) {
 			doWrap = true;
 		} else {
 			doWrap = false;
 		}
 
 		java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		int screenWidth = (int)screenSize.getWidth();
-		int screenHeight = (int)screenSize.getHeight();
+		int screenWidth = (int) screenSize.getWidth();
+		int screenHeight = (int) screenSize.getHeight();
 		leftEdge = 0;
 		rightEdge = screenWidth - 1;
 		topEdge = 0;
 		bottomEdge = screenHeight - 1;
-		//DEBUG System.out.println( "rightEdge: " + rightEdge + ",  bottomEdge: " + bottomEdge );
+		// DEBUG System.out.println( "rightEdge: " + rightEdge +
+		// ",  bottomEdge: " + bottomEdge );
 
 		pressedx = lastx = ev.getX();
 		pressedy = lasty = ev.getY();
@@ -106,20 +107,22 @@ public class ScreenWrappingMouseListener implements java.awt.event.MouseListener
 
 		mouseIsDown = true;
 
-		ev.getComponent().addMouseMotionListener( this );
+		ev.getComponent().addMouseMotionListener(this);
 	}
 
-	synchronized public void mouseReleased( java.awt.event.MouseEvent ev ) {
-		if( ! actionAborted ) {
+	@Override
+	synchronized public void mouseReleased(java.awt.event.MouseEvent ev) {
+		if (!actionAborted) {
 			mouseIsDown = false;
-			ev.getComponent().removeMouseMotionListener( this );
+			ev.getComponent().removeMouseMotionListener(this);
 		} else {
 			actionAborted = false;
 		}
 	}
 
-	synchronized public void mouseDragged( java.awt.event.MouseEvent ev ) {
-		if( mouseIsDown  ) {
+	@Override
+	synchronized public void mouseDragged(java.awt.event.MouseEvent ev) {
+		if (mouseIsDown) {
 			int x = ev.getX();
 			int y = ev.getY();
 
@@ -132,42 +135,55 @@ public class ScreenWrappingMouseListener implements java.awt.event.MouseListener
 			lastx = x;
 			lasty = y;
 
-			if( doWrap ) {
-				tempPoint.setLocation( x, y );
-				javax.swing.SwingUtilities.convertPointToScreen( tempPoint, ev.getComponent() );
-				//DEBUG System.out.println( "location: " + tempPoint.x + ", " + tempPoint.y );
-				if( tempPoint.x <= leftEdge ) {
-					tempPoint.x = (rightEdge - 1) - (leftEdge - tempPoint.x);
+			if (doWrap) {
+				tempPoint.setLocation(x, y);
+				javax.swing.SwingUtilities.convertPointToScreen(tempPoint, ev.getComponent());
+				// DEBUG System.out.println( "location: " + tempPoint.x + ", " +
+				// tempPoint.y );
+				if (tempPoint.x <= leftEdge) {
+					tempPoint.x = rightEdge - 1 - (leftEdge - tempPoint.x);
 					lastx += rightEdge - leftEdge;
 					pressedx += rightEdge - leftEdge;
-					edu.cmu.cs.stage3.awt.AWTUtilities.setCursorLocation( tempPoint );
-					//DEBUG System.out.println( "moved to: " + tempPoint.x + ", " + tempPoint.y );
-				} else if ( tempPoint.x >= rightEdge ) {
-					tempPoint.x = (leftEdge + 1) + (tempPoint.x - rightEdge);
+					edu.cmu.cs.stage3.awt.AWTUtilities.setCursorLocation(tempPoint);
+					// DEBUG System.out.println( "moved to: " + tempPoint.x +
+					// ", " + tempPoint.y );
+				} else if (tempPoint.x >= rightEdge) {
+					tempPoint.x = leftEdge + 1 + tempPoint.x - rightEdge;
 					lastx -= rightEdge - leftEdge;
 					pressedx -= rightEdge - leftEdge;
-					edu.cmu.cs.stage3.awt.AWTUtilities.setCursorLocation( tempPoint );
-					//DEBUG System.out.println( "moved to: " + tempPoint.x + ", " + tempPoint.y );
+					edu.cmu.cs.stage3.awt.AWTUtilities.setCursorLocation(tempPoint);
+					// DEBUG System.out.println( "moved to: " + tempPoint.x +
+					// ", " + tempPoint.y );
 				}
-				if( tempPoint.y <= topEdge ) {
-					tempPoint.y = (bottomEdge - 1) - (topEdge - tempPoint.y);
+				if (tempPoint.y <= topEdge) {
+					tempPoint.y = bottomEdge - 1 - (topEdge - tempPoint.y);
 					lasty += bottomEdge - topEdge;
 					pressedy += bottomEdge - topEdge;
-					edu.cmu.cs.stage3.awt.AWTUtilities.setCursorLocation( tempPoint );
-					//DEBUG System.out.println( "moved to: " + tempPoint.x + ", " + tempPoint.y );
-				} else if ( tempPoint.y >= bottomEdge ) {
-					tempPoint.y = (topEdge + 1) + (tempPoint.y - bottomEdge);
+					edu.cmu.cs.stage3.awt.AWTUtilities.setCursorLocation(tempPoint);
+					// DEBUG System.out.println( "moved to: " + tempPoint.x +
+					// ", " + tempPoint.y );
+				} else if (tempPoint.y >= bottomEdge) {
+					tempPoint.y = topEdge + 1 + tempPoint.y - bottomEdge;
 					lasty -= bottomEdge - topEdge;
 					pressedy -= bottomEdge - topEdge;
-					edu.cmu.cs.stage3.awt.AWTUtilities.setCursorLocation( tempPoint );
-					//DEBUG System.out.println( "moved to: " + tempPoint.x + ", " + tempPoint.y );
+					edu.cmu.cs.stage3.awt.AWTUtilities.setCursorLocation(tempPoint);
+					// DEBUG System.out.println( "moved to: " + tempPoint.x +
+					// ", " + tempPoint.y );
 				}
 			}
 		}
 	}
 
-	public void mouseClicked( java.awt.event.MouseEvent ev ) {}
-	public void mouseEntered( java.awt.event.MouseEvent ev ) {}
-	public void mouseExited( java.awt.event.MouseEvent ev ) {}
-	public void mouseMoved( java.awt.event.MouseEvent ev ) {}
+	@Override
+	public void mouseClicked(java.awt.event.MouseEvent ev) {
+	}
+	@Override
+	public void mouseEntered(java.awt.event.MouseEvent ev) {
+	}
+	@Override
+	public void mouseExited(java.awt.event.MouseEvent ev) {
+	}
+	@Override
+	public void mouseMoved(java.awt.event.MouseEvent ev) {
+	}
 }

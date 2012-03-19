@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.core.question.userdefined;
 
 public abstract class Component extends edu.cmu.cs.stage3.alice.core.Code {
-    public abstract Object[] execute();
+	public abstract Object[] execute();
 }

@@ -29,97 +29,106 @@ package edu.cmu.cs.stage3.alice.authoringtool.dialog;
 
 public class Add3DTextPanel extends AbstractFontPanel {
 	public Add3DTextPanel() {
-		super( "The quick brown fox", true );
+		super("The quick brown fox", true);
 	}
 	public edu.cmu.cs.stage3.alice.core.Text3D createText3D() {
 		edu.cmu.cs.stage3.alice.core.Text3D text3D = new edu.cmu.cs.stage3.alice.core.Text3D();
-		text3D.text.set( textArea.getText().trim() );
-		text3D.font.set( fontChooser.getChosenFont() );
-		text3D.isFirstClass.set( Boolean.TRUE );
+		text3D.text.set(textArea.getText().trim());
+		text3D.font.set(fontChooser.getChosenFont());
+		text3D.isFirstClass.set(Boolean.TRUE);
 		String name = textArea.getText().trim();
-		name = name.replace( '\\', '_' );
-		name = name.replace( '/', '_' );
-		name = name.replace( ':', '_' );
-		name = name.replace( '*', '_' );
-		name = name.replace( '?', '_' );
-		name = name.replace( '"', '_' );
-		name = name.replace( '<', '_' );
-		name = name.replace( '>', '_' );
-		name = name.replace( '|', '_' );
-		name = name.replace( '.', '_' );
-		name = name.replace( '\n', '_' );
-		name = name.replace( '\t', '_' );
+		name = name.replace('\\', '_');
+		name = name.replace('/', '_');
+		name = name.replace(':', '_');
+		name = name.replace('*', '_');
+		name = name.replace('?', '_');
+		name = name.replace('"', '_');
+		name = name.replace('<', '_');
+		name = name.replace('>', '_');
+		name = name.replace('|', '_');
+		name = name.replace('.', '_');
+		name = name.replace('\n', '_');
+		name = name.replace('\t', '_');
 
-		if( name.length() > 20 ) {
-			name = name.substring( 0, 21 ).trim();
-		} 
-		if (name.compareTo(" ")==0) {
-			text3D.name.set( name );
+		if (name.length() > 20) {
+			name = name.substring(0, 21).trim();
+		}
+		if (name.compareTo(" ") == 0) {
+			text3D.name.set(name);
 		} else {
-			text3D.name.set( "3D Text" );
+			text3D.name.set("3D Text");
 		}
 		text3D.create3DTextGeometry();
 		return text3D;
 	}
 }
 
-//import java.awt.GridBagConstraints;
-//import java.awt.Insets;
+// import java.awt.GridBagConstraints;
+// import java.awt.Insets;
 //
-//public class Add3DTextPanel extends javax.swing.JPanel {
-//	private FontChooser fontChooser = new FontChooser( false, false );
-//	private javax.swing.JTextArea textArea = new javax.swing.JTextArea();
+// public class Add3DTextPanel extends javax.swing.JPanel {
+// private FontChooser fontChooser = new FontChooser( false, false );
+// private javax.swing.JTextArea textArea = new javax.swing.JTextArea();
 //
-//	public Add3DTextPanel() {
-//		fontChooser.setFontSize( 28 );
-//		fontChooser.addChangeListener(
-//			new javax.swing.event.ChangeListener() {
-//				public void stateChanged( javax.swing.event.ChangeEvent ev ) {
-//					textArea.setFont( fontChooser.getChosenFont() );
-//				}
-//			}
-//		);
+// public Add3DTextPanel() {
+// fontChooser.setFontSize( 28 );
+// fontChooser.addChangeListener(
+// new javax.swing.event.ChangeListener() {
+// public void stateChanged( javax.swing.event.ChangeEvent ev ) {
+// textArea.setFont( fontChooser.getChosenFont() );
+// }
+// }
+// );
 //
-//		setLayout( new java.awt.GridBagLayout() );
-//		textArea.setText( "The quick brown fox" );
-//		textArea.selectAll();
-//		textArea.setFont( fontChooser.getChosenFont() );
+// setLayout( new java.awt.GridBagLayout() );
+// textArea.setText( "The quick brown fox" );
+// textArea.selectAll();
+// textArea.setFont( fontChooser.getChosenFont() );
 //
-//		javax.swing.JScrollPane textScrollPane = new javax.swing.JScrollPane();
-//		textScrollPane.getViewport().add(textArea, null);
+// javax.swing.JScrollPane textScrollPane = new javax.swing.JScrollPane();
+// textScrollPane.getViewport().add(textArea, null);
 //
-//		add( new javax.swing.JLabel( "Text:" ), new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 4, 4), 0, 0));
-//		add( textScrollPane, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 4, 0), 0, 0));
-//		add( new javax.swing.JLabel( "Font:" ), new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 4), 0, 0));
-//		add( fontChooser, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0, GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+// add( new javax.swing.JLabel( "Text:" ), new GridBagConstraints(0, 0, 1, 1,
+// 0.0, 0.0, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new
+// Insets(0, 0, 4, 4), 0, 0));
+// add( textScrollPane, new GridBagConstraints(1, 0, 1, 1, 1.0, 1.0,
+// GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 4,
+// 0), 0, 0));
+// add( new javax.swing.JLabel( "Font:" ), new GridBagConstraints(0, 1, 1, 1,
+// 0.0, 0.0, GridBagConstraints.NORTHEAST, GridBagConstraints.NONE, new
+// Insets(0, 0, 0, 4), 0, 0));
+// add( fontChooser, new GridBagConstraints(1, 1, 1, 1, 1.0, 0.0,
+// GridBagConstraints.NORTHWEST, GridBagConstraints.BOTH, new Insets(0, 0, 0,
+// 0), 0, 0));
 //
-//		setPreferredSize( new java.awt.Dimension( 500, 200 ) );
-//	}
+// setPreferredSize( new java.awt.Dimension( 500, 200 ) );
+// }
 //
-//	public edu.cmu.cs.stage3.alice.core.Text3D createText3D() {
-//		edu.cmu.cs.stage3.alice.core.Text3D text3D = new edu.cmu.cs.stage3.alice.core.Text3D();
-//		text3D.text.set( textArea.getText().trim() );
-//		text3D.font.set( fontChooser.getChosenFont() );
-//		text3D.isFirstClass.set( Boolean.TRUE );
-//		String name = textArea.getText().trim();
-//		name = name.replace( '\\', '_' );
-//		name = name.replace( '/', '_' );
-//		name = name.replace( ':', '_' );
-//		name = name.replace( '*', '_' );
-//		name = name.replace( '?', '_' );
-//		name = name.replace( '"', '_' );
-//		name = name.replace( '<', '_' );
-//		name = name.replace( '>', '_' );
-//		name = name.replace( '|', '_' );
-//		name = name.replace( '.', '_' );
-//		name = name.replace( '\n', '_' );
-//		name = name.replace( '\t', '_' );
+// public edu.cmu.cs.stage3.alice.core.Text3D createText3D() {
+// edu.cmu.cs.stage3.alice.core.Text3D text3D = new
+// edu.cmu.cs.stage3.alice.core.Text3D();
+// text3D.text.set( textArea.getText().trim() );
+// text3D.font.set( fontChooser.getChosenFont() );
+// text3D.isFirstClass.set( Boolean.TRUE );
+// String name = textArea.getText().trim();
+// name = name.replace( '\\', '_' );
+// name = name.replace( '/', '_' );
+// name = name.replace( ':', '_' );
+// name = name.replace( '*', '_' );
+// name = name.replace( '?', '_' );
+// name = name.replace( '"', '_' );
+// name = name.replace( '<', '_' );
+// name = name.replace( '>', '_' );
+// name = name.replace( '|', '_' );
+// name = name.replace( '.', '_' );
+// name = name.replace( '\n', '_' );
+// name = name.replace( '\t', '_' );
 //
-//		if( name.length() > 20 ) {
-//			name = name.substring( 0, 21 ).trim();
-//		}
-//		text3D.name.set( name );
-//		text3D.create3DTextGeometry();
-//		return text3D;
-//	}
-//}
+// if( name.length() > 20 ) {
+// name = name.substring( 0, 21 ).trim();
+// }
+// text3D.name.set( name );
+// text3D.create3DTextGeometry();
+// return text3D;
+// }
+// }

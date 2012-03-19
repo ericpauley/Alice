@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public interface PropertyListener {
-	public void changed( PropertyEvent propertyEvent );
+	public void changed(PropertyEvent propertyEvent);
 }

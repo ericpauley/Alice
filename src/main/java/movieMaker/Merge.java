@@ -33,15 +33,32 @@ package movieMaker;
 //import java.io.File;
 //import java.io.FileDescriptor;
 import java.io.IOException;
-//import java.net.MalformedURLException;
-
-import javax.media.*;
-import javax.media.format.*;
-import javax.media.protocol.*;
-import javax.media.control.TrackControl;
-import javax.media.datasink.*;
-
 import java.util.Vector;
+
+import javax.media.ConfigureCompleteEvent;
+import javax.media.Controller;
+import javax.media.ControllerEvent;
+import javax.media.ControllerListener;
+import javax.media.DataSink;
+import javax.media.EndOfMediaEvent;
+import javax.media.Format;
+import javax.media.Manager;
+import javax.media.MediaLocator;
+import javax.media.PrefetchCompleteEvent;
+import javax.media.Processor;
+import javax.media.ProcessorModel;
+import javax.media.RealizeCompleteEvent;
+import javax.media.ResourceUnavailableEvent;
+import javax.media.control.TrackControl;
+import javax.media.datasink.DataSinkErrorEvent;
+import javax.media.datasink.DataSinkEvent;
+import javax.media.datasink.DataSinkListener;
+import javax.media.datasink.EndOfStreamEvent;
+import javax.media.format.AudioFormat;
+import javax.media.format.VideoFormat;
+import javax.media.protocol.ContentDescriptor;
+import javax.media.protocol.DataSource;
+import javax.media.protocol.FileTypeDescriptor;
 
 /**
  * Merged the tracks from different inputs and generate a QuickTime file with
@@ -136,20 +153,21 @@ public class Merge implements ControllerListener, DataSinkListener {
 
 		}
 
-		while(outputDataSink==null){
-		try {
-			outputLocator = new MediaLocator(outputFile);
-			outputDataSink = Manager.createDataSink(outputDataSource,
-					outputLocator);
-			outputDataSink.open();
-		} catch (Exception exce) {
-			//System.err.println("Failed to create output DataSink: " + exce);
+		while (outputDataSink == null) {
+			try {
+				outputLocator = new MediaLocator(outputFile);
+				outputDataSink = Manager.createDataSink(outputDataSource, outputLocator);
+				outputDataSink.open();
+			} catch (Exception exce) {
+				// System.err.println("Failed to create output DataSink: " +
+				// exce);
 
-		}}
+			}
+		}
 
 		outputProcessor.addControllerListener(this);
 		outputDataSink.addDataSinkListener(this);
-		//System.err.println("Merging...");
+		// System.err.println("Merging...");
 		try {
 			outputDataSink.start();
 			outputProcessor.start();
@@ -158,28 +176,28 @@ public class Merge implements ControllerListener, DataSinkListener {
 
 		}
 
-//		while (!done) {
-//			try {
-//				Thread.currentThread().sleep(100);
-//			} catch (InterruptedException ie) {
-//			}
-//
-//			if (outputProcessor != null
-//					&& (int) (outputProcessor.getMediaTime().getSeconds()) > count) {
-//				System.err.print(".");
-//				count = (int) (outputProcessor.getMediaTime().getSeconds());
-//			}
-//
-//		}
+		// while (!done) {
+		// try {
+		// Thread.currentThread().sleep(100);
+		// } catch (InterruptedException ie) {
+		// }
+		//
+		// if (outputProcessor != null
+		// && (int) (outputProcessor.getMediaTime().getSeconds()) > count) {
+		// System.err.print(".");
+		// count = (int) (outputProcessor.getMediaTime().getSeconds());
+		// }
+		//
+		// }
 
 		waitForFileDone();
-		
+
 		if (outputDataSink != null) {
 
 			outputDataSink.close();
 			outputDataSink.removeDataSinkListener(this);
 		}
-		
+
 		synchronized (this) {
 
 			if (outputProcessor != null) {
@@ -196,14 +214,14 @@ public class Merge implements ControllerListener, DataSinkListener {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		for (int ii = 0; ii < processors.length; ii++) {
-			processors[ii].stop();
-			processors[ii].close();
-			processors[ii].deallocate();
+
+		for (Processor processor : processors) {
+			processor.stop();
+			processor.close();
+			processor.deallocate();
 		}
 
-		//System.err.println("Done!");
+		// System.err.println("Done!");
 
 	}
 
@@ -215,32 +233,32 @@ public class Merge implements ControllerListener, DataSinkListener {
 			this.inputLocator = inputLocator;
 		}
 
-		
+		@Override
 		public ContentDescriptor getContentDescriptor() {
 			return new ContentDescriptor(ContentDescriptor.RAW);
 		}
 
-		
+		@Override
 		public DataSource getInputDataSource() {
 			return null;
 		}
 
-		
+		@Override
 		public MediaLocator getInputLocator() {
 			return inputLocator;
 		}
 
-		
+		@Override
 		public Format getOutputTrackFormat(int index) {
 			return null;
 		}
 
-		
+		@Override
 		public int getTrackCount(int n) {
 			return n;
 		}
 
-		
+		@Override
 		public boolean isFormatAcceptable(int index, Format format) {
 			if (videoFormat == null) {
 				videoFormat = new VideoFormat(videoEncoding);
@@ -248,10 +266,11 @@ public class Merge implements ControllerListener, DataSinkListener {
 			if (audioFormat == null) {
 				audioFormat = new AudioFormat(audioEncoding);
 			}
-			if (format.matches(videoFormat) || format.matches(audioFormat))
+			if (format.matches(videoFormat) || format.matches(audioFormat)) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		}
 	}
 
@@ -263,32 +282,32 @@ public class Merge implements ControllerListener, DataSinkListener {
 			this.inputDataSource = inputDataSource;
 		}
 
-		
+		@Override
 		public ContentDescriptor getContentDescriptor() {
 			return new FileTypeDescriptor(outputType);
 		}
 
-		
+		@Override
 		public DataSource getInputDataSource() {
 			return inputDataSource;
 		}
 
-		
+		@Override
 		public MediaLocator getInputLocator() {
 			return null;
 		}
 
-		
+		@Override
 		public Format getOutputTrackFormat(int index) {
 			return null;
 		}
 
-		
+		@Override
 		public int getTrackCount(int n) {
 			return n;
 		}
 
-		
+		@Override
 		public boolean isFormatAcceptable(int index, Format format) {
 			if (videoFormat == null) {
 				videoFormat = new VideoFormat(videoEncoding);
@@ -296,16 +315,16 @@ public class Merge implements ControllerListener, DataSinkListener {
 			if (audioFormat == null) {
 				audioFormat = new AudioFormat(audioEncoding);
 			}
-			if (format.matches(videoFormat) || format.matches(audioFormat))
+			if (format.matches(videoFormat) || format.matches(audioFormat)) {
 				return true;
-			else
+			} else {
 				return false;
+			}
 		}
 	}
 
 	private void showUsage() {
-		System.err
-				.println("Usage: Merge <url1> <url2> [<url3> ... ] [-o <out URL>] [-v <video_encoding>] [-a <audio_encoding>] [-t <content_type>]");
+		System.err.println("Usage: Merge <url1> <url2> [<url3> ... ] [-o <out URL>] [-v <video_encoding>] [-a <audio_encoding>] [-t <content_type>]");
 	}
 
 	public void doSingle(DataSource ds) {
@@ -338,8 +357,7 @@ public class Merge implements ControllerListener, DataSinkListener {
 		TrackControl tcs[] = p.getTrackControls();
 		Format f[] = tcs[0].getSupportedFormats();
 		if (f == null || f.length <= 0) {
-			System.err.println("The mux does not support the input format: "
-					+ tcs[0].getFormat());
+			System.err.println("The mux does not support the input format: " + tcs[0].getFormat());
 		}
 
 		tcs[0].setFormat(f[0]);
@@ -355,10 +373,10 @@ public class Merge implements ControllerListener, DataSinkListener {
 
 		// Now, we'll need to create a DataSink.
 		DataSink dsink;
-		while((dsink = createDataSink(p, outML)) == null) {
-			//System.err
-				//	.println("Failed to create a DataSink for the given output MediaLocator: "
-				//			+ outML);
+		while ((dsink = createDataSink(p, outML)) == null) {
+			// System.err
+			// .println("Failed to create a DataSink for the given output MediaLocator: "
+			// + outML);
 		}
 
 		dsink.addDataSinkListener(this);
@@ -381,8 +399,7 @@ public class Merge implements ControllerListener, DataSinkListener {
 		// Cleanup.
 		try {
 			dsink.close();
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 		p.removeControllerListener(this);
 		dsink.removeDataSinkListener(this);
 		p.close();
@@ -401,10 +418,10 @@ public class Merge implements ControllerListener, DataSinkListener {
 	boolean waitForState(Processor p, int state) {
 		synchronized (waitSync) {
 			try {
-				while (p.getState() < state && stateTransitionOK)
+				while (p.getState() < state && stateTransitionOK) {
 					waitSync.wait();
-			} catch (Exception e) {
-			}
+				}
+			} catch (Exception e) {}
 		}
 		return stateTransitionOK;
 	}
@@ -412,11 +429,10 @@ public class Merge implements ControllerListener, DataSinkListener {
 	/**
 	 * Controller Listener.
 	 */
+	@Override
 	public void controllerUpdate(ControllerEvent evt) {
 
-		if (evt instanceof ConfigureCompleteEvent
-				|| evt instanceof RealizeCompleteEvent
-				|| evt instanceof PrefetchCompleteEvent) {
+		if (evt instanceof ConfigureCompleteEvent || evt instanceof RealizeCompleteEvent || evt instanceof PrefetchCompleteEvent) {
 			synchronized (waitSync) {
 				stateTransitionOK = true;
 				waitSync.notifyAll();
@@ -444,10 +460,10 @@ public class Merge implements ControllerListener, DataSinkListener {
 	boolean waitForFileDone() {
 		synchronized (waitFileSync) {
 			try {
-				while (!fileDone)
+				while (!fileDone) {
 					waitFileSync.wait();
-			} catch (Exception e) {
-			}
+				}
+			} catch (Exception e) {}
 		}
 		return fileSuccess;
 	}
@@ -455,6 +471,7 @@ public class Merge implements ControllerListener, DataSinkListener {
 	/**
 	 * Event handler for the file writer.
 	 */
+	@Override
 	public void dataSinkUpdate(DataSinkEvent evt) {
 
 		if (evt instanceof EndOfStreamEvent) {
@@ -476,8 +493,7 @@ public class Merge implements ControllerListener, DataSinkListener {
 		DataSource ds;
 
 		if ((ds = p.getDataOutput()) == null) {
-			System.err
-					.println("Something is really wrong: the processor does not have an output DataSource");
+			System.err.println("Something is really wrong: the processor does not have an output DataSource");
 			return null;
 		}
 
@@ -488,7 +504,7 @@ public class Merge implements ControllerListener, DataSinkListener {
 			dsink = Manager.createDataSink(ds, outML);
 			dsink.open();
 		} catch (Exception e) {
-			//System.err.println("Cannot create the DataSink: " + e);
+			// System.err.println("Cannot create the DataSink: " + e);
 			return null;
 		}
 

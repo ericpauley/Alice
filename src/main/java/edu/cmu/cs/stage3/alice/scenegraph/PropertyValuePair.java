@@ -26,7 +26,7 @@ package edu.cmu.cs.stage3.alice.scenegraph;
 public class PropertyValuePair {
 	protected Property m_property;
 	protected Object m_value;
-	public PropertyValuePair( Property property, Object value ) {
+	public PropertyValuePair(Property property, Object value) {
 		m_property = property;
 		m_value = value;
 	}

@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.core.media;
 
 public interface SoundMarkerListener {
-	public void markerPassed( SoundMarker m );
+	public void markerPassed(SoundMarker m);
 }

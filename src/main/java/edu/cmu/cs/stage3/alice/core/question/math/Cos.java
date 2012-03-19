@@ -24,13 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class Cos extends edu.cmu.cs.stage3.alice.core.question.UnaryNumberResultingInNumberQuestion {
-	private static Class[] s_supportedCoercionClasses = { Sin.class, Tan.class, ACos.class, ASin.class, ATan.class };
-	
+	private static Class[] s_supportedCoercionClasses = {Sin.class, Tan.class, ACos.class, ASin.class, ATan.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected double getValue( double aValue ) {
-		return Math.cos( aValue );
+
+	@Override
+	protected double getValue(double aValue) {
+		return Math.cos(aValue);
 	}
 }

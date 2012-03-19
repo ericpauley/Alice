@@ -32,43 +32,44 @@ import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 import edu.cmu.cs.stage3.alice.core.property.ValueProperty;
 
 public class PropertyAnimation extends Animation {
-	public final OverridableElementProperty element = new OverridableElementProperty( this, "element", null );
-	public final StringProperty propertyName = new StringProperty( this, "propertyName", null );
-	public final ValueProperty value = new ValueProperty( this, "value", null );
-	public final ObjectProperty howMuch = new ObjectProperty( this, "howMuch", edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_PARTS, edu.cmu.cs.stage3.util.HowMuch.class );
+	public final OverridableElementProperty element = new OverridableElementProperty(this, "element", null);
+	public final StringProperty propertyName = new StringProperty(this, "propertyName", null);
+	public final ValueProperty value = new ValueProperty(this, "value", null);
+	public final ObjectProperty howMuch = new ObjectProperty(this, "howMuch", edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_PARTS, edu.cmu.cs.stage3.util.HowMuch.class);
 	private void updateOverrideValueClasses() {
 		Class elementOverrideValueClass = null;
 		Class valueOverrideValueClass = null;
 		String propertyNameValue = propertyName.getStringValue();
-		if( propertyNameValue!=null ) {
+		if (propertyNameValue != null) {
 			Element elementValue = element.getElementValue();
-			if( elementValue!=null ) {
-				Property property = elementValue.getPropertyNamed( propertyNameValue );
-				if( property != null ) {
+			if (elementValue != null) {
+				Property property = elementValue.getPropertyNamed(propertyNameValue);
+				if (property != null) {
 					elementOverrideValueClass = property.getDeclaredClass();
 					valueOverrideValueClass = property.getValueClass();
 				} else {
-					if( elementValue instanceof Expression ) {
-						Class cls = ((Expression)elementValue).getValueClass();
-						if( cls != null ) {
+					if (elementValue instanceof Expression) {
+						Class cls = ((Expression) elementValue).getValueClass();
+						if (cls != null) {
 							elementOverrideValueClass = cls;
-							valueOverrideValueClass = Element.getValueClassForPropertyNamed( elementOverrideValueClass, propertyNameValue );
+							valueOverrideValueClass = Element.getValueClassForPropertyNamed(elementOverrideValueClass, propertyNameValue);
 						}
 					}
 				}
 			}
 		}
-		element.setOverrideValueClass( elementOverrideValueClass );
-		value.setOverrideValueClass( valueOverrideValueClass );
+		element.setOverrideValueClass(elementOverrideValueClass);
+		value.setOverrideValueClass(valueOverrideValueClass);
 	}
-	
-	protected void propertyChanged( Property property, Object value ) {
-		if( property == element ) {
+
+	@Override
+	protected void propertyChanged(Property property, Object value) {
+		if (property == element) {
 			updateOverrideValueClasses();
-		} else if( property == propertyName ) {
+		} else if (property == propertyName) {
 			updateOverrideValueClasses();
 		} else {
-			super.propertyChanged( property, value );
+			super.propertyChanged(property, value);
 		}
 	}
 	public class RuntimePropertyAnimation extends RuntimeAnimation {
@@ -83,60 +84,64 @@ public class PropertyAnimation extends Animation {
 		protected Property getProperty() {
 			return m_property;
 		}
-		protected void set( Object value ) {
-			if( m_property != null ) {
-				if( howMuch!=null ) {
-					m_property.set( value, m_howMuch );
+		protected void set(Object value) {
+			if (m_property != null) {
+				if (howMuch != null) {
+					m_property.set(value, m_howMuch);
 				} else {
-					m_property.set( value );
+					m_property.set(value);
 				}
 			} else {
-				m_element.setPropertyNamed( m_propertyName, value, m_howMuch );
+				m_element.setPropertyNamed(m_propertyName, value, m_howMuch);
 			}
 		}
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			//todo: remove?  the following line is required for when an author changes the element property to a variable
-			PropertyAnimation.this.updateOverrideValueClasses();
-			m_element = PropertyAnimation.this.element.getElementValue();
-			m_propertyName = PropertyAnimation.this.propertyName.getStringValue();
-			if( m_element!=null ) {
-                if( m_propertyName!= null ) {
-                    m_property = m_element.getPropertyNamed( m_propertyName );
-                    if( m_property!=null ) {
-                        m_valueBegin = m_property.getValue();
-                        m_valueEnd = PropertyAnimation.this.value.getValue();
-                        if( m_property.isAcceptingOfHowMuch() ) {
-                            m_howMuch = (edu.cmu.cs.stage3.util.HowMuch)howMuch.getValue();
-                        } else {
-                            m_howMuch = edu.cmu.cs.stage3.util.HowMuch.INSTANCE;
-                        }
-                    } else {
-                        throw new edu.cmu.cs.stage3.alice.core.IllegalPropertyValueException( PropertyAnimation.this.propertyName, m_propertyName, m_element + " does not have property named " + m_propertyName );
-                    }
-                } else {
-                    throw new edu.cmu.cs.stage3.alice.core.IllegalPropertyValueException( PropertyAnimation.this.propertyName, null, "propertyName must not be null." );
-                }
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			// todo: remove? the following line is required for when an author
+			// changes the element property to a variable
+			updateOverrideValueClasses();
+			m_element = element.getElementValue();
+			m_propertyName = propertyName.getStringValue();
+			if (m_element != null) {
+				if (m_propertyName != null) {
+					m_property = m_element.getPropertyNamed(m_propertyName);
+					if (m_property != null) {
+						m_valueBegin = m_property.getValue();
+						m_valueEnd = value.getValue();
+						if (m_property.isAcceptingOfHowMuch()) {
+							m_howMuch = (edu.cmu.cs.stage3.util.HowMuch) howMuch.getValue();
+						} else {
+							m_howMuch = edu.cmu.cs.stage3.util.HowMuch.INSTANCE;
+						}
+					} else {
+						throw new edu.cmu.cs.stage3.alice.core.IllegalPropertyValueException(propertyName, m_propertyName, m_element + " does not have property named " + m_propertyName);
+					}
+				} else {
+					throw new edu.cmu.cs.stage3.alice.core.IllegalPropertyValueException(propertyName, null, "propertyName must not be null.");
+				}
 			} else {
-				throw new edu.cmu.cs.stage3.alice.core.IllegalPropertyValueException( PropertyAnimation.this.element, null, "element must not be null." );
+				throw new edu.cmu.cs.stage3.alice.core.IllegalPropertyValueException(element, null, "element must not be null.");
 			}
 		}
-		
-		public void update( double t ) {
-			super.update( t );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
 			Object value;
-			if( m_valueBegin != null && m_valueEnd != null ) {
-				value = edu.cmu.cs.stage3.math.Interpolator.interpolate( m_valueBegin, m_valueEnd, getPortion( t ) );
+			if (m_valueBegin != null && m_valueEnd != null) {
+				value = edu.cmu.cs.stage3.math.Interpolator.interpolate(m_valueBegin, m_valueEnd, getPortion(t));
 			} else {
 				value = m_valueEnd;
 			}
-			set( value );
+			set(value);
 		}
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			set( m_valueEnd );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			set(m_valueEnd);
 		}
 	}
 }

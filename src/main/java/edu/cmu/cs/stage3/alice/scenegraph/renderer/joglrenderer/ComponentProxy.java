@@ -24,50 +24,51 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 abstract class ComponentProxy extends ElementProxy {
-    private double[] m_absolute = new double[ 16 ]; 
-	private double[] m_inverseAbsolute = new double[ 16 ];
-    private java.nio.DoubleBuffer m_absoluteBuffer = java.nio.DoubleBuffer.wrap( m_absolute );
-    private java.nio.DoubleBuffer m_inverseAbsoluteBuffer = java.nio.DoubleBuffer.wrap( m_inverseAbsolute );
-    ComponentProxy() {
-    	handleAbsoluteTransformationChange();
-    }
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Component.PARENT_PROPERTY ) {
-            //pass
+	private double[] m_absolute = new double[16];
+	private double[] m_inverseAbsolute = new double[16];
+	private java.nio.DoubleBuffer m_absoluteBuffer = java.nio.DoubleBuffer.wrap(m_absolute);
+	private java.nio.DoubleBuffer m_inverseAbsoluteBuffer = java.nio.DoubleBuffer.wrap(m_inverseAbsolute);
+	ComponentProxy() {
+		handleAbsoluteTransformationChange();
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Component.PARENT_PROPERTY) {
+			// pass
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
-	public void handleAbsoluteTransformationChange() {	
-	    m_absolute[ 0 ] = Double.NaN;
-	    m_inverseAbsolute[ 0 ] = Double.NaN;
+	public void handleAbsoluteTransformationChange() {
+		m_absolute[0] = Double.NaN;
+		m_inverseAbsolute[0] = Double.NaN;
 	}
-    private edu.cmu.cs.stage3.alice.scenegraph.Component getSceneGraphComponent() {
-	    return (edu.cmu.cs.stage3.alice.scenegraph.Component)getSceneGraphElement();
+	private edu.cmu.cs.stage3.alice.scenegraph.Component getSceneGraphComponent() {
+		return (edu.cmu.cs.stage3.alice.scenegraph.Component) getSceneGraphElement();
 	}
 
 	public SceneProxy getSceneProxy() {
-	    edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent = getSceneGraphComponent();
-	    edu.cmu.cs.stage3.alice.scenegraph.Container sgRoot = sgComponent.getRoot();
-	    if( sgRoot instanceof edu.cmu.cs.stage3.alice.scenegraph.Scene ) {
-	        return (SceneProxy)getProxyFor( sgRoot );
-	    } else {
-	        return null;
-	    }
+		edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent = getSceneGraphComponent();
+		edu.cmu.cs.stage3.alice.scenegraph.Container sgRoot = sgComponent.getRoot();
+		if (sgRoot instanceof edu.cmu.cs.stage3.alice.scenegraph.Scene) {
+			return (SceneProxy) getProxyFor(sgRoot);
+		} else {
+			return null;
+		}
 	}
 
-	public double[] getAbsoluteTransformation() { 
-	    if( Double.isNaN( m_absolute[ 0 ] ) ) {
-	        copy( m_absolute, getSceneGraphComponent().getAbsoluteTransformation() );
-	    }
-	    return m_absolute;
+	public double[] getAbsoluteTransformation() {
+		if (Double.isNaN(m_absolute[0])) {
+			copy(m_absolute, getSceneGraphComponent().getAbsoluteTransformation());
+		}
+		return m_absolute;
 	}
-	public double[] getInverseAbsoluteTransformation() { 
-	    if( Double.isNaN( m_inverseAbsolute[ 0 ] ) ) {
-	        copy( m_inverseAbsolute, getSceneGraphComponent().getInverseAbsoluteTransformation() );
-	    }
-	    return m_inverseAbsolute;
+	public double[] getInverseAbsoluteTransformation() {
+		if (Double.isNaN(m_inverseAbsolute[0])) {
+			copy(m_inverseAbsolute, getSceneGraphComponent().getInverseAbsoluteTransformation());
+		}
+		return m_inverseAbsolute;
 	}
 	protected java.nio.DoubleBuffer getAbsoluteTransformationAsBuffer() {
 		getAbsoluteTransformation();
@@ -78,8 +79,8 @@ abstract class ComponentProxy extends ElementProxy {
 		return m_inverseAbsoluteBuffer;
 	}
 
-	public abstract void render( RenderContext context );
-	public abstract void setup( RenderContext context );
-	public abstract void pick( PickContext context, PickParameters pickParameters );
+	public abstract void render(RenderContext context);
+	public abstract void setup(RenderContext context);
+	public abstract void pick(PickContext context, PickParameters pickParameters);
 
 }

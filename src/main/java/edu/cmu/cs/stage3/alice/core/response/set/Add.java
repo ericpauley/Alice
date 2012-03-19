@@ -25,16 +25,17 @@ package edu.cmu.cs.stage3.alice.core.response.set;
 
 public class Add extends SetItemResponse {
 	public class RuntimeAdd extends RuntimeSetItemResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-            edu.cmu.cs.stage3.alice.core.Set set = getSet();
-            Object item = getItem();
-            if( set.containsValue( item ) ) {
-                //pass
-            } else {
-                set.addValue( item );
-            }
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			edu.cmu.cs.stage3.alice.core.Set set = getSet();
+			Object item = getItem();
+			if (set.containsValue(item)) {
+				// pass
+			} else {
+				set.addValue(item);
+			}
 		}
 	}
 }

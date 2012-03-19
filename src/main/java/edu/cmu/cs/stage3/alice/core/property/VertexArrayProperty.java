@@ -26,65 +26,68 @@ package edu.cmu.cs.stage3.alice.core.property;
 import edu.cmu.cs.stage3.alice.core.Element;
 
 public class VertexArrayProperty extends ObjectArrayProperty {
-	public VertexArrayProperty( Element owner, String name, edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] defaultValue ) {
-		super( owner, name, defaultValue, edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[].class );
+	public VertexArrayProperty(Element owner, String name, edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] defaultValue) {
+		super(owner, name, defaultValue, edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[].class);
 	}
 	public edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] getVertexArrayValue() {
-		return (edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[])getArrayValue();
+		return (edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[]) getArrayValue();
 	}
-    
-	protected void decodeObject( org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version ) throws java.io.IOException {
+
+	@Override
+	protected void decodeObject(org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version) throws java.io.IOException {
 		m_associatedFileKey = null;
-        String filename = getFilename( getNodeText( node ) );
-        String extension = filename.substring( filename.lastIndexOf( '.' )+1 );
-        edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] verticesValue;
-        java.io.InputStream is = loader.readFile( filename );
-        if( extension.equalsIgnoreCase( "vfb" ) ) {
-            verticesValue = edu.cmu.cs.stage3.alice.scenegraph.io.VFB.loadVertices( is );
-        } else {
-            verticesValue = edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.loadVertices( is );
-        }
-        loader.closeCurrentFile();
-        set( verticesValue );
-        try {
-            m_associatedFileKey = loader.getKeepKey( filename );
-        } catch( edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse ) {
-            m_associatedFileKey = null;
-        }
-    }
-    
-	protected void encodeObject( org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator ) throws java.io.IOException {
+		String filename = getFilename(getNodeText(node));
+		String extension = filename.substring(filename.lastIndexOf('.') + 1);
+		edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] verticesValue;
+		java.io.InputStream is = loader.readFile(filename);
+		if (extension.equalsIgnoreCase("vfb")) {
+			verticesValue = edu.cmu.cs.stage3.alice.scenegraph.io.VFB.loadVertices(is);
+		} else {
+			verticesValue = edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.loadVertices(is);
+		}
+		loader.closeCurrentFile();
+		set(verticesValue);
+		try {
+			m_associatedFileKey = loader.getKeepKey(filename);
+		} catch (edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse) {
+			m_associatedFileKey = null;
+		}
+	}
+
+	@Override
+	protected void encodeObject(org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator) throws java.io.IOException {
 		edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] verticesValue = getVertexArrayValue();
-        String filename = "vertices.bin";
-        Object associatedFileKey;
-        try {
-            associatedFileKey = storer.getKeepKey( filename );
-        } catch( edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse ) {
-            associatedFileKey = null;
-        }
-        if( m_associatedFileKey==null || !m_associatedFileKey.equals( associatedFileKey ) ) {
-            m_associatedFileKey = null;
-            java.io.OutputStream os = storer.createFile( filename, true );
-            edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.storeVertices( verticesValue, os );
-            storer.closeCurrentFile();
-            m_associatedFileKey = associatedFileKey;
-        } else {
-            if( storer.isKeepFileSupported() ) {
-                try {
-                    storer.keepFile( filename );
-                } catch( edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse ) {
-                    throw new Error( storer + " returns true for isKeepFileSupported(), but then throws " + kfnse );
-                } catch( edu.cmu.cs.stage3.io.KeepFileDoesNotExistException kfdne ) {
-                    throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( kfdne, filename );
-                }
-            }
-        }
-        node.appendChild( createNodeForString( document, "java.io.File["+filename+"]" ) );
-    }
-    
-	public void keepAnyAssociatedFiles( edu.cmu.cs.stage3.io.DirectoryTreeStorer storer ) throws edu.cmu.cs.stage3.io.KeepFileNotSupportedException, edu.cmu.cs.stage3.io.KeepFileDoesNotExistException {
-        super.keepAnyAssociatedFiles( storer );
-        String filename = "vertices.bin";
-        storer.keepFile( filename );
-    }
+		String filename = "vertices.bin";
+		Object associatedFileKey;
+		try {
+			associatedFileKey = storer.getKeepKey(filename);
+		} catch (edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse) {
+			associatedFileKey = null;
+		}
+		if (m_associatedFileKey == null || !m_associatedFileKey.equals(associatedFileKey)) {
+			m_associatedFileKey = null;
+			java.io.OutputStream os = storer.createFile(filename, true);
+			edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.storeVertices(verticesValue, os);
+			storer.closeCurrentFile();
+			m_associatedFileKey = associatedFileKey;
+		} else {
+			if (storer.isKeepFileSupported()) {
+				try {
+					storer.keepFile(filename);
+				} catch (edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse) {
+					throw new Error(storer + " returns true for isKeepFileSupported(), but then throws " + kfnse);
+				} catch (edu.cmu.cs.stage3.io.KeepFileDoesNotExistException kfdne) {
+					throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper(kfdne, filename);
+				}
+			}
+		}
+		node.appendChild(createNodeForString(document, "java.io.File[" + filename + "]"));
+	}
+
+	@Override
+	public void keepAnyAssociatedFiles(edu.cmu.cs.stage3.io.DirectoryTreeStorer storer) throws edu.cmu.cs.stage3.io.KeepFileNotSupportedException, edu.cmu.cs.stage3.io.KeepFileDoesNotExistException {
+		super.keepAnyAssociatedFiles(storer);
+		String filename = "vertices.bin";
+		storer.keepFile(filename);
+	}
 }

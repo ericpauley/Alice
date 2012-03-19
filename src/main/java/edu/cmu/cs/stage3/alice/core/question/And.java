@@ -24,17 +24,20 @@
 package edu.cmu.cs.stage3.alice.core.question;
 
 public class And extends BinaryBooleanResultingInBooleanQuestion {
-	private static Class[] s_supportedCoercionClasses = { Or.class };
-	
+	private static Class[] s_supportedCoercionClasses = {Or.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected boolean isShortCircuitable( boolean a ) {
+
+	@Override
+	protected boolean isShortCircuitable(boolean a) {
 		return a == false;
 	}
-	
-	protected boolean getValue( boolean a, boolean b ) {
+
+	@Override
+	protected boolean getValue(boolean a, boolean b) {
 		return a && b;
 	}
 }

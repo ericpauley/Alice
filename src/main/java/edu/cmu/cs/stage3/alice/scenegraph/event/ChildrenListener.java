@@ -24,6 +24,6 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public interface ChildrenListener {
-    public void childAdded( ChildrenEvent childrenEvent );
-    public void childRemoved( ChildrenEvent childrenEvent );
+	public void childAdded(ChildrenEvent childrenEvent);
+	public void childRemoved(ChildrenEvent childrenEvent);
 }

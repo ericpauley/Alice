@@ -24,12 +24,12 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public class UnresolvableReferenceException extends Exception {
-    private edu.cmu.cs.stage3.util.Criterion m_criterion;
-	public UnresolvableReferenceException( edu.cmu.cs.stage3.util.Criterion criterion, String detail ) {
-        super( detail );
-        m_criterion = criterion;
+	private edu.cmu.cs.stage3.util.Criterion m_criterion;
+	public UnresolvableReferenceException(edu.cmu.cs.stage3.util.Criterion criterion, String detail) {
+		super(detail);
+		m_criterion = criterion;
 	}
-    public edu.cmu.cs.stage3.util.Criterion getCriterion() {
-        return m_criterion;
-    }
+	public edu.cmu.cs.stage3.util.Criterion getCriterion() {
+		return m_criterion;
+	}
 }

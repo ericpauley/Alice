@@ -24,10 +24,12 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 abstract class AffectorProxy extends ComponentProxy {
-	
-	public void render( RenderContext context  ) {
+
+	@Override
+	public void render(RenderContext context) {
 	}
-	
-	public void pick( PickContext context, PickParameters pickParameters ) {
+
+	@Override
+	public void pick(PickContext context, PickParameters pickParameters) {
 	}
 }

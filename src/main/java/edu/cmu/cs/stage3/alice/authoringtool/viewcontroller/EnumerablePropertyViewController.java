@@ -30,41 +30,45 @@ public class EnumerablePropertyViewController extends PropertyViewController {
 	protected javax.swing.JLabel enumerableLabel = new javax.swing.JLabel();
 	protected Class valueClass;
 
-//	public EnumerablePropertyViewController( edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-//		this.addMouseListener(
-//			new java.awt.event.MouseAdapter() {
-//				public void mouseReleased( java.awt.event.MouseEvent ev ) {
-//					if( (ev.getX() >= 0) && (ev.getX() < ev.getComponent().getWidth()) && (ev.getY() >= 0) && (ev.getY() < ev.getComponent().getHeight()) ) {
-//						EnumerablePropertyViewController.this.popupButton.doClick();
-//					}
-//				}
-//			}
-//		);
-//	}
+	// public EnumerablePropertyViewController(
+	// edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions,
+	// boolean omitPropertyName, final
+	// edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
+	// this.addMouseListener(
+	// new java.awt.event.MouseAdapter() {
+	// public void mouseReleased( java.awt.event.MouseEvent ev ) {
+	// if( (ev.getX() >= 0) && (ev.getX() < ev.getComponent().getWidth()) &&
+	// (ev.getY() >= 0) && (ev.getY() < ev.getComponent().getHeight()) ) {
+	// EnumerablePropertyViewController.this.popupButton.doClick();
+	// }
+	// }
+	// }
+	// );
+	// }
 
-	public void set( edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-		super.set( property, true, allowExpressions, false, omitPropertyName, factory );
-		this.valueClass = edu.cmu.cs.stage3.alice.authoringtool.util.PopupMenuUtilities.getDesiredValueClass(property);
-		if( ! edu.cmu.cs.stage3.util.Enumerable.class.isAssignableFrom( this.valueClass ) ) {
-			throw new IllegalArgumentException( "valueClass of property " + property + " is not an Enumerable; instead: " + valueClass );
+	public void set(edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
+		super.set(property, true, allowExpressions, false, omitPropertyName, factory);
+		valueClass = edu.cmu.cs.stage3.alice.authoringtool.util.PopupMenuUtilities.getDesiredValueClass(property);
+		if (!edu.cmu.cs.stage3.util.Enumerable.class.isAssignableFrom(valueClass)) {
+			throw new IllegalArgumentException("valueClass of property " + property + " is not an Enumerable; instead: " + valueClass);
 		}
-		setPopupEnabled( true );
+		setPopupEnabled(true);
 		refreshGUI();
 	}
 
-	
+	@Override
 	protected java.awt.Component getNativeComponent() {
 		return enumerableLabel;
 	}
 
-	
+	@Override
 	protected Class getNativeClass() {
 		return edu.cmu.cs.stage3.util.Enumerable.class;
 	}
 
-	
+	@Override
 	protected void updateNativeComponent() {
-		String text = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( property.get(), property );
-		enumerableLabel.setText( text );
+		String text = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(property.get(), property);
+		enumerableLabel.setText(text);
 	}
 }

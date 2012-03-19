@@ -24,23 +24,24 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class SceneProxy extends ReferenceFrameProxy {
-    private BackgroundProxy m_backgroundProxy = null;
-    public BackgroundProxy getBackgroundProxy() {
-        return m_backgroundProxy;
-    }
-    
-	public void setup( RenderContext context ) {
-        context.beginAffectorSetup();
-		super.setup( context );
+	private BackgroundProxy m_backgroundProxy = null;
+	public BackgroundProxy getBackgroundProxy() {
+		return m_backgroundProxy;
+	}
+
+	@Override
+	public void setup(RenderContext context) {
+		context.beginAffectorSetup();
+		super.setup(context);
 		context.endAffectorSetup();
-    }
-    
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Scene.BACKGROUND_PROPERTY ) {
-		    m_backgroundProxy = (BackgroundProxy)getProxyFor( (edu.cmu.cs.stage3.alice.scenegraph.Background)value );
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Scene.BACKGROUND_PROPERTY) {
+			m_backgroundProxy = (BackgroundProxy) getProxyFor((edu.cmu.cs.stage3.alice.scenegraph.Background) value);
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

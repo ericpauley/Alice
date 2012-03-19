@@ -26,10 +26,10 @@ package edu.cmu.cs.stage3.alice.core.response.queue;
 import edu.cmu.cs.stage3.alice.core.property.ItemOfCollectionProperty;
 
 public class QueueItemResponse extends QueueResponse {
-	public final ItemOfCollectionProperty item = new ItemOfCollectionProperty( this, "item" );
+	public final ItemOfCollectionProperty item = new ItemOfCollectionProperty(this, "item");
 	public class RuntimeQueueItemResponse extends RuntimeQueueResponse {
-        protected Object getItem() {
-            return QueueItemResponse.this.item.getValue();
-        }
+		protected Object getItem() {
+			return item.getValue();
+		}
 	}
 }

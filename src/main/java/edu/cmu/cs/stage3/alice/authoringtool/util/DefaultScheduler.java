@@ -43,85 +43,88 @@ public class DefaultScheduler implements Runnable {
 	private java.util.Set eachFrameRunnables = new java.util.HashSet();
 	private java.util.Set eachFrameRunnablesMarkedForRemoval = new java.util.HashSet();
 
-	public boolean addDoOnceRunnable( Runnable doOnceRunnable ) {
-		synchronized( doOnceRunnables ) {
-			return doOnceRunnables.add( doOnceRunnable );
+	public boolean addDoOnceRunnable(Runnable doOnceRunnable) {
+		synchronized (doOnceRunnables) {
+			return doOnceRunnables.add(doOnceRunnable);
 		}
 	}
 
-	public boolean addEachFrameRunnable( Runnable eachFrameRunnable ) {
-		synchronized( eachFrameRunnables ) {
-			return eachFrameRunnables.add( eachFrameRunnable );
+	public boolean addEachFrameRunnable(Runnable eachFrameRunnable) {
+		synchronized (eachFrameRunnables) {
+			return eachFrameRunnables.add(eachFrameRunnable);
 		}
 	}
 
-	public boolean removeEachFrameRunnable( Runnable eachFrameRunnable ) {
-		synchronized( eachFrameRunnablesMarkedForRemoval ) {
-			return eachFrameRunnablesMarkedForRemoval.add( eachFrameRunnable );
+	public boolean removeEachFrameRunnable(Runnable eachFrameRunnable) {
+		synchronized (eachFrameRunnablesMarkedForRemoval) {
+			return eachFrameRunnablesMarkedForRemoval.add(eachFrameRunnable);
 		}
 	}
 
 	public Runnable[] getEachFrameRunnables() {
-		synchronized( eachFrameRunnables ) {
+		synchronized (eachFrameRunnables) {
 			Runnable[] runnables = new Runnable[eachFrameRunnables.size()];
 			int i = 0;
-			for( java.util.Iterator iter = eachFrameRunnables.iterator(); iter.hasNext(); ) {
-				runnables[i++] = (Runnable)iter.next();
+			for (java.util.Iterator iter = eachFrameRunnables.iterator(); iter.hasNext();) {
+				runnables[i++] = (Runnable) iter.next();
 			}
 			return runnables;
 		}
 	}
 
+	@Override
 	public void run() {
 		simulateOnce();
 	}
 
-//	synchronized public void idle( edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RendererEvent rendererEvent ) {
-//		long time = System.currentTimeMillis();
-//
-//		if( time > (idleLastTime + 5) ) {
-//			idleLastTime = time;
-//			simulateOnce();
-//		}
-//	}
+	// synchronized public void idle(
+	// edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RendererEvent
+	// rendererEvent ) {
+	// long time = System.currentTimeMillis();
+	//
+	// if( time > (idleLastTime + 5) ) {
+	// idleLastTime = time;
+	// simulateOnce();
+	// }
+	// }
 
 	synchronized private void simulateOnce() {
-		for( java.util.Iterator iter = doOnceRunnables.iterator(); iter.hasNext(); ) {
-			Runnable runnable = (Runnable)iter.next();
+		for (java.util.Iterator iter = doOnceRunnables.iterator(); iter.hasNext();) {
+			Runnable runnable = (Runnable) iter.next();
 			try {
 				runnable.run();
-			} catch( org.python.core.PyException e ) {
-				//System.out.println( "PyException: " + e );
-				if( org.python.core.Py.matchException( e, org.python.core.Py.SystemExit ) ) {
-					//TODO
+			} catch (org.python.core.PyException e) {
+				// System.out.println( "PyException: " + e );
+				if (org.python.core.Py.matchException(e, org.python.core.Py.SystemExit)) {
+					// TODO
 				} else {
-					org.python.core.Py.printException( e, null, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.getPyStdErr() );
+					org.python.core.Py.printException(e, null, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.getPyStdErr());
 				}
-			} catch( Throwable t ) {
-				System.err.println( "Error during simulation:" );
+			} catch (Throwable t) {
+				System.err.println("Error during simulation:");
 				t.printStackTrace();
 			}
 			iter.remove();
 		}
 
-		for( java.util.Iterator iter = eachFrameRunnablesMarkedForRemoval.iterator(); iter.hasNext(); ) {
-			eachFrameRunnables.remove( iter.next() );
+		for (java.util.Iterator iter = eachFrameRunnablesMarkedForRemoval.iterator(); iter.hasNext();) {
+			eachFrameRunnables.remove(iter.next());
 		}
 		eachFrameRunnablesMarkedForRemoval.clear();
 
-		for( java.util.Iterator iter = eachFrameRunnables.iterator(); iter.hasNext(); ) {
-			Runnable runnable = (Runnable)iter.next();
+		for (java.util.Iterator iter = eachFrameRunnables.iterator(); iter.hasNext();) {
+			Runnable runnable = (Runnable) iter.next();
 			try {
 				runnable.run();
-			} catch( org.python.core.PyException e ) {
-				//System.out.println( "PyException: " + e );
-				if( org.python.core.Py.matchException( e, org.python.core.Py.SystemExit ) ) {
-					//TODO
+			} catch (org.python.core.PyException e) {
+				// System.out.println( "PyException: " + e );
+				if (org.python.core.Py.matchException(e, org.python.core.Py.SystemExit)) {
+					// TODO
 				} else {
-					org.python.core.Py.printException( e, null, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.getPyStdErr() );
+					org.python.core.Py.printException(e, null, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.getPyStdErr());
 				}
-			} catch( Throwable t ) {
-				System.err.println( "Error during simulation:" );
+			} catch (Throwable t) {
+				System.err.println("Error during simulation:");
 				t.printStackTrace();
 			}
 		}
@@ -131,8 +134,8 @@ public class DefaultScheduler implements Runnable {
 		simLastTime = time;
 
 		simFrameCount++;
-		if( (simFrameCount == 5) || (simDT > 500) ) {
-			simFPS = (simFrameCount)/(simDT*.001);
+		if (simFrameCount == 5 || simDT > 500) {
+			simFPS = simFrameCount / (simDT * .001);
 			simFrameCount = 0;
 			simDT = 0;
 		}
@@ -143,18 +146,11 @@ public class DefaultScheduler implements Runnable {
 	}
 
 	/*
-	public double getRenderFPS() {
-		//TODO handle non-activity better
-		if( lastRenderLastTime == renderLastTime ) {
-			renderFPS = 0.0;
-			renderFrameCount = 0;
-			renderDT = 0;
-			renderLastTime = -1;
-		} else {
-			lastRenderLastTime = renderLastTime;
-		}
-
-		return renderFPS;
-	}
-	*/
+	 * public double getRenderFPS() { //TODO handle non-activity better if(
+	 * lastRenderLastTime == renderLastTime ) { renderFPS = 0.0;
+	 * renderFrameCount = 0; renderDT = 0; renderLastTime = -1; } else {
+	 * lastRenderLastTime = renderLastTime; }
+	 * 
+	 * return renderFPS; }
+	 */
 }

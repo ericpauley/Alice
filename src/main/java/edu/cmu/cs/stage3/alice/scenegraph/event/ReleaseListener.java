@@ -24,6 +24,6 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public interface ReleaseListener {
-	public void releasing( ReleaseEvent releaseEvent );
-	public void released( ReleaseEvent releaseEvent );
+	public void releasing(ReleaseEvent releaseEvent);
+	public void released(ReleaseEvent releaseEvent);
 }

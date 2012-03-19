@@ -24,62 +24,62 @@
 package edu.cmu.cs.stage3.image;
 
 public class ImageUtilities {
-	private static java.awt.MediaTracker s_mediaTracker = new java.awt.MediaTracker( new java.awt.Panel() );
+	private static java.awt.MediaTracker s_mediaTracker = new java.awt.MediaTracker(new java.awt.Panel());
 	private static java.awt.image.ImageObserver s_imageObserver = new java.awt.image.ImageObserver() {
-		public boolean imageUpdate( java.awt.Image image, int infoflags, int x, int y, int width, int height ) {
+		@Override
+		public boolean imageUpdate(java.awt.Image image, int infoflags, int x, int y, int width, int height) {
 			return true;
 		}
 	};
-	private static void waitForImage( java.awt.Image image ) throws InterruptedException {
-		s_mediaTracker.addImage( image, 0 );
+	private static void waitForImage(java.awt.Image image) throws InterruptedException {
+		s_mediaTracker.addImage(image, 0);
 		try {
-			s_mediaTracker.waitForID( 0 );
+			s_mediaTracker.waitForID(0);
 		} finally {
-			s_mediaTracker.removeImage( image );
+			s_mediaTracker.removeImage(image);
 		}
 	}
-	public static int getWidth( java.awt.Image image ) throws InterruptedException {
-		waitForImage( image );
-		return image.getWidth( s_imageObserver );
+	public static int getWidth(java.awt.Image image) throws InterruptedException {
+		waitForImage(image);
+		return image.getWidth(s_imageObserver);
 	}
-	public static int getHeight( java.awt.Image image ) throws InterruptedException {
-		waitForImage( image );
-		return image.getHeight( s_imageObserver );
+	public static int getHeight(java.awt.Image image) throws InterruptedException {
+		waitForImage(image);
+		return image.getHeight(s_imageObserver);
 	}
-	public static int[] getPixels( java.awt.Image image, int width, int height ) throws InterruptedException {
-		int[] pixels = new int[ width*height ];
-		java.awt.image.PixelGrabber pg = new java.awt.image.PixelGrabber( image, 0, 0, width, height, pixels, 0, width );
+	public static int[] getPixels(java.awt.Image image, int width, int height) throws InterruptedException {
+		int[] pixels = new int[width * height];
+		java.awt.image.PixelGrabber pg = new java.awt.image.PixelGrabber(image, 0, 0, width, height, pixels, 0, width);
 		pg.grabPixels();
 		if ((pg.getStatus() & java.awt.image.ImageObserver.ABORT) != 0) {
-			throw new RuntimeException( "image fetch aborted or errored" );
+			throw new RuntimeException("image fetch aborted or errored");
 		}
-		return pixels;		
+		return pixels;
 	}
 
-
-//		final Object lock = new Object();
-//		class WidthTracker implements java.awt.image.ImageObserver {
-//			private int m_width = -1;
-//			public int getWidth() {
-//				return m_width;
-//			}
-//			public boolean imageUpdate( java.awt.Image image, int infoflags, int x, int y, int width, int height ) {
-//				if( ( infoflags & java.awt.image.ImageObserver.WIDTH ) != 0 ) {
-//					m_width = width;
-//					synchronized( lock ) {
-//						lock.notify();
-//					}
-//					return false;						
-//				} else {
-//					return true;
-//				}
-//			}
-//		}
-//		WidthTracker widthTracker = new WidthTracker();
-//		synchronized( lock ) {
-//			image.getWidth( widthTracker );
-//			lock.wait();
-//		}
-//		return widthTracker.getWidth();
+	// final Object lock = new Object();
+	// class WidthTracker implements java.awt.image.ImageObserver {
+	// private int m_width = -1;
+	// public int getWidth() {
+	// return m_width;
+	// }
+	// public boolean imageUpdate( java.awt.Image image, int infoflags, int x,
+	// int y, int width, int height ) {
+	// if( ( infoflags & java.awt.image.ImageObserver.WIDTH ) != 0 ) {
+	// m_width = width;
+	// synchronized( lock ) {
+	// lock.notify();
+	// }
+	// return false;
+	// } else {
+	// return true;
+	// }
+	// }
+	// }
+	// WidthTracker widthTracker = new WidthTracker();
+	// synchronized( lock ) {
+	// image.getWidth( widthTracker );
+	// lock.wait();
+	// }
+	// return widthTracker.getWidth();
 }
-

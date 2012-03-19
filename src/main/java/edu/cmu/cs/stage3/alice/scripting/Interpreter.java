@@ -27,13 +27,13 @@ package edu.cmu.cs.stage3.alice.scripting;
  * @author Dennis Cosgrove
  */
 public interface Interpreter {
-	public void setWorld( edu.cmu.cs.stage3.alice.core.World world );
+	public void setWorld(edu.cmu.cs.stage3.alice.core.World world);
 	public void release();
 
 	public void start();
 	public void stop();
 
-	public Code compile( String script, Object source, CompileType compileType );
-	public Object eval( Code code );
-	public void exec( Code code );
+	public Code compile(String script, Object source, CompileType compileType);
+	public Object eval(Code code);
+	public void exec(Code code);
 }

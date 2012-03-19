@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public interface ReferenceGenerator {
-	public edu.cmu.cs.stage3.util.Criterion generateReference( edu.cmu.cs.stage3.alice.core.Element element );
+	public edu.cmu.cs.stage3.util.Criterion generateReference(edu.cmu.cs.stage3.alice.core.Element element);
 }

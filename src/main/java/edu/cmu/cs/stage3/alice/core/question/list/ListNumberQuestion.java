@@ -27,14 +27,15 @@ import edu.cmu.cs.stage3.alice.core.List;
 import edu.cmu.cs.stage3.alice.core.property.ListProperty;
 
 public abstract class ListNumberQuestion extends edu.cmu.cs.stage3.alice.core.question.NumberQuestion {
-	public final ListProperty list = new ListProperty( this, "list", null );
-	//protected abstract double getValue( List list );
-	protected abstract int getValue( List list );
-	
+	public final ListProperty list = new ListProperty(this, "list", null);
+	// protected abstract double getValue( List list );
+	protected abstract int getValue(List list);
+
+	@Override
 	public Object getValue() {
 		List listValue = list.getListValue();
-		if( listValue!=null ) {
-            return new Integer( getValue( listValue ) );
+		if (listValue != null) {
+			return new Integer(getValue(listValue));
 		} else {
 			return null;
 		}

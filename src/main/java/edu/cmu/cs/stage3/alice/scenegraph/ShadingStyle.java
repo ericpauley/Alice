@@ -25,7 +25,7 @@ package edu.cmu.cs.stage3.alice.scenegraph;
 
 /**
  * none, flat, or smooth.
- *
+ * 
  * @see Visual#setShadingStyle
  * @author Dennis Cosgrove
  */
@@ -34,7 +34,7 @@ public class ShadingStyle extends edu.cmu.cs.stage3.util.Enumerable {
 	public static final ShadingStyle FLAT = new ShadingStyle();
 	public static final ShadingStyle SMOOTH = new ShadingStyle();
 
-    public static ShadingStyle valueOf( String s ) {
-        return (ShadingStyle)edu.cmu.cs.stage3.util.Enumerable.valueOf( s, ShadingStyle.class );
-    }
+	public static ShadingStyle valueOf(String s) {
+		return (ShadingStyle) edu.cmu.cs.stage3.util.Enumerable.valueOf(s, ShadingStyle.class);
+	}
 }

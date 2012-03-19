@@ -23,9 +23,16 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.editors.scripteditor;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 /**
  * @author Jason Pratt
@@ -37,15 +44,26 @@ public class ScriptEditor extends javax.swing.JPanel implements edu.cmu.cs.stage
 	protected edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool;
 	protected edu.cmu.cs.stage3.alice.authoringtool.util.ScriptEditorPane scriptEditorPane = new edu.cmu.cs.stage3.alice.authoringtool.util.ScriptEditorPane();
 	protected javax.swing.event.CaretListener caretListener = new javax.swing.event.CaretListener() {
-		public void caretUpdate( javax.swing.event.CaretEvent e ) {
+		@Override
+		public void caretUpdate(javax.swing.event.CaretEvent e) {
 			ScriptEditor.this.updateLineNumber();
 		}
 	};
 	protected javax.swing.event.DocumentListener documentListener = new javax.swing.event.DocumentListener() {
-		//TODO: more efficient updating; this is going to be really costly when the script is large...
-		public void changedUpdate( javax.swing.event.DocumentEvent e ) { scriptProperty.set( scriptEditorPane.getText() ); }
-		public void insertUpdate( javax.swing.event.DocumentEvent e ) { scriptProperty.set( scriptEditorPane.getText() ); }
-		public void removeUpdate( javax.swing.event.DocumentEvent e ) { scriptProperty.set( scriptEditorPane.getText() ); }
+		// TODO: more efficient updating; this is going to be really costly when
+		// the script is large...
+		@Override
+		public void changedUpdate(javax.swing.event.DocumentEvent e) {
+			scriptProperty.set(scriptEditorPane.getText());
+		}
+		@Override
+		public void insertUpdate(javax.swing.event.DocumentEvent e) {
+			scriptProperty.set(scriptEditorPane.getText());
+		}
+		@Override
+		public void removeUpdate(javax.swing.event.DocumentEvent e) {
+			scriptProperty.set(scriptEditorPane.getText());
+		}
 	};
 
 	public ScriptEditor() {
@@ -54,78 +72,109 @@ public class ScriptEditor extends javax.swing.JPanel implements edu.cmu.cs.stage
 	}
 
 	private void guiInit() {
-		scriptScrollPane.setViewportView( scriptEditorPane );
-		scriptEditorPane.addCaretListener( caretListener );
-		scriptEditorPane.performAllAction.setEnabled( false );
-		scriptEditorPane.performSelectedAction.setEnabled( false );
+		scriptScrollPane.setViewportView(scriptEditorPane);
+		scriptEditorPane.addCaretListener(caretListener);
+		scriptEditorPane.performAllAction.setEnabled(false);
+		scriptEditorPane.performSelectedAction.setEnabled(false);
 	}
 
+	@Override
 	public javax.swing.JComponent getJComponent() {
 		return this;
 	}
 
+	@Override
 	public Object getObject() {
 		return scriptProperty;
 	}
 
-	public void setObject( edu.cmu.cs.stage3.alice.core.property.ScriptProperty scriptProperty ) {
-		scriptEditorPane.getDocument().removeDocumentListener( documentListener );
+	public void setObject(edu.cmu.cs.stage3.alice.core.property.ScriptProperty scriptProperty) {
+		scriptEditorPane.getDocument().removeDocumentListener(documentListener);
 		this.scriptProperty = scriptProperty;
 
-		if( this.scriptProperty != null ) {
-			if( scriptProperty.getStringValue() == null ) {
-				scriptProperty.set( "" );
+		if (this.scriptProperty != null) {
+			if (scriptProperty.getStringValue() == null) {
+				scriptProperty.set("");
 			}
-			scriptEditorPane.setText( scriptProperty.getStringValue() );
+			scriptEditorPane.setText(scriptProperty.getStringValue());
 
-			scriptEditorPane.getDocument().addDocumentListener( documentListener );
+			scriptEditorPane.getDocument().addDocumentListener(documentListener);
 
 			scriptEditorPane.resetUndoManager();
-			scriptEditorPane.setSandbox( scriptProperty.getOwner().getSandbox() );
+			scriptEditorPane.setSandbox(scriptProperty.getOwner().getSandbox());
 		} else {
 			scriptEditorPane.resetUndoManager();
-			scriptEditorPane.setSandbox( null );
+			scriptEditorPane.setSandbox(null);
 		}
 	}
 
-	public void setAuthoringTool( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool ) {
+	@Override
+	public void setAuthoringTool(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool) {
 		this.authoringTool = authoringTool;
 	}
 
 	public void updateLineNumber() {
-		//TODO: better formatting
-		this.lineNumberLabel.setText( "  line number: " + (scriptEditorPane.getCurrentLineNumber() + 1) + "     " );
+		// TODO: better formatting
+		lineNumberLabel.setText("  line number: " + (scriptEditorPane.getCurrentLineNumber() + 1) + "     ");
 	}
 
-	///////////////////////////////////////////////
+	// /////////////////////////////////////////////
 	// AuthoringToolStateListener interface
-	///////////////////////////////////////////////
+	// /////////////////////////////////////////////
 
-	public void stateChanging( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldLoading( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldUnLoading( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStarting( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStopping( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldPausing( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldSaving( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
+	@Override
+	public void stateChanging(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldLoading(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldUnLoading(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStarting(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStopping(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldPausing(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldSaving(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
 
-	public void stateChanged( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldLoaded( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldUnLoaded( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStarted( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStopped( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldPaused( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldSaved( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
+	@Override
+	public void stateChanged(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldLoaded(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldUnLoaded(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStarted(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStopped(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldPaused(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldSaved(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
 
-	//////////////////////
+	// ////////////////////
 	// Autogenerated
-	//////////////////////
+	// ////////////////////
 
 	BorderLayout borderLayout1 = new BorderLayout();
 	JPanel southPanel = new JPanel();
 	JScrollPane scriptScrollPane = new JScrollPane();
 	JLabel lineNumberLabel = new JLabel();
-	BoxLayout boxLayout1 = new BoxLayout( southPanel, BoxLayout.X_AXIS );
+	BoxLayout boxLayout1 = new BoxLayout(southPanel, BoxLayout.X_AXIS);
 	Border border1;
 	Border border2;
 	Border border3;
@@ -133,11 +182,11 @@ public class ScriptEditor extends javax.swing.JPanel implements edu.cmu.cs.stage
 	Border border4;
 
 	private void jbInit() {
-		border1 = BorderFactory.createBevelBorder(BevelBorder.LOWERED,Color.white,Color.lightGray,new Color(142, 142, 142),new Color(99, 99, 99));
-		border2 = BorderFactory.createBevelBorder(BevelBorder.LOWERED,Color.white,Color.gray,new Color(142, 142, 142),new Color(99, 99, 99));
-		border3 = BorderFactory.createEmptyBorder(1,1,1,1);
-		border4 = BorderFactory.createBevelBorder(BevelBorder.LOWERED,Color.white,Color.lightGray,new Color(99, 99, 99),new Color(142, 142, 142));
-		this.setLayout(borderLayout1);
+		border1 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.white, Color.lightGray, new Color(142, 142, 142), new Color(99, 99, 99));
+		border2 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.white, Color.gray, new Color(142, 142, 142), new Color(99, 99, 99));
+		border3 = BorderFactory.createEmptyBorder(1, 1, 1, 1);
+		border4 = BorderFactory.createBevelBorder(BevelBorder.LOWERED, Color.white, Color.lightGray, new Color(99, 99, 99), new Color(142, 142, 142));
+		setLayout(borderLayout1);
 		lineNumberLabel.setBorder(border1);
 		lineNumberLabel.setText("  line number:     ");
 		southPanel.setLayout(boxLayout1);

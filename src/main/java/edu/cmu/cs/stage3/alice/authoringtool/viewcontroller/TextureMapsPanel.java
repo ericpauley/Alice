@@ -30,44 +30,43 @@ public class TextureMapsPanel extends edu.cmu.cs.stage3.alice.authoringtool.util
 	protected edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty textureMaps;
 	protected javax.swing.JPanel contentPanel = new javax.swing.JPanel();
 	protected java.util.HashMap textureMapGuiCache = new java.util.HashMap();
-	protected javax.swing.JButton importTextureMapButton = new javax.swing.JButton( "import texture map" );
+	protected javax.swing.JButton importTextureMapButton = new javax.swing.JButton("import texture map");
 	protected edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool;
 	protected RefreshListener refreshListener = new RefreshListener();
 
-	public TextureMapsPanel( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool ) {
+	public TextureMapsPanel(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool) {
 		this.authoringTool = authoringTool;
 		guiInit();
 	}
 
 	private void guiInit() {
-		setTitle( "Texture Maps" );
-		contentPanel.setLayout( new java.awt.GridBagLayout() );
-		setContent( contentPanel );
-		importTextureMapButton.setBackground( new java.awt.Color( 240, 240, 255 ) );
-		importTextureMapButton.setMargin( new java.awt.Insets( 2, 4, 2, 4 ) );
-		importTextureMapButton.addActionListener(
-			new java.awt.event.ActionListener() {
-				public void actionPerformed( java.awt.event.ActionEvent ev ) {
-					authoringTool.setImportFileFilter( "Image Files" );
-					authoringTool.importElement( null, TextureMapsPanel.this.textureMaps.getOwner() );
-				}
+		setTitle("Texture Maps");
+		contentPanel.setLayout(new java.awt.GridBagLayout());
+		setContent(contentPanel);
+		importTextureMapButton.setBackground(new java.awt.Color(240, 240, 255));
+		importTextureMapButton.setMargin(new java.awt.Insets(2, 4, 2, 4));
+		importTextureMapButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent ev) {
+				authoringTool.setImportFileFilter("Image Files");
+				authoringTool.importElement(null, textureMaps.getOwner());
 			}
-		);
-		setOpaque( false );
-		contentPanel.setOpaque( false );
+		});
+		setOpaque(false);
+		contentPanel.setOpaque(false);
 
-		importTextureMapButton.setToolTipText( "<html><font face=arial size=-1>Load an Image File into this World.<p><p>Objects use image files as textures.<p>You can change an object's texture by setting its <b>skin</b> property.</font></html>" );
+		importTextureMapButton.setToolTipText("<html><font face=arial size=-1>Load an Image File into this World.<p><p>Objects use image files as textures.<p>You can change an object's texture by setting its <b>skin</b> property.</font></html>");
 	}
 
-	public void setTextureMaps( edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty textureMaps ) {
-		if( this.textureMaps != null ) {
-			this.textureMaps.removeObjectArrayPropertyListener( refreshListener );
+	public void setTextureMaps(edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty textureMaps) {
+		if (this.textureMaps != null) {
+			this.textureMaps.removeObjectArrayPropertyListener(refreshListener);
 		}
 
 		this.textureMaps = textureMaps;
 
-		if( textureMaps != null ) {
-			textureMaps.addObjectArrayPropertyListener( refreshListener );
+		if (textureMaps != null) {
+			textureMaps.addObjectArrayPropertyListener(refreshListener);
 		}
 
 		refreshGUI();
@@ -76,34 +75,37 @@ public class TextureMapsPanel extends edu.cmu.cs.stage3.alice.authoringtool.util
 	public void refreshGUI() {
 		contentPanel.removeAll();
 
-		if( textureMaps != null ) {
+		if (textureMaps != null) {
 			int count = 0;
-			for( int i = 0; i < textureMaps.size(); i++ ) {
-				final edu.cmu.cs.stage3.alice.core.TextureMap textureMap = (edu.cmu.cs.stage3.alice.core.TextureMap)textureMaps.get( i );
-				javax.swing.JComponent gui = (javax.swing.JComponent)textureMapGuiCache.get( textureMap );
-				if( gui == null ) {
-					gui = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getGUI( textureMap );
-					textureMapGuiCache.put( textureMap, gui );
+			for (int i = 0; i < textureMaps.size(); i++) {
+				final edu.cmu.cs.stage3.alice.core.TextureMap textureMap = (edu.cmu.cs.stage3.alice.core.TextureMap) textureMaps.get(i);
+				javax.swing.JComponent gui = (javax.swing.JComponent) textureMapGuiCache.get(textureMap);
+				if (gui == null) {
+					gui = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getGUI(textureMap);
+					textureMapGuiCache.put(textureMap, gui);
 				}
-				if( gui != null ) {
-					contentPanel.add( gui, new java.awt.GridBagConstraints( 0, count++, 1, 1, 1.0, 0.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.NONE, new java.awt.Insets( 0, 2, 0, 2 ), 0, 0 ) );
+				if (gui != null) {
+					contentPanel.add(gui, new java.awt.GridBagConstraints(0, count++, 1, 1, 1.0, 0.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.NONE, new java.awt.Insets(0, 2, 0, 2), 0, 0));
 				} else {
-					edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Unable to create gui for textureMap: " + textureMap, null );
+					edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Unable to create gui for textureMap: " + textureMap, null);
 				}
 			}
 
-			contentPanel.add( importTextureMapButton, new java.awt.GridBagConstraints( 0, count++, 1, 1, 1.0, 0.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.NONE, new java.awt.Insets( 4, 2, 4, 2 ), 0, 0 ) );
+			contentPanel.add(importTextureMapButton, new java.awt.GridBagConstraints(0, count++, 1, 1, 1.0, 0.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.NONE, new java.awt.Insets(4, 2, 4, 2), 0, 0));
 			java.awt.Component glue = javax.swing.Box.createGlue();
-			contentPanel.add( glue, new java.awt.GridBagConstraints( 0, count++, 1, 1, 1.0, 1.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.BOTH, new java.awt.Insets( 2, 2, 2, 2 ), 0, 0 ) );
+			contentPanel.add(glue, new java.awt.GridBagConstraints(0, count++, 1, 1, 1.0, 1.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.BOTH, new java.awt.Insets(2, 2, 2, 2), 0, 0));
 		}
 		revalidate();
 		repaint();
 	}
 
 	protected class RefreshListener implements edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyListener {
-		public void objectArrayPropertyChanging( edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev ) {}
-		public void objectArrayPropertyChanged( edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev ) {
-			TextureMapsPanel.this.refreshGUI();
+		@Override
+		public void objectArrayPropertyChanging(edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev) {
+		}
+		@Override
+		public void objectArrayPropertyChanged(edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev) {
+			refreshGUI();
 		}
 	}
 }

@@ -26,12 +26,13 @@ package edu.cmu.cs.stage3.alice.core.response.list;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class RemoveItemFromIndex extends ListResponse {
-	public final NumberProperty index = new NumberProperty( this, "index", new Integer( -1 ) );
+	public final NumberProperty index = new NumberProperty(this, "index", new Integer(-1));
 	public class RuntimeRemoveItemFromIndex extends RuntimeListResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			getList().removeItemFromIndex( RemoveItemFromIndex.this.index.intValue() );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			getList().removeItemFromIndex(index.intValue());
 		}
 	}
 }

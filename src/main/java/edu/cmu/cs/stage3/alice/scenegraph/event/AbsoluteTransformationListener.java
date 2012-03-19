@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public interface AbsoluteTransformationListener {
-    public void absoluteTransformationChanged( AbsoluteTransformationEvent absoluteTransformationEvent );
+	public void absoluteTransformationChanged(AbsoluteTransformationEvent absoluteTransformationEvent);
 }

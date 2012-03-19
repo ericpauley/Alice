@@ -34,10 +34,11 @@ public class MultiColumnPopupLayout implements java.awt.LayoutManager {
 		screenSize.height -= 28; // hack for standard Windows Task Bar
 	}
 
-	public java.awt.Dimension preferredLayoutSize( java.awt.Container parent ) {
+	@Override
+	public java.awt.Dimension preferredLayoutSize(java.awt.Container parent) {
 		updateInfo();
 
-		synchronized( parent.getTreeLock() ) {
+		synchronized (parent.getTreeLock()) {
 			java.awt.Insets insets = parent.getInsets();
 			int count = parent.getComponentCount();
 
@@ -47,40 +48,44 @@ public class MultiColumnPopupLayout implements java.awt.LayoutManager {
 			int heightSoFar = 0;
 			int maxWidth = 0;
 
-			for( int i = 0; i < count; i++ ) {
-				java.awt.Component comp = parent.getComponent( i );
+			for (int i = 0; i < count; i++) {
+				java.awt.Component comp = parent.getComponent(i);
 				java.awt.Dimension d = comp.getPreferredSize();
 
-				// all menuItems use same width for the purpose of accelerator hints
-				// getPreferredSize doesn't seem to reflect this consistently, though
-				maxWidth = Math.max( maxWidth, d.width );
+				// all menuItems use same width for the purpose of accelerator
+				// hints
+				// getPreferredSize doesn't seem to reflect this consistently,
+				// though
+				maxWidth = Math.max(maxWidth, d.width);
 
 				heightSoFar += d.height;
-				if( heightSoFar > screenSize.height ) {
+				if (heightSoFar > screenSize.height) {
 					numCols++;
-					totalHeight = Math.max( totalHeight, heightSoFar - d.height );
+					totalHeight = Math.max(totalHeight, heightSoFar - d.height);
 					heightSoFar = d.height;
 				}
 			}
 
-			if( totalHeight == 0 ) {
+			if (totalHeight == 0) {
 				totalHeight = heightSoFar;
 			}
 
-			totalWidth += (maxWidth + 1)*numCols - 1;
+			totalWidth += (maxWidth + 1) * numCols - 1;
 
-			java.awt.Dimension d = new java.awt.Dimension( insets.left + insets.right + totalWidth, insets.top + insets.bottom + totalHeight );
-//			System.out.println( "preferredSize: " + d );
+			java.awt.Dimension d = new java.awt.Dimension(insets.left + insets.right + totalWidth, insets.top + insets.bottom + totalHeight);
+			// System.out.println( "preferredSize: " + d );
 			return d;
 		}
 	}
 
-	public java.awt.Dimension minimumLayoutSize( java.awt.Container parent ) {
-		return preferredLayoutSize( parent );
+	@Override
+	public java.awt.Dimension minimumLayoutSize(java.awt.Container parent) {
+		return preferredLayoutSize(parent);
 	}
 
-	public void layoutContainer( java.awt.Container parent ) {
-		synchronized( parent.getTreeLock() ) {
+	@Override
+	public void layoutContainer(java.awt.Container parent) {
+		synchronized (parent.getTreeLock()) {
 			java.awt.Insets insets = parent.getInsets();
 			java.awt.Dimension parentSize = parent.getSize();
 
@@ -96,17 +101,21 @@ public class MultiColumnPopupLayout implements java.awt.LayoutManager {
 
 			java.util.ArrayList oneColumn = new java.util.ArrayList();
 
-			for( int i = 0; i < count; i++ ) {
-				java.awt.Component comp = parent.getComponent( i );
+			for (int i = 0; i < count; i++) {
+				java.awt.Component comp = parent.getComponent(i);
 				java.awt.Dimension d = comp.getPreferredSize();
 
 				heightSoFar += d.height;
-				if( (heightSoFar > parentSize.height) && (! oneColumn.isEmpty()) ) { // full column; lay it out
+				if (heightSoFar > parentSize.height && !oneColumn.isEmpty()) { // full
+																				// column;
+																				// lay
+																				// it
+																				// out
 					w = widthThisColumn;
-					for( java.util.Iterator iter = oneColumn.iterator(); iter.hasNext(); ) {
-						java.awt.Component c = (java.awt.Component)iter.next();
+					for (java.util.Iterator iter = oneColumn.iterator(); iter.hasNext();) {
+						java.awt.Component c = (java.awt.Component) iter.next();
 						h = c.getPreferredSize().height;
-						c.setBounds( x, y, w, h );
+						c.setBounds(x, y, w, h);
 						y += h;
 					}
 
@@ -120,22 +129,26 @@ public class MultiColumnPopupLayout implements java.awt.LayoutManager {
 					widthThisColumn = 0;
 				}
 
-				oneColumn.add( comp );
-				widthThisColumn = Math.max( widthThisColumn, d.width );
+				oneColumn.add(comp);
+				widthThisColumn = Math.max(widthThisColumn, d.width);
 			}
 
-			if( ! oneColumn.isEmpty() ) { // last column
+			if (!oneColumn.isEmpty()) { // last column
 				w = widthThisColumn;
-				for( java.util.Iterator iter = oneColumn.iterator(); iter.hasNext(); ) {
-					java.awt.Component c = (java.awt.Component)iter.next();
+				for (java.util.Iterator iter = oneColumn.iterator(); iter.hasNext();) {
+					java.awt.Component c = (java.awt.Component) iter.next();
 					h = c.getPreferredSize().height;
-					c.setBounds( x, y, w, h );
+					c.setBounds(x, y, w, h);
 					y += h;
 				}
 			}
 		}
 	}
 
-	public void addLayoutComponent( String name, java.awt.Component comp ) {}
-	public void removeLayoutComponent( java.awt.Component comp ) {}
+	@Override
+	public void addLayoutComponent(String name, java.awt.Component comp) {
+	}
+	@Override
+	public void removeLayoutComponent(java.awt.Component comp) {
+	}
 }

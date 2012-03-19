@@ -11,16 +11,16 @@ package edu.cmu.cs.stage3.caitlin.stencilhelp.client;
  * @version 1.0
  */
 
-import java.util.Vector;
 import java.awt.Rectangle;
+import java.util.Vector;
 
 public interface StencilObject {
-  public Vector getShapes();
-  public Rectangle getRectangle();
-  public Rectangle getPreviousRectangle();
-  public boolean isModified();
-  public boolean intersectsRectangle( Rectangle rect );
-  public void addStencilObjectPositionListener(StencilObjectPositionListener posListener);
-  public void removeStencilObjectPositionListener(StencilObjectPositionListener posListener);
-  public String getComponentID();
+	public Vector getShapes();
+	public Rectangle getRectangle();
+	public Rectangle getPreviousRectangle();
+	public boolean isModified();
+	public boolean intersectsRectangle(Rectangle rect);
+	public void addStencilObjectPositionListener(StencilObjectPositionListener posListener);
+	public void removeStencilObjectPositionListener(StencilObjectPositionListener posListener);
+	public String getComponentID();
 }

@@ -24,6 +24,6 @@
 package edu.cmu.cs.stage3.util;
 
 public interface VisitListener {
-	//todo? break early...
-	public void visited( Object o );
+	// todo? break early...
+	public void visited(Object o);
 }

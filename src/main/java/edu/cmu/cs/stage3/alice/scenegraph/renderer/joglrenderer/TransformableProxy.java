@@ -24,31 +24,34 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class TransformableProxy extends ReferenceFrameProxy {
-    private double[] m_local = new double[ 16 ];
-    private java.nio.DoubleBuffer m_localBuffer = java.nio.DoubleBuffer.wrap( m_local );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Transformable.LOCAL_TRANSFORMATION_PROPERTY ) {
-		    copy( m_local, (javax.vecmath.Matrix4d)value );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Transformable.IS_FIRST_CLASS_PROPERTY ) {
-            //pass
+	private double[] m_local = new double[16];
+	private java.nio.DoubleBuffer m_localBuffer = java.nio.DoubleBuffer.wrap(m_local);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Transformable.LOCAL_TRANSFORMATION_PROPERTY) {
+			copy(m_local, (javax.vecmath.Matrix4d) value);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Transformable.IS_FIRST_CLASS_PROPERTY) {
+			// pass
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
-    
-	public void render( RenderContext context ) {
-        context.gl.glPushMatrix();
-        context.gl.glMultMatrixd( m_localBuffer );
-        super.render( context );
-        context.gl.glPopMatrix();
-    }
-	
-	public void pick( PickContext context, PickParameters pickParameters ) {
-        context.gl.glPushMatrix();
-        context.gl.glMultMatrixd( m_localBuffer );
-        super.pick( context, pickParameters );
-        context.gl.glPopMatrix();
-    }
+
+	@Override
+	public void render(RenderContext context) {
+		context.gl.glPushMatrix();
+		context.gl.glMultMatrixd(m_localBuffer);
+		super.render(context);
+		context.gl.glPopMatrix();
+	}
+
+	@Override
+	public void pick(PickContext context, PickParameters pickParameters) {
+		context.gl.glPushMatrix();
+		context.gl.glMultMatrixd(m_localBuffer);
+		super.pick(context, pickParameters);
+		context.gl.glPopMatrix();
+	}
 
 }

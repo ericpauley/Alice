@@ -27,21 +27,21 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public class DefaultElementCellEditor extends javax.swing.DefaultCellEditor {
-	public DefaultElementCellEditor( javax.swing.JTextField textField ) {
-		super( textField );
+	public DefaultElementCellEditor(javax.swing.JTextField textField) {
+		super(textField);
 	}
 
-	
-	public boolean shouldSelectCell( java.util.EventObject e ) {
+	@Override
+	public boolean shouldSelectCell(java.util.EventObject e) {
 		return true;
 	}
 
-	
-	public java.awt.Component getTableCellEditorComponent( javax.swing.JTable table, Object value, boolean isSelected, int row, int column ) {
-		java.awt.Component c = super.getTableCellEditorComponent( table, value, isSelected, row, column );
+	@Override
+	public java.awt.Component getTableCellEditorComponent(javax.swing.JTable table, Object value, boolean isSelected, int row, int column) {
+		java.awt.Component c = super.getTableCellEditorComponent(table, value, isSelected, row, column);
 
-		if( c instanceof javax.swing.JTextField ) {
-			javax.swing.JTextField textField = (javax.swing.JTextField)c;
+		if (c instanceof javax.swing.JTextField) {
+			javax.swing.JTextField textField = (javax.swing.JTextField) c;
 			textField.selectAll();
 		}
 		return c;

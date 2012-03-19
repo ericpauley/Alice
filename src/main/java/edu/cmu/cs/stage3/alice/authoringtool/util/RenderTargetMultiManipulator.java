@@ -29,43 +29,43 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
 public class RenderTargetMultiManipulator extends RenderTargetPickManipulator {
 	protected edu.cmu.cs.stage3.alice.authoringtool.util.RenderTargetManipulatorMode mode;
 
-	public RenderTargetMultiManipulator( edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget renderTarget ) {
-		super( renderTarget );
-		setPopupEnabled( true );
+	public RenderTargetMultiManipulator(edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget renderTarget) {
+		super(renderTarget);
+		setPopupEnabled(true);
 	}
 
 	public edu.cmu.cs.stage3.alice.authoringtool.util.RenderTargetManipulatorMode getMode() {
 		return mode;
 	}
 
-	public void setMode( edu.cmu.cs.stage3.alice.authoringtool.util.RenderTargetManipulatorMode mode ) {
+	public void setMode(edu.cmu.cs.stage3.alice.authoringtool.util.RenderTargetManipulatorMode mode) {
 		this.mode = mode;
 
-		if( mode != null ) {
-			setHideCursorOnDrag( mode.hideCursorOnDrag() );
-			if( renderTarget.getAWTComponent() != null ) {
-				if( mode.getPreferredCursor() != null ) {
-					renderTarget.getAWTComponent().setCursor( mode.getPreferredCursor() );
+		if (mode != null) {
+			setHideCursorOnDrag(mode.hideCursorOnDrag());
+			if (renderTarget.getAWTComponent() != null) {
+				if (mode.getPreferredCursor() != null) {
+					renderTarget.getAWTComponent().setCursor(mode.getPreferredCursor());
 				} else {
-					renderTarget.getAWTComponent().setCursor( java.awt.Cursor.getDefaultCursor() );
+					renderTarget.getAWTComponent().setCursor(java.awt.Cursor.getDefaultCursor());
 				}
 			}
 		}
 	}
 
-	
-	public void mousePressed( java.awt.event.MouseEvent ev ) {
-		if( enabled ) {
-			super.mousePressed( ev );
+	@Override
+	public void mousePressed(java.awt.event.MouseEvent ev) {
+		if (enabled) {
+			super.mousePressed(ev);
 
-			if( mode != null ) {
-				if( mode.requiresPickedObject() && (ePickedTransformable != null) && (! ePickedTransformable.doEventsStopAscending()) && ascendTreeEnabled ) {
+			if (mode != null) {
+				if (mode.requiresPickedObject() && ePickedTransformable != null && !ePickedTransformable.doEventsStopAscending() && ascendTreeEnabled) {
 					abortAction();
-				} else if( mode.requiresPickedObject() && (ePickedTransformable == null) ) {
+				} else if (mode.requiresPickedObject() && ePickedTransformable == null) {
 					abortAction();
 				} else {
-					mode.setRenderTarget( renderTarget );
-					mode.mousePressed( ev, ePickedTransformable, pickInfo );
+					mode.setRenderTarget(renderTarget);
+					mode.mousePressed(ev, ePickedTransformable, pickInfo);
 				}
 			} else {
 				abortAction();
@@ -73,22 +73,22 @@ public class RenderTargetMultiManipulator extends RenderTargetPickManipulator {
 		}
 	}
 
-	
-	public void mouseReleased( java.awt.event.MouseEvent ev ) {
-		if( enabled && (! isActionAborted()) ) {
-			mode.setRenderTarget( renderTarget );
-			mode.mouseReleased( ev );
+	@Override
+	public void mouseReleased(java.awt.event.MouseEvent ev) {
+		if (enabled && !isActionAborted()) {
+			mode.setRenderTarget(renderTarget);
+			mode.mouseReleased(ev);
 		}
-		super.mouseReleased( ev );
+		super.mouseReleased(ev);
 	}
 
-	
-	public void mouseDragged( java.awt.event.MouseEvent ev ) {
-		if( enabled && (! isActionAborted()) ) {
-			super.mouseDragged( ev );
-			if( mouseIsDown ) {
-				mode.setRenderTarget( renderTarget );
-				mode.mouseDragged( ev, dx, dy );
+	@Override
+	public void mouseDragged(java.awt.event.MouseEvent ev) {
+		if (enabled && !isActionAborted()) {
+			super.mouseDragged(ev);
+			if (mouseIsDown) {
+				mode.setRenderTarget(renderTarget);
+				mode.mouseDragged(ev, dx, dy);
 			}
 		}
 	}

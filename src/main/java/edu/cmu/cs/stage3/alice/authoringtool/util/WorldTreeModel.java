@@ -28,28 +28,28 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  */
 public class WorldTreeModel extends TreeModelSupport implements edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateListener, javax.swing.tree.TreeModel {
 	protected edu.cmu.cs.stage3.alice.core.Element root;
-	protected Object[] emptyPath = { new edu.cmu.cs.stage3.alice.core.World() };
+	protected Object[] emptyPath = {new edu.cmu.cs.stage3.alice.core.World()};
 	protected ChildrenListener childrenListener = new ChildrenListener();
 	protected NameListener nameListener = new NameListener();
 	protected edu.cmu.cs.stage3.alice.core.Element currentScope;
 
 	public edu.cmu.cs.stage3.alice.core.World HACK_getOriginalRoot() {
-		return (edu.cmu.cs.stage3.alice.core.World)emptyPath[ 0 ];
+		return (edu.cmu.cs.stage3.alice.core.World) emptyPath[0];
 	}
 
 	public edu.cmu.cs.stage3.alice.core.Element getCurrentScope() {
 		return currentScope;
 	}
 
-	public void setCurrentScope( edu.cmu.cs.stage3.alice.core.Element scope ) {
+	public void setCurrentScope(edu.cmu.cs.stage3.alice.core.Element scope) {
 		currentScope = scope;
 	}
 
-	public boolean isElementInScope( edu.cmu.cs.stage3.alice.core.Element element ) {
-		if( currentScope != null ) {
-			if( element == currentScope ) {
+	public boolean isElementInScope(edu.cmu.cs.stage3.alice.core.Element element) {
+		if (currentScope != null) {
+			if (element == currentScope) {
 				return true;
-			} else if( element.isDescendantOf( currentScope ) ) {
+			} else if (element.isDescendantOf(currentScope)) {
 				return true;
 			}
 		}
@@ -57,88 +57,93 @@ public class WorldTreeModel extends TreeModelSupport implements edu.cmu.cs.stage
 		return false;
 	}
 
-	public void setRoot( edu.cmu.cs.stage3.alice.core.Element root ) {
-		stopListeningToTree( this.root );
+	public void setRoot(edu.cmu.cs.stage3.alice.core.Element root) {
+		stopListeningToTree(this.root);
 		this.root = root;
-		startListeningToTree( root );
+		startListeningToTree(root);
 
-		if( root == null ) {
-			javax.swing.event.TreeModelEvent ev = new javax.swing.event.TreeModelEvent( this, emptyPath );
-			fireTreeStructureChanged( ev );
+		if (root == null) {
+			javax.swing.event.TreeModelEvent ev = new javax.swing.event.TreeModelEvent(this, emptyPath);
+			fireTreeStructureChanged(ev);
 		} else {
-			javax.swing.event.TreeModelEvent ev = new javax.swing.event.TreeModelEvent( this, getPath( root ) );
-			fireTreeStructureChanged( ev );
+			javax.swing.event.TreeModelEvent ev = new javax.swing.event.TreeModelEvent(this, getPath(root));
+			fireTreeStructureChanged(ev);
 		}
 	}
 
-	public Object[] getPath( edu.cmu.cs.stage3.alice.core.Element element ) {
+	public Object[] getPath(edu.cmu.cs.stage3.alice.core.Element element) {
 		java.util.LinkedList list = new java.util.LinkedList();
 
 		edu.cmu.cs.stage3.alice.core.Element e = element;
-		while( true ) {
-			if( e == null ) {
-				return emptyPath;  // element's not in the tree
-//				return new Object[] {};  // element's not in the tree
+		while (true) {
+			if (e == null) {
+				return emptyPath; // element's not in the tree
+				// return new Object[] {}; // element's not in the tree
 			}
-			list.addFirst( e );
-			if( e == root ) {
+			list.addFirst(e);
+			if (e == root) {
 				break;
 			}
 			e = e.getParent();
 		}
 
-		if( list.isEmpty() ) {
+		if (list.isEmpty()) {
 			return emptyPath;
 		} else {
 			return list.toArray();
 		}
 	}
 
-	public void setListeningEnabled( boolean enabled ) {
-		if( enabled ) {
-			startListeningToTree( root );
+	public void setListeningEnabled(boolean enabled) {
+		if (enabled) {
+			startListeningToTree(root);
 		} else {
-			stopListeningToTree( root );
+			stopListeningToTree(root);
 		}
 	}
 
-	////////////////////////////////
+	// //////////////////////////////
 	// TreeModel Interface
-	////////////////////////////////
+	// //////////////////////////////
 
+	@Override
 	public Object getRoot() {
 		return root;
 	}
 
-	public boolean isLeaf( Object node ) {
-		if( node == null ) {
+	@Override
+	public boolean isLeaf(Object node) {
+		if (node == null) {
 			return true;
 		}
-		if( node == root ) {
+		if (node == root) {
 			return false;
 		}
 
-		return !(getChildCount( node ) > 0);
+		return !(getChildCount(node) > 0);
 	}
 
-	public int getChildCount( Object parent ) {
-		if( ! (parent instanceof edu.cmu.cs.stage3.alice.core.Element) ) {
-			throw new IllegalArgumentException( "nodes must be edu.cmu.cs.stage3.alice.core.Elements" );
+	@Override
+	public int getChildCount(Object parent) {
+		if (!(parent instanceof edu.cmu.cs.stage3.alice.core.Element)) {
+			throw new IllegalArgumentException("nodes must be edu.cmu.cs.stage3.alice.core.Elements");
 		}
 
 		int childCount = 0;
-		edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element)parent;
-		String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure( element.getClass() );
-		if( childrenProperties != null ) {
-			for( int i = 0; i < childrenProperties.length; i++ ) {
-				edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed( childrenProperties[i] );
-				if( p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
-					edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty)p;
-					if( edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom( oap.getComponentType() ) ) {
-						//DEBUG System.out.println( oap + ".size(): " + oap.size() );
-						for( int j = 0; j < oap.size(); j++ ) {
-							//DEBUG System.out.println( "item " + j + ": " + oap.get( j ) );
-							if( element.hasChild( (edu.cmu.cs.stage3.alice.core.Element)oap.get( j ) ) ) {
+		edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) parent;
+		String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure(element.getClass());
+		if (childrenProperties != null) {
+			for (String childrenPropertie : childrenProperties) {
+				edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed(childrenPropertie);
+				if (p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
+					edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) p;
+					if (edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom(oap.getComponentType())) {
+						// DEBUG System.out.println( oap + ".size(): " +
+						// oap.size() );
+						for (int j = 0; j < oap.size(); j++) {
+							// DEBUG System.out.println( "item " + j + ": " +
+							// oap.get( j ) );
+							if (element.hasChild((edu.cmu.cs.stage3.alice.core.Element) oap.get(j))) {
 								childCount++;
 							}
 						}
@@ -147,28 +152,30 @@ public class WorldTreeModel extends TreeModelSupport implements edu.cmu.cs.stage
 			}
 		}
 
-		//DEBUG System.out.println( "getChildCount( " + parent + " ): " + childCount );
+		// DEBUG System.out.println( "getChildCount( " + parent + " ): " +
+		// childCount );
 		return childCount;
 	}
 
-	public Object getChild( Object parent, int index ) {
-		if( ! (parent instanceof edu.cmu.cs.stage3.alice.core.Element) ) {
-			throw new IllegalArgumentException( "nodes must be edu.cmu.cs.stage3.alice.core.Elements" );
+	@Override
+	public Object getChild(Object parent, int index) {
+		if (!(parent instanceof edu.cmu.cs.stage3.alice.core.Element)) {
+			throw new IllegalArgumentException("nodes must be edu.cmu.cs.stage3.alice.core.Elements");
 		}
 
 		int childCount = 0;
-		edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element)parent;
-		String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure( element.getClass() );
-		if( childrenProperties != null ) {
-			for( int i = 0; i < childrenProperties.length; i++ ) {
-				edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed( childrenProperties[i] );
-				if( p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
-					edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty)p;
-					if( edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom( oap.getComponentType() ) ) {
-						for( int j = 0; j < oap.size(); j++ ) {
-							if( element.hasChild( (edu.cmu.cs.stage3.alice.core.Element)oap.get( j ) ) ) {
-								if( childCount == index ) {
-									return oap.get( j );
+		edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) parent;
+		String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure(element.getClass());
+		if (childrenProperties != null) {
+			for (String childrenPropertie : childrenProperties) {
+				edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed(childrenPropertie);
+				if (p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
+					edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) p;
+					if (edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom(oap.getComponentType())) {
+						for (int j = 0; j < oap.size(); j++) {
+							if (element.hasChild((edu.cmu.cs.stage3.alice.core.Element) oap.get(j))) {
+								if (childCount == index) {
+									return oap.get(j);
 								}
 								childCount++;
 							}
@@ -181,29 +188,30 @@ public class WorldTreeModel extends TreeModelSupport implements edu.cmu.cs.stage
 		return null;
 	}
 
-	public int getIndexOfChild( Object parent, Object child ) {
-		if( parent == null ) {
+	@Override
+	public int getIndexOfChild(Object parent, Object child) {
+		if (parent == null) {
 			return -1;
 		}
-		if( ! (parent instanceof edu.cmu.cs.stage3.alice.core.Element) ) {
-			throw new IllegalArgumentException( "nodes must be edu.cmu.cs.stage3.alice.core.Elements" );
+		if (!(parent instanceof edu.cmu.cs.stage3.alice.core.Element)) {
+			throw new IllegalArgumentException("nodes must be edu.cmu.cs.stage3.alice.core.Elements");
 		}
-		if( ! (child instanceof edu.cmu.cs.stage3.alice.core.Element) ) {
-			throw new IllegalArgumentException( "nodes must be edu.cmu.cs.stage3.alice.core.Elements" );
+		if (!(child instanceof edu.cmu.cs.stage3.alice.core.Element)) {
+			throw new IllegalArgumentException("nodes must be edu.cmu.cs.stage3.alice.core.Elements");
 		}
 
 		int childCount = 0;
-		edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element)parent;
-		String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure( element.getClass() );
-		if( childrenProperties != null ) {
-			for( int i = 0; i < childrenProperties.length; i++ ) {
-				edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed( childrenProperties[i] );
-				if( p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
-					edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty)p;
-					if( edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom( oap.getComponentType() ) ) {
-						for( int j = 0; j < oap.size(); j++ ) {
-							if( element.hasChild( (edu.cmu.cs.stage3.alice.core.Element)oap.get( j ) ) ) {
-								if( child == oap.get( j ) ) {
+		edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) parent;
+		String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure(element.getClass());
+		if (childrenProperties != null) {
+			for (String childrenPropertie : childrenProperties) {
+				edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed(childrenPropertie);
+				if (p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
+					edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) p;
+					if (edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom(oap.getComponentType())) {
+						for (int j = 0; j < oap.size(); j++) {
+							if (element.hasChild((edu.cmu.cs.stage3.alice.core.Element) oap.get(j))) {
+								if (child == oap.get(j)) {
 									return childCount;
 								}
 								childCount++;
@@ -217,126 +225,167 @@ public class WorldTreeModel extends TreeModelSupport implements edu.cmu.cs.stage
 		return -1;
 	}
 
-	public void valueForPathChanged( javax.swing.tree.TreePath path, Object newValue ) {
-		if( (path.getLastPathComponent() instanceof edu.cmu.cs.stage3.alice.core.Element) && (newValue instanceof String) ) {
-			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element)path.getLastPathComponent();
+	@Override
+	public void valueForPathChanged(javax.swing.tree.TreePath path, Object newValue) {
+		if (path.getLastPathComponent() instanceof edu.cmu.cs.stage3.alice.core.Element && newValue instanceof String) {
+			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) path.getLastPathComponent();
 			Object previousName = element.name.get();
 			try {
-				element.name.set( newValue );
-			} catch( edu.cmu.cs.stage3.alice.core.IllegalNameValueException e ) {
-				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( e.getMessage(), e );
-				element.name.set( previousName );
+				element.name.set(newValue);
+			} catch (edu.cmu.cs.stage3.alice.core.IllegalNameValueException e) {
+				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog(e.getMessage(), e);
+				element.name.set(previousName);
 			}
 		} else {
-			throw new RuntimeException( "only allows name changes through the model" );
+			throw new RuntimeException("only allows name changes through the model");
 		}
 	}
 
-	///////////////////////////////////////////////
+	// /////////////////////////////////////////////
 	// AuthoringToolStateListener interface
-	///////////////////////////////////////////////
+	// /////////////////////////////////////////////
 
-	public void stateChanging( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {
-		if( ev.getCurrentState() == edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent.RUNTIME_STATE ) {
-			setListeningEnabled( false );
+	@Override
+	public void stateChanging(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+		if (ev.getCurrentState() == edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent.RUNTIME_STATE) {
+			setListeningEnabled(false);
 		} else {
-			setListeningEnabled( true );
+			setListeningEnabled(true);
 		}
 	}
-	public void worldLoading( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldUnLoading( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStarting( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStopping( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldPausing( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldSaving( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
+	@Override
+	public void worldLoading(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldUnLoading(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStarting(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStopping(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldPausing(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldSaving(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
 
-	public void stateChanged( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldLoaded( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldUnLoaded( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStarted( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStopped( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldPaused( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldSaved( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
+	@Override
+	public void stateChanged(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldLoaded(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldUnLoaded(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStarted(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStopped(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldPaused(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldSaved(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
 
-	////////////////////////////////////////
+	// //////////////////////////////////////
 	// ChildrenListener and NameListener
-	////////////////////////////////////////
+	// //////////////////////////////////////
 
 	public class ChildrenListener implements edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyListener {
-		public void objectArrayPropertyChanging( edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev ) {}
+		@Override
+		public void objectArrayPropertyChanging(edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev) {
+		}
 
-		public void objectArrayPropertyChanged( final edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev ) {
-			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element)ev.getItem();
+		@Override
+		public void objectArrayPropertyChanged(final edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev) {
+			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) ev.getItem();
 			edu.cmu.cs.stage3.alice.core.Element parent = ev.getObjectArrayProperty().getOwner();
-			Object[] path = getPath( parent );
+			Object[] path = getPath(parent);
 
-			if( ev.getChangeType() == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_INSERTED ) {
-				if( element.getParent() == parent ) { //TODO: probably shouldn't be dependent on being parented before being added to objectArrayProperty
-					startListeningToTree( element );
+			if (ev.getChangeType() == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_INSERTED) {
+				if (element.getParent() == parent) { // TODO: probably shouldn't
+														// be dependent on being
+														// parented before being
+														// added to
+														// objectArrayProperty
+					startListeningToTree(element);
 
-					int[] childIndices = { getIndexOfChild( parent, element ) };
-					Object[] children = { element };
+					int[] childIndices = {getIndexOfChild(parent, element)};
+					Object[] children = {element};
 
-//					javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent( this, path, childIndices, children );
-//					fireTreeNodesInserted( tmev );
+					// javax.swing.event.TreeModelEvent tmev = new
+					// javax.swing.event.TreeModelEvent( this, path,
+					// childIndices, children );
+					// fireTreeNodesInserted( tmev );
 
-					// HACK;  i get weird tree behavior with the code above
-					javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent( this, path );
-					fireTreeStructureChanged( tmev );
+					// HACK; i get weird tree behavior with the code above
+					javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent(this, path);
+					fireTreeStructureChanged(tmev);
 				}
-			} else if( ev.getChangeType() == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_REMOVED ) {
-				stopListeningToTree( element );
+			} else if (ev.getChangeType() == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_REMOVED) {
+				stopListeningToTree(element);
 
-				// this is a cop-out; it would be a pain to calculate the previous position in the filtered tree
+				// this is a cop-out; it would be a pain to calculate the
+				// previous position in the filtered tree
 				// of the already deleted element
-				javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent( this, path );
-				fireTreeStructureChanged( tmev );
-			} else if( ev.getChangeType() == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_SHIFTED ) {
+				javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent(this, path);
+				fireTreeStructureChanged(tmev);
+			} else if (ev.getChangeType() == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_SHIFTED) {
 				// this one isn't a cop-out
-				javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent( this, path );
-				fireTreeStructureChanged( tmev );
+				javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent(this, path);
+				fireTreeStructureChanged(tmev);
 			}
 		}
 	}
 
 	public class NameListener implements edu.cmu.cs.stage3.alice.core.event.PropertyListener {
-		public void propertyChanging( edu.cmu.cs.stage3.alice.core.event.PropertyEvent ev ) {}
+		@Override
+		public void propertyChanging(edu.cmu.cs.stage3.alice.core.event.PropertyEvent ev) {
+		}
 
-		public void propertyChanged( edu.cmu.cs.stage3.alice.core.event.PropertyEvent ev ) {
+		@Override
+		public void propertyChanged(edu.cmu.cs.stage3.alice.core.event.PropertyEvent ev) {
 			edu.cmu.cs.stage3.alice.core.Element element = ev.getProperty().getOwner();
 			edu.cmu.cs.stage3.alice.core.Element parent = element.getParent();
-			Object[] path = getPath( parent );
-			int[] childIndices = { getIndexOfChild( parent, element ) };
-			Object[] children = { element };
-			if( (path == null) || (path.length == 0) ) {
-				path = getPath( element );
+			Object[] path = getPath(parent);
+			int[] childIndices = {getIndexOfChild(parent, element)};
+			Object[] children = {element};
+			if (path == null || path.length == 0) {
+				path = getPath(element);
 				childIndices = null;
 				children = null;
 			}
-			javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent( this, path, childIndices, children );
-			fireTreeNodesChanged( tmev );
+			javax.swing.event.TreeModelEvent tmev = new javax.swing.event.TreeModelEvent(this, path, childIndices, children);
+			fireTreeNodesChanged(tmev);
 		}
 	}
 
-	////////////////////////////////
+	// //////////////////////////////
 	// protected methods
-	////////////////////////////////
+	// //////////////////////////////
 
-	protected void startListeningToTree( edu.cmu.cs.stage3.alice.core.Element element ) {
-		if( element != null ) {
-			element.name.addPropertyListener( nameListener );
+	protected void startListeningToTree(edu.cmu.cs.stage3.alice.core.Element element) {
+		if (element != null) {
+			element.name.addPropertyListener(nameListener);
 
-			String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure( element.getClass() );
-			if( childrenProperties != null ) {
-				for( int i = 0; i < childrenProperties.length; i++ ) {
-					edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed( childrenProperties[i] );
-					if( p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
-						edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty)p;
-						if( edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom( oap.getComponentType() ) ) {
-							oap.addObjectArrayPropertyListener( childrenListener );
-							for( int j = 0; j < oap.size(); j++ ) {
-								if( element.hasChild( (edu.cmu.cs.stage3.alice.core.Element)oap.get( j ) ) ) {
-									startListeningToTree( (edu.cmu.cs.stage3.alice.core.Element)oap.get( j ) );
+			String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure(element.getClass());
+			if (childrenProperties != null) {
+				for (String childrenPropertie : childrenProperties) {
+					edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed(childrenPropertie);
+					if (p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
+						edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) p;
+						if (edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom(oap.getComponentType())) {
+							oap.addObjectArrayPropertyListener(childrenListener);
+							for (int j = 0; j < oap.size(); j++) {
+								if (element.hasChild((edu.cmu.cs.stage3.alice.core.Element) oap.get(j))) {
+									startListeningToTree((edu.cmu.cs.stage3.alice.core.Element) oap.get(j));
 								}
 							}
 						}
@@ -346,21 +395,21 @@ public class WorldTreeModel extends TreeModelSupport implements edu.cmu.cs.stage
 		}
 	}
 
-	protected void stopListeningToTree( edu.cmu.cs.stage3.alice.core.Element element ) {
-		if( element != null ) {
-			element.name.removePropertyListener( nameListener );
+	protected void stopListeningToTree(edu.cmu.cs.stage3.alice.core.Element element) {
+		if (element != null) {
+			element.name.removePropertyListener(nameListener);
 
-			String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure( element.getClass() );
-			if( childrenProperties != null ) {
-				for( int i = 0; i < childrenProperties.length; i++ ) {
-					edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed( childrenProperties[i] );
-					if( p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
-						edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty)p;
-						if( edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom( oap.getComponentType() ) ) {
-							oap.removeObjectArrayPropertyListener( childrenListener );
-							for( int j = 0; j < oap.size(); j++ ) {
-								if( element.hasChild( (edu.cmu.cs.stage3.alice.core.Element)oap.get( j ) ) ) {
-									stopListeningToTree( (edu.cmu.cs.stage3.alice.core.Element)oap.get( j ) );
+			String[] childrenProperties = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getWorldTreeChildrenPropertiesStructure(element.getClass());
+			if (childrenProperties != null) {
+				for (String childrenPropertie : childrenProperties) {
+					edu.cmu.cs.stage3.alice.core.Property p = element.getPropertyNamed(childrenPropertie);
+					if (p instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
+						edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = (edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) p;
+						if (edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom(oap.getComponentType())) {
+							oap.removeObjectArrayPropertyListener(childrenListener);
+							for (int j = 0; j < oap.size(); j++) {
+								if (element.hasChild((edu.cmu.cs.stage3.alice.core.Element) oap.get(j))) {
+									stopListeningToTree((edu.cmu.cs.stage3.alice.core.Element) oap.get(j));
 								}
 							}
 						}
@@ -371,32 +420,29 @@ public class WorldTreeModel extends TreeModelSupport implements edu.cmu.cs.stage
 	}
 
 	/*
-	protected void clearAllListening( edu.cmu.cs.stage3.alice.core.Element element ) {
-		if( element != null ) {
-			element.removeChildrenListener( this );
-			element.name.removePropertyListener( this );
-
-			edu.cmu.cs.stage3.alice.core.Element[] children = element.getChildren();
-			for( int i = 0; i < children.length; i++ ) {
-				clearAllListening( children[i] );
-			}
-		}
-	}
-	*/
+	 * protected void clearAllListening( edu.cmu.cs.stage3.alice.core.Element
+	 * element ) { if( element != null ) { element.removeChildrenListener( this
+	 * ); element.name.removePropertyListener( this );
+	 * 
+	 * edu.cmu.cs.stage3.alice.core.Element[] children = element.getChildren();
+	 * for( int i = 0; i < children.length; i++ ) { clearAllListening(
+	 * children[i] ); } } }
+	 */
 
 	/**
 	 * Determines how close a subclass is to a superclass
-	 *
-	 * @returns  the depth of the class hierarchy between the given superclass and subclass
+	 * 
+	 * @returns the depth of the class hierarchy between the given superclass
+	 *          and subclass
 	 */
-	protected static int getClassDepth( Class superclass, Class subclass ) {
-		if( ! superclass.isAssignableFrom( subclass ) ) {
+	protected static int getClassDepth(Class superclass, Class subclass) {
+		if (!superclass.isAssignableFrom(subclass)) {
 			return -1;
 		}
 
 		Class temp = subclass;
 		int i = 0;
-		while( (temp != superclass) && (superclass.isAssignableFrom( temp ) ) ) {
+		while (temp != superclass && superclass.isAssignableFrom(temp)) {
 			i++;
 			temp = temp.getSuperclass();
 		}

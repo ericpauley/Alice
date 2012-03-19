@@ -26,9 +26,10 @@ package edu.cmu.cs.stage3.alice.core.question.userdefined;
 import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 
 public class Comment extends Component {
-	public final StringProperty text = new StringProperty( this, "text", "" );
-    
+	public final StringProperty text = new StringProperty(this, "text", "");
+
+	@Override
 	public Object[] execute() {
-        return null;
-    }
+		return null;
+	}
 }

@@ -26,33 +26,35 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
 public class BackslashConverterFilterInputStream extends java.io.FilterInputStream {
 	int newChar;
 
-	// creates a FilterInputStream that converts '\\' characters to '/' characters
-	public BackslashConverterFilterInputStream( java.io.InputStream is ) {
-		super( is );
-		this.newChar = '/';
+	// creates a FilterInputStream that converts '\\' characters to '/'
+	// characters
+	public BackslashConverterFilterInputStream(java.io.InputStream is) {
+		super(is);
+		newChar = '/';
 	}
 
-	// creates a FilterInputStream that converts '\\' characters to <code>newChar</code> characters
-	public BackslashConverterFilterInputStream( java.io.InputStream is, int newChar ) {
-		super( is );
+	// creates a FilterInputStream that converts '\\' characters to
+	// <code>newChar</code> characters
+	public BackslashConverterFilterInputStream(java.io.InputStream is, int newChar) {
+		super(is);
 		this.newChar = newChar;
 	}
 
-	
+	@Override
 	public int read() throws java.io.IOException {
 		int c = super.read();
-		if( c == '\\' ) {
+		if (c == '\\') {
 			c = newChar;
 		}
 		return c;
 	}
 
-	
-	public int read( byte[] b, int off, int len ) throws java.io.IOException {
-		int result = super.read( b, off, len );
-		for( int i = 0; i < result; i++ ) {
-			if( b[off + i] == '\\' ) {
-				b[off + i] = (byte)newChar;
+	@Override
+	public int read(byte[] b, int off, int len) throws java.io.IOException {
+		int result = super.read(b, off, len);
+		for (int i = 0; i < result; i++) {
+			if (b[off + i] == '\\') {
+				b[off + i] = (byte) newChar;
 			}
 		}
 		return result;

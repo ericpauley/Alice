@@ -24,15 +24,16 @@
 package edu.cmu.cs.stage3.alice.core.question;
 
 import edu.cmu.cs.stage3.alice.core.Question;
-import edu.cmu.cs.stage3.alice.core.property.TransformableProperty;
 import edu.cmu.cs.stage3.alice.core.Transformable;
+import edu.cmu.cs.stage3.alice.core.property.TransformableProperty;
 
 public abstract class SubjectQuestion extends Question {
-	public final TransformableProperty subject = new TransformableProperty( this, "subject", null );
-	protected abstract Object getValue( Transformable subjectValue );
-	
+	public final TransformableProperty subject = new TransformableProperty(this, "subject", null);
+	protected abstract Object getValue(Transformable subjectValue);
+
+	@Override
 	public Object getValue() {
 		Transformable subjectValue = subject.getTransformableValue();
-		return getValue( subjectValue );
+		return getValue(subjectValue);
 	}
 }

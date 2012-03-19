@@ -30,76 +30,97 @@ import edu.cmu.cs.stage3.alice.scenegraph.SymmetricPerspectiveCamera;
 import edu.cmu.cs.stage3.alice.scenegraph.TextureMap;
 
 public abstract class RenderTarget extends edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractRenderTarget {
-	RenderTarget( Renderer renderer ) {
-		super( renderer );
+	RenderTarget(Renderer renderer) {
+		super(renderer);
 	}
-	
+
+	@Override
 	public void markDirty() {
 	}
 	public boolean updateIsRequired() {
 		return false;
 	}
-	public javax.vecmath.Matrix4d getProjectionMatrix( Camera camera ) {
+	@Override
+	public javax.vecmath.Matrix4d getProjectionMatrix(Camera camera) {
 		return null;
 	}
-	public double[] getActualPlane( OrthographicCamera sgOrthographicCamera ) {
+	@Override
+	public double[] getActualPlane(OrthographicCamera sgOrthographicCamera) {
 		return null;
 	}
-	public double[] getActualPlane( PerspectiveCamera sgPerspectiveCamera ) {
+	@Override
+	public double[] getActualPlane(PerspectiveCamera sgPerspectiveCamera) {
 		return null;
 	}
-	public double getActualHorizontalViewingAngle( SymmetricPerspectiveCamera sgSymmetricPerspectiveCamera ) {
+	@Override
+	public double getActualHorizontalViewingAngle(SymmetricPerspectiveCamera sgSymmetricPerspectiveCamera) {
 		return Double.NaN;
 	}
-	public double getActualVerticalViewingAngle( SymmetricPerspectiveCamera sgSymmetricPerspectiveCamera ) {
+	@Override
+	public double getActualVerticalViewingAngle(SymmetricPerspectiveCamera sgSymmetricPerspectiveCamera) {
 		return Double.NaN;
 	}
-	public java.awt.Rectangle getActualViewport( Camera sgCamera ) {
-		return new java.awt.Rectangle( getSize() );
+	@Override
+	public java.awt.Rectangle getActualViewport(Camera sgCamera) {
+		return new java.awt.Rectangle(getSize());
 	}
-	public java.awt.Rectangle getViewport( Camera sgCamera ) {
+	@Override
+	public java.awt.Rectangle getViewport(Camera sgCamera) {
 		return null;
 	}
-	public void setViewport( Camera sgCamera, java.awt.Rectangle viewport ) {
+	@Override
+	public void setViewport(Camera sgCamera, java.awt.Rectangle viewport) {
 	}
-	public boolean isLetterboxedAsOpposedToDistorted( edu.cmu.cs.stage3.alice.scenegraph.Camera sgCamera ) {
-        return true;
-    }
-	public void setIsLetterboxedAsOpposedToDistorted( edu.cmu.cs.stage3.alice.scenegraph.Camera sgCamera, boolean isLetterboxedAsOpposedToDistorted ) {
-    }
+	@Override
+	public boolean isLetterboxedAsOpposedToDistorted(edu.cmu.cs.stage3.alice.scenegraph.Camera sgCamera) {
+		return true;
+	}
+	@Override
+	public void setIsLetterboxedAsOpposedToDistorted(edu.cmu.cs.stage3.alice.scenegraph.Camera sgCamera, boolean isLetterboxedAsOpposedToDistorted) {
+	}
 
+	@Override
 	public java.awt.Image getOffscreenImage() {
 		return null;
 	}
-    public java.awt.Image getZBufferImage() {
-        return null;
-    }
-	public java.awt.Image getImage( edu.cmu.cs.stage3.alice.scenegraph.TextureMap textureMap ) {
+	@Override
+	public java.awt.Image getZBufferImage() {
 		return null;
 	}
-	public java.awt.Graphics getGraphics( TextureMap textureMap ) {
+	@Override
+	public java.awt.Image getImage(edu.cmu.cs.stage3.alice.scenegraph.TextureMap textureMap) {
 		return null;
 	}
-	public void copyOffscreenImageToTextureMap( TextureMap textureMap ) {
+	@Override
+	public java.awt.Graphics getGraphics(TextureMap textureMap) {
+		return null;
+	}
+	@Override
+	public void copyOffscreenImageToTextureMap(TextureMap textureMap) {
 	}
 
+	@Override
 	public void clearAndRenderOffscreen() {
 	}
-	public boolean rendersOnEdgeTrianglesAsLines( edu.cmu.cs.stage3.alice.scenegraph.OrthographicCamera orthographicCamera ) {
-        return false;
-    }
-	public void setRendersOnEdgeTrianglesAsLines( edu.cmu.cs.stage3.alice.scenegraph.OrthographicCamera orthographicCamera, boolean rendersOnEdgeTrianglesAsLines ) {
-    }
+	@Override
+	public boolean rendersOnEdgeTrianglesAsLines(edu.cmu.cs.stage3.alice.scenegraph.OrthographicCamera orthographicCamera) {
+		return false;
+	}
+	@Override
+	public void setRendersOnEdgeTrianglesAsLines(edu.cmu.cs.stage3.alice.scenegraph.OrthographicCamera orthographicCamera, boolean rendersOnEdgeTrianglesAsLines) {
+	}
+	@Override
 	public java.awt.Graphics getOffscreenGraphics() {
 		return null;
 	}
 
-	public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick( int x, int y, boolean isSubElementRequired, boolean isOnlyFrontMostRequired ) {
+	@Override
+	public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick(int x, int y, boolean isSubElementRequired, boolean isOnlyFrontMostRequired) {
 		return null;
 	}
 
 	private double m_silhouetteThickness = 0.0;
-	public void setSilhouetteThickness( double silhouetteThickness ) {
+	public void setSilhouetteThickness(double silhouetteThickness) {
 		m_silhouetteThickness = silhouetteThickness;
 	}
 	public double getSilhouetteThickness() {

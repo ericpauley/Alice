@@ -24,10 +24,12 @@
 package edu.cmu.cs.stage3.alice.core.behavior;
 
 public abstract class InternalResponseBehavior extends edu.cmu.cs.stage3.alice.core.Behavior {
-	
-	public void stopAllRuntimeResponses( double time ) {
+
+	@Override
+	public void stopAllRuntimeResponses(double time) {
 	}
-	
-	public void internalSchedule( double time, double dt ) {
+
+	@Override
+	public void internalSchedule(double time, double dt) {
 	}
 }

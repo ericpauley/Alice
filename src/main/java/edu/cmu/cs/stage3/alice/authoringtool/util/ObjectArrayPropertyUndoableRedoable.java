@@ -31,7 +31,7 @@ public class ObjectArrayPropertyUndoableRedoable implements ContextAssignableUnd
 	protected Object value;
 	protected Object context;
 
-	public ObjectArrayPropertyUndoableRedoable( edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty property, int changeType, int oldIndex, int newIndex, Object value ) {
+	public ObjectArrayPropertyUndoableRedoable(edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty property, int changeType, int oldIndex, int newIndex, Object value) {
 		this.property = property;
 		this.changeType = changeType;
 		this.oldIndex = oldIndex;
@@ -39,53 +39,62 @@ public class ObjectArrayPropertyUndoableRedoable implements ContextAssignableUnd
 		this.value = value;
 	}
 
-	public void setContext( Object context ) {
+	@Override
+	public void setContext(Object context) {
 		this.context = context;
 	}
 
+	@Override
 	public void undo() {
-		if( changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_INSERTED ) {
-			property.remove( value );
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_REMOVED ) {
-			property.add( oldIndex, value );
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_SHIFTED ) {
-			property.shift( newIndex, oldIndex );
+		if (changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_INSERTED) {
+			property.remove(value);
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_REMOVED) {
+			property.add(oldIndex, value);
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_SHIFTED) {
+			property.shift(newIndex, oldIndex);
 		}
 	}
 
+	@Override
 	public void redo() {
-		if( changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_INSERTED ) {
-			property.add( newIndex, value );
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_REMOVED ) {
-			property.remove( value );
-		} else if( changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_SHIFTED ) {
-			property.shift( oldIndex, newIndex );
+		if (changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_INSERTED) {
+			property.add(newIndex, value);
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_REMOVED) {
+			property.remove(value);
+		} else if (changeType == edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent.ITEM_SHIFTED) {
+			property.shift(oldIndex, newIndex);
 		}
 	}
 
+	@Override
 	public Object getAffectedObject() {
 		return property.getOwner();
 	}
 
+	@Override
 	public Object getContext() {
 		return context;
 	}
 
-	
+	@Override
 	public String toString() {
 		StringBuffer s = new StringBuffer();
-		s.append( "edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyUndoableRedoable[ " );
-		s.append( "property=" + property + "; " );
-		s.append( "changeType=" + changeType + "; " );
-		s.append( "oldIndex=" + oldIndex + "; " );
-		s.append( "newIndex=" + newIndex + "; " );
-		s.append( "value=" + value + "; " );
-		if( (context != this) && !(context instanceof DefaultUndoRedoStack) ) {  // watch out for infinite loops
-			s.append( "context=" + context + "; " );
+		s.append("edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyUndoableRedoable[ ");
+		s.append("property=" + property + "; ");
+		s.append("changeType=" + changeType + "; ");
+		s.append("oldIndex=" + oldIndex + "; ");
+		s.append("newIndex=" + newIndex + "; ");
+		s.append("value=" + value + "; ");
+		if (context != this && !(context instanceof DefaultUndoRedoStack)) { // watch
+																				// out
+																				// for
+																				// infinite
+																				// loops
+			s.append("context=" + context + "; ");
 		} else {
-			s.append( "context=" + context.getClass() + "; " );
+			s.append("context=" + context.getClass() + "; ");
 		}
-		s.append( " ]" );
+		s.append(" ]");
 		return s.toString();
 	}
 }

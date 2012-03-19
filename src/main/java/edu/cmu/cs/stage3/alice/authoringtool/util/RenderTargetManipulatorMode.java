@@ -34,7 +34,7 @@ public abstract class RenderTargetManipulatorMode {
 		return renderTarget;
 	}
 
-	public void setRenderTarget( edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget renderTarget ) {
+	public void setRenderTarget(edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget renderTarget) {
 		this.renderTarget = renderTarget;
 	}
 
@@ -42,14 +42,14 @@ public abstract class RenderTargetManipulatorMode {
 		return preferredCursor;
 	}
 
-	public void setPreferredCursor( java.awt.Cursor preferredCursor ) {
+	public void setPreferredCursor(java.awt.Cursor preferredCursor) {
 		this.preferredCursor = preferredCursor;
 	}
 
 	public abstract boolean requiresPickedObject();
 	public abstract boolean hideCursorOnDrag();
 
-	public abstract void mousePressed( java.awt.event.MouseEvent ev, edu.cmu.cs.stage3.alice.core.Transformable pickedTransformable, edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo );
-	public abstract void mouseReleased( java.awt.event.MouseEvent ev );
-	public abstract void mouseDragged( java.awt.event.MouseEvent ev, int dx, int dy );
+	public abstract void mousePressed(java.awt.event.MouseEvent ev, edu.cmu.cs.stage3.alice.core.Transformable pickedTransformable, edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo);
+	public abstract void mouseReleased(java.awt.event.MouseEvent ev);
+	public abstract void mouseDragged(java.awt.event.MouseEvent ev, int dx, int dy);
 }

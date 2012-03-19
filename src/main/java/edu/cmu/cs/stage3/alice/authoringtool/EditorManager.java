@@ -31,46 +31,46 @@ public class EditorManager {
 	protected java.util.List availableEditors = new java.util.ArrayList();
 	protected java.util.List inUseEditors = new java.util.ArrayList();
 
-	public EditorManager( AuthoringTool authoringTool ) {
+	public EditorManager(AuthoringTool authoringTool) {
 		this.authoringTool = authoringTool;
 	}
 
-	public Editor getBestEditorInstance( Class objectClass ) {
-		return getEditorInstance( edu.cmu.cs.stage3.alice.authoringtool.util.EditorUtilities.getBestEditor( objectClass ) );
+	public Editor getBestEditorInstance(Class objectClass) {
+		return getEditorInstance(edu.cmu.cs.stage3.alice.authoringtool.util.EditorUtilities.getBestEditor(objectClass));
 	}
 
-	public Editor getEditorInstance( Class editorClass ) {
-		if( editorClass == null ) {
+	public Editor getEditorInstance(Class editorClass) {
+		if (editorClass == null) {
 			return null;
 		}
-		for( java.util.Iterator iter = availableEditors.listIterator(); iter.hasNext(); ) {
+		for (java.util.Iterator iter = availableEditors.listIterator(); iter.hasNext();) {
 			Object editor = iter.next();
-			if( editor.getClass() == editorClass ) {
+			if (editor.getClass() == editorClass) {
 				iter.remove();
-				inUseEditors.add( editor );
-				return (edu.cmu.cs.stage3.alice.authoringtool.Editor)editor;
+				inUseEditors.add(editor);
+				return (edu.cmu.cs.stage3.alice.authoringtool.Editor) editor;
 			}
 		}
 
-		Editor editor = edu.cmu.cs.stage3.alice.authoringtool.util.EditorUtilities.getEditorFromClass( editorClass );
-		if( editor != null ) {
-			authoringTool.addAuthoringToolStateListener( editor );
-			inUseEditors.add( editor );
-			editor.setAuthoringTool( authoringTool );
+		Editor editor = edu.cmu.cs.stage3.alice.authoringtool.util.EditorUtilities.getEditorFromClass(editorClass);
+		if (editor != null) {
+			authoringTool.addAuthoringToolStateListener(editor);
+			inUseEditors.add(editor);
+			editor.setAuthoringTool(authoringTool);
 		}
 		return editor;
 	}
 
-	public void releaseEditorInstance( Editor editor ) {
-		if( inUseEditors.contains( editor ) ) {
-			inUseEditors.remove( editor );
-			if( ! availableEditors.contains( editor ) ) {
-				availableEditors.add( editor );
+	public void releaseEditorInstance(Editor editor) {
+		if (inUseEditors.contains(editor)) {
+			inUseEditors.remove(editor);
+			if (!availableEditors.contains(editor)) {
+				availableEditors.add(editor);
 			}
 		}
 	}
 
-	public void preloadEditor( Class editorClass ) {
-		releaseEditorInstance( getEditorInstance( editorClass ) );
+	public void preloadEditor(Class editorClass) {
+		releaseEditorInstance(getEditorInstance(editorClass));
 	}
 }

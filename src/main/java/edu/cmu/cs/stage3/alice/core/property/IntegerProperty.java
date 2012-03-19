@@ -27,21 +27,21 @@ import edu.cmu.cs.stage3.alice.core.Element;
 
 //todo: extend NumberProperty?
 public class IntegerProperty extends ObjectProperty {
-	public IntegerProperty( Element owner, String name, Integer defaultValue ) {
-		super( owner, name, defaultValue, Integer.class );
+	public IntegerProperty(Element owner, String name, Integer defaultValue) {
+		super(owner, name, defaultValue, Integer.class);
 	}
 	public Integer getIntegerValue() {
-		return (Integer)getValue();
+		return (Integer) getValue();
 	}
-	public int intValue( int valueIfNull ) {
+	public int intValue(int valueIfNull) {
 		Integer integer = getIntegerValue();
-		if( integer != null ) {
+		if (integer != null) {
 			return integer.intValue();
 		} else {
 			return valueIfNull;
 		}
 	}
 	public int intValue() {
-		return intValue( 0 );
+		return intValue(0);
 	}
 }

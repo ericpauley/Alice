@@ -24,10 +24,10 @@
 package edu.cmu.cs.stage3.alice.core.event;
 
 public class ExpressionEvent extends java.util.EventObject {
-	public ExpressionEvent( edu.cmu.cs.stage3.alice.core.Expression source ) {
-		super( source );
+	public ExpressionEvent(edu.cmu.cs.stage3.alice.core.Expression source) {
+		super(source);
 	}
 	public edu.cmu.cs.stage3.alice.core.Expression getExpression() {
-		return (edu.cmu.cs.stage3.alice.core.Expression)getSource();
+		return (edu.cmu.cs.stage3.alice.core.Expression) getSource();
 	}
 }

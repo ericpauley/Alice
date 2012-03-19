@@ -24,20 +24,23 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class SphereProxy extends ShapeProxy {
-    
-	public void render( RenderContext context ) {
-        //todo
-    }
-	
-	public void pick( PickContext context, boolean isSubElementRequired ) {
-        //todo
-	}    
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Sphere.RADIUS_PROPERTY ) {
-            //todo
+
+	@Override
+	public void render(RenderContext context) {
+		// todo
+	}
+
+	@Override
+	public void pick(PickContext context, boolean isSubElementRequired) {
+		// todo
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Sphere.RADIUS_PROPERTY) {
+			// todo
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

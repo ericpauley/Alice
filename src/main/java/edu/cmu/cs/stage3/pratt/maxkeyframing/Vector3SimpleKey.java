@@ -27,27 +27,29 @@ package edu.cmu.cs.stage3.pratt.maxkeyframing;
  * @author Jason Pratt
  */
 public class Vector3SimpleKey extends SimpleKey {
-	public Vector3SimpleKey( double time, javax.vecmath.Vector3d value ) {
-		super( time, new double[] { value.x, value.y, value.z } );
+	public Vector3SimpleKey(double time, javax.vecmath.Vector3d value) {
+		super(time, new double[]{value.x, value.y, value.z});
 	}
 
 	private javax.vecmath.Vector3d vSample = new javax.vecmath.Vector3d();
-	
-	public Object createSample( double[] components ) {
+
+	@Override
+	public Object createSample(double[] components) {
 		vSample.x = components[0];
 		vSample.y = components[1];
 		vSample.z = components[2];
 		return vSample;
-		//return new edu.cmu.cs.stage3.math.Vector3( components[0], components[1], components[2] );
+		// return new edu.cmu.cs.stage3.math.Vector3( components[0],
+		// components[1], components[2] );
 	}
 
-	public static Vector3SimpleKey valueOf( String s ) {
-		java.util.StringTokenizer st = new java.util.StringTokenizer( s, " \t,[]" );
+	public static Vector3SimpleKey valueOf(String s) {
+		java.util.StringTokenizer st = new java.util.StringTokenizer(s, " \t,[]");
 
 		String className = st.nextToken(); // unused
-		double time = Double.parseDouble( st.nextToken() );
-		javax.vecmath.Vector3d value = new javax.vecmath.Vector3d( Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ) );
+		double time = Double.parseDouble(st.nextToken());
+		javax.vecmath.Vector3d value = new javax.vecmath.Vector3d(Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()));
 
-		return new Vector3SimpleKey( time, value );
+		return new Vector3SimpleKey(time, value);
 	}
 }

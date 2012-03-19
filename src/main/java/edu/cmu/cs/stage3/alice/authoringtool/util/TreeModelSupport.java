@@ -23,75 +23,110 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
-import javax.swing.event.*;
-import java.util.*;
+import java.util.Enumeration;
+import java.util.Vector;
+
+import javax.swing.event.TreeModelEvent;
+import javax.swing.event.TreeModelListener;
 
 /**
- * From the Swing Connection article: http://java.sun.com/products/jfc/tsc/articles/jtree/
- *
+ * From the Swing Connection article:
+ * http://java.sun.com/products/jfc/tsc/articles/jtree/
+ * 
  * I don't know why these classes aren't in the standard API
  */
 public class TreeModelSupport {
 	private Vector vector = new Vector();
 
-	public void addTreeModelListener( TreeModelListener listener ) {
-		if ( listener != null && !vector.contains( listener ) ) {
-			vector.addElement( listener );
+	public void addTreeModelListener(TreeModelListener listener) {
+		if (listener != null && !vector.contains(listener)) {
+			vector.addElement(listener);
 		}
 	}
 
-	public void removeTreeModelListener( TreeModelListener listener ) {
-		if ( listener != null ) {
-			vector.removeElement( listener );
+	public void removeTreeModelListener(TreeModelListener listener) {
+		if (listener != null) {
+			vector.removeElement(listener);
 		}
 	}
 
-	public void fireTreeNodesChanged( final TreeModelEvent e ) {
-		javax.swing.SwingUtilities.invokeLater( new Runnable() { // HACK: JTree is really picky about things being changed in the event-dispatch thread
+	public void fireTreeNodesChanged(final TreeModelEvent e) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() { // HACK: JTree
+																// is really
+																// picky about
+																// things being
+																// changed in
+																// the
+																// event-dispatch
+																// thread
+			@Override
 			public void run() {
 				Enumeration listeners = vector.elements();
-				while ( listeners.hasMoreElements() ) {
-					TreeModelListener listener = (TreeModelListener)listeners.nextElement();
-					listener.treeNodesChanged( e );
+				while (listeners.hasMoreElements()) {
+					TreeModelListener listener = (TreeModelListener) listeners.nextElement();
+					listener.treeNodesChanged(e);
 				}
 			}
-		} );
+		});
 	}
 
-	public void fireTreeNodesInserted( final TreeModelEvent e ) {
-		javax.swing.SwingUtilities.invokeLater( new Runnable() { // HACK: JTree is really picky about things being changed in the event-dispatch thread
+	public void fireTreeNodesInserted(final TreeModelEvent e) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() { // HACK: JTree
+																// is really
+																// picky about
+																// things being
+																// changed in
+																// the
+																// event-dispatch
+																// thread
+			@Override
 			public void run() {
 				Enumeration listeners = vector.elements();
-				while ( listeners.hasMoreElements() ) {
-					TreeModelListener listener = (TreeModelListener)listeners.nextElement();
-					listener.treeNodesInserted( e );
+				while (listeners.hasMoreElements()) {
+					TreeModelListener listener = (TreeModelListener) listeners.nextElement();
+					listener.treeNodesInserted(e);
 				}
 			}
-		} );
+		});
 	}
 
-	public void fireTreeNodesRemoved( final TreeModelEvent e ) {
-		javax.swing.SwingUtilities.invokeLater( new Runnable() { // HACK: JTree is really picky about things being changed in the event-dispatch thread
+	public void fireTreeNodesRemoved(final TreeModelEvent e) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() { // HACK: JTree
+																// is really
+																// picky about
+																// things being
+																// changed in
+																// the
+																// event-dispatch
+																// thread
+			@Override
 			public void run() {
 				Enumeration listeners = vector.elements();
-				while ( listeners.hasMoreElements() ) {
-					TreeModelListener listener = (TreeModelListener)listeners.nextElement();
-					listener.treeNodesRemoved( e );
+				while (listeners.hasMoreElements()) {
+					TreeModelListener listener = (TreeModelListener) listeners.nextElement();
+					listener.treeNodesRemoved(e);
 				}
 			}
-		} );
+		});
 	}
 
-	public void fireTreeStructureChanged( final TreeModelEvent e ) {
-		javax.swing.SwingUtilities.invokeLater( new Runnable() { // HACK: JTree is really picky about things being changed in the event-dispatch thread
+	public void fireTreeStructureChanged(final TreeModelEvent e) {
+		javax.swing.SwingUtilities.invokeLater(new Runnable() { // HACK: JTree
+																// is really
+																// picky about
+																// things being
+																// changed in
+																// the
+																// event-dispatch
+																// thread
+			@Override
 			public void run() {
 				Enumeration listeners = vector.elements();
-				while ( listeners.hasMoreElements() ) {
-					TreeModelListener listener = (TreeModelListener)listeners.nextElement();
-					listener.treeStructureChanged( e );
+				while (listeners.hasMoreElements()) {
+					TreeModelListener listener = (TreeModelListener) listeners.nextElement();
+					listener.treeStructureChanged(e);
 				}
 			}
-		} );
+		});
 	}
 }
-

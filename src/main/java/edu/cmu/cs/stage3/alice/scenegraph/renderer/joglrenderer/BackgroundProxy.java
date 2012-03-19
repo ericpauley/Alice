@@ -26,21 +26,22 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 import javax.media.opengl.GL;
 
 class BackgroundProxy extends ElementProxy {
-    private float[] m_color = new float[ 4 ];
-    public void clear( RenderContext context ) {
-        context.gl.glClearColor( m_color[ 0 ], m_color[ 1 ], m_color[ 2 ], m_color[ 3 ] );
-        context.gl.glClear( GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT );
-    }
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Background.COLOR_PROPERTY ) {
-            copy( m_color, (edu.cmu.cs.stage3.alice.scenegraph.Color)value );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Background.TEXTURE_MAP_PROPERTY ) {
-            //todo
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Background.TEXTURE_MAP_SOURCE_RECTANGLE_PROPERTY ) {
-            //todo
+	private float[] m_color = new float[4];
+	public void clear(RenderContext context) {
+		context.gl.glClearColor(m_color[0], m_color[1], m_color[2], m_color[3]);
+		context.gl.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT);
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Background.COLOR_PROPERTY) {
+			copy(m_color, (edu.cmu.cs.stage3.alice.scenegraph.Color) value);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Background.TEXTURE_MAP_PROPERTY) {
+			// todo
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Background.TEXTURE_MAP_SOURCE_RECTANGLE_PROPERTY) {
+			// todo
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

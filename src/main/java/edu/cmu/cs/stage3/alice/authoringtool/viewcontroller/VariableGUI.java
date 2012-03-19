@@ -29,52 +29,58 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
 public class VariableGUI extends edu.cmu.cs.stage3.alice.authoringtool.util.GroupingPanel implements edu.cmu.cs.stage3.alice.authoringtool.util.GUIElement {
 	protected VariableDnDPanel variableDnDPanel;
 	protected javax.swing.JComponent variableViewController;
-	protected javax.swing.JLabel equalsLabel = new javax.swing.JLabel( " = " );
+	protected javax.swing.JLabel equalsLabel = new javax.swing.JLabel(" = ");
 
 	public VariableGUI() {
-		setLayout( new javax.swing.BoxLayout( this, javax.swing.BoxLayout.X_AXIS ) );
-		setOpaque( false );
-		setBorder( null );
+		setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.X_AXIS));
+		setOpaque(false);
+		setBorder(null);
 	}
 
-	public void set( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool, edu.cmu.cs.stage3.alice.core.Variable variable, boolean includeDefaults, edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
+	public void set(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool, edu.cmu.cs.stage3.alice.core.Variable variable, boolean includeDefaults, edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
 		clean();
 
-		variableDnDPanel = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getVariableDnDPanel( variable );
-		variableViewController = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getPropertyViewController( variable.value, includeDefaults, false, true, factory );
+		variableDnDPanel = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getVariableDnDPanel(variable);
+		variableViewController = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getPropertyViewController(variable.value, includeDefaults, false, true, factory);
 
-		add( variableDnDPanel );
-		add( equalsLabel );
-		add( variableViewController );
-		add( javax.swing.Box.createHorizontalGlue() );
+		add(variableDnDPanel);
+		add(equalsLabel);
+		add(variableViewController);
+		add(javax.swing.Box.createHorizontalGlue());
 	}
 
-	public void goToSleep() {}
-	public void wakeUp() {}
+	@Override
+	public void goToSleep() {
+	}
+	@Override
+	public void wakeUp() {
+	}
 
+	@Override
 	public void clean() {
 		removeAll();
-		if( variableDnDPanel != null ) {
+		if (variableDnDPanel != null) {
 			variableDnDPanel.release();
 		}
-		if( variableViewController instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable ) {
-			((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable)variableViewController).release();
+		if (variableViewController instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable) {
+			((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable) variableViewController).release();
 		}
 		variableDnDPanel = null;
 		variableViewController = null;
 	}
 
+	@Override
 	public void die() {
 		clean();
 	}
 
-	
+	@Override
 	public void release() {
-		edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.releaseGUI( this );
+		edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.releaseGUI(this);
 	}
 
-	
-	public void remove( java.awt.Component c ) {
-		super.remove( c );
+	@Override
+	public void remove(java.awt.Component c) {
+		super.remove(c);
 	}
 }

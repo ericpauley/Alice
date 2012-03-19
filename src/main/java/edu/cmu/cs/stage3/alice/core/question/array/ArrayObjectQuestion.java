@@ -27,17 +27,19 @@ import edu.cmu.cs.stage3.alice.core.Array;
 import edu.cmu.cs.stage3.alice.core.property.ArrayProperty;
 
 public abstract class ArrayObjectQuestion extends edu.cmu.cs.stage3.alice.core.Question {
-	public final ArrayProperty array = new ArrayProperty( this, "array", null );
-	protected abstract Object getValue( Array array );
-    
+	public final ArrayProperty array = new ArrayProperty(this, "array", null);
+	protected abstract Object getValue(Array array);
+
+	@Override
 	public Class getValueClass() {
-        return array.getArrayValue().valueClass.getClassValue();
-    }
-	
+		return array.getArrayValue().valueClass.getClassValue();
+	}
+
+	@Override
 	public Object getValue() {
 		Array arrayValue = array.getArrayValue();
-		if( arrayValue!=null ) {
-            return getValue( arrayValue );
+		if (arrayValue != null) {
+			return getValue(arrayValue);
 		} else {
 			return null;
 		}

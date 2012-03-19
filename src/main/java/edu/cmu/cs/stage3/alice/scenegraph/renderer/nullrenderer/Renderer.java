@@ -24,42 +24,54 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nullrenderer;
 
 public class Renderer extends edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractRenderer {
-	
+
+	@Override
 	protected boolean requiresHierarchyAndAbsoluteTransformationListening() {
 		return false;
 	}
-	
+
+	@Override
 	protected boolean requiresBoundListening() {
 		return false;
 	}
-    
-	protected void dispatchPropertyChange( edu.cmu.cs.stage3.alice.scenegraph.event.PropertyEvent propertyEvent ) {
-    }
-    
-	protected void dispatchRelease( edu.cmu.cs.stage3.alice.scenegraph.event.ReleaseEvent releaseEvent ) {
-    }
-    
-	protected void dispatchAbsoluteTransformationChange( edu.cmu.cs.stage3.alice.scenegraph.event.AbsoluteTransformationEvent absoluteTransformationEvent ) {
-    }
-    
-	protected void dispatchBoundChange( edu.cmu.cs.stage3.alice.scenegraph.event.BoundEvent boundEvent ) {
-    }
-	
-	public void dispatchChildAdd( edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenEvent childrenEvent ) {
+
+	@Override
+	protected void dispatchPropertyChange(edu.cmu.cs.stage3.alice.scenegraph.event.PropertyEvent propertyEvent) {
 	}
-	
-	public void dispatchChildRemove( edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenEvent childrenEvent ) {
-    }
-    
-	protected void dispatchHierarchyChange( edu.cmu.cs.stage3.alice.scenegraph.event.HierarchyEvent hierarchyEvent ) {
-    }
+
+	@Override
+	protected void dispatchRelease(edu.cmu.cs.stage3.alice.scenegraph.event.ReleaseEvent releaseEvent) {
+	}
+
+	@Override
+	protected void dispatchAbsoluteTransformationChange(edu.cmu.cs.stage3.alice.scenegraph.event.AbsoluteTransformationEvent absoluteTransformationEvent) {
+	}
+
+	@Override
+	protected void dispatchBoundChange(edu.cmu.cs.stage3.alice.scenegraph.event.BoundEvent boundEvent) {
+	}
+
+	@Override
+	public void dispatchChildAdd(edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenEvent childrenEvent) {
+	}
+
+	@Override
+	public void dispatchChildRemove(edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenEvent childrenEvent) {
+	}
+
+	@Override
+	protected void dispatchHierarchyChange(edu.cmu.cs.stage3.alice.scenegraph.event.HierarchyEvent hierarchyEvent) {
+	}
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.renderer.OffscreenRenderTarget createOffscreenRenderTarget() {
-		return new OffscreenRenderTarget( this );
+		return new OffscreenRenderTarget(this);
 	}
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget createOnscreenRenderTarget() {
-        return new OnscreenRenderTarget( this );
+		return new OnscreenRenderTarget(this);
 	}
-    public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick( edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent, javax.vecmath.Vector3d v, double planeMinX, double planeMinY, double planeMaxX, double planeMaxY, double nearClippingPlaneDistance, double farClippingPlaneDistance, boolean isSubElementRequired, boolean isOnlyFrontMostRequired ) {
-        return null;
-    }
+	@Override
+	public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick(edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent, javax.vecmath.Vector3d v, double planeMinX, double planeMinY, double planeMaxX, double planeMaxY, double nearClippingPlaneDistance, double farClippingPlaneDistance, boolean isSubElementRequired, boolean isOnlyFrontMostRequired) {
+		return null;
+	}
 }

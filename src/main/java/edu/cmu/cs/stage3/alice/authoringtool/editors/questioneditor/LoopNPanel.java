@@ -24,27 +24,36 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.questioneditor;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2002
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author David Culyba
  * @version 1.0
  */
 
-public class LoopNPanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.LoopNElementPanel{
+public class LoopNPanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.LoopNElementPanel {
 
-    public LoopNPanel(){
-        super();
-    }
+	public LoopNPanel() {
+		super();
+	}
 
-    
-	protected java.awt.Color getCustomBackgroundColor(){
-        return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("LoopNInOrder");
-    }
+	@Override
+	protected java.awt.Color getCustomBackgroundColor() {
+		return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("LoopNInOrder");
+	}
 
-    public void set(edu.cmu.cs.stage3.alice.core.question.userdefined.LoopN r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        super.set(r, authoringToolIn);
-    }
+	public void set(edu.cmu.cs.stage3.alice.core.question.userdefined.LoopN r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		super.set(r, authoringToolIn);
+	}
 
 }

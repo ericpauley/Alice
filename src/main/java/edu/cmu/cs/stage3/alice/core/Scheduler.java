@@ -34,49 +34,49 @@ public class Scheduler implements Runnable {
 	private double m_prevTime = Double.NaN;
 	private double m_time = Double.NaN;
 
-	public void addScheduleListener( ScheduleListener scheduleListener ) {
-		if( !m_scheduleListeners.contains( scheduleListener ) ) {
-			m_scheduleListeners.addElement( scheduleListener );
+	public void addScheduleListener(ScheduleListener scheduleListener) {
+		if (!m_scheduleListeners.contains(scheduleListener)) {
+			m_scheduleListeners.addElement(scheduleListener);
 			m_scheduleListenerArray = null;
 		}
 	}
-	public void removeScheduleListener( ScheduleListener scheduleListener ) {
-		m_scheduleListeners.removeElement( scheduleListener );
+	public void removeScheduleListener(ScheduleListener scheduleListener) {
+		m_scheduleListeners.removeElement(scheduleListener);
 		m_scheduleListenerArray = null;
 	}
 	public ScheduleListener[] getScheduleListeners() {
-		if( m_scheduleListenerArray==null ) {
+		if (m_scheduleListenerArray == null) {
 			m_scheduleListenerArray = new ScheduleListener[m_scheduleListeners.size()];
-			m_scheduleListeners.copyInto( m_scheduleListenerArray );
+			m_scheduleListeners.copyInto(m_scheduleListenerArray);
 		}
 		return m_scheduleListenerArray;
 	}
 	public double getFalseDT() {
 		return m_falseDT;
 	}
-	public void setFalseDT( double falseDT ) {
+	public void setFalseDT(double falseDT) {
 		m_falseDT = falseDT;
 	}
 	public double getTime() {
 		return m_time;
 	}
 	public double getDT() {
-		if( Double.isNaN( m_time ) || Double.isNaN( m_prevTime ) ) {
+		if (Double.isNaN(m_time) || Double.isNaN(m_prevTime)) {
 			return 0;
 		} else {
-			return m_time-m_prevTime;
+			return m_time - m_prevTime;
 		}
 	}
 
-	protected void schedule( ScheduleListener scheduleListener, ScheduleEvent scheduleEvent ) {
-		scheduleListener.scheduled( scheduleEvent );
+	protected void schedule(ScheduleListener scheduleListener, ScheduleEvent scheduleEvent) {
+		scheduleListener.scheduled(scheduleEvent);
 	}
 
 	private void updateTime() {
-		m_time = (System.currentTimeMillis()-s_startTime)*0.001;
-		if( !Double.isNaN( m_falseDT ) ) {
-			if( !Double.isNaN( m_prevTime ) ) {
-				m_time = m_prevTime+m_falseDT;
+		m_time = (System.currentTimeMillis() - s_startTime) * 0.001;
+		if (!Double.isNaN(m_falseDT)) {
+			if (!Double.isNaN(m_prevTime)) {
+				m_time = m_prevTime + m_falseDT;
 			}
 		}
 	}
@@ -88,19 +88,20 @@ public class Scheduler implements Runnable {
 		m_prevTime = m_time;
 	}
 
-    private ScheduleEvent m_scheduleEvent = new ScheduleEvent( this, 0 );
+	private ScheduleEvent m_scheduleEvent = new ScheduleEvent(this, 0);
+	@Override
 	public synchronized void run() {
 		updateTime();
-        m_scheduleEvent.setTime( m_time );
-        ScheduleListener[] sls = getScheduleListeners();
-        for( int i=0; i<sls.length; i++ ) {
-            try {
-    			schedule( sls[ i ], m_scheduleEvent );
-            } catch( RuntimeException re ) {
-                removeScheduleListener( sls[ i ] );
-                throw re;
-            }
-        }
+		m_scheduleEvent.setTime(m_time);
+		ScheduleListener[] sls = getScheduleListeners();
+		for (ScheduleListener sl : sls) {
+			try {
+				schedule(sl, m_scheduleEvent);
+			} catch (RuntimeException re) {
+				removeScheduleListener(sl);
+				throw re;
+			}
+		}
 		m_prevTime = m_time;
 	}
 }

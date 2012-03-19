@@ -32,73 +32,73 @@ public class CatmullRomSpline extends Spline {
 	protected java.util.HashMap curveMap = new java.util.HashMap();
 	protected int numComponents;
 
-	public boolean addKey( SimpleKey key ) {
-		boolean result = super.addKey( key );
+	public boolean addKey(SimpleKey key) {
+		boolean result = super.addKey(key);
 		updateKeys();
 		return result;
 	}
 
-	public boolean removeKey( SimpleKey key ) {
-		boolean result = super.removeKey( key );
+	public boolean removeKey(SimpleKey key) {
+		boolean result = super.removeKey(key);
 		updateKeys();
 		return result;
 	}
 
 	public void updateKeys() {
-		this.keys = (SimpleKey[])getKeyArray( new SimpleKey[0] );
-		this.curveMap.clear();
+		keys = (SimpleKey[]) getKeyArray(new SimpleKey[0]);
+		curveMap.clear();
 
-		if( this.keys != null ) {
-			this.numComponents = keys[0].getValueComponents().length;
-			this.curves = new edu.cmu.cs.stage3.math.CatmullRomCubic[keys.length - 1][numComponents];
+		if (keys != null) {
+			numComponents = keys[0].getValueComponents().length;
+			curves = new edu.cmu.cs.stage3.math.CatmullRomCubic[keys.length - 1][numComponents];
 
-			for( int i = 0; i < curves.length; i++ ) {
-				SimpleKey keyLast = this.keys[Math.max( i - 1, 0 )];
-				SimpleKey keyThis = this.keys[i];
-				SimpleKey keyNext = this.keys[i + 1];
-				SimpleKey keyNextNext = this.keys[Math.min( i + 2, keys.length - 1 )];
-				this.curveMap.put( keyThis, new Integer( i ) );
-				for( int j = 0; j < numComponents; j++ ) {
+			for (int i = 0; i < curves.length; i++) {
+				SimpleKey keyLast = keys[Math.max(i - 1, 0)];
+				SimpleKey keyThis = keys[i];
+				SimpleKey keyNext = keys[i + 1];
+				SimpleKey keyNextNext = keys[Math.min(i + 2, keys.length - 1)];
+				curveMap.put(keyThis, new Integer(i));
+				for (int j = 0; j < numComponents; j++) {
 					double pLast = keyLast.getValueComponents()[j];
 					double pThis = keyThis.getValueComponents()[j];
 					double pNext = keyNext.getValueComponents()[j];
 					double pNextNext = keyNextNext.getValueComponents()[j];
-					this.curves[i][j] = new edu.cmu.cs.stage3.math.CatmullRomCubic( pLast, pThis, pNext, pNextNext );
+					curves[i][j] = new edu.cmu.cs.stage3.math.CatmullRomCubic(pLast, pThis, pNext, pNextNext);
 				}
 			}
 		} else {
-			this.curves = null;
+			curves = null;
 		}
 	}
 
-	
-	public Object getSample( double t ) {
-		if( t <= 0.0 ) {
+	@Override
+	public Object getSample(double t) {
+		if (t <= 0.0) {
 			Key key = getFirstKey();
-			if( key != null ) {
-				return key.createSample( key.getValueComponents() );
+			if (key != null) {
+				return key.createSample(key.getValueComponents());
 			}
-		} else if( t >= getDuration() ) {
+		} else if (t >= getDuration()) {
 			Key key = getLastKey();
-			if( key != null ) {
-				return key.createSample( key.getValueComponents() );
+			if (key != null) {
+				return key.createSample(key.getValueComponents());
 			}
 		} else {
-			Key[] boundingKeys = getBoundingKeys( t );
-			if( boundingKeys != null ) {
+			Key[] boundingKeys = getBoundingKeys(t);
+			if (boundingKeys != null) {
 				double timeSpan = boundingKeys[1].getTime() - boundingKeys[0].getTime();
-				double portion = (t - boundingKeys[0].getTime())/timeSpan;
+				double portion = (t - boundingKeys[0].getTime()) / timeSpan;
 
-				Object o = curveMap.get( boundingKeys[0] );
-				if( o instanceof Integer ) {
-					int i = ((Integer)o).intValue();
+				Object o = curveMap.get(boundingKeys[0]);
+				if (o instanceof Integer) {
+					int i = ((Integer) o).intValue();
 
 					double[] components = new double[numComponents];
-					for( int j = 0; j < numComponents; j++ ) {
-						components[j] = curves[i][j].evaluate( portion );
+					for (int j = 0; j < numComponents; j++) {
+						components[j] = curves[i][j].evaluate(portion);
 					}
 
-					return boundingKeys[0].createSample( components );
+					return boundingKeys[0].createSample(components);
 				}
 			}
 		}

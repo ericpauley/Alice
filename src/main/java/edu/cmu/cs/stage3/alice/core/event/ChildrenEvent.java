@@ -33,15 +33,15 @@ public class ChildrenEvent extends java.util.EventObject {
 	protected int m_changeType;
 	protected int m_oldIndex;
 	protected int m_newIndex;
-	public ChildrenEvent( Element source, Element child, int changeType, int oldIndex, int newIndex ) {
-		super( source );
+	public ChildrenEvent(Element source, Element child, int changeType, int oldIndex, int newIndex) {
+		super(source);
 		m_child = child;
 		m_changeType = changeType;
 		m_oldIndex = oldIndex;
 		m_newIndex = newIndex;
 	}
 	public Element getParent() {
-		return (Element)getSource();
+		return (Element) getSource();
 	}
 	public Element getChild() {
 		return m_child;

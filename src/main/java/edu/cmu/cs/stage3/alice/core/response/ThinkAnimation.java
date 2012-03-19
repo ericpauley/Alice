@@ -24,10 +24,11 @@
 package edu.cmu.cs.stage3.alice.core.response;
 
 public class ThinkAnimation extends AbstractBubbleAnimation {
-    public class RuntimeThinkAnimation extends RuntimeAbstractBubbleAnimation {
-		
+	public class RuntimeThinkAnimation extends RuntimeAbstractBubbleAnimation {
+
+		@Override
 		protected edu.cmu.cs.stage3.alice.core.bubble.Bubble createBubble() {
 			return new edu.cmu.cs.stage3.alice.core.bubble.ThoughtBubble();
 		}
-    }
+	}
 }

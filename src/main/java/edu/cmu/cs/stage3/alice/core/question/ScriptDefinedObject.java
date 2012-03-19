@@ -26,12 +26,13 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.property.ClassProperty;
 
 public class ScriptDefinedObject extends AbstractScriptDefinedObject {
-	public final ClassProperty valueClass = new ClassProperty( this, "valueClass", null );
-	
+	public final ClassProperty valueClass = new ClassProperty(this, "valueClass", null);
+
+	@Override
 	public Class getValueClass() {
-		//todo?
-		Class cls = (Class)valueClass.get();
-		if( cls != null ) {
+		// todo?
+		Class cls = (Class) valueClass.get();
+		if (cls != null) {
 			return cls;
 		} else {
 			return Object.class;

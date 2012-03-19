@@ -32,19 +32,19 @@ public class ElementDnDPanel extends edu.cmu.cs.stage3.alice.authoringtool.util.
 	protected javax.swing.JLabel iconLabel = new javax.swing.JLabel();
 
 	public ElementDnDPanel() {
-		setBackground( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor( "elementDnDPanel" ) );
-		iconLabel.setOpaque( false );
+		setBackground(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("elementDnDPanel"));
+		iconLabel.setOpaque(false);
 	}
 
-	public void set( edu.cmu.cs.stage3.alice.core.Element element ) {
+	public void set(edu.cmu.cs.stage3.alice.core.Element element) {
 		clean();
 		this.element = element;
-		nameViewController = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getElementNamePropertyViewController( element );
-		nameViewController.setBorder( null );
-		nameViewController.setOpaque( false );
-		add( nameViewController, java.awt.BorderLayout.CENTER );
-		addDragSourceComponent( nameViewController );
-		setTransferable( edu.cmu.cs.stage3.alice.authoringtool.datatransfer.TransferableFactory.createTransferable( element ) );
+		nameViewController = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getElementNamePropertyViewController(element);
+		nameViewController.setBorder(null);
+		nameViewController.setOpaque(false);
+		add(nameViewController, java.awt.BorderLayout.CENTER);
+		addDragSourceComponent(nameViewController);
+		setTransferable(edu.cmu.cs.stage3.alice.authoringtool.datatransfer.TransferableFactory.createTransferable(element));
 	}
 
 	public void editName() {
@@ -52,40 +52,44 @@ public class ElementDnDPanel extends edu.cmu.cs.stage3.alice.authoringtool.util.
 	}
 
 	protected void startListening() {
-		if( nameViewController != null ) {
+		if (nameViewController != null) {
 			nameViewController.startListening();
 		}
 	}
 
 	protected void stopListening() {
-		if( nameViewController != null ) {
+		if (nameViewController != null) {
 			nameViewController.stopListening();
 		}
 	}
 
+	@Override
 	public void goToSleep() {
 		stopListening();
 	}
 
+	@Override
 	public void wakeUp() {
 		startListening();
 	}
 
+	@Override
 	public void clean() {
-		removeDragSourceComponent( nameViewController );
-		setTransferable( null );
-		if( nameViewController != null ) {
-			remove( nameViewController );
+		removeDragSourceComponent(nameViewController);
+		setTransferable(null);
+		if (nameViewController != null) {
+			remove(nameViewController);
 		}
 		nameViewController = null;
 	}
 
+	@Override
 	public void die() {
 		clean();
 	}
 
-	
+	@Override
 	public void release() {
-		edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.releaseGUI( this );
+		edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.releaseGUI(this);
 	}
 }

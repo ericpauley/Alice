@@ -26,24 +26,27 @@ package edu.cmu.cs.stage3.alice.core.behavior;
 import edu.cmu.cs.stage3.alice.core.property.VariableProperty;
 
 public class VariableChangeBehavior extends TriggerBehavior implements edu.cmu.cs.stage3.alice.core.event.ExpressionListener {
-	public final VariableProperty variable = new VariableProperty( this, "variable", null );
+	public final VariableProperty variable = new VariableProperty(this, "variable", null);
 	private edu.cmu.cs.stage3.alice.core.Expression m_expressionValue;
-	public void expressionChanged( edu.cmu.cs.stage3.alice.core.event.ExpressionEvent expressionEvent ) {
-		trigger( System.currentTimeMillis()*0.001 );
+	@Override
+	public void expressionChanged(edu.cmu.cs.stage3.alice.core.event.ExpressionEvent expressionEvent) {
+		trigger(System.currentTimeMillis() * 0.001);
 	}
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		m_expressionValue = (edu.cmu.cs.stage3.alice.core.Expression)variable.get();
-		if( m_expressionValue!=null ) {
-			m_expressionValue.addExpressionListener( this );
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		m_expressionValue = (edu.cmu.cs.stage3.alice.core.Expression) variable.get();
+		if (m_expressionValue != null) {
+			m_expressionValue.addExpressionListener(this);
 		}
 	}
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.stopped( world, time );
-		if( m_expressionValue!=null ) {
-			m_expressionValue.removeExpressionListener( this );
+
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.stopped(world, time);
+		if (m_expressionValue != null) {
+			m_expressionValue.removeExpressionListener(this);
 		}
 	}
 }

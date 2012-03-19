@@ -24,15 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.criterion;
 
 public class InternalReferenceKeyedCriterion extends ElementKeyedCriterion {
-	public InternalReferenceKeyedCriterion( String key ) {
-		super( key );
+	public InternalReferenceKeyedCriterion(String key) {
+		super(key);
 	}
-	public InternalReferenceKeyedCriterion( String key, boolean ignoreCase ) {
-		super( key, ignoreCase );
+	public InternalReferenceKeyedCriterion(String key, boolean ignoreCase) {
+		super(key, ignoreCase);
 	}
-	//todo?
-	//public static InternalReferenceKeyedCriterion valueOf( String s ) {
-	public static ElementKeyedCriterion valueOf( String s ) {
-		return ElementKeyedCriterion.valueOf( s, InternalReferenceKeyedCriterion.class );
+	// todo?
+	// public static InternalReferenceKeyedCriterion valueOf( String s ) {
+	public static ElementKeyedCriterion valueOf(String s) {
+		return ElementKeyedCriterion.valueOf(s, InternalReferenceKeyedCriterion.class);
 	}
 }

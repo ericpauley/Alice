@@ -24,66 +24,63 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.responseeditor;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2001 Company:
+ * 
  * @author
  * @version 1.0
  */
 
 public class SequentialResponsePanel extends CompositeResponsePanel {
 
-/*
-    public SequentialResponsePanel(edu.cmu.cs.stage3.alice.core.response.DoInOrder r, int depth, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        super(r, depth, authoringToolIn);
-    }
-*/
-    public SequentialResponsePanel(){
-        super();
-        headerText = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(edu.cmu.cs.stage3.alice.core.response.DoInOrder.class);
-    }
-
-    public void set(edu.cmu.cs.stage3.alice.core.response.DoInOrder r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        super.set(r, authoringToolIn);
-    }
-
-    
-	protected java.awt.Color getCustomBackgroundColor(){
-        return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("DoInOrder");
-    }
-
-    
-	protected void updateGUI(){
-        super.updateGUI();
-    }
-
-    //Texture stuff
-
-    protected static java.awt.image.BufferedImage sequentialBackgroundImage;
-	protected static java.awt.Dimension sequentialBackgroundImageSize = new java.awt.Dimension( -1, -1 );
-
-    protected void createBackgroundImage( int width, int height ) {
-        sequentialBackgroundImageSize.setSize( width, height );
-		sequentialBackgroundImage = new java.awt.image.BufferedImage( width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB );
-		java.awt.Graphics2D g = (java.awt.Graphics2D)sequentialBackgroundImage.getGraphics();
-		g.addRenderingHints( new java.awt.RenderingHints( java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON ) );
-        g.setColor( backgroundColor );
-		g.fillRect( 0, 0, width, height );
-     /*   g.setColor( backgroundLineColor );
-		int spacing = 10;
-		for( int x = 0; x <= width; x += spacing ) {
-			g.drawLine( x, 0, x, height );
-		}*/
+	/*
+	 * public
+	 * SequentialResponsePanel(edu.cmu.cs.stage3.alice.core.response.DoInOrder
+	 * r, int depth, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool
+	 * authoringToolIn){ super(r, depth, authoringToolIn); }
+	 */
+	public SequentialResponsePanel() {
+		super();
+		headerText = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(edu.cmu.cs.stage3.alice.core.response.DoInOrder.class);
 	}
 
-	protected void paintTextureEffect( java.awt.Graphics g, java.awt.Rectangle bounds ) {
-		if( (bounds.width > sequentialBackgroundImageSize.width) || (bounds.height > sequentialBackgroundImageSize.height) ) {
-			createBackgroundImage( bounds.width, bounds.height );
+	public void set(edu.cmu.cs.stage3.alice.core.response.DoInOrder r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		super.set(r, authoringToolIn);
+	}
+
+	@Override
+	protected java.awt.Color getCustomBackgroundColor() {
+		return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("DoInOrder");
+	}
+
+	@Override
+	protected void updateGUI() {
+		super.updateGUI();
+	}
+
+	// Texture stuff
+
+	protected static java.awt.image.BufferedImage sequentialBackgroundImage;
+	protected static java.awt.Dimension sequentialBackgroundImageSize = new java.awt.Dimension(-1, -1);
+
+	protected void createBackgroundImage(int width, int height) {
+		sequentialBackgroundImageSize.setSize(width, height);
+		sequentialBackgroundImage = new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+		java.awt.Graphics2D g = (java.awt.Graphics2D) sequentialBackgroundImage.getGraphics();
+		g.addRenderingHints(new java.awt.RenderingHints(java.awt.RenderingHints.KEY_ANTIALIASING, java.awt.RenderingHints.VALUE_ANTIALIAS_ON));
+		g.setColor(backgroundColor);
+		g.fillRect(0, 0, width, height);
+		/*
+		 * g.setColor( backgroundLineColor ); int spacing = 10; for( int x = 0;
+		 * x <= width; x += spacing ) { g.drawLine( x, 0, x, height ); }
+		 */
+	}
+
+	protected void paintTextureEffect(java.awt.Graphics g, java.awt.Rectangle bounds) {
+		if (bounds.width > sequentialBackgroundImageSize.width || bounds.height > sequentialBackgroundImageSize.height) {
+			createBackgroundImage(bounds.width, bounds.height);
 		}
-		g.setClip( bounds.x, bounds.y, bounds.width, bounds.height );
-		g.drawImage( sequentialBackgroundImage, bounds.x, bounds.y, this );
+		g.setClip(bounds.x, bounds.y, bounds.width, bounds.height);
+		g.drawImage(sequentialBackgroundImage, bounds.x, bounds.y, this);
 	}
-
 
 }

@@ -23,14 +23,17 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.galleryviewer;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Cursor;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+
+import javax.swing.ImageIcon;
 
 /**
  * @author culyba, dennisc
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * 
+ *         To change the template for this generated type comment go to
+ *         Window>Preferences>Java>Code Generation>Code and Comments
  */
 public abstract class GenericBuilderButton extends GalleryObject {
 	public void set(GalleryViewer.ObjectXmlData dataIn, ImageIcon icon) throws IllegalArgumentException {
@@ -39,8 +42,9 @@ public abstract class GenericBuilderButton extends GalleryObject {
 			super.data = dataIn;
 			super.image = icon;
 			super.mainViewer = super.data.mainViewer;
-			if (super.data.transferable != null)
+			if (super.data.transferable != null) {
 				setTransferable(super.data.transferable);
+			}
 			updateGUI();
 			wakeUp();
 		} else {
@@ -49,23 +53,28 @@ public abstract class GenericBuilderButton extends GalleryObject {
 			super.mainViewer = null;
 		}
 	}
-	
+
+	@Override
 	public String getUniqueIdentifier() {
-		if (super.data != null)
+		if (super.data != null) {
 			return super.data.name;
-		else
+		} else {
 			return "GenericBuilder";
+		}
 	}
-	
+
+	@Override
 	public void loadImage() {
 		super.imageLabel.setText(null);
 		super.imageLabel.setIcon(super.image);
 	}
-	
+
+	@Override
 	protected String getClassName() {
 		return " ";
 	}
-	
+
+	@Override
 	protected void updateGUI() {
 		containingPanel.removeAll();
 		classLabel.setText(getClassName());
@@ -80,7 +89,8 @@ public abstract class GenericBuilderButton extends GalleryObject {
 		containingPanel.repaint();
 		add(containingPanel, "Center");
 	}
-	
+
+	@Override
 	protected void guiInit() {
 		super.guiInit();
 		setCursor(new Cursor(12));

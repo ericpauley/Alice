@@ -24,13 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.question.list;
 
 public class ItemAtBeginning extends ListObjectQuestion {
-	private static Class[] s_supportedCoercionClasses = { ItemAtEnd.class };
-	
+	private static Class[] s_supportedCoercionClasses = {ItemAtEnd.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	public Object getValue( edu.cmu.cs.stage3.alice.core.List listValue ) {
+
+	@Override
+	public Object getValue(edu.cmu.cs.stage3.alice.core.List listValue) {
 		return listValue.itemValueAtBeginning();
 	}
 }

@@ -30,50 +30,56 @@ public class DefaultClock implements edu.cmu.cs.stage3.alice.core.Clock {
 	private long m_whenPrev;
 	private int m_pauseCount;
 
+	@Override
 	public edu.cmu.cs.stage3.alice.core.World getWorld() {
 		return m_world;
 	}
-	public void setWorld( edu.cmu.cs.stage3.alice.core.World world ) {
+	@Override
+	public void setWorld(edu.cmu.cs.stage3.alice.core.World world) {
 		m_world = world;
 	}
 
 	public double getSpeed() {
 		return m_speed;
 	}
-	public void setSpeed( double speed ) {
+	public void setSpeed(double speed) {
 		m_speed = speed;
 	}
-	
+
+	@Override
 	public void start() {
 		m_pauseCount = 0;
 		m_whenPrev = System.currentTimeMillis();
-		if( m_world != null ) {
+		if (m_world != null) {
 			m_world.start();
 		}
 	}
+	@Override
 	public void stop() {
 		m_pauseCount = 0;
 		m_whenPrev = -1;
-		if( m_world != null ) {
+		if (m_world != null) {
 			m_world.stop();
 		}
 	}
+	@Override
 	public void pause() {
 		m_pauseCount++;
 	}
+	@Override
 	public void resume() {
 		m_pauseCount--;
-		if( m_pauseCount == 0 ) {
+		if (m_pauseCount == 0) {
 			m_whenPrev = System.currentTimeMillis();
 		}
 	}
 	private void updateTime() {
 		long whenCurr = System.currentTimeMillis();
 		long whenDelta = whenCurr - m_whenPrev;
-		if( whenDelta > 0 ) {
+		if (whenDelta > 0) {
 			double dt = whenDelta * 0.001;
 			dt *= m_speed;
-			if( m_world != null ) {
+			if (m_world != null) {
 				dt *= m_world.speedMultiplier.doubleValue();
 			}
 			m_time += dt;
@@ -81,24 +87,25 @@ public class DefaultClock implements edu.cmu.cs.stage3.alice.core.Clock {
 		m_whenPrev = whenCurr;
 	}
 
+	@Override
 	public double getTime() {
 		return m_time;
 	}
+	@Override
 	public double getTimeElapsed() {
 		return getTime();
 	}
-	public boolean isPaused()
-	{
-		return m_pauseCount==0? true:  false ;	
+	public boolean isPaused() {
+		return m_pauseCount == 0 ? true : false;
 	}
-	
+
+	@Override
 	public void schedule() {
-		if( m_pauseCount == 0 ) {
-			if( m_world != null ) {
+		if (m_pauseCount == 0) {
+			if (m_world != null) {
 				updateTime();
 				m_world.schedule();
 			}
 		}
 	}
 }
-

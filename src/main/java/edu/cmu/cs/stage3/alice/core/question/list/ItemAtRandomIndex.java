@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.list;
 
 public class ItemAtRandomIndex extends ListObjectQuestion {
-	
-	public Object getValue( edu.cmu.cs.stage3.alice.core.List listValue ) {
+
+	@Override
+	public Object getValue(edu.cmu.cs.stage3.alice.core.List listValue) {
 		return listValue.itemValueAtRandomIndex();
 	}
 }

@@ -24,24 +24,25 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class LightProxy extends AffectorProxy {
-	protected abstract void onColorChange( double r, double g, double b, double a );
-	protected abstract void onBrightnessChange( double value );
-	protected abstract void onRangeChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Light.COLOR_PROPERTY ) {
-			edu.cmu.cs.stage3.alice.scenegraph.Color color = (edu.cmu.cs.stage3.alice.scenegraph.Color)value;
-			if( color!=null ) {
-				onColorChange( color.red, color.green, color.blue, color.alpha );
+	protected abstract void onColorChange(double r, double g, double b, double a);
+	protected abstract void onBrightnessChange(double value);
+	protected abstract void onRangeChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Light.COLOR_PROPERTY) {
+			edu.cmu.cs.stage3.alice.scenegraph.Color color = (edu.cmu.cs.stage3.alice.scenegraph.Color) value;
+			if (color != null) {
+				onColorChange(color.red, color.green, color.blue, color.alpha);
 			} else {
-				onColorChange( 0,0,0,0 );
+				onColorChange(0, 0, 0, 0);
 			}
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Light.BRIGHTNESS_PROPERTY ) {
-			onBrightnessChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Light.RANGE_PROPERTY ) {
-			onRangeChange( ((Double)value).doubleValue() );
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Light.BRIGHTNESS_PROPERTY) {
+			onBrightnessChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Light.RANGE_PROPERTY) {
+			onRangeChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

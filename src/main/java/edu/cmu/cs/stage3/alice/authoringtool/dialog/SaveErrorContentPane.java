@@ -27,16 +27,17 @@ package edu.cmu.cs.stage3.alice.authoringtool.dialog;
  * @author David Culyba
  */
 public class SaveErrorContentPane extends ErrorContentPane {
-	
+
+	@Override
 	public String getTitle() {
 		return "Alice - Save Error - CRITICAL";
 	}
 
-	
+	@Override
 	protected void init() {
 		super.init();
-		messageLabel.setFont( new java.awt.Font( "SansSerif", java.awt.Font.BOLD, 16 ) );
-		messageLabel.setPreferredSize( null );
-		messageLabel.setLineWrap( false );
+		messageLabel.setFont(new java.awt.Font("SansSerif", java.awt.Font.BOLD, 16));
+		messageLabel.setPreferredSize(null);
+		messageLabel.setLineWrap(false);
 	}
 }

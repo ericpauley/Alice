@@ -26,15 +26,17 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.EulerAnglesProperty;
 
 public class EulerAnglesAnimation extends OrientationAnimation {
-	public final EulerAnglesProperty eulerAngles = new EulerAnglesProperty( this, "eulerAngles", new edu.cmu.cs.stage3.math.EulerAngles( 0, 0, 0 ) );
+	public final EulerAnglesProperty eulerAngles = new EulerAnglesProperty(this, "eulerAngles", new edu.cmu.cs.stage3.math.EulerAngles(0, 0, 0));
 	public class RuntimeEulerAnglesAnimation extends RuntimeOrientationAnimation {
 		private edu.cmu.cs.stage3.math.EulerAngles m_eulerAngles;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			m_eulerAngles = edu.cmu.cs.stage3.math.EulerAngles.revolutionsToRadians( eulerAngles.getEulerAnglesValue() );
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_eulerAngles = edu.cmu.cs.stage3.math.EulerAngles.revolutionsToRadians(eulerAngles.getEulerAnglesValue());
 		}
-		
+
+		@Override
 		protected edu.cmu.cs.stage3.math.Quaternion getTargetQuaternion() {
 			return m_eulerAngles.getQuaternion();
 		}

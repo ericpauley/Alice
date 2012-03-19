@@ -28,9 +28,9 @@ import edu.cmu.cs.stage3.alice.core.Response;
 import edu.cmu.cs.stage3.alice.core.property.ResponseProperty;
 
 public abstract class AbstractConditionalBehavior extends Behavior {
-	public final ResponseProperty beginResponse = new ResponseProperty( this, "beginResponse", null );
-	public final ResponseProperty duringResponse = new ResponseProperty( this, "duringResponse", null );
-	public final ResponseProperty endResponse = new ResponseProperty( this, "endResponse", null );
+	public final ResponseProperty beginResponse = new ResponseProperty(this, "beginResponse", null);
+	public final ResponseProperty duringResponse = new ResponseProperty(this, "duringResponse", null);
+	public final ResponseProperty endResponse = new ResponseProperty(this, "endResponse", null);
 
 	private static final int RUNTIME_STATE_CHECKING_FOR_TRUE = 0;
 	private static final int RUNTIME_STATE_BEGINNING = 1;
@@ -46,118 +46,119 @@ public abstract class AbstractConditionalBehavior extends Behavior {
 	protected boolean invokeEndOnStop() {
 		return false;
 	}
-	
-	public void stopAllRuntimeResponses( double time ) {
-		if( m_runtimeBeginResponse!=null ) {
-			if( m_runtimeBeginResponse.isActive() ) {
-				m_runtimeBeginResponse.stop( time );
+
+	@Override
+	public void stopAllRuntimeResponses(double time) {
+		if (m_runtimeBeginResponse != null) {
+			if (m_runtimeBeginResponse.isActive()) {
+				m_runtimeBeginResponse.stop(time);
 			}
 		}
-		if( m_runtimeDuringResponse!=null ) {
-			if( m_runtimeDuringResponse.isActive() ) {
-				m_runtimeDuringResponse.stop( time );
+		if (m_runtimeDuringResponse != null) {
+			if (m_runtimeDuringResponse.isActive()) {
+				m_runtimeDuringResponse.stop(time);
 			}
 		}
-		if( m_runtimeEndResponse!=null ) {
-			if( m_runtimeEndResponse.isActive() ) {
-				m_runtimeEndResponse.stop( time );
+		if (m_runtimeEndResponse != null) {
+			if (m_runtimeEndResponse.isActive()) {
+				m_runtimeEndResponse.stop(time);
 			} else {
-				if( invokeEndOnStop() ) {
-					m_runtimeEndResponse.prologue( time );
-					m_runtimeEndResponse.update( time );
-					m_runtimeEndResponse.epilogue( time );
+				if (invokeEndOnStop()) {
+					m_runtimeEndResponse.prologue(time);
+					m_runtimeEndResponse.update(time);
+					m_runtimeEndResponse.epilogue(time);
 				}
 			}
 		}
 	}
 
-	protected void set( boolean booleanValue ) {
+	protected void set(boolean booleanValue) {
 		m_booleanValue = booleanValue;
 	}
 
-	
-	protected void internalSchedule( double t, double dt ) {
+	@Override
+	protected void internalSchedule(double t, double dt) {
 		double timeRemaining = 0;
-		if( m_runtimeState==RUNTIME_STATE_CHECKING_FOR_TRUE ) {
-			if( m_booleanValue ) {
-				if( m_runtimeBeginResponse!=null ) {
+		if (m_runtimeState == RUNTIME_STATE_CHECKING_FOR_TRUE) {
+			if (m_booleanValue) {
+				if (m_runtimeBeginResponse != null) {
 					m_runtimeState = RUNTIME_STATE_BEGINNING;
-					m_runtimeBeginResponse.prologue( t );
+					m_runtimeBeginResponse.prologue(t);
 				} else {
 					m_runtimeState = RUNTIME_STATE_CHECKING_FOR_FALSE;
 				}
 			}
 		}
-		if( m_runtimeState==RUNTIME_STATE_BEGINNING ) {
-			m_runtimeBeginResponse.update( t );
-			timeRemaining = m_runtimeBeginResponse.getTimeRemaining( t );
-			if( timeRemaining<=0 ) {
-				m_runtimeBeginResponse.epilogue( t );
+		if (m_runtimeState == RUNTIME_STATE_BEGINNING) {
+			m_runtimeBeginResponse.update(t);
+			timeRemaining = m_runtimeBeginResponse.getTimeRemaining(t);
+			if (timeRemaining <= 0) {
+				m_runtimeBeginResponse.epilogue(t);
 				m_runtimeState = RUNTIME_STATE_CHECKING_FOR_FALSE;
 			}
 		}
-		if( m_runtimeState==RUNTIME_STATE_CHECKING_FOR_FALSE ) {
-			if( m_booleanValue ) {
-				if( m_runtimeDuringResponse!=null ) {
-					if( !m_runtimeDuringResponse.isActive() ) {
-						m_runtimeDuringResponse.prologue( t+timeRemaining );
+		if (m_runtimeState == RUNTIME_STATE_CHECKING_FOR_FALSE) {
+			if (m_booleanValue) {
+				if (m_runtimeDuringResponse != null) {
+					if (!m_runtimeDuringResponse.isActive()) {
+						m_runtimeDuringResponse.prologue(t + timeRemaining);
 					}
-					m_runtimeDuringResponse.update( t );
-					timeRemaining = m_runtimeDuringResponse.getTimeRemaining( t );
-					if( timeRemaining<=0 ) {
-						m_runtimeDuringResponse.epilogue( t+timeRemaining );
-						m_runtimeDuringResponse.prologue( t+timeRemaining );
+					m_runtimeDuringResponse.update(t);
+					timeRemaining = m_runtimeDuringResponse.getTimeRemaining(t);
+					if (timeRemaining <= 0) {
+						m_runtimeDuringResponse.epilogue(t + timeRemaining);
+						m_runtimeDuringResponse.prologue(t + timeRemaining);
 					}
 				}
 			} else {
-				if( m_runtimeDuringResponse!=null ) {
-					m_runtimeDuringResponse.epilogue( t );
+				if (m_runtimeDuringResponse != null) {
+					m_runtimeDuringResponse.epilogue(t);
 				}
-				if( m_runtimeEndResponse!=null ) {
+				if (m_runtimeEndResponse != null) {
 					m_runtimeState = RUNTIME_STATE_ENDING;
-					m_runtimeEndResponse.prologue( t+timeRemaining );
+					m_runtimeEndResponse.prologue(t + timeRemaining);
 				} else {
 					m_runtimeState = RUNTIME_STATE_CHECKING_FOR_TRUE;
 				}
 			}
 		}
-		if( m_runtimeState==RUNTIME_STATE_ENDING ) {
-			m_runtimeEndResponse.update( t );
-			timeRemaining = m_runtimeEndResponse.getTimeRemaining( t );
-			if( timeRemaining<=0 ) {
-				m_runtimeEndResponse.epilogue( t );
+		if (m_runtimeState == RUNTIME_STATE_ENDING) {
+			m_runtimeEndResponse.update(t);
+			timeRemaining = m_runtimeEndResponse.getTimeRemaining(t);
+			if (timeRemaining <= 0) {
+				m_runtimeEndResponse.epilogue(t);
 				m_runtimeState = RUNTIME_STATE_CHECKING_FOR_TRUE;
 			}
 		}
 	}
 
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		//todo: delay this binding
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		// todo: delay this binding
 		Response beginResponseValue = beginResponse.getResponseValue();
 		Response duringResponseValue = duringResponse.getResponseValue();
 		Response endResponseValue = endResponse.getResponseValue();
-		if( beginResponseValue != null && beginResponseValue.isCommentedOut.booleanValue() ) {
+		if (beginResponseValue != null && beginResponseValue.isCommentedOut.booleanValue()) {
 			beginResponseValue = null;
 		}
-		if( duringResponseValue != null && duringResponseValue.isCommentedOut.booleanValue() ) {
+		if (duringResponseValue != null && duringResponseValue.isCommentedOut.booleanValue()) {
 			duringResponseValue = null;
 		}
-		if( endResponseValue != null && endResponseValue.isCommentedOut.booleanValue() ) {
+		if (endResponseValue != null && endResponseValue.isCommentedOut.booleanValue()) {
 			endResponseValue = null;
 		}
-		if( beginResponseValue!=null ) {
+		if (beginResponseValue != null) {
 			m_runtimeBeginResponse = beginResponseValue.manufactureRuntimeResponse();
 		} else {
 			m_runtimeBeginResponse = null;
 		}
-		if( duringResponseValue!=null ) {
+		if (duringResponseValue != null) {
 			m_runtimeDuringResponse = duringResponseValue.manufactureRuntimeResponse();
 		} else {
 			m_runtimeDuringResponse = null;
 		}
-		if( endResponseValue!=null ) {
+		if (endResponseValue != null) {
 			m_runtimeEndResponse = endResponseValue.manufactureRuntimeResponse();
 		} else {
 			m_runtimeEndResponse = null;

@@ -26,18 +26,20 @@ package edu.cmu.cs.stage3.alice.core.property;
 import edu.cmu.cs.stage3.alice.core.Element;
 
 public class StringProperty extends ObjectProperty {
-	public StringProperty( Element owner, String name, String defaultValue ) {
-		super( owner, name, defaultValue, String.class );
+	public StringProperty(Element owner, String name, String defaultValue) {
+		super(owner, name, defaultValue, String.class);
 	}
 	public String getStringValue() {
-		return (String)getValue();
+		return (String) getValue();
 	}
-    
-	protected void decodeObject( org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version ) throws java.io.IOException {
-        set( getNodeText( node ) );
-    }
-    
-	protected void encodeObject( org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator ) throws java.io.IOException {
-        node.appendChild( createNodeForString( document, getStringValue() ) );
-    }
+
+	@Override
+	protected void decodeObject(org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version) throws java.io.IOException {
+		set(getNodeText(node));
+	}
+
+	@Override
+	protected void encodeObject(org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator) throws java.io.IOException {
+		node.appendChild(createNodeForString(document, getStringValue()));
+	}
 }

@@ -41,8 +41,7 @@ abstract class ContainerProxy extends ComponentProxy {
 	public ComponentProxy[] getChildrenProxies() {
 		if (m_childrenProxies == null) {
 			edu.cmu.cs.stage3.alice.scenegraph.Container sgContainer = getSceneGraphContainer();
-			edu.cmu.cs.stage3.alice.scenegraph.Component[] sgChildren = sgContainer
-					.getChildren();
+			edu.cmu.cs.stage3.alice.scenegraph.Component[] sgChildren = sgContainer.getChildren();
 			m_childrenProxies = new ComponentProxy[sgChildren.length];
 			for (int i = 0; i < sgChildren.length; i++) {
 				m_childrenProxies[i] = (ComponentProxy) getProxyFor(sgChildren[i]);
@@ -51,29 +50,29 @@ abstract class ContainerProxy extends ComponentProxy {
 		return m_childrenProxies;
 	}
 
-	
+	@Override
 	public void setup(RenderContext context) {
 		ComponentProxy[] childrenProxies = getChildrenProxies();
-		for (int i = 0; i < childrenProxies.length; i++) {
-			childrenProxies[i].setup(context);
+		for (ComponentProxy childrenProxie : childrenProxies) {
+			childrenProxie.setup(context);
 		}
 	}
 
-	
+	@Override
 	public void render(RenderContext context) {
 		ComponentProxy[] childrenProxies = getChildrenProxies();
-	
-		for (int i = 0; i < childrenProxies.length; i++) {
-				childrenProxies[i].render(context);	
+
+		for (ComponentProxy childrenProxie : childrenProxies) {
+			childrenProxie.render(context);
 		}
-	
+
 	}
 
-	
+	@Override
 	public void pick(PickContext context, PickParameters pickParameters) {
 		ComponentProxy[] childrenProxies = getChildrenProxies();
-		for (int i = 0; i < childrenProxies.length; i++) {
-			childrenProxies[i].pick(context, pickParameters);
+		for (ComponentProxy childrenProxie : childrenProxies) {
+			childrenProxie.pick(context, pickParameters);
 		}
 	}
 }

@@ -26,7 +26,8 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.Direction;
 
 public abstract class RotateAnimation extends DirectionAmountTransformAnimation {
-	
+
+	@Override
 	protected Direction getDefaultDirection() {
 		return Direction.LEFT;
 	}
@@ -34,30 +35,32 @@ public abstract class RotateAnimation extends DirectionAmountTransformAnimation 
 		private javax.vecmath.Vector3d m_axis;
 		private double m_amount;
 		private double m_amountPrev;
-		protected abstract javax.vecmath.Vector3d getAxis( edu.cmu.cs.stage3.alice.core.Direction direction );
-		
-		public void prologue( double t ) {
-			super.prologue( t );
+		protected abstract javax.vecmath.Vector3d getAxis(edu.cmu.cs.stage3.alice.core.Direction direction);
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
 			Direction directionValue = RotateAnimation.this.direction.getDirectionValue();
 			m_amount = RotateAnimation.this.amount.doubleValue();
-			m_axis = getAxis( directionValue );
-			if( m_axis == null ) {
-				StringBuffer sb = new StringBuffer( "direction value must not be " );
-				if( directionValue != null ) {
-					sb.append( directionValue.getRepr() );
+			m_axis = getAxis(directionValue);
+			if (m_axis == null) {
+				StringBuffer sb = new StringBuffer("direction value must not be ");
+				if (directionValue != null) {
+					sb.append(directionValue.getRepr());
 				} else {
-					sb.append( "null" );
+					sb.append("null");
 				}
-				sb.append( '.' );
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( sb.toString(), null, RotateAnimation.this.direction );
+				sb.append('.');
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException(sb.toString(), null, RotateAnimation.this.direction);
 			}
 			m_amountPrev = 0;
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-			double delta = (m_amount*getPortion( t ))-m_amountPrev;
-			m_subject.rotateRightNow( m_axis, delta, m_asSeenBy );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			double delta = m_amount * getPortion(t) - m_amountPrev;
+			m_subject.rotateRightNow(m_axis, delta, m_asSeenBy);
 			m_amountPrev += delta;
 		}
 	}

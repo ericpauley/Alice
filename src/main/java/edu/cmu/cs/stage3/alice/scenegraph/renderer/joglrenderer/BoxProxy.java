@@ -24,24 +24,27 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class BoxProxy extends ShapeProxy {
-    
-	public void render( RenderContext context ) {
-        //todo
-    }
-	
-	public void pick( PickContext context, boolean isSubElementRequired ) {
-        //todo
-	}    
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Box.WIDTH_PROPERTY ) {
-            //todo
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Box.HEIGHT_PROPERTY ) {
-            //todo
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Box.DEPTH_PROPERTY ) {
-            //todo
+
+	@Override
+	public void render(RenderContext context) {
+		// todo
+	}
+
+	@Override
+	public void pick(PickContext context, boolean isSubElementRequired) {
+		// todo
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Box.WIDTH_PROPERTY) {
+			// todo
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Box.HEIGHT_PROPERTY) {
+			// todo
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Box.DEPTH_PROPERTY) {
+			// todo
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

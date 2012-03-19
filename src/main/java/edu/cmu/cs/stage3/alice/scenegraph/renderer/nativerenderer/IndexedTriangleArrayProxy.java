@@ -24,19 +24,20 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class IndexedTriangleArrayProxy extends VertexGeometryProxy {
-	protected abstract void onIndicesChange( int[] value );
-	protected abstract void onIndexLowerBoundChange( int value );
-	protected abstract void onIndexUpperBoundChange( int value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.INDICES_PROPERTY ) {
-			onIndicesChange( (int[])value );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.INDEX_LOWER_BOUND_PROPERTY ) {
-			onIndexLowerBoundChange( ((Integer)value).intValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.INDEX_UPPER_BOUND_PROPERTY ) {
-			onIndexUpperBoundChange( ((Integer)value).intValue() );
+	protected abstract void onIndicesChange(int[] value);
+	protected abstract void onIndexLowerBoundChange(int value);
+	protected abstract void onIndexUpperBoundChange(int value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.INDICES_PROPERTY) {
+			onIndicesChange((int[]) value);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.INDEX_LOWER_BOUND_PROPERTY) {
+			onIndexLowerBoundChange(((Integer) value).intValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.INDEX_UPPER_BOUND_PROPERTY) {
+			onIndexUpperBoundChange(((Integer) value).intValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

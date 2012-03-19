@@ -27,10 +27,11 @@ import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 import edu.cmu.cs.stage3.alice.core.property.ElementArrayProperty;
 
 public class IfElseInOrder extends DoInOrder {
-	public final BooleanProperty condition = new BooleanProperty( this, "condition", Boolean.TRUE );
-	public final ElementArrayProperty elseComponentResponses = new ElementArrayProperty( this, "elseComponentResponses", null, edu.cmu.cs.stage3.alice.core.Response[].class );
+	public final BooleanProperty condition = new BooleanProperty(this, "condition", Boolean.TRUE);
+	public final ElementArrayProperty elseComponentResponses = new ElementArrayProperty(this, "elseComponentResponses", null, edu.cmu.cs.stage3.alice.core.Response[].class);
 	private static Class[] s_supportedCoercionClasses = {};
-	
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
@@ -39,20 +40,22 @@ public class IfElseInOrder extends DoInOrder {
 		private boolean m_condition;
 		public RuntimeIfElseInOrder() {
 			super();
-			m_runtimeElseComponentResponses = manufactureComponentRuntimeResponses( elseComponentResponses );
+			m_runtimeElseComponentResponses = manufactureComponentRuntimeResponses(elseComponentResponses);
 		}
-		
+
+		@Override
 		protected RuntimeResponse[] getRuntimeResponses() {
-			if( m_condition ) {
+			if (m_condition) {
 				return super.getRuntimeResponses();
 			} else {
 				return m_runtimeElseComponentResponses;
 			}
 		}
-		
-		public void prologue( double t ) {
-			m_condition = IfElseInOrder.this.condition.booleanValue();
-			super.prologue( t );
+
+		@Override
+		public void prologue(double t) {
+			m_condition = condition.booleanValue();
+			super.prologue(t);
 		}
 	}
 }

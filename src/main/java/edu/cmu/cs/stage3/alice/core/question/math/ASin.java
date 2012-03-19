@@ -24,13 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class ASin extends edu.cmu.cs.stage3.alice.core.question.UnaryNumberResultingInNumberQuestion {
-	private static Class[] s_supportedCoercionClasses = { Cos.class, Sin.class, Tan.class, ACos.class, ATan.class };
-	
+	private static Class[] s_supportedCoercionClasses = {Cos.class, Sin.class, Tan.class, ACos.class, ATan.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected double getValue( double aValue ) {
-		return Math.asin( aValue );
+
+	@Override
+	protected double getValue(double aValue) {
+		return Math.asin(aValue);
 	}
 }

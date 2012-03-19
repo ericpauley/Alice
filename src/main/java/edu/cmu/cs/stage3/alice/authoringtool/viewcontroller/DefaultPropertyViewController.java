@@ -29,25 +29,25 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
 public class DefaultPropertyViewController extends PropertyViewController {
 	protected javax.swing.JLabel label = new javax.swing.JLabel();
 
-	
-	public void set( edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, boolean includeOther, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-		super.set( property, includeDefaults, allowExpressions, includeOther, omitPropertyName, factory );
-		setPopupEnabled( true );
+	@Override
+	public void set(edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, boolean includeOther, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
+		super.set(property, includeDefaults, allowExpressions, includeOther, omitPropertyName, factory);
+		setPopupEnabled(true);
 		refreshGUI();
 	}
 
-	
+	@Override
 	protected java.awt.Component getNativeComponent() {
 		return label;
 	}
 
-	
+	@Override
 	protected Class getNativeClass() {
 		return Object.class;
 	}
 
-	
+	@Override
 	protected void updateNativeComponent() {
-		label.setText( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( property.get(), property ) );
+		label.setText(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(property.get(), property));
 	}
 }

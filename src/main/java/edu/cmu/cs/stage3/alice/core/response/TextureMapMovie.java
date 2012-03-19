@@ -31,12 +31,12 @@ import edu.cmu.cs.stage3.alice.core.property.TransformableProperty;
 
 //todo handle arguments
 public class TextureMapMovie extends edu.cmu.cs.stage3.alice.core.Response {
-	public final TransformableProperty subject = new TransformableProperty( this, "subject", null );
-	public final ElementArrayProperty textureMaps = new ElementArrayProperty( this, "textureMaps", null, edu.cmu.cs.stage3.alice.core.TextureMap[].class );
-	public final NumberProperty framesPerSecond = new NumberProperty( this, "framesPerSecond", new Integer( 24 ) );
-	public final BooleanProperty setDiffuseColorMap = new BooleanProperty( this, "setDiffuseColorMap", Boolean.TRUE );
-	public final BooleanProperty setOpacityMap = new BooleanProperty( this, "setOpacityMap", Boolean.FALSE );
-	public final ObjectProperty howMuch = new ObjectProperty( this, "howMuch", edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_PARTS, edu.cmu.cs.stage3.util.HowMuch.class );
+	public final TransformableProperty subject = new TransformableProperty(this, "subject", null);
+	public final ElementArrayProperty textureMaps = new ElementArrayProperty(this, "textureMaps", null, edu.cmu.cs.stage3.alice.core.TextureMap[].class);
+	public final NumberProperty framesPerSecond = new NumberProperty(this, "framesPerSecond", new Integer(24));
+	public final BooleanProperty setDiffuseColorMap = new BooleanProperty(this, "setDiffuseColorMap", Boolean.TRUE);
+	public final BooleanProperty setOpacityMap = new BooleanProperty(this, "setOpacityMap", Boolean.FALSE);
+	public final ObjectProperty howMuch = new ObjectProperty(this, "howMuch", edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_PARTS, edu.cmu.cs.stage3.util.HowMuch.class);
 	public class TextureMapMovieResponse extends RuntimeResponse {
 		private edu.cmu.cs.stage3.alice.core.Transformable m_transformable;
 		private edu.cmu.cs.stage3.alice.core.TextureMap[] m_textureMaps;
@@ -44,28 +44,30 @@ public class TextureMapMovie extends edu.cmu.cs.stage3.alice.core.Response {
 		private boolean m_setDiffuseColorMap;
 		private boolean m_setOpacityMap;
 		private edu.cmu.cs.stage3.util.HowMuch m_howMuch;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			m_transformable = TextureMapMovie.this.subject.getTransformableValue();
-			m_textureMaps = (edu.cmu.cs.stage3.alice.core.TextureMap[])TextureMapMovie.this.textureMaps.getValue();
-			m_framesPerSecond = TextureMapMovie.this.framesPerSecond.doubleValue();
-			m_setDiffuseColorMap = TextureMapMovie.this.setDiffuseColorMap.booleanValue();
-			m_setOpacityMap = TextureMapMovie.this.setOpacityMap.booleanValue();
-			m_howMuch = (edu.cmu.cs.stage3.util.HowMuch)TextureMapMovie.this.howMuch.getValue();
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_transformable = subject.getTransformableValue();
+			m_textureMaps = (edu.cmu.cs.stage3.alice.core.TextureMap[]) textureMaps.getValue();
+			m_framesPerSecond = framesPerSecond.doubleValue();
+			m_setDiffuseColorMap = setDiffuseColorMap.booleanValue();
+			m_setOpacityMap = setOpacityMap.booleanValue();
+			m_howMuch = (edu.cmu.cs.stage3.util.HowMuch) howMuch.getValue();
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-			if( m_textureMaps.length>0 ) {
-				int index = (int)( getTimeElapsed( t )*m_framesPerSecond );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			if (m_textureMaps.length > 0) {
+				int index = (int) (getTimeElapsed(t) * m_framesPerSecond);
 				index %= m_textureMaps.length;
 				edu.cmu.cs.stage3.alice.core.TextureMap textureMap = m_textureMaps[index];
-				if( m_setDiffuseColorMap ) {
-					m_transformable.setPropertyNamed( "diffuseColorMap", textureMap, m_howMuch );
+				if (m_setDiffuseColorMap) {
+					m_transformable.setPropertyNamed("diffuseColorMap", textureMap, m_howMuch);
 				}
-				if( m_setOpacityMap ) {
-					m_transformable.setPropertyNamed( "opacityMap", textureMap, m_howMuch );
+				if (m_setOpacityMap) {
+					m_transformable.setPropertyNamed("opacityMap", textureMap, m_howMuch);
 				}
 			}
 		}

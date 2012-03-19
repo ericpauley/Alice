@@ -24,7 +24,7 @@
 package edu.cmu.cs.stage3.alice.core.criterion;
 
 public class VariableIsAssignableFromCriterion extends ExpressionIsAssignableFromCriterion {
-    public VariableIsAssignableFromCriterion( Class cls ) {
-        super( edu.cmu.cs.stage3.alice.core.Variable.class, cls );
-    }
+	public VariableIsAssignableFromCriterion(Class cls) {
+		super(edu.cmu.cs.stage3.alice.core.Variable.class, cls);
+	}
 }

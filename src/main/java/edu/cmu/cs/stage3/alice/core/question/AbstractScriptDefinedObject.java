@@ -26,9 +26,10 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.property.ScriptProperty;
 
 public abstract class AbstractScriptDefinedObject extends edu.cmu.cs.stage3.alice.core.Question {
-	public final ScriptProperty evalScript = new ScriptProperty( this, "evalScript", null );
-	
+	public final ScriptProperty evalScript = new ScriptProperty(this, "evalScript", null);
+
+	@Override
 	public Object getValue() {
-		return eval( evalScript.getCode( edu.cmu.cs.stage3.alice.scripting.CompileType.EVAL ) );
+		return eval(evalScript.getCode(edu.cmu.cs.stage3.alice.scripting.CompileType.EVAL));
 	}
 }

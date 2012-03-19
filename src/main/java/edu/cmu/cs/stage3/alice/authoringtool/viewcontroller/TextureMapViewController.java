@@ -31,43 +31,48 @@ public class TextureMapViewController extends javax.swing.JPanel implements edu.
 	protected ElementDnDPanel textureMapDnDPanel;
 
 	public TextureMapViewController() {
-		setLayout( new java.awt.GridBagLayout() );
-		setOpaque( false );
+		setLayout(new java.awt.GridBagLayout());
+		setOpaque(false);
 	}
 
-	public void setTextureMap( edu.cmu.cs.stage3.alice.core.TextureMap textureMap ) {
+	public void setTextureMap(edu.cmu.cs.stage3.alice.core.TextureMap textureMap) {
 		this.textureMap = textureMap;
-		textureMapDnDPanel =  edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getElementDnDPanel( textureMap );
-		add( textureMapDnDPanel, new java.awt.GridBagConstraints( 0, 0, 1, 1, 0.0, 0.0, java.awt.GridBagConstraints.CENTER, java.awt.GridBagConstraints.NONE, new java.awt.Insets( 0, 0, 0, 0 ), 0, 0 ) );
-		//TODO: add mini image
+		textureMapDnDPanel = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getElementDnDPanel(textureMap);
+		add(textureMapDnDPanel, new java.awt.GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, java.awt.GridBagConstraints.CENTER, java.awt.GridBagConstraints.NONE, new java.awt.Insets(0, 0, 0, 0), 0, 0));
+		// TODO: add mini image
 	}
 
+	@Override
 	public void goToSleep() {
-		if( textureMapDnDPanel != null ) {
+		if (textureMapDnDPanel != null) {
 			textureMapDnDPanel.goToSleep();
 		}
 	}
 
+	@Override
 	public void wakeUp() {
-		if( textureMapDnDPanel != null ) {
+		if (textureMapDnDPanel != null) {
 			textureMapDnDPanel.wakeUp();
 		}
 	}
 
+	@Override
 	public void clean() {
 		goToSleep();
-		if( textureMapDnDPanel != null ) {
-			remove( textureMapDnDPanel );
+		if (textureMapDnDPanel != null) {
+			remove(textureMapDnDPanel);
 			textureMapDnDPanel = null;
 		}
 	}
 
+	@Override
 	public void die() {
 		clean();
 	}
 
+	@Override
 	public void release() {
-		edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.releaseGUI( this );
+		edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.releaseGUI(this);
 	}
 
 }

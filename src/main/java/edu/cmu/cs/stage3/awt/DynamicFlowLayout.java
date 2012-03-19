@@ -20,17 +20,17 @@
  *    must display the following acknowledgement:
  *    "This product includes software developed by Carnegie Mellon University"
  */
- 
+
 package edu.cmu.cs.stage3.awt;
 
 /**
  * @author culyba
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * 
+ *         To change the template for this generated type comment go to
+ *         Window>Preferences>Java>Code Generation>Code and Comments
  */
 
-public class DynamicFlowLayout extends java.awt.FlowLayout{
+public class DynamicFlowLayout extends java.awt.FlowLayout {
 
 	private java.awt.Dimension lastPreferredSize;
 	private java.awt.Component anchorComponent;
@@ -38,24 +38,24 @@ public class DynamicFlowLayout extends java.awt.FlowLayout{
 	private int anchorConstant = 0;
 	private Class anchorClass;
 
-	public DynamicFlowLayout(int align, java.awt.Component anchor, Class anchorClass){
+	public DynamicFlowLayout(int align, java.awt.Component anchor, Class anchorClass) {
 		this(align, anchor, anchorClass, 0);
 	}
-	
-	public DynamicFlowLayout(int align, java.awt.Component anchor, Class anchorClass, int anchorConstant){
+
+	public DynamicFlowLayout(int align, java.awt.Component anchor, Class anchorClass, int anchorConstant) {
 		super(align);
-		this.anchorComponent = anchor;
+		anchorComponent = anchor;
 		this.anchorClass = anchorClass;
 		this.anchorConstant = anchorConstant;
 	}
 
-	
+	@Override
 	public void layoutContainer(java.awt.Container target) {
 		synchronized (target.getTreeLock()) {
 			java.awt.Insets insets = target.getInsets();
 			int hgap = getHgap();
 			int vgap = getVgap();
-			if (lastPreferredSize == null){
+			if (lastPreferredSize == null) {
 				lastPreferredSize = preferredLayoutSize(target);
 			}
 			int maxwidth = lastPreferredSize.width;
@@ -65,12 +65,12 @@ public class DynamicFlowLayout extends java.awt.FlowLayout{
 
 			boolean ltr = target.getComponentOrientation().isLeftToRight();
 
-			for (int i = 0 ; i < nmembers ; i++) {
+			for (int i = 0; i < nmembers; i++) {
 				java.awt.Component m = target.getComponent(i);
 				if (m.isVisible()) {
 					java.awt.Dimension d = m.getPreferredSize();
 					m.setSize(d.width, d.height);
-					if ((x == 0) || ((x + d.width) <= maxwidth)) {
+					if (x == 0 || x + d.width <= maxwidth) {
 						if (x > 0) {
 							x += hgap;
 						}
@@ -89,26 +89,25 @@ public class DynamicFlowLayout extends java.awt.FlowLayout{
 		}
 	}
 
-	private void moveComponents(java.awt.Container target, int x, int y, int width, int height,
-							int rowStart, int rowEnd, boolean ltr) {
+	private void moveComponents(java.awt.Container target, int x, int y, int width, int height, int rowStart, int rowEnd, boolean ltr) {
 		synchronized (target.getTreeLock()) {
 			switch (getAlignment()) {
-				case LEFT:
+				case LEFT :
 					x += ltr ? 0 : width;
 					break;
-				case CENTER:
+				case CENTER :
 					x += width / 2;
 					break;
-				case RIGHT:
+				case RIGHT :
 					x += ltr ? width : 0;
 					break;
-				case LEADING:
+				case LEADING :
 					break;
-				case TRAILING:
+				case TRAILING :
 					x += width;
 					break;
 			}
-			for (int i = rowStart ; i < rowEnd ; i++) {
+			for (int i = rowStart; i < rowEnd; i++) {
 				java.awt.Component m = target.getComponent(i);
 				if (target.isVisible()) {
 					if (ltr) {
@@ -117,97 +116,96 @@ public class DynamicFlowLayout extends java.awt.FlowLayout{
 						m.setLocation(target.getWidth() - x - m.getWidth(), y + (height - m.getHeight()) / 2);
 					}
 					x += m.getWidth() + getHgap();
-				} 
+				}
 			}
 		}
 	}
 
-	
-	public java.awt.Dimension preferredLayoutSize(java.awt.Container target){
+	@Override
+	public java.awt.Dimension preferredLayoutSize(java.awt.Container target) {
 		java.awt.Insets insets = target.getInsets();
 		int hgap = getHgap();
 		int vgap = getVgap();
-		if (anchorComponent == null){
+		if (anchorComponent == null) {
 			anchorComponent = getAnchor(target);
 		}
 		int maxwidth = 0;
-		if (anchorComponent == null){
-			maxwidth = (target.getWidth() - (insets.left + insets.right + hgap*2));
+		if (anchorComponent == null) {
+			maxwidth = target.getWidth() - (insets.left + insets.right + hgap * 2);
+		} else {
+			maxwidth = anchorComponent.getWidth() - (insets.left + insets.right + hgap * 2) - anchorConstant;
 		}
-		else{
-			maxwidth = anchorComponent.getWidth() - (insets.left + insets.right + hgap*2) - anchorConstant;
-		}
-//		maxwidth = (ownerComponent.getWidth() - (insets.left + insets.right + hgap*2));
-//		System.out.println(ownerComponent+", "+target);
-//		System.out.println(target.getWidth()+", "+maxwidth);
-//		ownerComponent.setBackground(java.awt.Color.red);
+		// maxwidth = (ownerComponent.getWidth() - (insets.left + insets.right +
+		// hgap*2));
+		// System.out.println(ownerComponent+", "+target);
+		// System.out.println(target.getWidth()+", "+maxwidth);
+		// ownerComponent.setBackground(java.awt.Color.red);
 		int nmembers = target.getComponentCount();
 		int x = 0, y = insets.top + vgap;
 		int rowh = 0;
 
-		if (maxwidth < 0){
+		if (maxwidth < 0) {
 			maxwidth = 0;
-			for (int i = 0 ; i < nmembers ; i++) {
+			for (int i = 0; i < nmembers; i++) {
 				java.awt.Component m = target.getComponent(i);
 				if (m.isVisible()) {
 					java.awt.Dimension d = m.getPreferredSize();
 					y = Math.max(y, d.height);
-					if (d.width > 0 && d.height > 0){
+					if (d.width > 0 && d.height > 0) {
 						if (maxwidth > 0) {
-							 maxwidth += hgap;
-						 }
+							maxwidth += hgap;
+						}
 						maxwidth += d.width;
 					}
 				}
 			}
-		}
-		else{
+		} else {
 			boolean ltr = target.getComponentOrientation().isLeftToRight();
-			for (int i = 0 ; i < nmembers ; i++) {
+			for (int i = 0; i < nmembers; i++) {
 				java.awt.Component m = target.getComponent(i);
 				if (m.isVisible()) {
 					java.awt.Dimension d = m.getPreferredSize();
-//						  System.out.println("on "+m+"\n dimensions: "+d);
-//						  System.out.println("x is currently "+x);
-//						  //      if (d.width > 0 && d.height > 0){
-//						  System.out.println("expected :"+(x + d.width)+ " < "+maxwidth+" ?");
-//						  // m.setSize(d.width, d.height);
-					if ((x == 0) || ((x + d.width) <= maxwidth)) {
-//							  System.out.println("it fits");
+					// System.out.println("on "+m+"\n dimensions: "+d);
+					// System.out.println("x is currently "+x);
+					// // if (d.width > 0 && d.height > 0){
+					// System.out.println("expected :"+(x + d.width)+
+					// " < "+maxwidth+" ?");
+					// // m.setSize(d.width, d.height);
+					if (x == 0 || x + d.width <= maxwidth) {
+						// System.out.println("it fits");
 						if (x > 0) {
 							x += hgap;
 						}
 						x += d.width;
 						rowh = Math.max(rowh, d.height);
-					}
-					else {
-//							  System.out.println("too big");
+					} else {
+						// System.out.println("too big");
 						x = d.width;
 						y += vgap + rowh;
 						rowh = d.height;
-//							  System.out.println("rowh is now "+rowh+", y is now "+y);
+						// System.out.println("rowh is now "+rowh+", y is now "+y);
 					}
-					//}
-//						  System.out.println("x is now: "+x);
+					// }
+					// System.out.println("x is now: "+x);
 				}
 			}
 		}
-//			  System.out.println("returning: "+(new java.awt.Dimension(maxwidth, y+rowh+vgap)));
-//			  System.out.println("DONE GETTING SIZE\n");
-		lastPreferredSize = new java.awt.Dimension(maxwidth, y+rowh+vgap);
+		// System.out.println("returning: "+(new java.awt.Dimension(maxwidth,
+		// y+rowh+vgap)));
+		// System.out.println("DONE GETTING SIZE\n");
+		lastPreferredSize = new java.awt.Dimension(maxwidth, y + rowh + vgap);
 		return lastPreferredSize;
 	}
 
-	
-	public java.awt.Dimension minimumLayoutSize(java.awt.Container target){
+	@Override
+	public java.awt.Dimension minimumLayoutSize(java.awt.Container target) {
 		return preferredLayoutSize(target);
 	}
-	
-	private java.awt.Component getAnchor(java.awt.Component current){
-		if (current == null || anchorClass.isAssignableFrom(current.getClass())){
+
+	private java.awt.Component getAnchor(java.awt.Component current) {
+		if (current == null || anchorClass.isAssignableFrom(current.getClass())) {
 			return current;
-		}
-		else{
+		} else {
 			return getAnchor(current.getParent());
 		}
 	}

@@ -28,14 +28,15 @@ package edu.cmu.cs.stage3.alice.authoringtool.dialog;
  */
 
 public class NewQuestionContentPane extends NewNamedTypedElementContentPane {
-	
+
+	@Override
 	public String getTitle() {
-		String cappedQuestionString = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.QUESTION_STRING.substring(0,1).toUpperCase()+edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.QUESTION_STRING.substring(1);
-		return "New "+cappedQuestionString;
+		String cappedQuestionString = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.QUESTION_STRING.substring(0, 1).toUpperCase() + edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.QUESTION_STRING.substring(1);
+		return "New " + cappedQuestionString;
 	}
-	
-	
-	protected void initVariables(){
+
+	@Override
+	protected void initVariables() {
 		listsOnly = false;
 		showValue = false;
 	}

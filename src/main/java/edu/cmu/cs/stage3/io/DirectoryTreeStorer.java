@@ -24,22 +24,25 @@
 package edu.cmu.cs.stage3.io;
 
 /**
- * <code>DirectoryTreeStorer</code> defines an interface for mechanisms that can store
- * hierarchical trees of files, either to a filesystem, a network resource, an archive file
- * (i.e. tar), a compressed archive file (i.e. zip), or some other storage medium.
- *
+ * <code>DirectoryTreeStorer</code> defines an interface for mechanisms that can
+ * store hierarchical trees of files, either to a filesystem, a network
+ * resource, an archive file (i.e. tar), a compressed archive file (i.e. zip),
+ * or some other storage medium.
+ * 
  * @author Jason Pratt
  */
 public interface DirectoryTreeStorer {
 	/**
-	 * prepares the storer to write a new directory tree to <code>pathname</code>.
-	 * <code>pathname</code> may be a directory, filename, URL, OutputStream, or something else,
-	 * depending on the implementation.
-	 *
-	 * @throws IllegalArgumentException if <code>pathname</code> is of an incorrect type
+	 * prepares the storer to write a new directory tree to
+	 * <code>pathname</code>. <code>pathname</code> may be a directory,
+	 * filename, URL, OutputStream, or something else, depending on the
+	 * implementation.
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if <code>pathname</code> is of an incorrect type
 	 * @throws java.io.IOException
 	 */
-	public void open( Object pathname ) throws IllegalArgumentException, java.io.IOException;
+	public void open(Object pathname) throws IllegalArgumentException, java.io.IOException;
 
 	/**
 	 * performs any clean-up necessary for the currently open directory tree.
@@ -49,22 +52,24 @@ public interface DirectoryTreeStorer {
 	/**
 	 * should create a new directory with the given <code>pathname</code>,
 	 * relative to the current directory.
-	 *
-	 * @throws IllegalArgumentException if <code>pathname</code> is ill-formed
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if <code>pathname</code> is ill-formed
 	 * @throws java.io.IOException
 	 */
-	public void createDirectory( String pathname ) throws IllegalArgumentException, java.io.IOException;
+	public void createDirectory(String pathname) throws IllegalArgumentException, java.io.IOException;
 
 	/**
-	 * sets the current directory.
-	 * if <code>pathname</code> begins with '/', the operation is relative to the root of this tree,
-	 * otherwise the operation is relative to the current directory.
-	 *
+	 * sets the current directory. if <code>pathname</code> begins with '/', the
+	 * operation is relative to the root of this tree, otherwise the operation
+	 * is relative to the current directory.
+	 * 
 	 * new files and directories will be made relative to the current directory.
-	 *
-	 * @throws IllegalArgumentException if <code>pathname</code> is ill-formed or doesn't exist
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if <code>pathname</code> is ill-formed or doesn't exist
 	 */
-	public void setCurrentDirectory( String pathname ) throws IllegalArgumentException;
+	public void setCurrentDirectory(String pathname) throws IllegalArgumentException;
 
 	/**
 	 * @returns the current directory, relative to the root of this tree
@@ -72,55 +77,67 @@ public interface DirectoryTreeStorer {
 	public String getCurrentDirectory();
 
 	/**
-	 * creates a file with the given <code>filename</code>.
-	 * the path will be determined by the current directory,
-	 * and should not be specified in <code>filename</code>.
-	 *
-	 * if <code>compressItIfYouGotIt</code> is true, then the Storer
-	 * should compress this data if it is capable of doing so.
-	 * <code>compressItIfYouGotIt</code> should be false for formats that
-	 * are already compressed, such as .png and .mp3.
-	 *
-	 * @returns a stream which can be used to write to the new file.
-	 * if <code>createFile</code> is called twice before <code>closeCurrentFile</code>
-	 * is called, <code>closeCurrentFile</code> will be called automatically,
-	 * and the stream will become invalid.
-	 *
-	 * @throws IllegalArgumentException if <code>filename</code> is ill-formed
+	 * creates a file with the given <code>filename</code>. the path will be
+	 * determined by the current directory, and should not be specified in
+	 * <code>filename</code>.
+	 * 
+	 * if <code>compressItIfYouGotIt</code> is true, then the Storer should
+	 * compress this data if it is capable of doing so.
+	 * <code>compressItIfYouGotIt</code> should be false for formats that are
+	 * already compressed, such as .png and .mp3.
+	 * 
+	 * @returns a stream which can be used to write to the new file. if
+	 *          <code>createFile</code> is called twice before
+	 *          <code>closeCurrentFile</code> is called,
+	 *          <code>closeCurrentFile</code> will be called automatically, and
+	 *          the stream will become invalid.
+	 * 
+	 * @throws IllegalArgumentException
+	 *             if <code>filename</code> is ill-formed
 	 */
-	public java.io.OutputStream createFile( String filename, boolean compressItIfYouGotIt ) throws IllegalArgumentException, java.io.IOException;
+	public java.io.OutputStream createFile(String filename, boolean compressItIfYouGotIt) throws IllegalArgumentException, java.io.IOException;
 
 	/**
-	 * closes the current file, performing any necessary clean-up operations, depending on the implementation.
+	 * closes the current file, performing any necessary clean-up operations,
+	 * depending on the implementation.
 	 */
 	public void closeCurrentFile() throws java.io.IOException;
 
 	/**
-	 * useful in avoiding the unnecessary storing of unchanged data to the same file location as previously loaded or stored.
-	 * return null if not applicable.
-	 *
-	 * @throws KeepFileNotSupportedException if <code>getKeepKey()</code> cannot be used with this Storer
-	 *
-	 * @returns a unique string identifier for the given filename in the current directory
-	 *
-	 * @see #edu.cmu.cs.stage3.io.DirectoryTreeLoader.getKey
+	 * useful in avoiding the unnecessary storing of unchanged data to the same
+	 * file location as previously loaded or stored. return null if not
+	 * applicable.
+	 * 
+	 * @throws KeepFileNotSupportedException
+	 *             if <code>getKeepKey()</code> cannot be used with this Storer
+	 * 
+	 * @returns a unique string identifier for the given filename in the current
+	 *          directory
+	 * 
+	 * @see #edu
 	 */
-	public Object getKeepKey( String filename ) throws KeepFileNotSupportedException;
+	public Object getKeepKey(String filename) throws KeepFileNotSupportedException;
 
 	/**
-	 * if true, then this DirectoryTreeStorer supports the <code>keepFile()</code> and <code>getKeepKey()</code> methods
-	 *
+	 * if true, then this DirectoryTreeStorer supports the
+	 * <code>keepFile()</code> and <code>getKeepKey()</code> methods
+	 * 
 	 * @see #keepFile
 	 */
 	public boolean isKeepFileSupported();
 
 	/**
-	 * indicates to the Storer that the given file should be retained in the store as is.  Storers that support
-	 * <code>keepFile()</code> should make a cleanup pass on <code>close()</code> that removes any files that
-	 * were not either written with <code>createFile()</code> or indicated as keepers with <code>keepFile()</code>.
-	 *
-	 * @throws KeepFileNotSupportedException if <code>keepFile()</code> cannot be used with this Storer
-	 * @throws KeepFileDoesNotExistException if <code>keepFile()</code> is called for a file that does not exist in the store
+	 * indicates to the Storer that the given file should be retained in the
+	 * store as is. Storers that support <code>keepFile()</code> should make a
+	 * cleanup pass on <code>close()</code> that removes any files that were not
+	 * either written with <code>createFile()</code> or indicated as keepers
+	 * with <code>keepFile()</code>.
+	 * 
+	 * @throws KeepFileNotSupportedException
+	 *             if <code>keepFile()</code> cannot be used with this Storer
+	 * @throws KeepFileDoesNotExistException
+	 *             if <code>keepFile()</code> is called for a file that does not
+	 *             exist in the store
 	 */
-	public void keepFile( String filename ) throws KeepFileNotSupportedException, KeepFileDoesNotExistException;
+	public void keepFile(String filename) throws KeepFileNotSupportedException, KeepFileDoesNotExistException;
 }

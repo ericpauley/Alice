@@ -25,68 +25,65 @@ package edu.cmu.cs.stage3.alice.authoringtool.galleryviewer;
 
 public class LocalGalleryDirectory extends LocalGalleryObject {
 
-    protected GalleryViewer.DirectoryStructure directoryData;
+	protected GalleryViewer.DirectoryStructure directoryData;
 
-    protected static java.awt.Color localDirColor = new java.awt.Color(189,184,139);
+	protected static java.awt.Color localDirColor = new java.awt.Color(189, 184, 139);
 
-    
-	protected String getToolTipString(){
-        return "<html><body><p>Group of Objects</p><p>Click to open this group.</p></body></html>";
-    }
+	@Override
+	protected String getToolTipString() {
+		return "<html><body><p>Group of Objects</p><p>Click to open this group.</p></body></html>";
+	}
 
-    
-	public void set(GalleryViewer.ObjectXmlData dataIn) throws java.lang.IllegalArgumentException{
-        if (dataIn != null){
-            directoryData = dataIn.directoryData;
-            super.set(dataIn);
-        }
-    }
+	@Override
+	public void set(GalleryViewer.ObjectXmlData dataIn) throws java.lang.IllegalArgumentException {
+		if (dataIn != null) {
+			directoryData = dataIn.directoryData;
+			super.set(dataIn);
+		}
+	}
 
-    
-	public void setImage(javax.swing.ImageIcon imageIcon){
-        if (imageIcon == GalleryViewer.noImageIcon){
-            super.setImage(GalleryViewer.noFolderImageIcon);
-        }
-        else{
-            super.setImage(imageIcon);
-        }
-    }
+	@Override
+	public void setImage(javax.swing.ImageIcon imageIcon) {
+		if (imageIcon == GalleryViewer.noImageIcon) {
+			super.setImage(GalleryViewer.noFolderImageIcon);
+		} else {
+			super.setImage(imageIcon);
+		}
+	}
 
-	
-	protected String getClassName(){
+	@Override
+	protected String getClassName() {
 		return " ";
 	}
 
-    
-	protected void guiInit(){
-        super.guiInit();
-        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        this.setBackground(localDirColor);
-        this.setDragEnabled(false);
-        this.remove(grip);
-    }
+	@Override
+	protected void guiInit() {
+		super.guiInit();
+		setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		setBackground(localDirColor);
+		setDragEnabled(false);
+		this.remove(grip);
+	}
 
-    
-	public void respondToMouse(){
-        if (mainViewer != null){
-            mainViewer.changeDirectory(directoryData);
-        }
-    }
+	@Override
+	public void respondToMouse() {
+		if (mainViewer != null) {
+			mainViewer.changeDirectory(directoryData);
+		}
+	}
 
-    
-	public void galleryMouseExited(){
-       /* if (mouseOver){
-            mouseOver = false;
-            this.repaint();
-        }*/
-    }
+	@Override
+	public void galleryMouseExited() {
+		/*
+		 * if (mouseOver){ mouseOver = false; this.repaint(); }
+		 */
+	}
 
-    
-	public void galleryMouseEntered(){
-       /* if (!mouseOver){
-            mouseOver = true;
-            this.repaint();
-        }*/
-    }
+	@Override
+	public void galleryMouseEntered() {
+		/*
+		 * if (!mouseOver){ mouseOver = true; this.repaint(); }
+		 */
+	}
 
 }

@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.queue;
 
 public class Size extends QueueNumberQuestion {
-	
-	public int getValue( edu.cmu.cs.stage3.alice.core.Queue queueValue ) {
+
+	@Override
+	public int getValue(edu.cmu.cs.stage3.alice.core.Queue queueValue) {
 		return queueValue.size();
 	}
 }

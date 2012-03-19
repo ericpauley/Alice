@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.core.event;
 
 public interface ExpressionListener {
-	public void expressionChanged( ExpressionEvent expressionEvent );
+	public void expressionChanged(ExpressionEvent expressionEvent);
 }

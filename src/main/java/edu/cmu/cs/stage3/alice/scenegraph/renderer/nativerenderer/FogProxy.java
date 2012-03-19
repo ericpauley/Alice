@@ -24,18 +24,19 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class FogProxy extends AffectorProxy {
-	protected abstract void onColorChange( double r, double g, double b, double a );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Fog.COLOR_PROPERTY ) {
-			edu.cmu.cs.stage3.alice.scenegraph.Color color = (edu.cmu.cs.stage3.alice.scenegraph.Color)value;
-			if( color!=null ) {
-				onColorChange( color.red, color.green, color.blue, color.alpha );
+	protected abstract void onColorChange(double r, double g, double b, double a);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Fog.COLOR_PROPERTY) {
+			edu.cmu.cs.stage3.alice.scenegraph.Color color = (edu.cmu.cs.stage3.alice.scenegraph.Color) value;
+			if (color != null) {
+				onColorChange(color.red, color.green, color.blue, color.alpha);
 			} else {
-				onColorChange( 0,0,0,0 );
+				onColorChange(0, 0, 0, 0);
 			}
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

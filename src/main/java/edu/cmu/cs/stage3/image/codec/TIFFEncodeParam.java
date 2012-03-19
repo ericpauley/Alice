@@ -45,96 +45,95 @@ package edu.cmu.cs.stage3.image.codec;
  */
 
 /**
- * An instance of <code>ImageEncodeParam</code> for encoding images in
- * the TIFF format.
- *
- * <p> This class allows for the specification of encoding parameters. By
- * default, the image is encoded without any compression, and is written
- * out consisting of strips, not tiles. The particular compression scheme
- * to be used can be specified by using the <code>setCompression</code>
- * method. The compression scheme specified will be honored only if it is
- * compatible with the type of image being written out. For example,
- * Group3 and Group4 compressions can only be used with Bilevel images.
- * Writing of tiled TIFF images can be enabled by calling the
- * <code>setWriteTiled</code> method.
- *
- * <p><b> This class is not a committed part of the JAI API.  It may
- * be removed or changed in future releases of JAI.</b>
- *
+ * An instance of <code>ImageEncodeParam</code> for encoding images in the TIFF
+ * format.
+ * 
+ * <p>
+ * This class allows for the specification of encoding parameters. By default,
+ * the image is encoded without any compression, and is written out consisting
+ * of strips, not tiles. The particular compression scheme to be used can be
+ * specified by using the <code>setCompression</code> method. The compression
+ * scheme specified will be honored only if it is compatible with the type of
+ * image being written out. For example, Group3 and Group4 compressions can only
+ * be used with Bilevel images. Writing of tiled TIFF images can be enabled by
+ * calling the <code>setWriteTiled</code> method.
+ * 
+ * <p>
+ * <b> This class is not a committed part of the JAI API. It may be removed or
+ * changed in future releases of JAI.</b>
+ * 
  */
 public class TIFFEncodeParam implements ImageEncodeParam {
 
-    public static final int COMPRESSION_NONE          = 1;
-    public static final int COMPRESSION_PACKBITS      = 2;
-    public static final int COMPRESSION_GROUP3_1D     = 3;
-    public static final int COMPRESSION_GROUP3_2D     = 4;
-    public static final int COMPRESSION_GROUP4        = 5;
-    public static final int COMPRESSION_LZW           = 6;
+	public static final int COMPRESSION_NONE = 1;
+	public static final int COMPRESSION_PACKBITS = 2;
+	public static final int COMPRESSION_GROUP3_1D = 3;
+	public static final int COMPRESSION_GROUP3_2D = 4;
+	public static final int COMPRESSION_GROUP4 = 5;
+	public static final int COMPRESSION_LZW = 6;
 
-    private int compression = COMPRESSION_NONE;
-    private boolean writeTiled = false;
+	private int compression = COMPRESSION_NONE;
+	private boolean writeTiled = false;
 
-    /**
-     * Constructs an TIFFEncodeParam object with default values for parameters.
-     */
-    public TIFFEncodeParam() {}
-
-    /**
-     * Returns the value of the compression parameter.
-     */
-    public int getCompression() {
-	return compression;
-    }
-
-    /**
-     * Specifies the type of compression to be used. The compression type
-     * specified will be honored only if it is compatible with the image
-     * being written out.
-     *
-     * @param compression    The compression type.
-     */
-    public void setCompression(int compression) {
-
-	// Writing out compressed TIFF images is not implemented yet, 04/02/99.
-	if (compression != COMPRESSION_NONE) {
-	    throw new Error(JaiI18N.getString("TIFFEncodeParam0"));
+	/**
+	 * Constructs an TIFFEncodeParam object with default values for parameters.
+	 */
+	public TIFFEncodeParam() {
 	}
 
-	if (compression != COMPRESSION_NONE &&
-	    compression != COMPRESSION_PACKBITS &&
-	    compression != COMPRESSION_GROUP3_1D &&
-	    compression != COMPRESSION_GROUP3_2D &&
-	    compression != COMPRESSION_GROUP4 &&
-	    compression != COMPRESSION_LZW) {
-
-	    throw new Error(JaiI18N.getString("TIFFEncodeParam1"));
+	/**
+	 * Returns the value of the compression parameter.
+	 */
+	public int getCompression() {
+		return compression;
 	}
 
-	this.compression = compression;
-    }
+	/**
+	 * Specifies the type of compression to be used. The compression type
+	 * specified will be honored only if it is compatible with the image being
+	 * written out.
+	 * 
+	 * @param compression
+	 *            The compression type.
+	 */
+	public void setCompression(int compression) {
 
-    /**
-     * Returns the value of the writeTiled parameter.
-     */
-    public boolean getWriteTiled() {
-	return writeTiled;
-    }
+		// Writing out compressed TIFF images is not implemented yet, 04/02/99.
+		if (compression != COMPRESSION_NONE) {
+			throw new Error(JaiI18N.getString("TIFFEncodeParam0"));
+		}
 
-    /**
-     * If set, the data will be written out in tiled format, instead of
-     * in strips.
-     *
-     * @param writeTiled     Specifies whether the image data should be
-     *                       wriiten out in tiled format.
-     */
-    public void setWriteTiled(boolean writeTiled) {
+		if (compression != COMPRESSION_NONE && compression != COMPRESSION_PACKBITS && compression != COMPRESSION_GROUP3_1D && compression != COMPRESSION_GROUP3_2D && compression != COMPRESSION_GROUP4 && compression != COMPRESSION_LZW) {
 
-	// Currently only writing out in strips is implemented
-	if (writeTiled == true) {
-	    throw new Error(JaiI18N.getString("TIFFEncodeParam2"));
+			throw new Error(JaiI18N.getString("TIFFEncodeParam1"));
+		}
+
+		this.compression = compression;
 	}
 
-	this.writeTiled = writeTiled;
-    }
+	/**
+	 * Returns the value of the writeTiled parameter.
+	 */
+	public boolean getWriteTiled() {
+		return writeTiled;
+	}
+
+	/**
+	 * If set, the data will be written out in tiled format, instead of in
+	 * strips.
+	 * 
+	 * @param writeTiled
+	 *            Specifies whether the image data should be wriiten out in
+	 *            tiled format.
+	 */
+	public void setWriteTiled(boolean writeTiled) {
+
+		// Currently only writing out in strips is implemented
+		if (writeTiled == true) {
+			throw new Error(JaiI18N.getString("TIFFEncodeParam2"));
+		}
+
+		this.writeTiled = writeTiled;
+	}
 
 }

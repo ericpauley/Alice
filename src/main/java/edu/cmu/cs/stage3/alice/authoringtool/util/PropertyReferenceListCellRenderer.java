@@ -27,43 +27,43 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public class PropertyReferenceListCellRenderer extends javax.swing.DefaultListCellRenderer {
-	
-	public java.awt.Component getListCellRendererComponent( javax.swing.JList list, Object value, int index, boolean isSelected, boolean cellHasFocus ) {
-		setComponentOrientation( list.getComponentOrientation() );
 
-		if( isSelected ) {
-			setBackground( list.getSelectionBackground() );
-			setForeground( list.getSelectionForeground() );
+	@Override
+	public java.awt.Component getListCellRendererComponent(javax.swing.JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		setComponentOrientation(list.getComponentOrientation());
+
+		if (isSelected) {
+			setBackground(list.getSelectionBackground());
+			setForeground(list.getSelectionForeground());
 		} else {
-			setBackground( list.getBackground() );
-			setForeground( list.getForeground() );
+			setBackground(list.getBackground());
+			setForeground(list.getForeground());
 		}
-		if( value instanceof edu.cmu.cs.stage3.alice.core.reference.PropertyReference ) {
-			edu.cmu.cs.stage3.alice.core.reference.PropertyReference reference = (edu.cmu.cs.stage3.alice.core.reference.PropertyReference)value;
+		if (value instanceof edu.cmu.cs.stage3.alice.core.reference.PropertyReference) {
+			edu.cmu.cs.stage3.alice.core.reference.PropertyReference reference = (edu.cmu.cs.stage3.alice.core.reference.PropertyReference) value;
 			String text = "";
-			if( reference.getProperty() instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty ) {
-				text = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( reference.getProperty().getOwner(), true ) + "." + reference.getProperty().getName() + "[" + index + "] -> " + edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( reference.getProperty().get(), true );
+			if (reference.getProperty() instanceof edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty) {
+				text = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(reference.getProperty().getOwner(), true) + "." + reference.getProperty().getName() + "[" + index + "] -> " + edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(reference.getProperty().get(), true);
 			} else {
-				text = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( reference.getProperty().getOwner(), true ) + "." + reference.getProperty().getName() + " -> " + edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( reference.getProperty().get(), true );
+				text = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(reference.getProperty().getOwner(), true) + "." + reference.getProperty().getName() + " -> " + edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(reference.getProperty().get(), true);
 			}
 			text = edu.cmu.cs.stage3.alice.authoringtool.dialog.DeleteContentPane.getDeleteString(reference);
-			//javax.swing.ImageIcon icon = DeleteDialog.getDeleteIcon(reference);
-			setIcon( null );
-			setText( text );
-			
-			
-			
-		} else if( value instanceof javax.swing.Icon ) {
-			setIcon( (javax.swing.Icon)value );
-			setText( "" );
+			// javax.swing.ImageIcon icon =
+			// DeleteDialog.getDeleteIcon(reference);
+			setIcon(null);
+			setText(text);
+
+		} else if (value instanceof javax.swing.Icon) {
+			setIcon((javax.swing.Icon) value);
+			setText("");
 		} else {
-			setIcon( null );
-			setText( ( value == null ) ? "" : value.toString() );
+			setIcon(null);
+			setText(value == null ? "" : value.toString());
 		}
 
-		setEnabled( list.isEnabled() );
-		setFont( list.getFont() );
-		setBorder( ( cellHasFocus ) ? javax.swing.UIManager.getBorder( "List.focusCellHighlightBorder" ) : noFocusBorder );
+		setEnabled(list.isEnabled());
+		setFont(list.getFont());
+		setBorder(cellHasFocus ? javax.swing.UIManager.getBorder("List.focusCellHighlightBorder") : noFocusBorder);
 
 		return this;
 	}

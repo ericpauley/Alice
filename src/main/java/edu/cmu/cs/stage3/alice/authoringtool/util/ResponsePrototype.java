@@ -27,12 +27,12 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public class ResponsePrototype extends ElementPrototype {
-	public ResponsePrototype( Class responseClass, edu.cmu.cs.stage3.util.StringObjectPair[] knownPropertyValues, String[] desiredProperties ) {
-		super( responseClass, knownPropertyValues, desiredProperties );
+	public ResponsePrototype(Class responseClass, edu.cmu.cs.stage3.util.StringObjectPair[] knownPropertyValues, String[] desiredProperties) {
+		super(responseClass, knownPropertyValues, desiredProperties);
 	}
 
 	public edu.cmu.cs.stage3.alice.core.Response createNewResponse() {
-		return (edu.cmu.cs.stage3.alice.core.Response)createNewElement();
+		return (edu.cmu.cs.stage3.alice.core.Response) createNewElement();
 	}
 
 	public Class getResponseClass() {
@@ -41,9 +41,9 @@ public class ResponsePrototype extends ElementPrototype {
 
 	// a rather inelegant solution for creating copies of the correct type.
 	// subclasses should override this method and call their own constructor
-	
-	protected ElementPrototype createInstance( Class elementClass, edu.cmu.cs.stage3.util.StringObjectPair[] knownPropertyValues, String[] desiredProperties ) {
-		return new ResponsePrototype( elementClass, knownPropertyValues, desiredProperties );
+
+	@Override
+	protected ElementPrototype createInstance(Class elementClass, edu.cmu.cs.stage3.util.StringObjectPair[] knownPropertyValues, String[] desiredProperties) {
+		return new ResponsePrototype(elementClass, knownPropertyValues, desiredProperties);
 	}
 }
-

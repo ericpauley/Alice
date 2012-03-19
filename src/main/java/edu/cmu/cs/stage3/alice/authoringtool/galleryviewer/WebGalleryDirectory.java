@@ -25,90 +25,81 @@ package edu.cmu.cs.stage3.alice.authoringtool.galleryviewer;
 
 public class WebGalleryDirectory extends WebGalleryObject {
 
-    protected GalleryViewer.DirectoryStructure directoryData;
-    protected boolean isTopLevelDirectory = false;
-   
-								
+	protected GalleryViewer.DirectoryStructure directoryData;
+	protected boolean isTopLevelDirectory = false;
 
-    protected static java.awt.Color webDirColor = new java.awt.Color(189,184,139);
+	protected static java.awt.Color webDirColor = new java.awt.Color(189, 184, 139);
 
-    
-	protected String getToolTipString(){
-        return "<html><body><p>Group of Objects</p><p>Click to open this group.</p></body></html>";
-    }
+	@Override
+	protected String getToolTipString() {
+		return "<html><body><p>Group of Objects</p><p>Click to open this group.</p></body></html>";
+	}
 
-    
-	public void set(GalleryViewer.ObjectXmlData dataIn) throws java.lang.IllegalArgumentException{
-        if (dataIn != null){
-            directoryData = dataIn.directoryData;
-            super.set(dataIn);
-        }
-    }
-    
-	
-	protected String getClassName(){
+	@Override
+	public void set(GalleryViewer.ObjectXmlData dataIn) throws java.lang.IllegalArgumentException {
+		if (dataIn != null) {
+			directoryData = dataIn.directoryData;
+			super.set(dataIn);
+		}
+	}
+
+	@Override
+	protected String getClassName() {
 		return " ";
 	}
 
+	@Override
+	protected void guiInit() {
+		super.guiInit();
+		setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		setBackground(webDirColor);
+		setDragEnabled(false);
+		this.remove(grip);
+	}
 
-    
-	protected void guiInit(){
-        super.guiInit();
-        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        this.setBackground(webDirColor);
-        this.setDragEnabled(false);
-        this.remove(grip);
-    }
+	@Override
+	protected void updateGUI() {
+		super.updateGUI();
+	}
 
-    
-	protected void updateGUI(){
-        super.updateGUI();
-    }
+	@Override
+	public void setImage(javax.swing.ImageIcon imageIcon) {
+		if (imageIcon == GalleryViewer.noImageIcon) {
+			super.setImage(GalleryViewer.noFolderImageIcon);
+		} else {
+			super.setImage(imageIcon);
+		}
+	}
 
-    
-	public void setImage(javax.swing.ImageIcon imageIcon){
-        if (imageIcon == GalleryViewer.noImageIcon){
-            super.setImage(GalleryViewer.noFolderImageIcon);
-        }
-        else{
-            super.setImage(imageIcon);
-        }
-    }
-
-    
-	public void respondToMouse(){
-        if (mainViewer != null){
-        	int dialogVal = -1;
-        	if (!GalleryViewer.alreadyEnteredWebGallery && mainViewer.shouldShowWebWarning()){
-				dialogVal = edu.cmu.cs.stage3.swing.DialogManager.showConfirmDialog("You are about to enter the online gallery. This is accessed through the internet\n"
-				+" and is potentially slow depending on your connection.", "Web gallery may be slow", javax.swing.JOptionPane.WARNING_MESSAGE);
-				if (dialogVal == javax.swing.JOptionPane.YES_OPTION){
+	@Override
+	public void respondToMouse() {
+		if (mainViewer != null) {
+			int dialogVal = -1;
+			if (!GalleryViewer.alreadyEnteredWebGallery && mainViewer.shouldShowWebWarning()) {
+				dialogVal = edu.cmu.cs.stage3.swing.DialogManager.showConfirmDialog("You are about to enter the online gallery. This is accessed through the internet\n" + " and is potentially slow depending on your connection.", "Web gallery may be slow", javax.swing.JOptionPane.WARNING_MESSAGE);
+				if (dialogVal == javax.swing.JOptionPane.YES_OPTION) {
 					GalleryViewer.enteredWebGallery();
 					mainViewer.changeDirectory(directoryData);
 				}
-        	}
-        	else {
+			} else {
 				GalleryViewer.enteredWebGallery();
 				mainViewer.changeDirectory(directoryData);
-        	}
-        }
-    }
+			}
+		}
+	}
 
+	@Override
+	public void galleryMouseExited() {
+		/*
+		 * if (mouseOver){ mouseOver = false; this.repaint(); }
+		 */
+	}
 
-    
-	public void galleryMouseExited(){
-       /* if (mouseOver){
-            mouseOver = false;
-            this.repaint();
-        }*/
-    }
-
-    
-	public void galleryMouseEntered(){
-       /* if (!mouseOver){
-            mouseOver = true;
-            this.repaint();
-        }*/
-    }
+	@Override
+	public void galleryMouseEntered() {
+		/*
+		 * if (!mouseOver){ mouseOver = true; this.repaint(); }
+		 */
+	}
 
 }

@@ -33,23 +33,23 @@ public class ElementListCellRenderer extends javax.swing.DefaultListCellRenderer
 
 	protected int verbosity;
 
-	public ElementListCellRenderer( int verbosity ) {
+	public ElementListCellRenderer(int verbosity) {
 		this.verbosity = verbosity;
 	}
 
-	
-	public java.awt.Component getListCellRendererComponent( javax.swing.JList list, Object value, int index, boolean isSelected,  boolean cellHasFocus ) {
-		if( value instanceof edu.cmu.cs.stage3.alice.core.Element ) {
-			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element)value;
-			if( verbosity == JUST_NAME ) {
+	@Override
+	public java.awt.Component getListCellRendererComponent(javax.swing.JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+		if (value instanceof edu.cmu.cs.stage3.alice.core.Element) {
+			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) value;
+			if (verbosity == JUST_NAME) {
 				value = element.name.getStringValue();
-			} else if( verbosity == DEFAULT_REPR ) {
-				value = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( element, true );
-			} else if( verbosity == FULL_KEY ) {
+			} else if (verbosity == DEFAULT_REPR) {
+				value = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(element, true);
+			} else if (verbosity == FULL_KEY) {
 				value = element.getKey();
 			}
 		}
 
-		return super.getListCellRendererComponent( list, value, index, isSelected, cellHasFocus );
+		return super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 	}
 }

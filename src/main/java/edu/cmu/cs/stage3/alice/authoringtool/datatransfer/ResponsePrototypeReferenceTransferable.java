@@ -27,12 +27,12 @@ package edu.cmu.cs.stage3.alice.authoringtool.datatransfer;
  * @author Jason Pratt
  */
 public class ResponsePrototypeReferenceTransferable extends ElementPrototypeReferenceTransferable {
-	public final static java.awt.datatransfer.DataFlavor responsePrototypeReferenceFlavor = new java.awt.datatransfer.DataFlavor( java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype", "responsePrototypeReferenceFlavor" );
+	public final static java.awt.datatransfer.DataFlavor responsePrototypeReferenceFlavor = new java.awt.datatransfer.DataFlavor(java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype", "responsePrototypeReferenceFlavor");
 
 	protected edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype responsePrototype;
 
-	public ResponsePrototypeReferenceTransferable( edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype responsePrototype ) {
-		super( responsePrototype );
+	public ResponsePrototypeReferenceTransferable(edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype responsePrototype) {
+		super(responsePrototype);
 		this.responsePrototype = responsePrototype;
 
 		flavors = new java.awt.datatransfer.DataFlavor[3];
@@ -41,16 +41,16 @@ public class ResponsePrototypeReferenceTransferable extends ElementPrototypeRefe
 		flavors[2] = java.awt.datatransfer.DataFlavor.stringFlavor;
 	}
 
-	
-	public Object getTransferData( java.awt.datatransfer.DataFlavor flavor ) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
-		if( flavor.equals( responsePrototypeReferenceFlavor ) ) {
+	@Override
+	public Object getTransferData(java.awt.datatransfer.DataFlavor flavor) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
+		if (flavor.equals(responsePrototypeReferenceFlavor)) {
 			return responsePrototype;
-		} else if( flavor.equals( ElementPrototypeReferenceTransferable.elementPrototypeReferenceFlavor ) ) {
+		} else if (flavor.equals(ElementPrototypeReferenceTransferable.elementPrototypeReferenceFlavor)) {
 			return responsePrototype;
-		} else if( flavor.equals( java.awt.datatransfer.DataFlavor.stringFlavor ) ) {
+		} else if (flavor.equals(java.awt.datatransfer.DataFlavor.stringFlavor)) {
 			return responsePrototype.toString();
 		} else {
-			throw new java.awt.datatransfer.UnsupportedFlavorException( flavor );
+			throw new java.awt.datatransfer.UnsupportedFlavorException(flavor);
 		}
 	}
 }

@@ -24,10 +24,10 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.event;
 
 public class RenderTargetEvent extends java.util.EventObject {
-	public RenderTargetEvent( edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget source ) {
-		super( source );
+	public RenderTargetEvent(edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget source) {
+		super(source);
 	}
 	public edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget getRenderTarget() {
-		return (edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget)getSource();
+		return (edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget) getSource();
 	}
 }

@@ -27,6 +27,6 @@ package edu.cmu.cs.stage3.alice.authoringtool.util.event;
  * @author Jason Pratt
  */
 public interface ConfigurationListener {
-	public void changing( ConfigurationEvent ev );
-	public void changed( ConfigurationEvent ev );
+	public void changing(ConfigurationEvent ev);
+	public void changed(ConfigurationEvent ev);
 }

@@ -30,62 +30,70 @@ public class CreateNewWrapperTreeModel implements javax.swing.tree.TreeModel {
 	protected javax.swing.tree.TreeModel wrappedTreeModel;
 	protected Object createNewObject;
 
-	public CreateNewWrapperTreeModel( javax.swing.tree.TreeModel treeModelToWrap, Object createNewObject ) {
-		if( (treeModelToWrap != null) && (createNewObject != null) ) {
+	public CreateNewWrapperTreeModel(javax.swing.tree.TreeModel treeModelToWrap, Object createNewObject) {
+		if (treeModelToWrap != null && createNewObject != null) {
 			wrappedTreeModel = treeModelToWrap;
 			this.createNewObject = createNewObject;
 		} else {
-			throw new IllegalArgumentException( "treeModelToWrap and createNewObject cannot be null" );
+			throw new IllegalArgumentException("treeModelToWrap and createNewObject cannot be null");
 		}
 	}
 
+	@Override
 	public Object getRoot() {
 		return wrappedTreeModel.getRoot();
 	}
 
-	public Object getChild( Object parent, int index ) {
-		if( (parent == wrappedTreeModel.getRoot()) && (index == wrappedTreeModel.getChildCount( parent )) ) {
+	@Override
+	public Object getChild(Object parent, int index) {
+		if (parent == wrappedTreeModel.getRoot() && index == wrappedTreeModel.getChildCount(parent)) {
 			return createNewObject;
 		} else {
-			return wrappedTreeModel.getChild( parent, index );
+			return wrappedTreeModel.getChild(parent, index);
 		}
 	}
 
-	public int getChildCount( Object parent ) {
-		if( parent == wrappedTreeModel.getRoot() ) {
-			return wrappedTreeModel.getChildCount( parent ) + 1;
+	@Override
+	public int getChildCount(Object parent) {
+		if (parent == wrappedTreeModel.getRoot()) {
+			return wrappedTreeModel.getChildCount(parent) + 1;
 		} else {
-			return wrappedTreeModel.getChildCount( parent );
+			return wrappedTreeModel.getChildCount(parent);
 		}
 	}
 
-	public boolean isLeaf( Object node ) {
-		if( node == createNewObject ) {
+	@Override
+	public boolean isLeaf(Object node) {
+		if (node == createNewObject) {
 			return true;
 		} else {
-			return wrappedTreeModel.isLeaf( node );
+			return wrappedTreeModel.isLeaf(node);
 		}
 	}
 
-	public void valueForPathChanged( javax.swing.tree.TreePath path, Object newValue ) {
-		if( ! (path.getLastPathComponent() == createNewObject) ) {
-			wrappedTreeModel.valueForPathChanged( path, newValue );
+	@Override
+	public void valueForPathChanged(javax.swing.tree.TreePath path, Object newValue) {
+		if (!(path.getLastPathComponent() == createNewObject)) {
+			wrappedTreeModel.valueForPathChanged(path, newValue);
 		}
 	}
 
-	public int getIndexOfChild( Object parent, Object child ) {
-		if( child == createNewObject ) {
-			return wrappedTreeModel.getChildCount( parent );
+	@Override
+	public int getIndexOfChild(Object parent, Object child) {
+		if (child == createNewObject) {
+			return wrappedTreeModel.getChildCount(parent);
 		} else {
-			return wrappedTreeModel.getIndexOfChild( parent, child );
+			return wrappedTreeModel.getIndexOfChild(parent, child);
 		}
 	}
 
-	public void addTreeModelListener( javax.swing.event.TreeModelListener l ) {
-		wrappedTreeModel.addTreeModelListener( l );
+	@Override
+	public void addTreeModelListener(javax.swing.event.TreeModelListener l) {
+		wrappedTreeModel.addTreeModelListener(l);
 	}
 
-	public void removeTreeModelListener( javax.swing.event.TreeModelListener l ) {
-		wrappedTreeModel.removeTreeModelListener( l );
+	@Override
+	public void removeTreeModelListener(javax.swing.event.TreeModelListener l) {
+		wrappedTreeModel.removeTreeModelListener(l);
 	}
 }

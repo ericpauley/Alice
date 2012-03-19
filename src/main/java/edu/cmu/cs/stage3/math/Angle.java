@@ -24,10 +24,10 @@
 package edu.cmu.cs.stage3.math;
 
 public class Angle extends Measurement {
-    public static final double REVOLUTIONS = 1.0;
-    public static final double RADIANS = 0.5/Math.PI;
-    public static final double DEGREES = 1.0/360.0;
-    public Angle( double value, double factor ) {
-		super( value, factor );
-    }
+	public static final double REVOLUTIONS = 1.0;
+	public static final double RADIANS = 0.5 / Math.PI;
+	public static final double DEGREES = 1.0 / 360.0;
+	public Angle(double value, double factor) {
+		super(value, factor);
+	}
 }

@@ -35,37 +35,44 @@ package edu.cmu.cs.stage3.alice.scenegraph.util;
 import javax.vecmath.Point2d;
 
 public class DistanceComparator implements java.util.Comparator {
-    public Point2d start = null;
+	public Point2d start = null;
 
-    public DistanceComparator() {
-    }
+	public DistanceComparator() {
+	}
 
-    public DistanceComparator(Point2d point) {
-        start = point;
-    }
+	public DistanceComparator(Point2d point) {
+		start = point;
+	}
 
-    public int compare(Object o1, Object o2) throws ClassCastException {
-        Point2d p1,p2;
+	@Override
+	public int compare(Object o1, Object o2) throws ClassCastException {
+		Point2d p1, p2;
 
-        if (o1 instanceof Point2d)
-            p1 = (Point2d)o1;
-        else if (o1 instanceof PointNode)
-            p1 = ((PointNode)o1).data;
-        else
-            throw new ClassCastException();
-        if (o2 instanceof Point2d)
-            p2 = (Point2d)o2;
-        else if (o2 instanceof PointNode)
-            p2 = ((PointNode)o2).data;
-        else
-            throw new ClassCastException();
+		if (o1 instanceof Point2d) {
+			p1 = (Point2d) o1;
+		} else if (o1 instanceof PointNode) {
+			p1 = ((PointNode) o1).data;
+		} else {
+			throw new ClassCastException();
+		}
+		if (o2 instanceof Point2d) {
+			p2 = (Point2d) o2;
+		} else if (o2 instanceof PointNode) {
+			p2 = ((PointNode) o2).data;
+		} else {
+			throw new ClassCastException();
+		}
 
-        double a = start.distanceL1(p1);
-        double b = start.distanceL1(p2);
+		double a = start.distanceL1(p1);
+		double b = start.distanceL1(p2);
 
-        if (a<b) return -1;
-        if (a>b) return 1;
-        return 0;
-    }
+		if (a < b) {
+			return -1;
+		}
+		if (a > b) {
+			return 1;
+		}
+		return 0;
+	}
 
 }

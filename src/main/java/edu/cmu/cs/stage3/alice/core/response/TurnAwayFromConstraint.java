@@ -25,11 +25,13 @@ package edu.cmu.cs.stage3.alice.core.response;
 
 public class TurnAwayFromConstraint extends AbstractPointAtConstraint {
 	public class RuntimeTurnAwayFromConstraint extends RuntimeAbstractPointAtConstraint {
-		
+
+		@Override
 		protected boolean onlyAffectYaw() {
 			return true;
 		}
-		
+
+		@Override
 		protected boolean isTurnAroundNecessary() {
 			return true;
 		}

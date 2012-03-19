@@ -44,7 +44,6 @@ package edu.cmu.cs.stage3.image.codec;
  * Contributor(s): _______________________________________
  */
 
-
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -56,68 +55,61 @@ import java.io.OutputStream;
  */
 public final class JPEGCodec extends ImageCodec {
 
-    public JPEGCodec() {}
+	public JPEGCodec() {
+	}
 
-    
+	@Override
 	public String getFormatName() {
-        return "jpeg";
-    }
+		return "jpeg";
+	}
 
-    
+	@Override
 	public Class getEncodeParamClass() {
-        return JPEGEncodeParam.class;
-    }
+		return JPEGEncodeParam.class;
+	}
 
-    
+	@Override
 	public Class getDecodeParamClass() {
-        return Object.class;
-    }
+		return Object.class;
+	}
 
-    
-	public boolean canEncodeImage(RenderedImage im,
-                                  ImageEncodeParam param) {
-        return true;
-    }
+	@Override
+	public boolean canEncodeImage(RenderedImage im, ImageEncodeParam param) {
+		return true;
+	}
 
-    
-	protected ImageEncoder createImageEncoder(OutputStream dst,
-                                              ImageEncodeParam param) {
-        JPEGEncodeParam p = null;
-        if (param != null) {
-            p = (JPEGEncodeParam)param;
-        }
+	@Override
+	protected ImageEncoder createImageEncoder(OutputStream dst, ImageEncodeParam param) {
+		JPEGEncodeParam p = null;
+		if (param != null) {
+			p = (JPEGEncodeParam) param;
+		}
 
-        return new JPEGImageEncoder(dst, p);
-    }
+		return new JPEGImageEncoder(dst, p);
+	}
 
-    
-	protected ImageDecoder createImageDecoder(InputStream src,
-                                              ImageDecodeParam param) {
-        return new JPEGImageDecoder(src, null);
-    }
+	@Override
+	protected ImageDecoder createImageDecoder(InputStream src, ImageDecodeParam param) {
+		return new JPEGImageDecoder(src, null);
+	}
 
-    
-	protected ImageDecoder createImageDecoder(File src,
-                                              ImageDecodeParam param)
-        throws IOException {
-        return new JPEGImageDecoder(new FileInputStream(src), null);
-    }
+	@Override
+	protected ImageDecoder createImageDecoder(File src, ImageDecodeParam param) throws IOException {
+		return new JPEGImageDecoder(new FileInputStream(src), null);
+	}
 
-    
-	protected ImageDecoder createImageDecoder(SeekableStream src,
-                                              ImageDecodeParam param) {
-        return new JPEGImageDecoder(src, null);
-    }
+	@Override
+	protected ImageDecoder createImageDecoder(SeekableStream src, ImageDecodeParam param) {
+		return new JPEGImageDecoder(src, null);
+	}
 
-    
+	@Override
 	public int getNumHeaderBytes() {
-        return 3;
-    }
+		return 3;
+	}
 
-    
+	@Override
 	public boolean isFormatRecognized(byte[] header) {
-        return ((header[0] == (byte)0xff) &&
-                (header[1] == (byte)0xd8) &&
-                (header[2] == (byte)0xff));
-    }
+		return header[0] == (byte) 0xff && header[1] == (byte) 0xd8 && header[2] == (byte) 0xff;
+	}
 }

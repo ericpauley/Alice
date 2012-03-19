@@ -26,20 +26,21 @@ package edu.cmu.cs.stage3.alice.core.util;
 public class TextureMapCounter implements edu.cmu.cs.stage3.util.VisitListener {
 	int m_textureMapCount = 0;
 	int m_textureMapMemoryCount = 0;
-	public void visited( Object o ) {
-		if( o instanceof edu.cmu.cs.stage3.alice.core.TextureMap ) {
-			edu.cmu.cs.stage3.alice.core.TextureMap textureMap = (edu.cmu.cs.stage3.alice.core.TextureMap)o;
+	@Override
+	public void visited(Object o) {
+		if (o instanceof edu.cmu.cs.stage3.alice.core.TextureMap) {
+			edu.cmu.cs.stage3.alice.core.TextureMap textureMap = (edu.cmu.cs.stage3.alice.core.TextureMap) o;
 			m_textureMapCount++;
 			java.awt.Image image = textureMap.image.getImageValue();
 			try {
-				int width = edu.cmu.cs.stage3.image.ImageUtilities.getWidth( image );
-				int height = edu.cmu.cs.stage3.image.ImageUtilities.getHeight( image );
-				int depth = 4; //todo
-				if( width!=-1 || height!=-1 ) {
-					m_textureMapMemoryCount += width*height*depth;
+				int width = edu.cmu.cs.stage3.image.ImageUtilities.getWidth(image);
+				int height = edu.cmu.cs.stage3.image.ImageUtilities.getHeight(image);
+				int depth = 4; // todo
+				if (width != -1 || height != -1) {
+					m_textureMapMemoryCount += width * height * depth;
 				}
-			} catch( InterruptedException ie ) {
-				//pass
+			} catch (InterruptedException ie) {
+				// pass
 			}
 		}
 	}

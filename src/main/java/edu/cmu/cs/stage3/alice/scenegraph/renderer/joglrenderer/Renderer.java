@@ -24,72 +24,83 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 public class Renderer extends edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxyRenderer {
-    
+
+	@Override
 	protected boolean requiresHierarchyAndAbsoluteTransformationListening() {
 		return true;
 	}
-	
+
+	@Override
 	protected boolean requiresBoundListening() {
 		return false;
 	}
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.renderer.OffscreenRenderTarget createOffscreenRenderTarget() {
-		return new OffscreenRenderTarget( this );
+		return new OffscreenRenderTarget(this);
 	}
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.renderer.OnscreenRenderTarget createOnscreenRenderTarget() {
-        return new OnscreenRenderTarget( this );
+		return new OnscreenRenderTarget(this);
 	}
-    
-	protected void dispatchAbsoluteTransformationChange( edu.cmu.cs.stage3.alice.scenegraph.event.AbsoluteTransformationEvent absoluteTransformationEvent ) {
-        edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent = (edu.cmu.cs.stage3.alice.scenegraph.Component)absoluteTransformationEvent.getSource();
-        ComponentProxy componentProxy = (ComponentProxy)getProxyFor( sgComponent );
-        componentProxy.handleAbsoluteTransformationChange();
-    }
-    
-	protected void dispatchBoundChange( edu.cmu.cs.stage3.alice.scenegraph.event.BoundEvent boundEvent ) {
-    }
-	
-	public void dispatchChildAdd( edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenEvent childrenEvent ) {
-        edu.cmu.cs.stage3.alice.scenegraph.Container sgContainer = (edu.cmu.cs.stage3.alice.scenegraph.Container)childrenEvent.getSource();
-        ContainerProxy containerProxy = (ContainerProxy)getProxyFor( sgContainer );
-        ComponentProxy childProxy = (ComponentProxy)getProxyFor( childrenEvent.getChild() );
-        containerProxy.handleChildAdd( childProxy );
-	}
-	
-	public void dispatchChildRemove( edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenEvent childrenEvent ) {
-        edu.cmu.cs.stage3.alice.scenegraph.Container sgContainer = (edu.cmu.cs.stage3.alice.scenegraph.Container)childrenEvent.getSource();
-        ContainerProxy containerProxy = (ContainerProxy)getProxyFor( sgContainer );
-        ComponentProxy childProxy = (ComponentProxy)getProxyFor( childrenEvent.getChild() );
-        containerProxy.handleChildRemove( childProxy );
-    }
-    
-	protected void dispatchHierarchyChange( edu.cmu.cs.stage3.alice.scenegraph.event.HierarchyEvent hierarchyEvent ) {
-    }
 
-    public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick( edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent, javax.vecmath.Vector3d v, double planeMinX, double planeMinY, double planeMaxX, double planeMaxY, double nearClippingPlaneDistance, double farClippingPlaneDistance, boolean isSubElementRequired, boolean isOnlyFrontMostRequired ) {
-        return null;
-    }
+	@Override
+	protected void dispatchAbsoluteTransformationChange(edu.cmu.cs.stage3.alice.scenegraph.event.AbsoluteTransformationEvent absoluteTransformationEvent) {
+		edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent = (edu.cmu.cs.stage3.alice.scenegraph.Component) absoluteTransformationEvent.getSource();
+		ComponentProxy componentProxy = (ComponentProxy) getProxyFor(sgComponent);
+		componentProxy.handleAbsoluteTransformationChange();
+	}
+
+	@Override
+	protected void dispatchBoundChange(edu.cmu.cs.stage3.alice.scenegraph.event.BoundEvent boundEvent) {
+	}
+
+	@Override
+	public void dispatchChildAdd(edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenEvent childrenEvent) {
+		edu.cmu.cs.stage3.alice.scenegraph.Container sgContainer = (edu.cmu.cs.stage3.alice.scenegraph.Container) childrenEvent.getSource();
+		ContainerProxy containerProxy = (ContainerProxy) getProxyFor(sgContainer);
+		ComponentProxy childProxy = (ComponentProxy) getProxyFor(childrenEvent.getChild());
+		containerProxy.handleChildAdd(childProxy);
+	}
+
+	@Override
+	public void dispatchChildRemove(edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenEvent childrenEvent) {
+		edu.cmu.cs.stage3.alice.scenegraph.Container sgContainer = (edu.cmu.cs.stage3.alice.scenegraph.Container) childrenEvent.getSource();
+		ContainerProxy containerProxy = (ContainerProxy) getProxyFor(sgContainer);
+		ComponentProxy childProxy = (ComponentProxy) getProxyFor(childrenEvent.getChild());
+		containerProxy.handleChildRemove(childProxy);
+	}
+
+	@Override
+	protected void dispatchHierarchyChange(edu.cmu.cs.stage3.alice.scenegraph.event.HierarchyEvent hierarchyEvent) {
+	}
+
+	@Override
+	public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick(edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent, javax.vecmath.Vector3d v, double planeMinX, double planeMinY, double planeMaxX, double planeMaxY, double nearClippingPlaneDistance, double farClippingPlaneDistance, boolean isSubElementRequired, boolean isOnlyFrontMostRequired) {
+		return null;
+	}
 	private static final String RENDERER_PACKAGE_NAME = "edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer.";
 	private static final String SCENEGRAPH_PACKAGE_NAME = "edu.cmu.cs.stage3.alice.scenegraph.";
 	private static final int SCENEGRAPH_PACKAGE_NAME_COUNT = SCENEGRAPH_PACKAGE_NAME.length();
-	
-	protected edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxy createProxyFor( edu.cmu.cs.stage3.alice.scenegraph.Element sgElement ) {
+
+	@Override
+	protected edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxy createProxyFor(edu.cmu.cs.stage3.alice.scenegraph.Element sgElement) {
 		Class sgClass = sgElement.getClass();
-		while( sgClass!=null ) {
+		while (sgClass != null) {
 			String className = sgClass.getName();
-			if( className.startsWith( SCENEGRAPH_PACKAGE_NAME ) ) {
+			if (className.startsWith(SCENEGRAPH_PACKAGE_NAME)) {
 				break;
 			} else {
 				sgClass = sgClass.getSuperclass();
 			}
 		}
 		try {
-			Class proxyClass = Class.forName( RENDERER_PACKAGE_NAME+sgClass.getName().substring( SCENEGRAPH_PACKAGE_NAME_COUNT )+"Proxy" );
-			return (edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxy)proxyClass.newInstance();
-		} catch( ClassNotFoundException cnfe ) {
+			Class proxyClass = Class.forName(RENDERER_PACKAGE_NAME + sgClass.getName().substring(SCENEGRAPH_PACKAGE_NAME_COUNT) + "Proxy");
+			return (edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractProxy) proxyClass.newInstance();
+		} catch (ClassNotFoundException cnfe) {
 			cnfe.printStackTrace();
-		} catch( IllegalAccessException iae ) {
+		} catch (IllegalAccessException iae) {
 			iae.printStackTrace();
-		} catch( InstantiationException ie ) {
+		} catch (InstantiationException ie) {
 			ie.printStackTrace();
 		}
 		return null;

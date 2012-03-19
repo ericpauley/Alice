@@ -26,31 +26,35 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 
 public class WhileLoopInOrder extends DoInOrder {
-	public final BooleanProperty condition = new BooleanProperty( this, "condition", Boolean.TRUE );
-	public final BooleanProperty testBeforeAsOpposedToAfter = new BooleanProperty( this, "testBeforeAsOpposedToAfter", Boolean.TRUE );
+	public final BooleanProperty condition = new BooleanProperty(this, "condition", Boolean.TRUE);
+	public final BooleanProperty testBeforeAsOpposedToAfter = new BooleanProperty(this, "testBeforeAsOpposedToAfter", Boolean.TRUE);
 	private static Class[] s_supportedCoercionClasses = {};
-	
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
 	public class RuntimeWhileLoopInOrder extends RuntimeDoInOrder {
-		
-		protected boolean preLoopTest( double t ) {
-			if( WhileLoopInOrder.this.testBeforeAsOpposedToAfter.booleanValue() ) {
-				return WhileLoopInOrder.this.condition.booleanValue();
+
+		@Override
+		protected boolean preLoopTest(double t) {
+			if (testBeforeAsOpposedToAfter.booleanValue()) {
+				return condition.booleanValue();
 			} else {
-                return true;
-            }
-        }
-		
-		protected boolean postLoopTest( double t ) {
-			if( WhileLoopInOrder.this.testBeforeAsOpposedToAfter.booleanValue() ) {
-                return true;
-			} else {
-				return WhileLoopInOrder.this.condition.booleanValue();
-            }
+				return true;
+			}
 		}
-		
+
+		@Override
+		protected boolean postLoopTest(double t) {
+			if (testBeforeAsOpposedToAfter.booleanValue()) {
+				return true;
+			} else {
+				return condition.booleanValue();
+			}
+		}
+
+		@Override
 		protected boolean isCullable() {
 			return false;
 		}

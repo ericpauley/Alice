@@ -26,12 +26,14 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.SpatialRelation;
 
 public class IsBehind extends IsInSpatialRelationTo {
-	private static Class[] s_supportedCoercionClasses = { IsInFrontOf.class, IsAbove.class, IsBelow.class, IsLeftOf.class, IsRightOf.class };
-	
+	private static Class[] s_supportedCoercionClasses = {IsInFrontOf.class, IsAbove.class, IsBelow.class, IsLeftOf.class, IsRightOf.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
+
+	@Override
 	protected SpatialRelation getSpatialRelation() {
 		return SpatialRelation.BEHIND;
 	}

@@ -11,42 +11,42 @@ package edu.cmu.cs.stage3.caitlin.stencilhelp.client;
  */
 
 import java.awt.Rectangle;
-import edu.cmu.cs.stage3.caitlin.stencilhelp.application.StencilApplication;
+
 import edu.cmu.cs.stage3.caitlin.stencilhelp.application.IDDoesNotExistException;
+import edu.cmu.cs.stage3.caitlin.stencilhelp.application.StencilApplication;
 
 public class ObjectPositionManager {
-  StencilApplication stencilApp = null;
+	StencilApplication stencilApp = null;
 
-  public ObjectPositionManager(StencilApplication stencilApp) {
-    this.stencilApp = stencilApp;
-  }
-  public double getScreenHeight() {
-    return stencilApp.getScreenSize().getHeight();
-  }
-  public double getScreenWidth() {
-    return stencilApp.getScreenSize().getWidth();
-  }
-  public Rectangle getInitialBox(String ID) {
-    try {
-      if (stencilApp.isIDVisible(ID)) {
-        return stencilApp.getBoxForID(ID);
-      }
-    } catch (IDDoesNotExistException idne) {
-    }
-    return null;
-  }
-  public Rectangle getBoxForID(String ID) {
-    //System.out.println("getBox: " + ID);
-    try {
-      if (!(stencilApp.isIDVisible(ID))) {
-        stencilApp.makeIDVisible(ID);
-      }
-      //System.out.println("\treturning " + stencilApp.getBoxForID(ID));
-      return stencilApp.getBoxForID(ID);
-    } catch (IDDoesNotExistException idne) {
-      //System.out.println("Could not get id: " + ID);
-     // idne.printStackTrace();
-    }
-    return null;
-  }
+	public ObjectPositionManager(StencilApplication stencilApp) {
+		this.stencilApp = stencilApp;
+	}
+	public double getScreenHeight() {
+		return stencilApp.getScreenSize().getHeight();
+	}
+	public double getScreenWidth() {
+		return stencilApp.getScreenSize().getWidth();
+	}
+	public Rectangle getInitialBox(String ID) {
+		try {
+			if (stencilApp.isIDVisible(ID)) {
+				return stencilApp.getBoxForID(ID);
+			}
+		} catch (IDDoesNotExistException idne) {}
+		return null;
+	}
+	public Rectangle getBoxForID(String ID) {
+		// System.out.println("getBox: " + ID);
+		try {
+			if (!stencilApp.isIDVisible(ID)) {
+				stencilApp.makeIDVisible(ID);
+			}
+			// System.out.println("\treturning " + stencilApp.getBoxForID(ID));
+			return stencilApp.getBoxForID(ID);
+		} catch (IDDoesNotExistException idne) {
+			// System.out.println("Could not get id: " + ID);
+			// idne.printStackTrace();
+		}
+		return null;
+	}
 }

@@ -26,17 +26,19 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.ScriptProperty;
 
 public class ScriptResponse extends edu.cmu.cs.stage3.alice.core.Response {
-	//todo: should default value be null or ""?
-	public final ScriptProperty script = new ScriptProperty( this, "script", "" );
-	
+	// todo: should default value be null or ""?
+	public final ScriptProperty script = new ScriptProperty(this, "script", "");
+
+	@Override
 	protected Number getDefaultDuration() {
-		return new Double( 0 );
+		return new Double(0);
 	}
 	public class RuntimeScriptResponse extends RuntimeResponse {
-		
-		public void update( double t ) {
-			super.update( t );
-			ScriptResponse.this.exec( ScriptResponse.this.script.getCode( edu.cmu.cs.stage3.alice.scripting.CompileType.EXEC_MULTIPLE ) );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			exec(script.getCode(edu.cmu.cs.stage3.alice.scripting.CompileType.EXEC_MULTIPLE));
 		}
 	}
 }

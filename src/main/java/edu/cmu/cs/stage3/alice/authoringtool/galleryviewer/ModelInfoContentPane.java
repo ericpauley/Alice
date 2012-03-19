@@ -25,47 +25,53 @@ package edu.cmu.cs.stage3.alice.authoringtool.galleryviewer;
 
 /**
  * @author culyba, dennisc
- *
- * To change the template for this generated type comment go to
- * Window>Preferences>Java>Code Generation>Code and Comments
+ * 
+ *         To change the template for this generated type comment go to
+ *         Window>Preferences>Java>Code Generation>Code and Comments
  */
 
-// Referenced classes of package edu.cmu.cs.stage3.alice.authoringtool.galleryviewer:
-//			  GalleryViewer, GalleryObject
+// Referenced classes of package
+// edu.cmu.cs.stage3.alice.authoringtool.galleryviewer:
+// GalleryViewer, GalleryObject
 
 public class ModelInfoContentPane extends edu.cmu.cs.stage3.swing.ContentPane {
 	public ModelInfoContentPane() {
 		guiInit();
 	}
 
-	
+	@Override
 	public String getTitle() {
 		return GalleryObject.getDisplayName(data.name);
 	}
-	
-	public void addOKActionListener( java.awt.event.ActionListener l ) {
-		addObjectButton.addActionListener( l );
+
+	@Override
+	public void addOKActionListener(java.awt.event.ActionListener l) {
+		addObjectButton.addActionListener(l);
 	}
-	
-	public void removeOKActionListener( java.awt.event.ActionListener l ) {
-		addObjectButton.removeActionListener( l );
+
+	@Override
+	public void removeOKActionListener(java.awt.event.ActionListener l) {
+		addObjectButton.removeActionListener(l);
 	}
-	
-	public void addCancelActionListener( java.awt.event.ActionListener l ) {
-		cancelButton.addActionListener( l );
+
+	@Override
+	public void addCancelActionListener(java.awt.event.ActionListener l) {
+		cancelButton.addActionListener(l);
 	}
-	
-	public void removeCancelActionListener( java.awt.event.ActionListener l ) {
-		cancelButton.removeActionListener( l );
+
+	@Override
+	public void removeCancelActionListener(java.awt.event.ActionListener l) {
+		cancelButton.removeActionListener(l);
 	}
 
 	public void set(GalleryViewer.ObjectXmlData data, javax.swing.ImageIcon image) {
 		this.data = data;
 		this.image = image;
-		if (data.directoryData != null)
+		if (data.directoryData != null) {
 			filename = String.valueOf(data.directoryData.rootNode.rootPath) + String.valueOf(data.objectFilename);
-		else if (data.parentDirectory != null)
+		} else if (data.parentDirectory != null) {
 			filename = String.valueOf(data.parentDirectory.rootNode.rootPath) + String.valueOf(data.objectFilename);
+		}
 		imageLabel.setIcon(image);
 		setName(GalleryObject.getDisplayName(data.name));
 		nameLabel.setText(GalleryObject.getDisplayName(data.name));
@@ -85,18 +91,20 @@ public class ModelInfoContentPane extends edu.cmu.cs.stage3.swing.ContentPane {
 		for (int i = 0; i < data.details.size(); i++) {
 			edu.cmu.cs.stage3.util.StringObjectPair current = (edu.cmu.cs.stage3.util.StringObjectPair) data.details.get(i);
 			String currentString = current.getString();
-			if (currentString.equalsIgnoreCase("modeledby"))
+			if (currentString.equalsIgnoreCase("modeledby")) {
 				currentString = "modeled by";
-			else if (currentString.equalsIgnoreCase("paintedby"))
+			} else if (currentString.equalsIgnoreCase("paintedby")) {
 				currentString = "painted by";
-			else if (currentString.equalsIgnoreCase("physicalsize"))
+			} else if (currentString.equalsIgnoreCase("physicalsize")) {
 				currentString = "physical size";
+			}
 			javax.swing.JLabel title = new javax.swing.JLabel(String.valueOf(String.valueOf(currentString)).concat(":"));
 			javax.swing.JLabel detail = new javax.swing.JLabel();
 			title.setForeground(GalleryViewer.textColor);
 			detail.setForeground(GalleryViewer.textColor);
-			if (current.getObject() == null || current.getObject().equals(""))
+			if (current.getObject() == null || current.getObject().equals("")) {
 				continue;
+			}
 			if (current.getObject() instanceof String) {
 				detail.setText(current.getObject().toString());
 				detailsPanel.add(title, new java.awt.GridBagConstraints(0, count, 1, 1, 0.0D, 0.0D, 18, 0, new java.awt.Insets(2, 0, 0, 0), 0, 0));
@@ -104,16 +112,18 @@ public class ModelInfoContentPane extends edu.cmu.cs.stage3.swing.ContentPane {
 				count++;
 				continue;
 			}
-			if (!(current.getObject() instanceof java.util.Vector))
+			if (!(current.getObject() instanceof java.util.Vector)) {
 				continue;
+			}
 			java.util.Vector detailVector = (java.util.Vector) current.getObject();
 			javax.swing.JPanel detailContainer = new javax.swing.JPanel();
 			detailContainer.setOpaque(false);
 			detailContainer.setBorder(null);
 			detailContainer.setLayout(new javax.swing.BoxLayout(detailContainer, 1));
 			for (int index = 0; index < detailVector.size(); index++) {
-				if (detailVector.get(index) == null || !(detailVector.get(index) instanceof String))
+				if (detailVector.get(index) == null || !(detailVector.get(index) instanceof String)) {
 					continue;
+				}
 				String currentDetail = (String) detailVector.get(index);
 				if (!currentDetail.equalsIgnoreCase("")) {
 					javax.swing.JLabel detailLabel = new javax.swing.JLabel(currentDetail);
@@ -155,7 +165,7 @@ public class ModelInfoContentPane extends edu.cmu.cs.stage3.swing.ContentPane {
 	javax.swing.JButton cancelButton;
 	javax.swing.JPanel detailsPanel;
 	String filename;
-	
+
 	public String getFilename() {
 		return filename;
 	}

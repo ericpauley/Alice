@@ -24,27 +24,36 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.questioneditor;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
+ * <p>
+ * Title:
+ * </p>
+ * <p>
+ * Description:
+ * </p>
+ * <p>
+ * Copyright: Copyright (c) 2002
+ * </p>
+ * <p>
+ * Company:
+ * </p>
+ * 
  * @author David Culyba
  * @version 1.0
  */
 
-public class WhilePanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.WhileElementPanel{
+public class WhilePanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.WhileElementPanel {
 
-    public WhilePanel(){
-        super();
-    }
+	public WhilePanel() {
+		super();
+	}
 
-    
-	protected java.awt.Color getCustomBackgroundColor(){
-        return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("WhileLoopInOrder");
-    }
+	@Override
+	protected java.awt.Color getCustomBackgroundColor() {
+		return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("WhileLoopInOrder");
+	}
 
-     public void set(edu.cmu.cs.stage3.alice.core.question.userdefined.While r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        super.set(r, authoringToolIn);
-    }
+	public void set(edu.cmu.cs.stage3.alice.core.question.userdefined.While r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		super.set(r, authoringToolIn);
+	}
 
 }

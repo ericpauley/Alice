@@ -30,27 +30,28 @@ import javax.swing.tree.DefaultTreeCellRenderer;
  */
 public class DefaultElementTreeCellRenderer extends DefaultTreeCellRenderer {
 
-	//TODO: make this more sophisticated
-	
-	public java.awt.Component getTreeCellRendererComponent( javax.swing.JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus ) {
+	// TODO: make this more sophisticated
+
+	@Override
+	public java.awt.Component getTreeCellRendererComponent(javax.swing.JTree tree, Object value, boolean sel, boolean expanded, boolean leaf, int row, boolean hasFocus) {
 		String stringValue;
-		if( value instanceof edu.cmu.cs.stage3.alice.core.Element ) {
-			stringValue = (String)((edu.cmu.cs.stage3.alice.core.Element)value).name.getValue();
+		if (value instanceof edu.cmu.cs.stage3.alice.core.Element) {
+			stringValue = (String) ((edu.cmu.cs.stage3.alice.core.Element) value).name.getValue();
 		} else {
-			stringValue = tree.convertValueToText( value, sel, expanded, leaf, row, hasFocus );
+			stringValue = tree.convertValueToText(value, sel, expanded, leaf, row, hasFocus);
 		}
 
 		this.hasFocus = hasFocus;
-		setText( stringValue );
-		if( sel ) {
-			setForeground( getTextSelectionColor() );
+		setText(stringValue);
+		if (sel) {
+			setForeground(getTextSelectionColor());
 		} else {
-			setForeground( getTextNonSelectionColor() );
+			setForeground(getTextNonSelectionColor());
 		}
 
-		setIcon( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue( value ) );
+		setIcon(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue(value));
 
-		setComponentOrientation( tree.getComponentOrientation() );
+		setComponentOrientation(tree.getComponentOrientation());
 
 		selected = sel;
 

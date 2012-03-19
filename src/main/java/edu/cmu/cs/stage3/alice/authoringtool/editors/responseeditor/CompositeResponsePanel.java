@@ -23,32 +23,29 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.editors.responseeditor;
 
-
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2001 Company:
+ * 
  * @author
  * @version 1.0
  */
 
-public abstract class CompositeResponsePanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.CompositeElementPanel{
+public abstract class CompositeResponsePanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.CompositeElementPanel {
 
-    protected edu.cmu.cs.stage3.alice.core.response.CompositeResponse m_response;
+	protected edu.cmu.cs.stage3.alice.core.response.CompositeResponse m_response;
 
-    public CompositeResponsePanel(){
-        super();
-        headerText = "Composite Response";
-    }
+	public CompositeResponsePanel() {
+		super();
+		headerText = "Composite Response";
+	}
 
-    public void set(edu.cmu.cs.stage3.alice.core.response.CompositeResponse response, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        m_response = (edu.cmu.cs.stage3.alice.core.response.CompositeResponse)m_element;
-        super.set(response, authoringToolIn);
-    }
+	public void set(edu.cmu.cs.stage3.alice.core.response.CompositeResponse response, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		m_response = (edu.cmu.cs.stage3.alice.core.response.CompositeResponse) m_element;
+		super.set(response, authoringToolIn);
+	}
 
-    public edu.cmu.cs.stage3.alice.core.Response getResponse(){
-        return m_response;
-    }
+	public edu.cmu.cs.stage3.alice.core.Response getResponse() {
+		return m_response;
+	}
 
 }

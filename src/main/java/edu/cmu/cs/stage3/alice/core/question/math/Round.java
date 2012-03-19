@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class Round extends edu.cmu.cs.stage3.alice.core.question.UnaryNumberResultingInNumberQuestion {
-	
-	protected double getValue( double aValue ) {
-		return Math.round( aValue );
+
+	@Override
+	protected double getValue(double aValue) {
+		return Math.round(aValue);
 	}
 }

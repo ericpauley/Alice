@@ -26,7 +26,8 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.Question;
 
 public abstract class IntegerQuestion extends Question {
-	
+
+	@Override
 	public Class getValueClass() {
 		return Integer.class;
 	}

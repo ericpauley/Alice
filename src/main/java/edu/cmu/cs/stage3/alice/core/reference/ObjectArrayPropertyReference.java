@@ -30,21 +30,23 @@ import edu.cmu.cs.stage3.util.Criterion;
 public class ObjectArrayPropertyReference extends PropertyReference {
 	private int m_index;
 	private int m_precedingTotal;
-	public ObjectArrayPropertyReference( ObjectArrayProperty objectArrayProperty, Criterion criterion, int index, int precedingTotal ) {
-		super( objectArrayProperty, criterion );
+	public ObjectArrayPropertyReference(ObjectArrayProperty objectArrayProperty, Criterion criterion, int index, int precedingTotal) {
+		super(objectArrayProperty, criterion);
 		m_index = index;
 		m_precedingTotal = precedingTotal;
 	}
-    
+
+	@Override
 	public Element getReference() {
-        return (Element)getObjectArrayProperty().get( m_index );
-    }
-	public ObjectArrayProperty getObjectArrayProperty() {
-		return (ObjectArrayProperty)getProperty();
+		return (Element) getObjectArrayProperty().get(m_index);
 	}
-	
-	public void resolve( edu.cmu.cs.stage3.alice.core.ReferenceResolver referenceResolver ) throws edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException {
-		getObjectArrayProperty().set( m_index, resolveReference( referenceResolver ) );
+	public ObjectArrayProperty getObjectArrayProperty() {
+		return (ObjectArrayProperty) getProperty();
+	}
+
+	@Override
+	public void resolve(edu.cmu.cs.stage3.alice.core.ReferenceResolver referenceResolver) throws edu.cmu.cs.stage3.alice.core.UnresolvableReferenceException {
+		getObjectArrayProperty().set(m_index, resolveReference(referenceResolver));
 	}
 	public int getIndex() {
 		return m_index;
@@ -52,8 +54,9 @@ public class ObjectArrayPropertyReference extends PropertyReference {
 	public int getPrecedingTotal() {
 		return m_precedingTotal;
 	}
-	
+
+	@Override
 	public String toString() {
-		return "ObjectArrayPropertyReference[property="+getObjectArrayProperty()+",criterion="+getCriterion()+",index="+getIndex()+"]";
+		return "ObjectArrayPropertyReference[property=" + getObjectArrayProperty() + ",criterion=" + getCriterion() + ",index=" + getIndex() + "]";
 	}
 }

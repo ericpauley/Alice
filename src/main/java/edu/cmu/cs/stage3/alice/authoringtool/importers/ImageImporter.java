@@ -27,58 +27,59 @@ package edu.cmu.cs.stage3.alice.authoringtool.importers;
  * @author Jason Pratt
  */
 public class ImageImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractImporter {
-	
+
+	@Override
 	public java.util.Map getExtensionMap() {
 		java.util.HashMap knownCodecPrettyNames = new java.util.HashMap();
-		knownCodecPrettyNames.put( "BMP", "Windows Bitmap" );
-		knownCodecPrettyNames.put( "GIF", "Graphic Interchange Format" );
-		knownCodecPrettyNames.put( "JPEG", "Joint Photographic Experts Group format" );
-		knownCodecPrettyNames.put( "PNG", "Portable Network Graphics format" );
-		knownCodecPrettyNames.put( "TIFF", "Tagged Image File Format" );
+		knownCodecPrettyNames.put("BMP", "Windows Bitmap");
+		knownCodecPrettyNames.put("GIF", "Graphic Interchange Format");
+		knownCodecPrettyNames.put("JPEG", "Joint Photographic Experts Group format");
+		knownCodecPrettyNames.put("PNG", "Portable Network Graphics format");
+		knownCodecPrettyNames.put("TIFF", "Tagged Image File Format");
 
 		java.util.HashMap map = new java.util.HashMap();
 
 		String[] codecNames = edu.cmu.cs.stage3.image.ImageIO.getCodecNames();
-		for( int i = 0; i < codecNames.length; i++ ) {
-			String prettyName = (String)knownCodecPrettyNames.get( codecNames[i].toUpperCase() );
-			if( prettyName == null ) {
-				prettyName = codecNames[i];
+		for (String codecName : codecNames) {
+			String prettyName = (String) knownCodecPrettyNames.get(codecName.toUpperCase());
+			if (prettyName == null) {
+				prettyName = codecName;
 			}
-			String[] extensions = edu.cmu.cs.stage3.image.ImageIO.getExtensionsForCodec( codecNames[i] );
-			for( int j = 0; j < extensions.length; j++ ) {
-				map.put( extensions[j].toUpperCase(), prettyName );
+			String[] extensions = edu.cmu.cs.stage3.image.ImageIO.getExtensionsForCodec(codecName);
+			for (String extension : extensions) {
+				map.put(extension.toUpperCase(), prettyName);
 			}
 		}
 
 		return map;
 	}
 
-	
-	protected edu.cmu.cs.stage3.alice.core.Element load( java.io.InputStream istream, String ext ) throws java.io.IOException {
-		String codecName = edu.cmu.cs.stage3.image.ImageIO.mapExtensionToCodecName( ext );
-		if( codecName == null ) {
-			throw new IllegalArgumentException( "Unsupported Extension: " + ext );
+	@Override
+	protected edu.cmu.cs.stage3.alice.core.Element load(java.io.InputStream istream, String ext) throws java.io.IOException {
+		String codecName = edu.cmu.cs.stage3.image.ImageIO.mapExtensionToCodecName(ext);
+		if (codecName == null) {
+			throw new IllegalArgumentException("Unsupported Extension: " + ext);
 		}
 
 		java.io.BufferedInputStream bis;
-		if( istream instanceof java.io.BufferedInputStream ) {
-			bis = (java.io.BufferedInputStream)istream;
+		if (istream instanceof java.io.BufferedInputStream) {
+			bis = (java.io.BufferedInputStream) istream;
 		} else {
-			bis = new java.io.BufferedInputStream( istream );
+			bis = new java.io.BufferedInputStream(istream);
 		}
-		java.awt.Image image = edu.cmu.cs.stage3.image.ImageIO.load( codecName, bis );
+		java.awt.Image image = edu.cmu.cs.stage3.image.ImageIO.load(codecName, bis);
 
 		edu.cmu.cs.stage3.alice.core.TextureMap texture = new edu.cmu.cs.stage3.alice.core.TextureMap();
 
-		if( image instanceof java.awt.image.BufferedImage ) {
-			java.awt.image.BufferedImage bi = (java.awt.image.BufferedImage)image;
-			if( bi.getColorModel().hasAlpha() ) {
-				texture.format.set( new Integer( edu.cmu.cs.stage3.alice.scenegraph.TextureMap.RGBA ) );
+		if (image instanceof java.awt.image.BufferedImage) {
+			java.awt.image.BufferedImage bi = (java.awt.image.BufferedImage) image;
+			if (bi.getColorModel().hasAlpha()) {
+				texture.format.set(new Integer(edu.cmu.cs.stage3.alice.scenegraph.TextureMap.RGBA));
 			}
 		}
 
-		texture.name.set( plainName );
-		texture.image.set( image );
+		texture.name.set(plainName);
+		texture.image.set(image);
 
 		return texture;
 	}

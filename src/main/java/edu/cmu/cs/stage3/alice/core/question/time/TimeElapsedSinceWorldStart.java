@@ -25,24 +25,27 @@ package edu.cmu.cs.stage3.alice.core.question.time;
 
 public class TimeElapsedSinceWorldStart extends edu.cmu.cs.stage3.alice.core.question.NumberQuestion {
 	private edu.cmu.cs.stage3.alice.core.Clock m_clock;
-	
+
+	@Override
 	public Object getValue() {
-		if( m_clock != null ) {
-			return new Double( m_clock.getTimeElapsed() );
+		if (m_clock != null) {
+			return new Double(m_clock.getTimeElapsed());
 		} else {
 			return null;
 		}
 	}
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		if( world != null ) {
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		if (world != null) {
 			m_clock = world.getClock();
-		} 
+		}
 	}
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
+
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
 		m_clock = null;
-		super.stopped( world, time );
+		super.stopped(world, time);
 	}
 }

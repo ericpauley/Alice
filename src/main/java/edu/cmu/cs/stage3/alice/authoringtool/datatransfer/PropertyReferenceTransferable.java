@@ -23,47 +23,53 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.datatransfer;
 
-import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 
 /**
  * @author Jason Pratt
  */
 public class PropertyReferenceTransferable implements Transferable {
-//	public final static DataFlavor propertyReferenceFlavor = new DataFlavor( DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.core.Property", "propertyReferenceFlavor" );
-	public final static DataFlavor propertyReferenceFlavor = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReferenceFlavorForClass( edu.cmu.cs.stage3.alice.core.Property.class );
+	// public final static DataFlavor propertyReferenceFlavor = new DataFlavor(
+	// DataFlavor.javaJVMLocalObjectMimeType +
+	// "; class=edu.cmu.cs.stage3.alice.core.Property",
+	// "propertyReferenceFlavor" );
+	public final static DataFlavor propertyReferenceFlavor = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReferenceFlavorForClass(edu.cmu.cs.stage3.alice.core.Property.class);
 
 	protected DataFlavor[] flavors;
 	protected edu.cmu.cs.stage3.alice.core.Property property;
 
-	public PropertyReferenceTransferable( edu.cmu.cs.stage3.alice.core.Property property ) {
+	public PropertyReferenceTransferable(edu.cmu.cs.stage3.alice.core.Property property) {
 		this.property = property;
 
 		flavors = new DataFlavor[2];
 		flavors[0] = propertyReferenceFlavor;
-		flavors[1] = DataFlavor.stringFlavor;  // bug work-around
+		flavors[1] = DataFlavor.stringFlavor; // bug work-around
 	}
 
+	@Override
 	public DataFlavor[] getTransferDataFlavors() {
 		return flavors;
 	}
 
-	public boolean isDataFlavorSupported( DataFlavor flavor ) {
-		for( int i = 0; i < flavors.length; i++ ) {
-			if( flavor.equals( flavors[i] ) ) {
+	@Override
+	public boolean isDataFlavorSupported(DataFlavor flavor) {
+		for (DataFlavor flavor2 : flavors) {
+			if (flavor.equals(flavor2)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public Object getTransferData( DataFlavor flavor ) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
-		if( flavor.equals( propertyReferenceFlavor ) ) {
+	@Override
+	public Object getTransferData(DataFlavor flavor) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
+		if (flavor.equals(propertyReferenceFlavor)) {
 			return property;
-		} else if( flavor.equals( DataFlavor.stringFlavor ) ) {
+		} else if (flavor.equals(DataFlavor.stringFlavor)) {
 			return property.toString();
 		} else {
-			throw new java.awt.datatransfer.UnsupportedFlavorException( flavor );
+			throw new java.awt.datatransfer.UnsupportedFlavorException(flavor);
 		}
 	}
 }

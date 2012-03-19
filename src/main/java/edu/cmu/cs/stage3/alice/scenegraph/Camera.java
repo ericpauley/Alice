@@ -27,18 +27,18 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public abstract class Camera extends Component {
-	public static final Property NEAR_CLIPPING_PLANE_DISTANCE_PROPERTY = new Property( Camera.class, "NEAR_CLIPPING_PLANE_DISTANCE" );
-	public static final Property FAR_CLIPPING_PLANE_DISTANCE_PROPERTY = new Property( Camera.class, "FAR_CLIPPING_PLANE_DISTANCE" );
-	public static final Property BACKGROUND_PROPERTY = new Property( Camera.class, "BACKGROUND" );
+	public static final Property NEAR_CLIPPING_PLANE_DISTANCE_PROPERTY = new Property(Camera.class, "NEAR_CLIPPING_PLANE_DISTANCE");
+	public static final Property FAR_CLIPPING_PLANE_DISTANCE_PROPERTY = new Property(Camera.class, "FAR_CLIPPING_PLANE_DISTANCE");
+	public static final Property BACKGROUND_PROPERTY = new Property(Camera.class, "BACKGROUND");
 	private double m_nearClippingPlaneDistance = 0.125;
 	private double m_farClippingPlaneDistance = 256;
 	private Background m_background = null;
 
-	
+	@Override
 	protected void releasePass1() {
-		if( m_background != null ) {
-			warnln( "WARNING: released camera " + this + " still has background " + m_background + "." );
-			setBackground( null );
+		if (m_background != null) {
+			warnln("WARNING: released camera " + this + " still has background " + m_background + ".");
+			setBackground(null);
 		}
 		super.releasePass1();
 	}
@@ -50,17 +50,18 @@ public abstract class Camera extends Component {
 	}
 	/**
 	 * sets the near clipping plane distance property.<br>
-	 * the plane is defined to be perpendicular to the forward vector at the near clipping plane distance.<br>
+	 * the plane is defined to be perpendicular to the forward vector at the
+	 * near clipping plane distance.<br>
 	 * objects in front of this plane are clipped.<br>
-	 *
+	 * 
 	 * @param double (default: 0.1)
 	 * @see #getNearClippingPlaneDistance
 	 * @see #setFarClippingPlaneDistance
 	 */
-	public void setNearClippingPlaneDistance( double nearClippingPlaneDistance ) {
-		if( m_nearClippingPlaneDistance != nearClippingPlaneDistance ) {
+	public void setNearClippingPlaneDistance(double nearClippingPlaneDistance) {
+		if (m_nearClippingPlaneDistance != nearClippingPlaneDistance) {
 			m_nearClippingPlaneDistance = nearClippingPlaneDistance;
-			onPropertyChange( NEAR_CLIPPING_PLANE_DISTANCE_PROPERTY );
+			onPropertyChange(NEAR_CLIPPING_PLANE_DISTANCE_PROPERTY);
 		}
 	}
 	/**
@@ -71,17 +72,18 @@ public abstract class Camera extends Component {
 	}
 	/**
 	 * sets the far clipping plane distance property.<br>
-	 * the plane is defined to be perpendicular to the forward vector at the far clipping plane distance.<br>
+	 * the plane is defined to be perpendicular to the forward vector at the far
+	 * clipping plane distance.<br>
 	 * objects behind this plane are clipped.<br>
-	 *
+	 * 
 	 * @param double (default: 256)
 	 * @see #getFarClippingPlaneDistance
 	 * @see #setNearClippingPlaneDistance
 	 */
-	public void setFarClippingPlaneDistance( double farClippingPlaneDistance ) {
-		if( m_farClippingPlaneDistance != farClippingPlaneDistance ) {
+	public void setFarClippingPlaneDistance(double farClippingPlaneDistance) {
+		if (m_farClippingPlaneDistance != farClippingPlaneDistance) {
 			m_farClippingPlaneDistance = farClippingPlaneDistance;
-			onPropertyChange( FAR_CLIPPING_PLANE_DISTANCE_PROPERTY );
+			onPropertyChange(FAR_CLIPPING_PLANE_DISTANCE_PROPERTY);
 		}
 	}
 
@@ -92,16 +94,17 @@ public abstract class Camera extends Component {
 		return m_background;
 	}
 	/**
-	 *
-	 * @param Background (default: null)
+	 * 
+	 * @param Background
+	 *            (default: null)
 	 * @see #getBackground
 	 */
-	public void setBackground( Background background ) {
-		if( m_background != background ) {
+	public void setBackground(Background background) {
+		if (m_background != background) {
 			m_background = background;
-			onPropertyChange( BACKGROUND_PROPERTY );
+			onPropertyChange(BACKGROUND_PROPERTY);
 		}
 	}
 
-    public abstract javax.vecmath.Matrix4d getProjection();
+	public abstract javax.vecmath.Matrix4d getProjection();
 }

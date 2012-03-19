@@ -23,9 +23,14 @@
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
 
-import javax.swing.JPanel;
 import java.util.Vector;
-import org.w3c.dom.*;
+
+import javax.swing.JPanel;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class StringPropertySetter extends JPanel implements javax.swing.event.DocumentListener {
 	String propertyName = "";
@@ -44,18 +49,21 @@ public class StringPropertySetter extends JPanel implements javax.swing.event.Do
 		createGUI();
 	}
 
+	@Override
 	public void changedUpdate(javax.swing.event.DocumentEvent de) {
-		//System.out.println("changed: ");
+		// System.out.println("changed: ");
 		modelWrapper.setProperty(propertyName, valueField.getText(), labelText);
 	}
 
+	@Override
 	public void insertUpdate(javax.swing.event.DocumentEvent de) {
-		//System.out.println("insert: ");
+		// System.out.println("insert: ");
 		modelWrapper.setProperty(propertyName, valueField.getText(), labelText);
 	}
 
+	@Override
 	public void removeUpdate(javax.swing.event.DocumentEvent de) {
-		//System.out.println("remove: ");
+		// System.out.println("remove: ");
 		String value = valueField.getText();
 		if (value.equals("")) {
 			value = "noname";
@@ -68,16 +76,16 @@ public class StringPropertySetter extends JPanel implements javax.swing.event.Do
 		java.net.URL propSetURL = null;
 		Node propSetNode = propNode;
 
-		//    // get the top level prop set node
-		//    NodeList nList = propNode.getChildNodes();
-		//    for (int i = 0; i < nList.getLength(); i++) {
-		//      Node curNode = nList.item(i);
-		//      if (curNode.getNodeName().equals("propertySet")) {
-		//        propSetNode = curNode;
-		//      }
-		//    }
+		// // get the top level prop set node
+		// NodeList nList = propNode.getChildNodes();
+		// for (int i = 0; i < nList.getLength(); i++) {
+		// Node curNode = nList.item(i);
+		// if (curNode.getNodeName().equals("propertySet")) {
+		// propSetNode = curNode;
+		// }
+		// }
 
-		//    // get the xml path from here
+		// // get the xml path from here
 		java.net.URL xmlURL = null;
 		Vector xmlFiles = XMLDirectoryUtilities.getXMLURLs(propSetNode);
 		if (xmlFiles.size() == 1) {
@@ -89,7 +97,7 @@ public class StringPropertySetter extends JPanel implements javax.swing.event.Do
 		if (xmlURL != null) {
 			Document doc = (Document) XMLDirectoryUtilities.loadURL(xmlURL);
 			return doc.getDocumentElement();
-			//return node;
+			// return node;
 		} else {
 			return null;
 		}
@@ -116,7 +124,7 @@ public class StringPropertySetter extends JPanel implements javax.swing.event.Do
 	}
 
 	protected void createGUI() {
-		this.setLayout(new java.awt.FlowLayout());
+		setLayout(new java.awt.FlowLayout());
 		javax.swing.JLabel label = new javax.swing.JLabel(labelText);
 		valueField = new javax.swing.JTextField(defaultValue);
 

@@ -28,25 +28,26 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  */
 
 public class InvisibleSplitPaneUI extends javax.swing.plaf.basic.BasicSplitPaneUI {
-	public static javax.swing.plaf.ComponentUI createUI( javax.swing.JComponent x ) {
+	public static javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent x) {
 		return new InvisibleSplitPaneUI();
 	}
 
-	
+	@Override
 	public javax.swing.plaf.basic.BasicSplitPaneDivider createDefaultDivider() {
-		return new InvisibleSplitPaneDivider( this );
+		return new InvisibleSplitPaneDivider(this);
 	}
 
-//	public void finishedPaintingChildren( javax.swing.JSplitPane jc, java.awt.Graphics g ) {
-//	}
+	// public void finishedPaintingChildren( javax.swing.JSplitPane jc,
+	// java.awt.Graphics g ) {
+	// }
 
 	public class InvisibleSplitPaneDivider extends javax.swing.plaf.basic.BasicSplitPaneDivider {
-		public InvisibleSplitPaneDivider( javax.swing.plaf.basic.BasicSplitPaneUI ui ) {
-			super( ui );
+		public InvisibleSplitPaneDivider(javax.swing.plaf.basic.BasicSplitPaneUI ui) {
+			super(ui);
 		}
 
-		
-		public void paint( java.awt.Graphics g ) {
+		@Override
+		public void paint(java.awt.Graphics g) {
 		}
 	}
 }

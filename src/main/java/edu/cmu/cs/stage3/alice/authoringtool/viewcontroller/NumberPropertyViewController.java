@@ -29,37 +29,38 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
 public class NumberPropertyViewController extends TextFieldEditablePropertyViewController {
 	protected javax.swing.JLabel numberLabel = new javax.swing.JLabel();
 
-	public void set( edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-		super.set( property, includeDefaults, allowExpressions, true, omitPropertyName, factory );
-		this.allowEasyEditWithClick = false;
+	public void set(edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
+		super.set(property, includeDefaults, allowExpressions, true, omitPropertyName, factory);
+		allowEasyEditWithClick = false;
 		refreshGUI();
 	}
 
-	
-	protected void setValueFromString( String valueString ) {
-		Double value = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.parseDouble( valueString );
+	@Override
+	protected void setValueFromString(String valueString) {
+		Double value = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.parseDouble(valueString);
 
-		if( value != null ) {
-			((Runnable)factory.createItem( value )).run();
+		if (value != null) {
+			((Runnable) factory.createItem(value)).run();
 			String propertyKey = "edu.cmu.cs.stage3.alice.authoringtool.userRepr." + property.getName();
-			property.getOwner().data.put( propertyKey, valueString );
+			property.getOwner().data.put(propertyKey, valueString);
 		} else {
-			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "I don't understand this number: " + valueString, null, false );
+			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("I don't understand this number: " + valueString, null, false);
 		}
 	}
 
-	
+	@Override
 	protected java.awt.Component getNativeComponent() {
 		return numberLabel;
 	}
-	
-	
+
+	@Override
 	protected java.awt.event.MouseListener getMouseListener() {
 		return new java.awt.event.MouseAdapter() {
-			
-			public void mouseReleased( java.awt.event.MouseEvent ev ) {
-				if( (ev.getX() >= 0) && (ev.getX() < ev.getComponent().getWidth()) && (ev.getY() >= 0) && (ev.getY() < ev.getComponent().getHeight()) ) {
-					if( isEnabled() ) {
+
+			@Override
+			public void mouseReleased(java.awt.event.MouseEvent ev) {
+				if (ev.getX() >= 0 && ev.getX() < ev.getComponent().getWidth() && ev.getY() >= 0 && ev.getY() < ev.getComponent().getHeight()) {
+					if (isEnabled()) {
 						NumberPropertyViewController.this.popupButton.doClick();
 					}
 				}
@@ -67,20 +68,20 @@ public class NumberPropertyViewController extends TextFieldEditablePropertyViewC
 		};
 	}
 
-	
+	@Override
 	protected Class getNativeClass() {
 		return Number.class;
 	}
 
-	
+	@Override
 	protected void updateNativeComponent() {
-		numberLabel.setText( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( property.get(), property, property.getOwner().data ) );
+		numberLabel.setText(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(property.get(), property, property.getOwner().data));
 	}
 
-	
+	@Override
 	protected void refreshGUI() {
-		if( this.isAncestorOf( textField ) ) {
-			remove( textField );
+		if (isAncestorOf(textField)) {
+			remove(textField);
 		}
 		super.refreshGUI();
 	}

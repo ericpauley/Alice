@@ -30,7 +30,7 @@ public class PopupItemWithIcon {
 	protected Object item;
 	protected javax.swing.Icon icon;
 
-	public PopupItemWithIcon( Object item, javax.swing.Icon icon ) {
+	public PopupItemWithIcon(Object item, javax.swing.Icon icon) {
 		this.item = item;
 		this.icon = icon;
 	}

@@ -25,7 +25,8 @@ package edu.cmu.cs.stage3.alice.core;
 
 public class ClippingPlane extends Affector {
 	private edu.cmu.cs.stage3.alice.scenegraph.ClippingPlane m_sgClippingPlane;
-	
+
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.Affector getSceneGraphAffector() {
 		return getSceneGraphClippingPlane();
 	}
@@ -35,16 +36,17 @@ public class ClippingPlane extends Affector {
 	public ClippingPlane() {
 		super();
 		m_sgClippingPlane = new edu.cmu.cs.stage3.alice.scenegraph.ClippingPlane();
-		m_sgClippingPlane.setParent( getSceneGraphTransformable() );
-		m_sgClippingPlane.setBonus( this );
+		m_sgClippingPlane.setParent(getSceneGraphTransformable());
+		m_sgClippingPlane.setBonus(this);
 	}
-	
-	protected void nameValueChanged( String value ) {
-		super.nameValueChanged( value );
+
+	@Override
+	protected void nameValueChanged(String value) {
+		super.nameValueChanged(value);
 		String s = null;
-		if( value!=null ) {
-			s = value+".m_sgClippingPlane";
+		if (value != null) {
+			s = value + ".m_sgClippingPlane";
 		}
-		m_sgClippingPlane.setName( s );
+		m_sgClippingPlane.setName(s);
 	}
 }

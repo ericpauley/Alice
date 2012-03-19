@@ -24,17 +24,17 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public class UnresolvablePropertyReferencesException extends Exception {
-    private edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] m_propertyReferences;
-    private Element m_element;
-	public UnresolvablePropertyReferencesException( edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] propertyReferences, Element element, String detail ) {
-        super( detail );
-        m_propertyReferences = propertyReferences;
-        m_element = element;
+	private edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] m_propertyReferences;
+	private Element m_element;
+	public UnresolvablePropertyReferencesException(edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] propertyReferences, Element element, String detail) {
+		super(detail);
+		m_propertyReferences = propertyReferences;
+		m_element = element;
 	}
-    public edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] getPropertyReferences() {
-        return m_propertyReferences;
-    }
-    public Element getElement() {
-        return m_element;
-    }
+	public edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] getPropertyReferences() {
+		return m_propertyReferences;
+	}
+	public Element getElement() {
+		return m_element;
+	}
 }

@@ -23,173 +23,197 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
-import javax.swing.*;
-import javax.swing.event.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.JComponent;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.MenuElement;
+import javax.swing.MenuSelectionManager;
+import javax.swing.Timer;
+import javax.swing.event.MouseInputListener;
 
 /**
- * adapted from javax.swing.plaf.basic.BasicMenuUI to improve on popup menu behavior.
+ * adapted from javax.swing.plaf.basic.BasicMenuUI to improve on popup menu
+ * behavior.
+ * 
  * @author Jason Pratt
  */
 public class AliceMenuUI extends javax.swing.plaf.basic.BasicMenuUI {
-	
-	protected MouseInputListener createMouseInputListener( JComponent c ) {
+
+	@Override
+	protected MouseInputListener createMouseInputListener(JComponent c) {
 		return new AliceMouseInputHandler();
 	}
 
 	protected class AliceMouseInputHandler implements MouseInputListener {
-		public void mousePressed( MouseEvent e ) {
-			JMenu menu = (JMenu)menuItem;
+		@Override
+		public void mousePressed(MouseEvent e) {
+			JMenu menu = (JMenu) menuItem;
 
-			if( ! menu.isEnabled() ) {
+			if (!menu.isEnabled()) {
 				return;
 			}
 
 			MenuSelectionManager manager = MenuSelectionManager.defaultManager();
 
-			if( menu.isTopLevelMenu() ) {
-				if( menu.isSelected() ) {
+			if (menu.isTopLevelMenu()) {
+				if (menu.isSelected()) {
 					manager.clearSelectedPath();
 				} else {
 					Container cnt = menu.getParent();
 
-					if( ( cnt != null ) && cnt instanceof JMenuBar ) {
+					if (cnt != null && cnt instanceof JMenuBar) {
 						MenuElement[] me = new MenuElement[2];
-						me[0] = (MenuElement)cnt;
+						me[0] = (MenuElement) cnt;
 						me[1] = menu;
-						manager.setSelectedPath( me );
+						manager.setSelectedPath(me);
 					}
 				}
 			}
 
 			MenuElement[] selectedPath = manager.getSelectedPath();
 
-			if( ! ( selectedPath.length > 0 && selectedPath[selectedPath.length - 1] == menu.getPopupMenu() ) ) {
-				if( menu.isTopLevelMenu() || ( menu.getDelay() == 0 ) ) {
+			if (!(selectedPath.length > 0 && selectedPath[selectedPath.length - 1] == menu.getPopupMenu())) {
+				if (menu.isTopLevelMenu() || menu.getDelay() == 0) {
 					MenuElement[] newPath = new MenuElement[selectedPath.length + 1];
-					System.arraycopy( selectedPath, 0, newPath, 0, selectedPath.length );
+					System.arraycopy(selectedPath, 0, newPath, 0, selectedPath.length);
 					newPath[selectedPath.length] = menu.getPopupMenu();
-					manager.setSelectedPath( newPath );
+					manager.setSelectedPath(newPath);
 				} else {
-					setupPostTimer( menu );
+					setupPostTimer(menu);
 				}
 			}
 		}
 
-		public void mouseReleased( MouseEvent e ) {
-			JMenu menu = (JMenu)menuItem;
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			JMenu menu = (JMenu) menuItem;
 
-			if( ! menu.isEnabled() ) {
+			if (!menu.isEnabled()) {
 				return;
 			}
 
 			MenuSelectionManager manager = MenuSelectionManager.defaultManager();
-			manager.processMouseEvent( e );
+			manager.processMouseEvent(e);
 
-			if( ! e.isConsumed() ) {
+			if (!e.isConsumed()) {
 				manager.clearSelectedPath();
 			}
 		}
 
-		public void mouseEntered( MouseEvent e ) {
-			JMenu menu = (JMenu)menuItem;
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			JMenu menu = (JMenu) menuItem;
 
-			if( ! menu.isEnabled() ) {
+			if (!menu.isEnabled()) {
 				return;
 			}
 
 			MenuSelectionManager manager = MenuSelectionManager.defaultManager();
 			MenuElement[] selectedPath = manager.getSelectedPath();
 
-			if( ! menu.isTopLevelMenu() ) {
-				if( menu.getDelay() == 0 ) {
+			if (!menu.isTopLevelMenu()) {
+				if (menu.getDelay() == 0) {
 					MenuElement[] path = getPath();
 					MenuElement[] newPath = new MenuElement[getPath().length + 1];
-					System.arraycopy( path, 0, newPath, 0, path.length );
+					System.arraycopy(path, 0, newPath, 0, path.length);
 					newPath[path.length] = menu.getPopupMenu();
-					manager.setSelectedPath( newPath );
-//					System.out.print( "0 setSelectedPath: " );
-//					printPath( newPath );
+					manager.setSelectedPath(newPath);
+					// System.out.print( "0 setSelectedPath: " );
+					// printPath( newPath );
 				} else {
-					manager.setSelectedPath( getPath() );
-					setupPostTimer( menu );
+					manager.setSelectedPath(getPath());
+					setupPostTimer(menu);
 				}
 			} else {
-				if( ( selectedPath.length > 0 ) && ( selectedPath[0] == menu.getParent() ) ) {
+				if (selectedPath.length > 0 && selectedPath[0] == menu.getParent()) {
 					MenuElement[] newPath = new MenuElement[3];
 
 					// A top level menu's parent is by definition
 					// a JMenuBar
-					newPath[0] = (MenuElement)menu.getParent();
+					newPath[0] = (MenuElement) menu.getParent();
 					newPath[1] = menu;
 					newPath[2] = menu.getPopupMenu();
-					manager.setSelectedPath( newPath );
+					manager.setSelectedPath(newPath);
 				}
 			}
 		}
 
-		public void mouseDragged( MouseEvent e ) {
-			JMenu menu = (JMenu)menuItem;
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			JMenu menu = (JMenu) menuItem;
 
-			if( ! menu.isEnabled() ) {
+			if (!menu.isEnabled()) {
 				return;
 			}
 
-			MenuSelectionManager.defaultManager().processMouseEvent( e );
+			MenuSelectionManager.defaultManager().processMouseEvent(e);
 		}
 
-		public void mouseClicked( MouseEvent e ) {}
-		public void mouseExited( MouseEvent e ) {}
-		public void mouseMoved( MouseEvent e ) {}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		}
+		@Override
+		public void mouseExited(MouseEvent e) {
+		}
+		@Override
+		public void mouseMoved(MouseEvent e) {
+		}
 	}
 
-	
-	protected void setupPostTimer( JMenu menu ) {
-		Timer timer = new Timer( menu.getDelay(), new AlicePostAction( menu ) );
-		timer.setRepeats( false );
+	@Override
+	protected void setupPostTimer(JMenu menu) {
+		Timer timer = new Timer(menu.getDelay(), new AlicePostAction(menu));
+		timer.setRepeats(false);
 		timer.start();
 	}
 
 	private static class AlicePostAction extends AbstractAction {
 		JMenu menu;
 
-		AlicePostAction( JMenu menu ) {
+		AlicePostAction(JMenu menu) {
 			this.menu = menu;
 		}
 
-		public void actionPerformed( ActionEvent e ) {
+		@Override
+		public void actionPerformed(ActionEvent e) {
 			final MenuSelectionManager defaultManager = MenuSelectionManager.defaultManager();
 
-			MenuElement[] path = ((javax.swing.plaf.basic.BasicMenuUI)menu.getUI()).getPath(); //hack
+			MenuElement[] path = ((javax.swing.plaf.basic.BasicMenuUI) menu.getUI()).getPath(); // hack
 			MenuElement[] newPath = new MenuElement[path.length + 1];
 			path[path.length] = menu.getPopupMenu();
-			defaultManager.setSelectedPath( newPath );
+			defaultManager.setSelectedPath(newPath);
 		}
 
-		
+		@Override
 		public boolean isEnabled() {
 			return menu.getModel().isEnabled();
 		}
 	}
 
-	
+	@Override
 	public MenuElement[] getPath() {
 		java.util.Vector path = new java.util.Vector();
 		MenuElement me = menuItem;
-		while( me instanceof MenuElement ) {
-			path.add( 0, me );
-			if( me instanceof JPopupMenu ) {
-				Object o = ((JPopupMenu)me).getInvoker();
-				if( (o instanceof MenuElement) && (o != me) ) {
-					me = (MenuElement)o;
+		while (me instanceof MenuElement) {
+			path.add(0, me);
+			if (me instanceof JPopupMenu) {
+				Object o = ((JPopupMenu) me).getInvoker();
+				if (o instanceof MenuElement && o != me) {
+					me = (MenuElement) o;
 				} else {
 					me = null;
 				}
-			} else if( me instanceof JMenuItem ) {
-				Object o = ((JMenuItem)me).getParent();
-				if( (o instanceof MenuElement) && (o != me) ) {
-					me = (MenuElement)o;
+			} else if (me instanceof JMenuItem) {
+				Object o = ((JMenuItem) me).getParent();
+				if (o instanceof MenuElement && o != me) {
+					me = (MenuElement) o;
 				} else {
 					me = null;
 				}
@@ -198,26 +222,25 @@ public class AliceMenuUI extends javax.swing.plaf.basic.BasicMenuUI {
 			}
 		}
 
-		return (MenuElement[])path.toArray( new MenuElement[0] );
+		return (MenuElement[]) path.toArray(new MenuElement[0]);
 	}
 
-	public void printPath( javax.swing.MenuElement[] path ) {
-		System.out.print( "path [" );
-		for( int i = 0; i < path.length; i++ ) {
-			javax.swing.MenuElement me = path[i];
-			if( me instanceof javax.swing.JMenu ) {
-				System.out.print( ((javax.swing.JMenu)me).getText() + ", " );
-			} else if( me instanceof javax.swing.JPopupMenu ) {
-				Object invoker = ((javax.swing.JPopupMenu)me).getInvoker();
-				if( invoker instanceof javax.swing.JMenu ) {
-					System.out.print( ((javax.swing.JMenu)invoker).getText() + ".popupMenu, " );
+	public void printPath(javax.swing.MenuElement[] path) {
+		System.out.print("path [");
+		for (MenuElement me : path) {
+			if (me instanceof javax.swing.JMenu) {
+				System.out.print(((javax.swing.JMenu) me).getText() + ", ");
+			} else if (me instanceof javax.swing.JPopupMenu) {
+				Object invoker = ((javax.swing.JPopupMenu) me).getInvoker();
+				if (invoker instanceof javax.swing.JMenu) {
+					System.out.print(((javax.swing.JMenu) invoker).getText() + ".popupMenu, ");
 				} else {
-					System.out.print( "anonymous popupMenu, " );
+					System.out.print("anonymous popupMenu, ");
 				}
 			} else {
-				System.out.print( me.getClass().getName() );
+				System.out.print(me.getClass().getName());
 			}
 		}
-		System.out.println( "]" );
+		System.out.println("]");
 	}
 }

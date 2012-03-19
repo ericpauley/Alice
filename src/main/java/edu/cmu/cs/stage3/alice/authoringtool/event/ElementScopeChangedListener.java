@@ -27,5 +27,5 @@ package edu.cmu.cs.stage3.alice.authoringtool.event;
  * @author Jason Pratt
  */
 public interface ElementScopeChangedListener {
-	public void elementScopeChanged( ElementScopeChangedEvent ev );
+	public void elementScopeChanged(ElementScopeChangedEvent ev);
 }

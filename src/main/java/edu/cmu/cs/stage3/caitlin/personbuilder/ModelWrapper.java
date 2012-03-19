@@ -23,11 +23,13 @@
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
 
-import edu.cmu.cs.stage3.alice.core.Model;
-import edu.cmu.cs.stage3.alice.core.Element;
 import java.util.Hashtable;
 import java.util.Vector;
-import org.w3c.dom.*;
+
+import org.w3c.dom.Node;
+
+import edu.cmu.cs.stage3.alice.core.Element;
+import edu.cmu.cs.stage3.alice.core.Model;
 
 public class ModelWrapper {
 	protected edu.cmu.cs.stage3.alice.core.World miniWorld;
@@ -40,9 +42,15 @@ public class ModelWrapper {
 	protected Model person = null;
 	protected Model template = null;
 	protected edu.cmu.cs.stage3.alice.core.CopyFactory personFactory = null;
-	protected java.awt.Image[] textureLayers = new java.awt.Image[10]; // what is the right value for this?
+	protected java.awt.Image[] textureLayers = new java.awt.Image[10]; // what
+																		// is
+																		// the
+																		// right
+																		// value
+																		// for
+																		// this?
 	protected Hashtable partsTable = new Hashtable();
-	protected java.net.URL url = null; //HACK
+	protected java.net.URL url = null; // HACK
 
 	protected Vector propertyNameList = new Vector();
 	protected Vector propertyValueList = new Vector();
@@ -67,26 +75,25 @@ public class ModelWrapper {
 		if (model != null) {
 			if (model.name.getStringValue().equals(modelName)) {
 				if (person != null) {
-					edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion nameCriterion =
-						new edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion(modelName);
+					edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion nameCriterion = new edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion(modelName);
 					Element[] parts = person.search(nameCriterion, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS);
 					model.isFirstClass.set(false);
 					if (parts.length > 0) {
 						Element part = null;
 						part = parts[0];
 						if (part != null) {
-							edu.cmu.cs.stage3.math.Vector3 posToParent =
-								((Model) part).getPosition((edu.cmu.cs.stage3.alice.core.ReferenceFrame) part.getParent());
-							edu.cmu.cs.stage3.math.Matrix33 orientToParent =
-								((Model) part).getOrientationAsAxes((edu.cmu.cs.stage3.alice.core.ReferenceFrame) part.getParent());
+							edu.cmu.cs.stage3.math.Vector3 posToParent = ((Model) part).getPosition((edu.cmu.cs.stage3.alice.core.ReferenceFrame) part.getParent());
+							edu.cmu.cs.stage3.math.Matrix33 orientToParent = ((Model) part).getOrientationAsAxes((edu.cmu.cs.stage3.alice.core.ReferenceFrame) part.getParent());
 							part.replaceWith(model);
 							if (part instanceof Model) {
 								model.vehicle.set(((Model) part).vehicle.get());
 								((Model) part).vehicle.set(null);
-								if (posToParent != null)
-									 (model).setPositionRightNow(posToParent, (edu.cmu.cs.stage3.alice.core.ReferenceFrame) model.getParent());
-								if (orientToParent != null)
-									 (model).setOrientationRightNow(orientToParent, (edu.cmu.cs.stage3.alice.core.ReferenceFrame) model.getParent());
+								if (posToParent != null) {
+									model.setPositionRightNow(posToParent, (edu.cmu.cs.stage3.alice.core.ReferenceFrame) model.getParent());
+								}
+								if (orientToParent != null) {
+									model.setOrientationRightNow(orientToParent, (edu.cmu.cs.stage3.alice.core.ReferenceFrame) model.getParent());
+								}
 
 								edu.cmu.cs.stage3.alice.core.TextureMap tMap = person.diffuseColorMap.getTextureMapValue();
 								person.diffuseColorMap.set(tMap, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_PARTS);
@@ -155,8 +162,8 @@ public class ModelWrapper {
 		try {
 			person = (Model) personFactory.manufactureCopy(null);
 			addModelToWorld(person, "none", null);
-		} catch( edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre ) {
-			throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( upre, "UnresolvablePropertyReferencesException" );
+		} catch (edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre) {
+			throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper(upre, "UnresolvablePropertyReferencesException");
 		}
 	}
 
@@ -177,7 +184,7 @@ public class ModelWrapper {
 	private void initializeModels(Model part, String parentName, edu.cmu.cs.stage3.math.Vector3 position) {
 		// check to see if anything should be parented to this
 		Model partsToAttach = (Model) partsTable.get(part.getKey());
-		if ((partsToAttach != null) && (partsToAttach.getParent() == null)) {
+		if (partsToAttach != null && partsToAttach.getParent() == null) {
 			addChildToModel(part, partsToAttach, position);
 		}
 	}
@@ -195,10 +202,10 @@ public class ModelWrapper {
 	private void removeAllKids(Model parent) {
 		if (parent.getChildCount() > 0) {
 			Element[] oldKids = parent.getChildren();
-			for (int i = 0; i < oldKids.length; i++) {
-				if (oldKids[i] instanceof Model) {
-					oldKids[i].removeFromParent();
-					Model oldModel = (Model) oldKids[i];
+			for (Element oldKid : oldKids) {
+				if (oldKid instanceof Model) {
+					oldKid.removeFromParent();
+					Model oldModel = (Model) oldKid;
 					oldModel.vehicle.set(null);
 					parent.removeChild(oldModel);
 				}
@@ -209,10 +216,10 @@ public class ModelWrapper {
 	private void addKidsToModel(Model newParent, Element[] kids) {
 		// remove any old kids the newParent might already have
 		removeAllKids(newParent);
-		if ((newParent != null) && (kids != null)) {
-			for (int i = 0; i < kids.length; i++) {
-				if (kids[i] instanceof Model) {
-					Model kidModel = (Model) kids[i];
+		if (newParent != null && kids != null) {
+			for (Element kid : kids) {
+				if (kid instanceof Model) {
+					Model kidModel = (Model) kid;
 					addChildToModel(newParent, kidModel, null);
 				}
 			}
@@ -225,8 +232,9 @@ public class ModelWrapper {
 		child.setParent(parent);
 		child.isFirstClass.set(false);
 		child.vehicle.set(parent);
-		if (position != null)
+		if (position != null) {
 			child.setPositionRightNow(position, parent);
+		}
 	}
 
 	private void addModelToWorld(Model model, String parent, edu.cmu.cs.stage3.math.Vector3 position) {
@@ -239,8 +247,9 @@ public class ModelWrapper {
 	}
 
 	public void removeModel() {
-		if (person != null)
+		if (person != null) {
 			person.vehicle.set(null);
+		}
 	}
 
 	private void renderInit() {
@@ -262,10 +271,11 @@ public class ModelWrapper {
 
 	public Model getModel() {
 		return person;
-//		if ((person != null) && (person.name.getStringValue().equals("NoName"))) {
-//			return null;
-//		} else
-//			return person;
+		// if ((person != null) &&
+		// (person.name.getStringValue().equals("NoName"))) {
+		// return null;
+		// } else
+		// return person;
 	}
 
 	protected void regenerateTexture() {
@@ -279,11 +289,7 @@ public class ModelWrapper {
 			}
 			if (textureLayers[i] != null) {
 				if (finalTexture == null) {
-					finalTexture =
-						new java.awt.image.BufferedImage(
-							textureLayers[i].getHeight(null),
-							textureLayers[i].getWidth(null),
-							java.awt.image.BufferedImage.TYPE_4BYTE_ABGR);
+					finalTexture = new java.awt.image.BufferedImage(textureLayers[i].getHeight(null), textureLayers[i].getWidth(null), java.awt.image.BufferedImage.TYPE_4BYTE_ABGR);
 					g2 = finalTexture.createGraphics();
 				}
 				g2.drawImage(textureLayers[i], 0, 0, null);
@@ -307,8 +313,7 @@ public class ModelWrapper {
 
 	public void addModel(Model modelToAdd, String parentName, edu.cmu.cs.stage3.math.Vector3 position) {
 		if (person != null) {
-			edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion nameCriterion =
-				new edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion(parentName);
+			edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion nameCriterion = new edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion(parentName);
 			Element[] parents = person.search(nameCriterion, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS);
 			if (parents.length > 0) {
 				modelToAdd.setParent(parents[0]);
@@ -326,8 +331,7 @@ public class ModelWrapper {
 
 	public void removeModel(String modelName) {
 		if (person != null) {
-			edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion nameCriterion =
-				new edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion(modelName);
+			edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion nameCriterion = new edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion(modelName);
 			Element[] models = person.search(nameCriterion, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS);
 			if (models.length > 0) {
 				models[0].getParent().removeChild(models[0]);
@@ -352,18 +356,17 @@ public class ModelWrapper {
 	}
 
 	public String getModelName() {
-		if (person != null)
+		if (person != null) {
 			return person.name.getStringValue();
-		else
+		} else {
 			return "";
+		}
 	}
 
 	public void setModel(Model part, String parentName) {
-		if ((parentName.equals("none")) && (person == null)) {
-		} else {
+		if (parentName.equals("none") && person == null) {} else {
 			if (person != null) {
-				edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion nameCriterion =
-					new edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion(parentName);
+				edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion nameCriterion = new edu.cmu.cs.stage3.alice.core.criterion.ElementNamedCriterion(parentName);
 				Element[] parents = person.search(nameCriterion, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS);
 				if (parents.length > 0) {
 					Element child = parents[0].getChildNamed(part.name.getStringValue());
@@ -374,8 +377,9 @@ public class ModelWrapper {
 						if (child instanceof Model) {
 							part.vehicle.set(((Model) child).vehicle.get());
 							((Model) child).vehicle.set(null);
-							if (posToParent != null)
-								 (part).setPositionRightNow(posToParent, (edu.cmu.cs.stage3.alice.core.ReferenceFrame) part.getParent());
+							if (posToParent != null) {
+								part.setPositionRightNow(posToParent, (edu.cmu.cs.stage3.alice.core.ReferenceFrame) part.getParent());
+							}
 						}
 					}
 
@@ -390,9 +394,9 @@ public class ModelWrapper {
 
 	private void setPropertyValue(String propertyName, String propertyValue, String propertyDescription) {
 		edu.cmu.cs.stage3.alice.core.Property property = person.getPropertyNamed(propertyName);
-		if ((property != null) && (property instanceof edu.cmu.cs.stage3.alice.core.property.StringProperty))
+		if (property != null && property instanceof edu.cmu.cs.stage3.alice.core.property.StringProperty) {
 			property.set(propertyValue);
-		else if ((property != null) && (property instanceof edu.cmu.cs.stage3.alice.core.property.DictionaryProperty)) {
+		} else if (property != null && property instanceof edu.cmu.cs.stage3.alice.core.property.DictionaryProperty) {
 			((edu.cmu.cs.stage3.alice.core.property.DictionaryProperty) property).put(propertyDescription, propertyValue);
 		}
 	}
@@ -403,17 +407,19 @@ public class ModelWrapper {
 		// we already have this property in the list
 		if (propertyIndex != -1) {
 			propertyValueList.setElementAt(propertyValue, propertyIndex);
-			if (propertyDesc != null)
+			if (propertyDesc != null) {
 				propertyDescList.setElementAt(propertyDesc, propertyIndex);
-			else
+			} else {
 				propertyDescList.setElementAt("", propertyIndex);
+			}
 		} else {
 			propertyNameList.addElement(propertyName);
 			propertyValueList.addElement(propertyValue);
-			if (propertyDesc != null)
+			if (propertyDesc != null) {
 				propertyDescList.addElement(propertyDesc);
-			else
+			} else {
 				propertyDescList.addElement("");
+			}
 		}
 
 		setPropertyValue(propertyName, propertyValue, propertyDesc);
@@ -425,7 +431,8 @@ public class ModelWrapper {
 		g.setColor(color);
 		g.fillRect(0, 0, 512, 512);
 		addTexture(baseColor, 0);
-		//person.color.set(new edu.cmu.cs.stage3.alice.scenegraph.Color(color), edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_PARTS);
+		// person.color.set(new edu.cmu.cs.stage3.alice.scenegraph.Color(color),
+		// edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_PARTS);
 	}
 
 }

@@ -46,7 +46,7 @@ package edu.cmu.cs.stage3.image.codec;
 
 class JaiI18N {
 
-    public static String getString(String key) {
-        return PropertyUtil.getString(key);
-    }
+	public static String getString(String key) {
+		return PropertyUtil.getString(key);
+	}
 }

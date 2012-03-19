@@ -24,11 +24,12 @@
 package edu.cmu.cs.stage3.alice.core.question.time;
 
 public class DayOfYear extends edu.cmu.cs.stage3.alice.core.question.IntegerQuestion {
-	
+
+	@Override
 	public Object getValue() {
 		java.util.Calendar calendar = new java.util.GregorianCalendar();
 		java.util.Date date = new java.util.Date();
-		calendar.setTime( date );
-		return new Integer( calendar.get( java.util.Calendar.DAY_OF_YEAR ) );
+		calendar.setTime(date);
+		return new Integer(calendar.get(java.util.Calendar.DAY_OF_YEAR));
 	}
 }

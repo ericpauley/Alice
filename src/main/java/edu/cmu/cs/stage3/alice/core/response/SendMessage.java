@@ -23,27 +23,27 @@
 
 package edu.cmu.cs.stage3.alice.core.response;
 
+import edu.cmu.cs.stage3.alice.core.Transformable;
 import edu.cmu.cs.stage3.alice.core.World;
 import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 import edu.cmu.cs.stage3.alice.core.property.TransformableProperty;
-import edu.cmu.cs.stage3.alice.core.Transformable;
 
 public class SendMessage extends edu.cmu.cs.stage3.alice.core.Response {
-	public final StringProperty message = new StringProperty( this, "message", null );
-	public final TransformableProperty fromWho = new TransformableProperty( this, "fromWho", null );
-	public final TransformableProperty toWhom = new TransformableProperty( this, "toWhom", null );
+	public final StringProperty message = new StringProperty(this, "message", null);
+	public final TransformableProperty fromWho = new TransformableProperty(this, "fromWho", null);
+	public final TransformableProperty toWhom = new TransformableProperty(this, "toWhom", null);
 	public class RuntimeSendMessage extends RuntimeResponse {
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			String messageValue = SendMessage.this.message.getStringValue();
-			Transformable fromWhoValue = SendMessage.this.fromWho.getTransformableValue();
-			Transformable toWhomValue = SendMessage.this.toWhom.getTransformableValue();
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			String messageValue = message.getStringValue();
+			Transformable fromWhoValue = fromWho.getTransformableValue();
+			Transformable toWhomValue = toWhom.getTransformableValue();
 			World world = getWorld();
-			if( world!=null ) {
-				world.sendMessage( SendMessage.this, messageValue, fromWhoValue, toWhomValue, System.currentTimeMillis() );
+			if (world != null) {
+				world.sendMessage(SendMessage.this, messageValue, fromWhoValue, toWhomValue, System.currentTimeMillis());
 			}
 		}
 	}
 }
-

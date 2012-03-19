@@ -30,7 +30,7 @@ public interface ScriptingFactory {
 	public Interpreter manufactureInterpreter();
 	public Interpreter[] getInterpreters();
 	public java.io.OutputStream getStdOut();
-	public void setStdOut( java.io.OutputStream stdout );
+	public void setStdOut(java.io.OutputStream stdout);
 	public java.io.OutputStream getStdErr();
-	public void setStdErr( java.io.OutputStream stderr );
+	public void setStdErr(java.io.OutputStream stderr);
 }

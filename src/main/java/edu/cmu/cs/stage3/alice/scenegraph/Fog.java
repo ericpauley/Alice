@@ -27,8 +27,8 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public abstract class Fog extends Affector {
-	public static final Property COLOR_PROPERTY = new Property( Fog.class, "COLOR" );
-	private edu.cmu.cs.stage3.alice.scenegraph.Color m_color = new edu.cmu.cs.stage3.alice.scenegraph.Color( 1,1,1,1 );
+	public static final Property COLOR_PROPERTY = new Property(Fog.class, "COLOR");
+	private edu.cmu.cs.stage3.alice.scenegraph.Color m_color = new edu.cmu.cs.stage3.alice.scenegraph.Color(1, 1, 1, 1);
 
 	/**
 	 * @see #setColor
@@ -39,14 +39,15 @@ public abstract class Fog extends Affector {
 	/**
 	 * sets the color property.<br>
 	 * visual elements are fogged by this color.<br>
-	 *
-	 * @param color (default: white)
+	 * 
+	 * @param color
+	 *            (default: white)
 	 * @see #getColor
 	 */
-	public void setColor( edu.cmu.cs.stage3.alice.scenegraph.Color color ) {
-		if( notequal( m_color, color ) ) {
+	public void setColor(edu.cmu.cs.stage3.alice.scenegraph.Color color) {
+		if (notequal(m_color, color)) {
 			m_color = color;
-			onPropertyChange( COLOR_PROPERTY );
+			onPropertyChange(COLOR_PROPERTY);
 		}
 	}
 }

@@ -31,44 +31,44 @@ public class ExtensionGroupFileFilter extends javax.swing.filechooser.FileFilter
 	private String description = "";
 	private String baseDescription = "";
 
-	public ExtensionGroupFileFilter( String baseDescription ) {
-		this.extensions = new java.util.ArrayList();
+	public ExtensionGroupFileFilter(String baseDescription) {
+		extensions = new java.util.ArrayList();
 		this.baseDescription = baseDescription;
 	}
 
-	public ExtensionGroupFileFilter( java.util.ArrayList extensions, String baseDescription ) {
+	public ExtensionGroupFileFilter(java.util.ArrayList extensions, String baseDescription) {
 		this.extensions = extensions;
 		this.baseDescription = baseDescription;
 	}
 
-	public void addExtensionFileFilter( ExtensionFileFilter ext ) {
-		extensions.add( ext );
+	public void addExtensionFileFilter(ExtensionFileFilter ext) {
+		extensions.add(ext);
 	}
 
 	private void recalculateDescription() {
-		StringBuffer d = new StringBuffer( baseDescription );
-		d.append( " (" );
+		StringBuffer d = new StringBuffer(baseDescription);
+		d.append(" (");
 
 		java.util.Iterator iter = extensions.iterator();
-		if( iter.hasNext() ) {
-			ExtensionFileFilter ext = (ExtensionFileFilter)iter.next();
-			d.append( ext.getExtension() );
+		if (iter.hasNext()) {
+			ExtensionFileFilter ext = (ExtensionFileFilter) iter.next();
+			d.append(ext.getExtension());
 		}
-		while( iter.hasNext() ) {
-			ExtensionFileFilter ext = (ExtensionFileFilter)iter.next();
-			d.append( ";" + ext.getExtension() );
+		while (iter.hasNext()) {
+			ExtensionFileFilter ext = (ExtensionFileFilter) iter.next();
+			d.append(";" + ext.getExtension());
 		}
 
-		d.append( ")" );
+		d.append(")");
 
 		description = d.toString();
 	}
 
-	
-	public boolean accept( java.io.File f ) {
-		for( java.util.Iterator iter = extensions.iterator(); iter.hasNext(); ) {
-			ExtensionFileFilter ext = (ExtensionFileFilter)iter.next();
-			if( ext.accept( f ) ) {
+	@Override
+	public boolean accept(java.io.File f) {
+		for (java.util.Iterator iter = extensions.iterator(); iter.hasNext();) {
+			ExtensionFileFilter ext = (ExtensionFileFilter) iter.next();
+			if (ext.accept(f)) {
 				return true;
 			}
 		}
@@ -76,16 +76,17 @@ public class ExtensionGroupFileFilter extends javax.swing.filechooser.FileFilter
 		return false;
 	}
 
-	
+	@Override
 	public String getDescription() {
 		recalculateDescription();
 		return description;
 	}
 
-	public int compareTo( Object o ) {
-		//account for change in java 1.5 VM
-		if( o instanceof String ) {
-			return description.compareTo( (String)o );
+	@Override
+	public int compareTo(Object o) {
+		// account for change in java 1.5 VM
+		if (o instanceof String) {
+			return description.compareTo((String) o);
 		} else {
 			return -1;
 		}

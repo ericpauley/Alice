@@ -27,73 +27,76 @@ import edu.cmu.cs.stage3.alice.core.property.ColorProperty;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public abstract class Light extends Affector {
-	public final ColorProperty lightColor = new ColorProperty( this, "lightColor", null );
-	public final NumberProperty brightness = new NumberProperty( this, "brightness", new Double( 1 ) );
-	public final NumberProperty range = new NumberProperty( this, "range", new Double( 256 ) );
+	public final ColorProperty lightColor = new ColorProperty(this, "lightColor", null);
+	public final NumberProperty brightness = new NumberProperty(this, "brightness", new Double(1));
+	public final NumberProperty range = new NumberProperty(this, "range", new Double(256));
 	private edu.cmu.cs.stage3.alice.scenegraph.Light m_sgLight;
-	
+
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.Affector getSceneGraphAffector() {
 		return getSceneGraphLight();
 	}
 	public edu.cmu.cs.stage3.alice.scenegraph.Light getSceneGraphLight() {
 		return m_sgLight;
 	}
-	protected Light( edu.cmu.cs.stage3.alice.scenegraph.Light sgLight ) {
+	protected Light(edu.cmu.cs.stage3.alice.scenegraph.Light sgLight) {
 		super();
 		m_sgLight = sgLight;
-		m_sgLight.setParent( getSceneGraphTransformable() );
-		m_sgLight.setBonus( this );
-		color.set( m_sgLight.getColor() );
-		range.set( new Double( m_sgLight.getRange() ) );
+		m_sgLight.setParent(getSceneGraphTransformable());
+		m_sgLight.setBonus(this);
+		color.set(m_sgLight.getColor());
+		range.set(new Double(m_sgLight.getRange()));
 	}
-    
-	protected void internalRelease( int pass ) {
-        switch( pass ) {
-        case 1:
-    		m_sgLight.setParent( null );
-            break;
-        case 2:
-            m_sgLight.release();
-            m_sgLight = null;
-            break;
-        }
-        super.internalRelease( pass );
-    }
 
-	
-	protected void nameValueChanged( String value ) {
-		super.nameValueChanged( value );
-		String s = null;
-		if( value!=null ) {
-			s = value+".m_sgLight";
+	@Override
+	protected void internalRelease(int pass) {
+		switch (pass) {
+			case 1 :
+				m_sgLight.setParent(null);
+				break;
+			case 2 :
+				m_sgLight.release();
+				m_sgLight = null;
+				break;
 		}
-		m_sgLight.setName( s );
+		super.internalRelease(pass);
 	}
-	
-	protected void propertyChanged( Property property, Object value ) {
-		if( property == color ) {
-            if( lightColor.getColorValue() == null ) {
-    			m_sgLight.setColor( (edu.cmu.cs.stage3.alice.scenegraph.Color)value );
-            }
-            super.propertyChanged( property, value );
-		} else if( property == lightColor ) {
-            if( value == null ) {
-    			m_sgLight.setColor( color.getColorValue() );
-            }
-		} else if( property == range ) {
-			double d = Double.NaN;
-			if( value!=null ) {
-				d = ((Number)value).doubleValue();
+
+	@Override
+	protected void nameValueChanged(String value) {
+		super.nameValueChanged(value);
+		String s = null;
+		if (value != null) {
+			s = value + ".m_sgLight";
+		}
+		m_sgLight.setName(s);
+	}
+
+	@Override
+	protected void propertyChanged(Property property, Object value) {
+		if (property == color) {
+			if (lightColor.getColorValue() == null) {
+				m_sgLight.setColor((edu.cmu.cs.stage3.alice.scenegraph.Color) value);
 			}
-			m_sgLight.setRange( d );
-		} else if( property == brightness ) {
-			double d = Double.NaN;
-			if( value!=null ) {
-				d = ((Number)value).doubleValue();
+			super.propertyChanged(property, value);
+		} else if (property == lightColor) {
+			if (value == null) {
+				m_sgLight.setColor(color.getColorValue());
 			}
-			m_sgLight.setBrightness( d );
+		} else if (property == range) {
+			double d = Double.NaN;
+			if (value != null) {
+				d = ((Number) value).doubleValue();
+			}
+			m_sgLight.setRange(d);
+		} else if (property == brightness) {
+			double d = Double.NaN;
+			if (value != null) {
+				d = ((Number) value).doubleValue();
+			}
+			m_sgLight.setBrightness(d);
 		} else {
-			super.propertyChanged( property, value );
+			super.propertyChanged(property, value);
 		}
 	}
 }

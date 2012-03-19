@@ -23,31 +23,33 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
+import edu.cmu.cs.stage3.alice.core.Transformable;
+
 /**
  * @author Jason Pratt
  */
 public class SizeUndoableRedoable extends OneShotUndoableRedoable {
-	public SizeUndoableRedoable( edu.cmu.cs.stage3.alice.core.Transformable transformable, javax.vecmath.Vector3d oldSize, javax.vecmath.Vector3d newSize, edu.cmu.cs.stage3.alice.core.Scheduler scheduler ) {
-		super( new edu.cmu.cs.stage3.alice.core.response.SizeAnimation(), new edu.cmu.cs.stage3.alice.core.response.SizeAnimation(), new edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior(), scheduler );
+	public SizeUndoableRedoable(edu.cmu.cs.stage3.alice.core.Transformable transformable, javax.vecmath.Vector3d oldSize, javax.vecmath.Vector3d newSize, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
+		super(new edu.cmu.cs.stage3.alice.core.response.SizeAnimation(), new edu.cmu.cs.stage3.alice.core.response.SizeAnimation(), new edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior(), scheduler);
 
-		edu.cmu.cs.stage3.alice.core.response.SizeAnimation redoResponse = (edu.cmu.cs.stage3.alice.core.response.SizeAnimation)getRedoResponse();
-		edu.cmu.cs.stage3.alice.core.response.SizeAnimation undoResponse = (edu.cmu.cs.stage3.alice.core.response.SizeAnimation)getUndoResponse();
+		edu.cmu.cs.stage3.alice.core.response.SizeAnimation redoResponse = (edu.cmu.cs.stage3.alice.core.response.SizeAnimation) getRedoResponse();
+		edu.cmu.cs.stage3.alice.core.response.SizeAnimation undoResponse = (edu.cmu.cs.stage3.alice.core.response.SizeAnimation) getUndoResponse();
 		edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior oneShotBehavior = getOneShotBehavior();
 
-		redoResponse.subject.set( transformable );
-		redoResponse.size.set( newSize );
-		undoResponse.subject.set( transformable );
-		undoResponse.size.set( oldSize );
+		redoResponse.subject.set(transformable);
+		redoResponse.size.set(newSize);
+		undoResponse.subject.set(transformable);
+		undoResponse.size.set(oldSize);
 
 		java.util.ArrayList affectedProperties = new java.util.ArrayList();
-		edu.cmu.cs.stage3.alice.core.Transformable[] transformables = (edu.cmu.cs.stage3.alice.core.Transformable[])transformable.getDescendants( edu.cmu.cs.stage3.alice.core.Transformable.class, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS );
-		for( int i = 0; i < transformables.length; i++ ) {
-			affectedProperties.add( transformables[i].localTransformation );
-			if( transformables[i] instanceof edu.cmu.cs.stage3.alice.core.Model ) {
-				affectedProperties.add( ((edu.cmu.cs.stage3.alice.core.Model)transformables[i]).visualScale );
+		edu.cmu.cs.stage3.alice.core.Transformable[] transformables = (edu.cmu.cs.stage3.alice.core.Transformable[]) transformable.getDescendants(edu.cmu.cs.stage3.alice.core.Transformable.class, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS);
+		for (Transformable transformable2 : transformables) {
+			affectedProperties.add(transformable2.localTransformation);
+			if (transformable2 instanceof edu.cmu.cs.stage3.alice.core.Model) {
+				affectedProperties.add(((edu.cmu.cs.stage3.alice.core.Model) transformable2).visualScale);
 			}
 		}
 
-		oneShotBehavior.setAffectedProperties( (edu.cmu.cs.stage3.alice.core.Property[])affectedProperties.toArray( new edu.cmu.cs.stage3.alice.core.Property[0] ) );
+		oneShotBehavior.setAffectedProperties((edu.cmu.cs.stage3.alice.core.Property[]) affectedProperties.toArray(new edu.cmu.cs.stage3.alice.core.Property[0]));
 	}
 }

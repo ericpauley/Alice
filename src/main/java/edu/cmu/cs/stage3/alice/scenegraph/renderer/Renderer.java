@@ -25,14 +25,14 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
 public interface Renderer {
 	public boolean isSoftwareEmulationForced();
-	public void setIsSoftwareEmulationForced( boolean isSoftwareEmulationForced );
+	public void setIsSoftwareEmulationForced(boolean isSoftwareEmulationForced);
 
 	public OnscreenRenderTarget createOnscreenRenderTarget();
 	public OffscreenRenderTarget createOffscreenRenderTarget();
 	public OffscreenRenderTarget[] getOffscreenRenderTargets();
 	public OnscreenRenderTarget[] getOnscreenRenderTargets();
 
-	public PickInfo pick( edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent, javax.vecmath.Vector3d v, double planeMinX, double planeMinY, double planeMaxX, double planeMaxY, double nearClippingPlaneDistance, double farClippingPlaneDistance, boolean isSubElementRequired, boolean isOnlyFrontMostRequired );
+	public PickInfo pick(edu.cmu.cs.stage3.alice.scenegraph.Component sgComponent, javax.vecmath.Vector3d v, double planeMinX, double planeMinY, double planeMaxX, double planeMaxY, double nearClippingPlaneDistance, double farClippingPlaneDistance, boolean isSubElementRequired, boolean isOnlyFrontMostRequired);
 
 	public void release();
 }

@@ -27,8 +27,8 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class Torus extends Shape {
-	public static final Property INNER_RADIUS_PROPERTY = new Property( Torus.class, "INNER_RADIUS" );
-	public static final Property OUTER_RADIUS_PROPERTY = new Property( Torus.class, "OUTER_RADIUS" );
+	public static final Property INNER_RADIUS_PROPERTY = new Property(Torus.class, "INNER_RADIUS");
+	public static final Property OUTER_RADIUS_PROPERTY = new Property(Torus.class, "OUTER_RADIUS");
 
 	private double m_innerRadius = 1;
 	private double m_outerRadius = 2;
@@ -36,10 +36,10 @@ public class Torus extends Shape {
 	public double getInnerRadius() {
 		return m_innerRadius;
 	}
-	public void setInnerRadius( double innerRadius ) {
-		if( m_innerRadius != innerRadius ) {
+	public void setInnerRadius(double innerRadius) {
+		if (m_innerRadius != innerRadius) {
 			m_innerRadius = innerRadius;
-			onPropertyChange( INNER_RADIUS_PROPERTY );
+			onPropertyChange(INNER_RADIUS_PROPERTY);
 			onBoundsChange();
 		}
 	}
@@ -47,20 +47,21 @@ public class Torus extends Shape {
 	public double getOuterRadius() {
 		return m_outerRadius;
 	}
-	public void setOuterRadius( double outerRadius ) {
-		if( m_outerRadius != outerRadius ) {
+	public void setOuterRadius(double outerRadius) {
+		if (m_outerRadius != outerRadius) {
 			m_outerRadius = outerRadius;
-			onPropertyChange( OUTER_RADIUS_PROPERTY );
+			onPropertyChange(OUTER_RADIUS_PROPERTY);
 			onBoundsChange();
 		}
 	}
 
-	
+	@Override
 	protected void updateBoundingBox() {
-		//todo
+		// todo
 	}
-	
+
+	@Override
 	protected void updateBoundingSphere() {
-		//todo
+		// todo
 	}
 }

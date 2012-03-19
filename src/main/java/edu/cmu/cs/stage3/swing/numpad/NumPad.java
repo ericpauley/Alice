@@ -33,23 +33,28 @@ public class NumPad extends edu.cmu.cs.stage3.swing.ContentPane {
 	public NumPad() {
 		init();
 	}
-	
+
+	@Override
 	public String getTitle() {
 		return "Custom Number";
 	}
-	
+
+	@Override
 	public void addOKActionListener(java.awt.event.ActionListener l) {
 		okayButton.addActionListener(l);
 	}
-	
+
+	@Override
 	public void removeOKActionListener(java.awt.event.ActionListener l) {
 		okayButton.removeActionListener(l);
 	}
-	
+
+	@Override
 	public void addCancelActionListener(java.awt.event.ActionListener l) {
 		cancelButton.addActionListener(l);
 	}
-	
+
+	@Override
 	public void removeCancelActionListener(java.awt.event.ActionListener l) {
 		cancelButton.removeActionListener(l);
 	}
@@ -88,92 +93,111 @@ public class NumPad extends edu.cmu.cs.stage3.swing.ContentPane {
 
 	private void keyInit() {
 		doKey(oneButton, "one", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '1'));
 			}
 		});
 		doKey(twoButton, "two", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '2'));
 			}
 		});
 		doKey(threeButton, "three", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '3'));
 			}
 		});
 		doKey(fourButton, "four", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '4'));
 			}
 		});
 		doKey(fiveButton, "five", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '5'));
 			}
 		});
 		doKey(sixButton, "six", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '6'));
 			}
 		});
 		doKey(sevenButton, "seven", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '7'));
 			}
 		});
 		doKey(eightButton, "eight", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '8'));
 			}
 		});
 		doKey(nineButton, "nine", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '9'));
 			}
 		});
 		doKey(zeroButton, "zero", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '0'));
 			}
 		});
 		doKey(decimalButton, "decimal", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '.'));
 			}
 		});
 		doKey(slashButton, "slash", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.grabFocus();
 				numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, '/'));
 			}
 		});
 		doKey(backspaceButton, "backspace", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
-				//numberTextField.grabFocus();
-				//numberTextField.dispatchEvent(new java.awt.event.KeyEvent(numberTextField, java.awt.event.KeyEvent.KEY_TYPED, System.currentTimeMillis(), 0, java.awt.event.KeyEvent.VK_UNDEFINED, (char) 8));
+				// numberTextField.grabFocus();
+				// numberTextField.dispatchEvent(new
+				// java.awt.event.KeyEvent(numberTextField,
+				// java.awt.event.KeyEvent.KEY_TYPED,
+				// System.currentTimeMillis(), 0,
+				// java.awt.event.KeyEvent.VK_UNDEFINED, (char) 8));
 				try {
-				numberTextField.setText(numberTextField.getText(0,numberTextField.getText().length()-1).toString());
-				} catch (Exception e){}
+					numberTextField.setText(numberTextField.getText(0, numberTextField.getText().length() - 1).toString());
+				} catch (Exception e) {}
 			}
 		});
 		doKey(clearButton, "clear", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				numberTextField.setText("");
 			}
 		});
-		doKey(this.plusMinusButton, "plusminus", new java.awt.event.ActionListener() {
+		doKey(plusMinusButton, "plusminus", new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				try {
 					if ("-".equals(numberTextField.getDocument().getText(0, 1))) {
@@ -192,17 +216,21 @@ public class NumPad extends edu.cmu.cs.stage3.swing.ContentPane {
 		jbInit();
 		keyInit();
 		numberTextField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+			@Override
 			public void changedUpdate(javax.swing.event.DocumentEvent e) {
 				NumPad.this.refresh();
 			}
+			@Override
 			public void insertUpdate(javax.swing.event.DocumentEvent e) {
 				NumPad.this.refresh();
 			}
+			@Override
 			public void removeUpdate(javax.swing.event.DocumentEvent e) {
 				NumPad.this.refresh();
 			}
 		});
 		numberTextField.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				if (okayButton.isEnabled()) {
 					okayButton.doClick();
@@ -242,9 +270,9 @@ public class NumPad extends edu.cmu.cs.stage3.swing.ContentPane {
 		}
 	}
 
-	/////////////////////
+	// ///////////////////
 	// Duplicated code
-	/////////////////////
+	// ///////////////////
 
 	public static Double parseDouble(String doubleString) {
 		Double number = null;
@@ -258,14 +286,12 @@ public class NumPad extends edu.cmu.cs.stage3.swing.ContentPane {
 				String denominatorString = doubleString.substring(doubleString.indexOf('/') + 1);
 				try {
 					number = new Double(Double.parseDouble(numeratorString) / Double.parseDouble(denominatorString));
-				} catch (NumberFormatException e) {
-				}
+				} catch (NumberFormatException e) {}
 			}
 		} else {
 			try {
 				number = Double.valueOf(doubleString);
-			} catch (NumberFormatException e) {
-			}
+			} catch (NumberFormatException e) {}
 		}
 
 		return number;
@@ -294,43 +320,49 @@ public class NumPad extends edu.cmu.cs.stage3.swing.ContentPane {
 			canFilterIndexColorModel = true;
 		}
 
-		
+		@Override
 		public int filterRGB(int x, int y, int rgb) {
-			int r = (rgb >> 16) & 0xff;
-			int g = (rgb >> 8) & 0xff;
-			int b = (rgb >> 0) & 0xff;
+			int r = rgb >> 16 & 0xff;
+			int g = rgb >> 8 & 0xff;
+			int b = rgb >> 0 & 0xff;
 
 			if (percent > 0) {
-				r = 255 - ((255 - r) * (100 - percent) / 100);
-				g = 255 - ((255 - g) * (100 - percent) / 100);
-				b = 255 - ((255 - b) * (100 - percent) / 100);
+				r = 255 - (255 - r) * (100 - percent) / 100;
+				g = 255 - (255 - g) * (100 - percent) / 100;
+				b = 255 - (255 - b) * (100 - percent) / 100;
 			} else {
 				r = r * (100 + percent) / 100;
 				g = g * (100 + percent) / 100;
 				b = b * (100 + percent) / 100;
 			}
 
-			if (r < 0)
+			if (r < 0) {
 				r = 0;
-			if (g < 0)
+			}
+			if (g < 0) {
 				g = 0;
-			if (b < 0)
+			}
+			if (b < 0) {
 				b = 0;
+			}
 
-			if (r > 255)
+			if (r > 255) {
 				r = 255;
-			if (g > 255)
+			}
+			if (g > 255) {
 				g = 255;
-			if (b > 255)
+			}
+			if (b > 255) {
 				b = 255;
+			}
 
-			return (rgb & 0xff000000) | (r << 16) | (g << 8) | (b << 0);
+			return rgb & 0xff000000 | r << 16 | g << 8 | b << 0;
 		}
 	}
 
-	///////////////////////
+	// /////////////////////
 	// Autogenerated...
-	///////////////////////
+	// /////////////////////
 
 	java.awt.BorderLayout borderLayout1 = new java.awt.BorderLayout();
 	javax.swing.JPanel mainPanel = new javax.swing.JPanel();

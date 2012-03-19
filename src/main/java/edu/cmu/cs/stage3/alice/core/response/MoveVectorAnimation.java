@@ -26,33 +26,36 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.Vector3Property;
 
 public class MoveVectorAnimation extends TransformAnimation {
-	public final Vector3Property vector = new Vector3Property( this, "vector", null );
+	public final Vector3Property vector = new Vector3Property(this, "vector", null);
 	public class RuntimeMoveVectorAnimation extends RuntimeTransformAnimation {
 		private javax.vecmath.Vector3d m_vector;
 		private javax.vecmath.Vector3d m_vectorPrev;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
 			m_vectorPrev = new javax.vecmath.Vector3d();
 			m_vector = vector.getVector3dValue();
-			if( m_vector == null ) {
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( "vector value must not be null.", null, MoveVectorAnimation.this.vector );
+			if (m_vector == null) {
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException("vector value must not be null.", null, vector);
 			}
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-            javax.vecmath.Vector3d delta = new javax.vecmath.Vector3d();
-            delta.scale( getPortion( t ), m_vector );
-            delta.sub( m_vectorPrev );
-			m_subject.moveRightNow( delta, m_asSeenBy );
-			m_vectorPrev.add( delta );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			javax.vecmath.Vector3d delta = new javax.vecmath.Vector3d();
+			delta.scale(getPortion(t), m_vector);
+			delta.sub(m_vectorPrev);
+			m_subject.moveRightNow(delta, m_asSeenBy);
+			m_vectorPrev.add(delta);
 		}
 
-		//public void epilogue( double t ) {
-		//	edu.cmu.cs.stage3.math.Vector3 delta = edu.cmu.cs.stage3.math.Vector3.subtract( m_vector, m_vectorPrev );
-		//	m_subject.moveRightNow( delta, m_asSeenBy );
-		//	m_vectorPrev.add( delta );
-		//}
+		// public void epilogue( double t ) {
+		// edu.cmu.cs.stage3.math.Vector3 delta =
+		// edu.cmu.cs.stage3.math.Vector3.subtract( m_vector, m_vectorPrev );
+		// m_subject.moveRightNow( delta, m_asSeenBy );
+		// m_vectorPrev.add( delta );
+		// }
 	}
 }

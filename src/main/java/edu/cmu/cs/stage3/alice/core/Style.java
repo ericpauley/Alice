@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public interface Style {
-    public double getPortion( double current, double total );
+	public double getPortion(double current, double total);
 }

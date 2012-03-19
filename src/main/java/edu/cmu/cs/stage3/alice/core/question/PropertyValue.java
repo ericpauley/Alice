@@ -31,100 +31,104 @@ import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 
 public class PropertyValue extends edu.cmu.cs.stage3.alice.core.Question {
 	private boolean m_ignorePropertyChanges = false;
-	public final OverridableElementProperty element = new OverridableElementProperty( this, "element", null );
-	public final StringProperty propertyName = new StringProperty( this, "propertyName", null );
+	public final OverridableElementProperty element = new OverridableElementProperty(this, "element", null);
+	public final StringProperty propertyName = new StringProperty(this, "propertyName", null);
 	private void updateOverrideValueClass() {
 		Class elementOverrideValueClass = null;
 		String propertyNameValue = propertyName.getStringValue();
-		if( propertyNameValue!=null ) {
+		if (propertyNameValue != null) {
 			Element elementValue = element.getElementValue();
-			if( elementValue!=null ) {
-				Property property = elementValue.getPropertyNamed( propertyNameValue );
-				if( property != null ) {
+			if (elementValue != null) {
+				Property property = elementValue.getPropertyNamed(propertyNameValue);
+				if (property != null) {
 					elementOverrideValueClass = property.getDeclaredClass();
 				} else {
-					if( elementValue instanceof Expression ) {
-						Class cls = ((Expression)elementValue).getValueClass();
-						if( cls != null ) {
+					if (elementValue instanceof Expression) {
+						Class cls = ((Expression) elementValue).getValueClass();
+						if (cls != null) {
 							elementOverrideValueClass = cls;
 						}
 					}
 				}
 			}
 		}
-		element.setOverrideValueClass( elementOverrideValueClass );
+		element.setOverrideValueClass(elementOverrideValueClass);
 	}
-	
-	protected void propertyChanged( Property property, Object value ) {
-		if( m_ignorePropertyChanges ) {
+
+	@Override
+	protected void propertyChanged(Property property, Object value) {
+		if (m_ignorePropertyChanges) {
 			return;
 		}
-		if( property == element ) {
+		if (property == element) {
 			updateOverrideValueClass();
-		} else if( property == propertyName ) {
+		} else if (property == propertyName) {
 			updateOverrideValueClass();
 		} else {
-			super.propertyChanged( property, value );
+			super.propertyChanged(property, value);
 		}
 	}
 	private Property getPropertyValue() {
-		if( element.getOverrideValueClass() == null ) {
+		if (element.getOverrideValueClass() == null) {
 			updateOverrideValueClass();
 		}
 		Element elementValue = element.getElementValue();
 		String propertyNameValue = propertyName.getStringValue();
-		if( elementValue != null && propertyNameValue != null ) {
-			return elementValue.getPropertyNamed( propertyNameValue );
-//			Property property = elementValue.getPropertyNamed( propertyNameValue );
-//			if( property == null ) {
-//				if( elementValue instanceof Expression ) {
-//					Expression expression = (Expression)elementValue;
-//					if( Element.class.isAssignableFrom( expression.getValueClass() ) ) {
-//						elementValue = (Element)expression.getValue();
-//						if( elementValue != null ) {
-//							property = elementValue.getPropertyNamed( propertyNameValue ); 
-//						}
-//					}
-//				}
-//			}
-//			return property;
+		if (elementValue != null && propertyNameValue != null) {
+			return elementValue.getPropertyNamed(propertyNameValue);
+			// Property property = elementValue.getPropertyNamed(
+			// propertyNameValue );
+			// if( property == null ) {
+			// if( elementValue instanceof Expression ) {
+			// Expression expression = (Expression)elementValue;
+			// if( Element.class.isAssignableFrom( expression.getValueClass() )
+			// ) {
+			// elementValue = (Element)expression.getValue();
+			// if( elementValue != null ) {
+			// property = elementValue.getPropertyNamed( propertyNameValue );
+			// }
+			// }
+			// }
+			// }
+			// return property;
 		} else {
 			return null;
 		}
 	}
 
-	
+	@Override
 	public Object getValue() {
 		Property property = getPropertyValue();
-		if( property != null ) {
+		if (property != null) {
 			return property.getValue();
 		} else {
 			throw new RuntimeException();
-			//return null;
+			// return null;
 		}
 	}
-	
+
+	@Override
 	public Class getValueClass() {
 		Property property = getPropertyValue();
-		if( property != null ) {
+		if (property != null) {
 			return property.getValueClass();
 		} else {
-            String propertyNameValue = propertyName.getStringValue();
-            if( propertyNameValue != null ) {
-                Class cls = element.getValueClass();
-                if( edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom( cls ) ) {
-                    try {
-                        java.lang.reflect.Field field = cls.getField( propertyNameValue );
-                        if( field != null ) {
-                            return Element.getValueClassForPropertyNamed( field.getDeclaringClass(), propertyNameValue );
-                        }
-                    } catch( java.lang.NoSuchFieldException nsfe ) {
-                        //pass
-                    } catch( java.lang.SecurityException se ) {
-                        //pass
-                    }
-                }
-            }
+			String propertyNameValue = propertyName.getStringValue();
+			if (propertyNameValue != null) {
+				Class cls = element.getValueClass();
+				if (edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom(cls)) {
+					try {
+						java.lang.reflect.Field field = cls.getField(propertyNameValue);
+						if (field != null) {
+							return Element.getValueClassForPropertyNamed(field.getDeclaringClass(), propertyNameValue);
+						}
+					} catch (java.lang.NoSuchFieldException nsfe) {
+						// pass
+					} catch (java.lang.SecurityException se) {
+						// pass
+					}
+				}
+			}
 			return Object.class;
 		}
 	}

@@ -36,18 +36,27 @@ import javax.vecmath.Point2d;
 
 public class PointComparator implements java.util.Comparator {
 
-    public PointComparator() {
-    }
+	public PointComparator() {
+	}
 
-    public int compare(Object o1, Object o2) {
-        Point2d p1 = (Point2d)o1;
-        Point2d p2 = (Point2d)o2;
+	@Override
+	public int compare(Object o1, Object o2) {
+		Point2d p1 = (Point2d) o1;
+		Point2d p2 = (Point2d) o2;
 
-        if (p1.x<p2.x) return -1;
-        if (p1.x>p2.x) return 1;
-        if (p1.y<p2.y) return -1;
-        if (p1.y>p2.y) return 1;
-        return 0;
+		if (p1.x < p2.x) {
+			return -1;
+		}
+		if (p1.x > p2.x) {
+			return 1;
+		}
+		if (p1.y < p2.y) {
+			return -1;
+		}
+		if (p1.y > p2.y) {
+			return 1;
+		}
+		return 0;
 
-    }
+	}
 }

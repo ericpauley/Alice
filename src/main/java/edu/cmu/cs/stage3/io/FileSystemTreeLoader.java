@@ -34,137 +34,143 @@ public class FileSystemTreeLoader implements DirectoryTreeLoader {
 	/**
 	 * pathname can be a String or java.io.File
 	 */
-	//public void open( Object pathname ) throws IllegalArgumentException, java.io.IOException {
-	public void open( Object pathname ) throws IllegalArgumentException, java.io.FileNotFoundException, java.io.IOException {
-		if( root != null ) {
+	// public void open( Object pathname ) throws IllegalArgumentException,
+	// java.io.IOException {
+	@Override
+	public void open(Object pathname) throws IllegalArgumentException, java.io.FileNotFoundException, java.io.IOException {
+		if (root != null) {
 			close();
 		}
 
-		if( pathname instanceof String ) {
-			root = new java.io.File( (String)pathname );
-		}
-		else if( pathname instanceof java.io.File ) {
-			root = (java.io.File)pathname;
-		}
-		else {
-			throw new IllegalArgumentException( "pathname must be an instance of String or java.io.File" );
+		if (pathname instanceof String) {
+			root = new java.io.File((String) pathname);
+		} else if (pathname instanceof java.io.File) {
+			root = (java.io.File) pathname;
+		} else {
+			throw new IllegalArgumentException("pathname must be an instance of String or java.io.File");
 		}
 
-		if( root.exists() ) {
-			if( ! root.canRead() ) {
-				throw new java.io.IOException( "cannot read " + root );
+		if (root.exists()) {
+			if (!root.canRead()) {
+				throw new java.io.IOException("cannot read " + root);
 			}
-		}
-		else {
-			//throw new IllegalArgumentException( root + " does not exist" );
-			throw new java.io.FileNotFoundException( root + " does not exist" );
+		} else {
+			// throw new IllegalArgumentException( root + " does not exist" );
+			throw new java.io.FileNotFoundException(root + " does not exist");
 		}
 
 		currentDirectory = root;
 	}
 
+	@Override
 	public void close() throws java.io.IOException {
 		closeCurrentFile();
 		root = null;
 		currentDirectory = null;
 	}
 
-	public void setCurrentDirectory( String pathname ) throws IllegalArgumentException {
+	@Override
+	public void setCurrentDirectory(String pathname) throws IllegalArgumentException {
 		java.io.File newCurrentDirectory;
-		if( (pathname.length() == 0) || (pathname.charAt( 0 ) == '/') || (pathname.charAt( 0 ) == '\\') ) {
-			newCurrentDirectory = new java.io.File( root.getAbsolutePath() + pathname );
-		}
-		else {
-			newCurrentDirectory = new java.io.File( currentDirectory.getAbsolutePath() + "/" + pathname );
+		if (pathname.length() == 0 || pathname.charAt(0) == '/' || pathname.charAt(0) == '\\') {
+			newCurrentDirectory = new java.io.File(root.getAbsolutePath() + pathname);
+		} else {
+			newCurrentDirectory = new java.io.File(currentDirectory.getAbsolutePath() + "/" + pathname);
 		}
 
-		if( ! newCurrentDirectory.exists() ) {
-			throw new IllegalArgumentException( newCurrentDirectory + " doesn't exist" );
+		if (!newCurrentDirectory.exists()) {
+			throw new IllegalArgumentException(newCurrentDirectory + " doesn't exist");
 		}
-		if( ! newCurrentDirectory.isDirectory() ) {
-			throw new IllegalArgumentException( newCurrentDirectory + " isn't a directory" );
+		if (!newCurrentDirectory.isDirectory()) {
+			throw new IllegalArgumentException(newCurrentDirectory + " isn't a directory");
 		}
 
 		currentDirectory = newCurrentDirectory;
 	}
 
+	@Override
 	public String getCurrentDirectory() {
-		return getRelativePathname( currentDirectory );
+		return getRelativePathname(currentDirectory);
 	}
 
-	//public java.io.InputStream readFile( String filename ) throws IllegalArgumentException, java.io.IOException {
-	public java.io.InputStream readFile( String filename ) throws java.io.FileNotFoundException, java.io.IOException {
+	// public java.io.InputStream readFile( String filename ) throws
+	// IllegalArgumentException, java.io.IOException {
+	@Override
+	public java.io.InputStream readFile(String filename) throws java.io.FileNotFoundException, java.io.IOException {
 		closeCurrentFile();
 
-		java.io.File file = new java.io.File( currentDirectory, filename );
-		if( ! file.exists() ) {
-			//throw new IllegalArgumentException( file + " does not exist" );
-			throw new java.io.FileNotFoundException( file + " does not exist" );
+		java.io.File file = new java.io.File(currentDirectory, filename);
+		if (!file.exists()) {
+			// throw new IllegalArgumentException( file + " does not exist" );
+			throw new java.io.FileNotFoundException(file + " does not exist");
 		}
-		if( ! file.canRead() ) {
-			throw new java.io.IOException( "cannot read " + file );
+		if (!file.canRead()) {
+			throw new java.io.IOException("cannot read " + file);
 		}
 
-		currentlyOpenStream = new java.io.FileInputStream( file );
+		currentlyOpenStream = new java.io.FileInputStream(file);
 		return currentlyOpenStream;
 	}
 
+	@Override
 	public void closeCurrentFile() throws java.io.IOException {
-		if( currentlyOpenStream != null ) {
+		if (currentlyOpenStream != null) {
 			currentlyOpenStream.close();
 			currentlyOpenStream = null;
 		}
 	}
 
-	public String [] getFilesInCurrentDirectory() {
-		java.io.File [] files = currentDirectory.listFiles(
-			new java.io.FileFilter() {
-				public boolean accept( java.io.File f ) {
-					return f.isFile();
-				}
+	@Override
+	public String[] getFilesInCurrentDirectory() {
+		java.io.File[] files = currentDirectory.listFiles(new java.io.FileFilter() {
+			@Override
+			public boolean accept(java.io.File f) {
+				return f.isFile();
 			}
-		);
+		});
 
-		String [] filenames = new String [files.length];
-		for( int i = 0; i < files.length; i++ ) {
-			filenames[i] = getRelativePathname( files[i] );
+		String[] filenames = new String[files.length];
+		for (int i = 0; i < files.length; i++) {
+			filenames[i] = getRelativePathname(files[i]);
 		}
 
 		return filenames;
 	}
 
-	public String [] getDirectoriesInCurrentDirectory() {
-		java.io.File [] files = currentDirectory.listFiles(
-			new java.io.FileFilter() {
-				public boolean accept( java.io.File f ) {
-					return f.isDirectory();
-				}
+	@Override
+	public String[] getDirectoriesInCurrentDirectory() {
+		java.io.File[] files = currentDirectory.listFiles(new java.io.FileFilter() {
+			@Override
+			public boolean accept(java.io.File f) {
+				return f.isDirectory();
 			}
-		);
+		});
 
-		String [] filenames = new String [files.length];
-		for( int i = 0; i < files.length; i++ ) {
-			filenames[i] = getRelativePathname( files[i] );
+		String[] filenames = new String[files.length];
+		for (int i = 0; i < files.length; i++) {
+			filenames[i] = getRelativePathname(files[i]);
 		}
 
 		return filenames;
 	}
 
-	protected String getRelativePathname( java.io.File file ) {
-		StringBuffer dir = new StringBuffer( file.getAbsolutePath() );
-		dir.delete( 0, root.getAbsolutePath().length() );
+	protected String getRelativePathname(java.io.File file) {
+		StringBuffer dir = new StringBuffer(file.getAbsolutePath());
+		dir.delete(0, root.getAbsolutePath().length());
 		return dir.toString();
 	}
 
+	@Override
 	public boolean isKeepFileSupported() {
 		return true;
 	}
 
-	static Object getKeepKey( java.io.File currentDirectory, String filename ) {
-		return new java.io.File( currentDirectory, filename ).getAbsolutePath();
+	static Object getKeepKey(java.io.File currentDirectory, String filename) {
+		return new java.io.File(currentDirectory, filename).getAbsolutePath();
 	}
 
-	public Object getKeepKey( String filename ) throws KeepFileNotSupportedException {
-		return getKeepKey( currentDirectory, filename );
+	@Override
+	public Object getKeepKey(String filename) throws KeepFileNotSupportedException {
+		return getKeepKey(currentDirectory, filename);
 	}
 }

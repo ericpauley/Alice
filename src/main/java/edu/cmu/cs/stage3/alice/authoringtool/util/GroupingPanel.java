@@ -32,7 +32,7 @@ public class GroupingPanel extends javax.swing.JPanel implements java.awt.dnd.Dr
 	protected javax.swing.border.Border border;
 
 	// preferences
-	protected edu.cmu.cs.stage3.alice.authoringtool.util.Configuration authoringToolConfig = edu.cmu.cs.stage3.alice.authoringtool.util.Configuration.getLocalConfiguration( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.class.getPackage() );
+	protected edu.cmu.cs.stage3.alice.authoringtool.util.Configuration authoringToolConfig = edu.cmu.cs.stage3.alice.authoringtool.util.Configuration.getLocalConfiguration(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.class.getPackage());
 
 	private class PartialLineBorder extends javax.swing.border.AbstractBorder {
 		protected java.awt.Color color;
@@ -42,7 +42,7 @@ public class GroupingPanel extends javax.swing.JPanel implements java.awt.dnd.Dr
 		protected boolean includeBottom;
 		protected boolean includeRight;
 
-		public PartialLineBorder( java.awt.Color color, int thickness, boolean includeTop, boolean includeLeft, boolean includeBottom, boolean includeRight ) {
+		public PartialLineBorder(java.awt.Color color, int thickness, boolean includeTop, boolean includeLeft, boolean includeBottom, boolean includeRight) {
 			this.color = color;
 			this.thickness = thickness;
 			this.includeTop = includeTop;
@@ -51,34 +51,34 @@ public class GroupingPanel extends javax.swing.JPanel implements java.awt.dnd.Dr
 			this.includeRight = includeRight;
 		}
 
-		
-		public void paintBorder( java.awt.Component c, java.awt.Graphics g, int x, int y, int width, int height ) {
+		@Override
+		public void paintBorder(java.awt.Component c, java.awt.Graphics g, int x, int y, int width, int height) {
 			java.awt.Color oldColor = g.getColor();
-			g.setColor( color );
-			for( int i = 0; i < thickness; i++ )  {
-				if( includeTop ) {
-					g.drawLine( x, y + i, x + width - 1, y + i );
+			g.setColor(color);
+			for (int i = 0; i < thickness; i++) {
+				if (includeTop) {
+					g.drawLine(x, y + i, x + width - 1, y + i);
 				}
-				if( includeLeft ) {
-					g.drawLine( x + i, y, x + i, y + height - 1 );
+				if (includeLeft) {
+					g.drawLine(x + i, y, x + i, y + height - 1);
 				}
-				if( includeBottom ) {
-					g.drawLine( x, y - i + height - 1, x + width - 1, y - i + height - 1 );
+				if (includeBottom) {
+					g.drawLine(x, y - i + height - 1, x + width - 1, y - i + height - 1);
 				}
-				if( includeRight ) {
-					g.drawLine( x - i + width - 1, y, x - i + width - 1, y + height - 1 );
+				if (includeRight) {
+					g.drawLine(x - i + width - 1, y, x - i + width - 1, y + height - 1);
 				}
 			}
-			g.setColor( oldColor );
+			g.setColor(oldColor);
 		}
 
-		
-		public java.awt.Insets getBorderInsets( java.awt.Component c ) {
-			return new java.awt.Insets( includeTop ? thickness : 0, includeLeft ? thickness : 0, includeBottom ? thickness : 0, includeRight ? thickness : 0 );
+		@Override
+		public java.awt.Insets getBorderInsets(java.awt.Component c) {
+			return new java.awt.Insets(includeTop ? thickness : 0, includeLeft ? thickness : 0, includeBottom ? thickness : 0, includeRight ? thickness : 0);
 		}
 
-		
-		public java.awt.Insets getBorderInsets( java.awt.Component c, java.awt.Insets insets ) {
+		@Override
+		public java.awt.Insets getBorderInsets(java.awt.Component c, java.awt.Insets insets) {
 			insets.top = includeTop ? thickness : 0;
 			insets.left = includeLeft ? thickness : 0;
 			insets.bottom = includeBottom ? thickness : 0;
@@ -90,120 +90,130 @@ public class GroupingPanel extends javax.swing.JPanel implements java.awt.dnd.Dr
 			return color;
 		}
 
-		public int getThickness()       {
+		public int getThickness() {
 			return thickness;
 		}
 
-		
+		@Override
 		public boolean isBorderOpaque() {
 			return true;
 		}
 	}
 
 	public GroupingPanel() {
-		outerBorder = new PartialLineBorder( java.awt.Color.lightGray, 1, false, false, true, true );
-		innerBorder = javax.swing.BorderFactory.createEmptyBorder( 1, 1, 1, 1 );
-		border = javax.swing.BorderFactory.createCompoundBorder( outerBorder, innerBorder );
-		setBorder( border );
-		setDoubleBuffered( true );
+		outerBorder = new PartialLineBorder(java.awt.Color.lightGray, 1, false, false, true, true);
+		innerBorder = javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1);
+		border = javax.swing.BorderFactory.createCompoundBorder(outerBorder, innerBorder);
+		setBorder(border);
+		setDoubleBuffered(true);
 
-		//setOpaque( false );
+		// setOpaque( false );
 
-		setDropTarget( new java.awt.dnd.DropTarget( this, this ) );
+		setDropTarget(new java.awt.dnd.DropTarget(this, this));
 
-		addContainerListener(
-			new java.awt.event.ContainerAdapter() {
-				
-				public void componentAdded( java.awt.event.ContainerEvent ev ) {
-					if( ev.getChild().getDropTarget() == null ) { // is this heavy-handed?
-						ev.getChild().setDropTarget( new java.awt.dnd.DropTarget( ev.getChild(), GroupingPanel.this ) );
-					}
-				}
-				
-				public void componentRemoved( java.awt.event.ContainerEvent ev ) { //MEMFIX
-					if( ev.getChild().getDropTarget() != null ) { // is this heavy-handed?
-						ev.getChild().getDropTarget().setActive( false );
-						ev.getChild().setDropTarget( null );
-					}
+		addContainerListener(new java.awt.event.ContainerAdapter() {
+
+			@Override
+			public void componentAdded(java.awt.event.ContainerEvent ev) {
+				if (ev.getChild().getDropTarget() == null) { // is this
+																// heavy-handed?
+					ev.getChild().setDropTarget(new java.awt.dnd.DropTarget(ev.getChild(), GroupingPanel.this));
 				}
 			}
-		);
-		addContainerListener( GUIElementContainerListener.getStaticListener() );
+
+			@Override
+			public void componentRemoved(java.awt.event.ContainerEvent ev) { // MEMFIX
+				if (ev.getChild().getDropTarget() != null) { // is this
+																// heavy-handed?
+					ev.getChild().getDropTarget().setActive(false);
+					ev.getChild().setDropTarget(null);
+				}
+			}
+		});
+		addContainerListener(GUIElementContainerListener.getStaticListener());
 	}
 
+	@Override
 	public void release() {
-		removeAll(); //MEMFIX
-//		java.awt.Component[] components = getComponents();
-//		if( components != null ) {
-//			for( int i = 0; i < components.length; i++ ) {
-//				if( components[i] instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable ) {
-//					((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable)components[i]).release();
-//				}
-//			}
-//		}
+		removeAll(); // MEMFIX
+		// java.awt.Component[] components = getComponents();
+		// if( components != null ) {
+		// for( int i = 0; i < components.length; i++ ) {
+		// if( components[i] instanceof
+		// edu.cmu.cs.stage3.alice.authoringtool.util.Releasable ) {
+		// ((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable)components[i]).release();
+		// }
+		// }
+		// }
 	}
 
-	public void paintBackground( java.awt.Graphics g ) {
+	public void paintBackground(java.awt.Graphics g) {
 	}
 
-	public void paintForeground( java.awt.Graphics g ) {
+	public void paintForeground(java.awt.Graphics g) {
 	}
 
-	
-	public void paintComponent( java.awt.Graphics g ) {
-		super.paintComponent( g );
-		paintBackground( g );
+	@Override
+	public void paintComponent(java.awt.Graphics g) {
+		super.paintComponent(g);
+		paintBackground(g);
 	}
 
-	
-	public void paintChildren( java.awt.Graphics g ) {
-		super.paintChildren( g );
-		paintForeground( g );
+	@Override
+	public void paintChildren(java.awt.Graphics g) {
+		super.paintChildren(g);
+		paintForeground(g);
 	}
 
-	
-	public void printComponent( java.awt.Graphics g ) {
-		if( authoringToolConfig.getValue( "printing.fillBackground" ).equalsIgnoreCase( "true" ) ) {
-			super.printComponent( g );
+	@Override
+	public void printComponent(java.awt.Graphics g) {
+		if (authoringToolConfig.getValue("printing.fillBackground").equalsIgnoreCase("true")) {
+			super.printComponent(g);
 		} else {
 			// do nothing (avoid painting background)
 		}
 	}
 
-	// might get in trouble for going to *any* Container that's a DropTargetListener.  we'll see...
-	public void dragEnter( java.awt.dnd.DropTargetDragEvent dtde ) {
-		if( getParent() instanceof java.awt.dnd.DropTargetListener ) {
-			((java.awt.dnd.DropTargetListener)getParent()).dragEnter( dtde );
+	// might get in trouble for going to *any* Container that's a
+	// DropTargetListener. we'll see...
+	@Override
+	public void dragEnter(java.awt.dnd.DropTargetDragEvent dtde) {
+		if (getParent() instanceof java.awt.dnd.DropTargetListener) {
+			((java.awt.dnd.DropTargetListener) getParent()).dragEnter(dtde);
 		} else {
 			dtde.rejectDrag();
 		}
 	}
 
-	public void dragExit( java.awt.dnd.DropTargetEvent dte ) {
-		if( getParent() instanceof java.awt.dnd.DropTargetListener ) {
-			((java.awt.dnd.DropTargetListener)getParent()).dragExit( dte );
+	@Override
+	public void dragExit(java.awt.dnd.DropTargetEvent dte) {
+		if (getParent() instanceof java.awt.dnd.DropTargetListener) {
+			((java.awt.dnd.DropTargetListener) getParent()).dragExit(dte);
 		}
 	}
 
-	public void dragOver( java.awt.dnd.DropTargetDragEvent dtde ) {
-		if( getParent() instanceof java.awt.dnd.DropTargetListener ) {
-			((java.awt.dnd.DropTargetListener)getParent()).dragOver( dtde );
+	@Override
+	public void dragOver(java.awt.dnd.DropTargetDragEvent dtde) {
+		if (getParent() instanceof java.awt.dnd.DropTargetListener) {
+			((java.awt.dnd.DropTargetListener) getParent()).dragOver(dtde);
 		} else {
 			dtde.rejectDrag();
 		}
 	}
 
-	public void drop( java.awt.dnd.DropTargetDropEvent dtde ) {
-		if( getParent() instanceof java.awt.dnd.DropTargetListener ) {
-			((java.awt.dnd.DropTargetListener)getParent()).drop( dtde );
+	@Override
+	public void drop(java.awt.dnd.DropTargetDropEvent dtde) {
+		if (getParent() instanceof java.awt.dnd.DropTargetListener) {
+			((java.awt.dnd.DropTargetListener) getParent()).drop(dtde);
 		} else {
 			dtde.rejectDrop();
 		}
 	}
 
-	public void dropActionChanged( java.awt.dnd.DropTargetDragEvent dtde ) {
-		if( getParent() instanceof java.awt.dnd.DropTargetListener ) {
-			((java.awt.dnd.DropTargetListener)getParent()).dropActionChanged( dtde );
+	@Override
+	public void dropActionChanged(java.awt.dnd.DropTargetDragEvent dtde) {
+		if (getParent() instanceof java.awt.dnd.DropTargetListener) {
+			((java.awt.dnd.DropTargetListener) getParent()).dropActionChanged(dtde);
 		} else {
 			dtde.rejectDrag();
 		}

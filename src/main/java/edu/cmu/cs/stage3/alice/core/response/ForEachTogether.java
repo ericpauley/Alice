@@ -24,91 +24,98 @@
 package edu.cmu.cs.stage3.alice.core.response;
 
 public class ForEachTogether extends ForEach {
-	//todo:
-	//private static Class[] s_supportedCoercionClasses = { ForEachInOrder.class };
+	// todo:
+	// private static Class[] s_supportedCoercionClasses = {
+	// ForEachInOrder.class };
 	private static Class[] s_supportedCoercionClasses = {};
-	
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
 	public class RuntimeForEachTogether extends RuntimeForEach {
-        private RuntimeResponse[][] m_runtimeResponsesArray = null;
-        private int m_listIndex;
+		private RuntimeResponse[][] m_runtimeResponsesArray = null;
+		private int m_listIndex;
 
-		
+		@Override
 		protected RuntimeResponse[] getRuntimeResponses() {
-            if( m_listIndex>=0 && m_listIndex < m_runtimeResponsesArray.length ) {
-                return m_runtimeResponsesArray[ m_listIndex ];
-            } else {
-                throw new ArrayIndexOutOfBoundsException( m_listIndex + " is out of bounds [0,"+m_runtimeResponsesArray.length+")." );
-            }
-		}
-        
-		protected int getChildCount() {
-            if( m_runtimeResponsesArray != null && m_runtimeResponsesArray.length > 0 ) {
-                return m_runtimeResponsesArray[ 0 ].length;
-            } else {
-                return 0;
-            }
-        }
-        
-		protected double getChildTimeRemaining( int index, double t ) {
-            double timeRemaining = 0;
-            for( m_listIndex=0; m_listIndex<m_runtimeResponsesArray.length; m_listIndex++ ) {
-                timeRemaining = Math.max( timeRemaining, m_runtimeResponsesArray[ m_listIndex ][ index ].getTimeRemaining( t ) );
-            }
-            return timeRemaining;
-        }
-        
-		protected void childPrologueIfNecessary( int index, double t ) {
-            for( m_listIndex=0; m_listIndex<m_runtimeResponsesArray.length; m_listIndex++ ) {
-                setForkIndex( m_listIndex );
-                super.childPrologueIfNecessary( index, t );
-            }
-			setForkIndex( -1 );
-        }
-        
-		protected void childUpdate( int index, double t ) {
-            for( m_listIndex=0; m_listIndex<m_runtimeResponsesArray.length; m_listIndex++ ) {
-				setForkIndex( m_listIndex );
-                super.childUpdate( index, t );
-            }
-			setForkIndex( -1 );
-        }
-        
-		protected void childEpilogue( int index, double t ) {
-            for( m_listIndex=0; m_listIndex<m_runtimeResponsesArray.length; m_listIndex++ ) {
-				setForkIndex( m_listIndex );
-                super.childEpilogue( index, t );
-            }
-			setForkIndex( -1 );
-        }
-
-		
-		protected void childrenEpiloguesIfNecessary( double t ) {
-			for( m_listIndex=0; m_listIndex<m_runtimeResponsesArray.length; m_listIndex++ ) {
-				super.childrenEpiloguesIfNecessary( t );
+			if (m_listIndex >= 0 && m_listIndex < m_runtimeResponsesArray.length) {
+				return m_runtimeResponsesArray[m_listIndex];
+			} else {
+				throw new ArrayIndexOutOfBoundsException(m_listIndex + " is out of bounds [0," + m_runtimeResponsesArray.length + ").");
 			}
 		}
 
-//        protected void childrenEpiloguesIfNecessary( double t ) {
-//            for( m_listIndex=0; m_listIndex<m_runtimeResponsesArray.length; m_listIndex++ ) {
-//                preEach( m_listIndex );
-//                super.childrenEpiloguesIfNecessary( t );
-//                postEach();
-//            }
-//        }
+		@Override
+		protected int getChildCount() {
+			if (m_runtimeResponsesArray != null && m_runtimeResponsesArray.length > 0) {
+				return m_runtimeResponsesArray[0].length;
+			} else {
+				return 0;
+			}
+		}
 
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-            m_runtimeResponsesArray = new RuntimeResponse[ m_listSize ][];
-            for( m_listIndex=0; m_listIndex<m_runtimeResponsesArray.length; m_listIndex++ ) {
-				setForkIndex( m_listIndex );
-                m_runtimeResponsesArray[ m_listIndex ] = manufactureComponentRuntimeResponses( componentResponses );
-            }
-			setForkIndex( -1 );
+		@Override
+		protected double getChildTimeRemaining(int index, double t) {
+			double timeRemaining = 0;
+			for (m_listIndex = 0; m_listIndex < m_runtimeResponsesArray.length; m_listIndex++) {
+				timeRemaining = Math.max(timeRemaining, m_runtimeResponsesArray[m_listIndex][index].getTimeRemaining(t));
+			}
+			return timeRemaining;
+		}
+
+		@Override
+		protected void childPrologueIfNecessary(int index, double t) {
+			for (m_listIndex = 0; m_listIndex < m_runtimeResponsesArray.length; m_listIndex++) {
+				setForkIndex(m_listIndex);
+				super.childPrologueIfNecessary(index, t);
+			}
+			setForkIndex(-1);
+		}
+
+		@Override
+		protected void childUpdate(int index, double t) {
+			for (m_listIndex = 0; m_listIndex < m_runtimeResponsesArray.length; m_listIndex++) {
+				setForkIndex(m_listIndex);
+				super.childUpdate(index, t);
+			}
+			setForkIndex(-1);
+		}
+
+		@Override
+		protected void childEpilogue(int index, double t) {
+			for (m_listIndex = 0; m_listIndex < m_runtimeResponsesArray.length; m_listIndex++) {
+				setForkIndex(m_listIndex);
+				super.childEpilogue(index, t);
+			}
+			setForkIndex(-1);
+		}
+
+		@Override
+		protected void childrenEpiloguesIfNecessary(double t) {
+			for (m_listIndex = 0; m_listIndex < m_runtimeResponsesArray.length; m_listIndex++) {
+				super.childrenEpiloguesIfNecessary(t);
+			}
+		}
+
+		// protected void childrenEpiloguesIfNecessary( double t ) {
+		// for( m_listIndex=0; m_listIndex<m_runtimeResponsesArray.length;
+		// m_listIndex++ ) {
+		// preEach( m_listIndex );
+		// super.childrenEpiloguesIfNecessary( t );
+		// postEach();
+		// }
+		// }
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_runtimeResponsesArray = new RuntimeResponse[m_listSize][];
+			for (m_listIndex = 0; m_listIndex < m_runtimeResponsesArray.length; m_listIndex++) {
+				setForkIndex(m_listIndex);
+				m_runtimeResponsesArray[m_listIndex] = manufactureComponentRuntimeResponses(componentResponses);
+			}
+			setForkIndex(-1);
 		}
 	}
 }
-

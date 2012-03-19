@@ -25,9 +25,10 @@ package edu.cmu.cs.stage3.alice.core.response;
 
 public class StandUpAnimation extends OrientationAnimation {
 	public class RuntimeStandUpAnimation extends RuntimeOrientationAnimation {
-		
+
+		@Override
 		protected edu.cmu.cs.stage3.math.Quaternion getTargetQuaternion() {
-			return m_subject.calculateStandUp( m_asSeenBy ).getQuaternion();
+			return m_subject.calculateStandUp(m_asSeenBy).getQuaternion();
 		}
 	}
 }

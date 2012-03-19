@@ -27,43 +27,48 @@ package edu.cmu.cs.stage3.alice.authoringtool.importers;
  * @author Jason Pratt
  */
 public class MediaImporter extends edu.cmu.cs.stage3.alice.authoringtool.AbstractImporter {
-	
+
+	@Override
 	public java.util.Map getExtensionMap() {
-//		java.util.HashMap knownCodecPrettyNames = new java.util.HashMap();
-//		knownCodecPrettyNames.put( "AUDIO.XMP3", "Mpeg layer 3" );
-//		knownCodecPrettyNames.put( "AUDIO.XWAV", "Windows sound" );
-//		knownCodecPrettyNames.put( "MP3", "Mpeg layer 3" );
-//		knownCodecPrettyNames.put( "WAV", "Windows sound" );
-//
-//		java.util.HashMap map = new java.util.HashMap();
-//
-//		String[] contentTypes = edu.cmu.cs.stage3.media.Manager.getContentTypes();
-//		for( int i = 0; i < contentTypes.length; i++ ) {
-//			String prettyName = (String)knownCodecPrettyNames.get( contentTypes[i].toUpperCase() );
-//			if( prettyName == null ) {
-//				prettyName = contentTypes[i];
-//			}
-//			String[] extensions = edu.cmu.cs.stage3.media.Manager.getExtensionsForContentType( contentTypes[i] );
-//			if( extensions != null ) {
-//				for( int j = 0; j < extensions.length; j++ ) {
-//					map.put( extensions[j].toUpperCase(), prettyName );
-//				}
-//			}
-//		}
-//
-//		return map;
+		// java.util.HashMap knownCodecPrettyNames = new java.util.HashMap();
+		// knownCodecPrettyNames.put( "AUDIO.XMP3", "Mpeg layer 3" );
+		// knownCodecPrettyNames.put( "AUDIO.XWAV", "Windows sound" );
+		// knownCodecPrettyNames.put( "MP3", "Mpeg layer 3" );
+		// knownCodecPrettyNames.put( "WAV", "Windows sound" );
+		//
+		// java.util.HashMap map = new java.util.HashMap();
+		//
+		// String[] contentTypes =
+		// edu.cmu.cs.stage3.media.Manager.getContentTypes();
+		// for( int i = 0; i < contentTypes.length; i++ ) {
+		// String prettyName = (String)knownCodecPrettyNames.get(
+		// contentTypes[i].toUpperCase() );
+		// if( prettyName == null ) {
+		// prettyName = contentTypes[i];
+		// }
+		// String[] extensions =
+		// edu.cmu.cs.stage3.media.Manager.getExtensionsForContentType(
+		// contentTypes[i] );
+		// if( extensions != null ) {
+		// for( int j = 0; j < extensions.length; j++ ) {
+		// map.put( extensions[j].toUpperCase(), prettyName );
+		// }
+		// }
+		// }
+		//
+		// return map;
 		java.util.HashMap map = new java.util.HashMap();
-		map.put( "WAV", "Windows sound" );
-		map.put( "MP3", "Mpeg layer 3" );
+		map.put("WAV", "Windows sound");
+		map.put("MP3", "Mpeg layer 3");
 		return map;
 	}
 
-	
-	protected edu.cmu.cs.stage3.alice.core.Element load( java.io.InputStream istream, String ext ) throws java.io.IOException {
-		edu.cmu.cs.stage3.media.DataSource dataSource = edu.cmu.cs.stage3.media.Manager.createDataSource( istream, ext );
+	@Override
+	protected edu.cmu.cs.stage3.alice.core.Element load(java.io.InputStream istream, String ext) throws java.io.IOException {
+		edu.cmu.cs.stage3.media.DataSource dataSource = edu.cmu.cs.stage3.media.Manager.createDataSource(istream, ext);
 		edu.cmu.cs.stage3.alice.core.Sound sound = new edu.cmu.cs.stage3.alice.core.Sound();
-		sound.name.set( plainName );
-		sound.dataSource.set( dataSource );
+		sound.name.set(plainName);
+		sound.dataSource.set(dataSource);
 		return sound;
 	}
 }

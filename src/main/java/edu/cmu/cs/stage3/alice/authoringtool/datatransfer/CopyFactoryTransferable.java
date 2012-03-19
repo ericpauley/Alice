@@ -23,25 +23,27 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.datatransfer;
 
+import java.awt.datatransfer.DataFlavor;
+
 /**
  * @author Jason Pratt
  */
 public class CopyFactoryTransferable implements java.awt.datatransfer.Transferable {
-	public static java.awt.datatransfer.DataFlavor copyFactoryFlavor = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReferenceFlavorForClass( edu.cmu.cs.stage3.alice.core.CopyFactory.class );
+	public static java.awt.datatransfer.DataFlavor copyFactoryFlavor = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReferenceFlavorForClass(edu.cmu.cs.stage3.alice.core.CopyFactory.class);
 
 	protected edu.cmu.cs.stage3.alice.core.CopyFactory copyFactory;
 
 	protected java.awt.datatransfer.DataFlavor myFlavor;
 	protected java.awt.datatransfer.DataFlavor[] flavors;
 
-	public CopyFactoryTransferable( edu.cmu.cs.stage3.alice.core.CopyFactory copyFactory ) {
+	public CopyFactoryTransferable(edu.cmu.cs.stage3.alice.core.CopyFactory copyFactory) {
 		this.copyFactory = copyFactory;
 
 		try {
-			myFlavor = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReferenceFlavorForClass( edu.cmu.cs.stage3.alice.core.CopyFactory.class );
-			myFlavor.setHumanPresentableName( "copyFactoryTransferable(" + copyFactory.getValueClass().getName() + ")" );
-		} catch( Exception e ) {
-			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( e.getMessage(), e );
+			myFlavor = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReferenceFlavorForClass(edu.cmu.cs.stage3.alice.core.CopyFactory.class);
+			myFlavor.setHumanPresentableName("copyFactoryTransferable(" + copyFactory.getValueClass().getName() + ")");
+		} catch (Exception e) {
+			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog(e.getMessage(), e);
 		}
 
 		flavors = new java.awt.datatransfer.DataFlavor[2];
@@ -49,26 +51,29 @@ public class CopyFactoryTransferable implements java.awt.datatransfer.Transferab
 		flavors[1] = java.awt.datatransfer.DataFlavor.stringFlavor;
 	}
 
+	@Override
 	public java.awt.datatransfer.DataFlavor[] getTransferDataFlavors() {
 		return flavors;
 	}
 
-	public boolean isDataFlavorSupported( java.awt.datatransfer.DataFlavor flavor ) {
-		for( int i = 0; i < flavors.length; i++ ) {
-			if( flavor.equals( flavors[i] ) ) {
+	@Override
+	public boolean isDataFlavorSupported(java.awt.datatransfer.DataFlavor flavor) {
+		for (DataFlavor flavor2 : flavors) {
+			if (flavor.equals(flavor2)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public Object getTransferData( java.awt.datatransfer.DataFlavor flavor ) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
-		if( flavor.getRepresentationClass().equals( edu.cmu.cs.stage3.alice.core.CopyFactory.class ) ) {
+	@Override
+	public Object getTransferData(java.awt.datatransfer.DataFlavor flavor) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
+		if (flavor.getRepresentationClass().equals(edu.cmu.cs.stage3.alice.core.CopyFactory.class)) {
 			return copyFactory;
-		} else if( flavor.equals( java.awt.datatransfer.DataFlavor.stringFlavor ) ) {
+		} else if (flavor.equals(java.awt.datatransfer.DataFlavor.stringFlavor)) {
 			return copyFactory.toString();
 		} else {
-			throw new java.awt.datatransfer.UnsupportedFlavorException( flavor );
+			throw new java.awt.datatransfer.UnsupportedFlavorException(flavor);
 		}
 	}
 }

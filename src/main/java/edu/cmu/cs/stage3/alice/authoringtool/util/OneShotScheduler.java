@@ -23,18 +23,20 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
+import edu.cmu.cs.stage3.alice.core.Property;
+import edu.cmu.cs.stage3.alice.core.event.ScheduleListener;
+
 /**
  * @author Jason Pratt
  */
 public class OneShotScheduler extends edu.cmu.cs.stage3.alice.core.Scheduler {
-	public boolean isPropertyAffected( edu.cmu.cs.stage3.alice.core.Property property ) {
+	public boolean isPropertyAffected(edu.cmu.cs.stage3.alice.core.Property property) {
 		edu.cmu.cs.stage3.alice.core.event.ScheduleListener[] scheduleListeners = getScheduleListeners();
-		for( int i = 0; i < scheduleListeners.length; i++ ) {
-			edu.cmu.cs.stage3.alice.core.event.ScheduleListener sl = scheduleListeners[i];
-			if( sl instanceof edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior ) {
-				edu.cmu.cs.stage3.alice.core.Property[] affectedProperties = ((edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior)sl).getAffectedProperties();
-				for( int j = 0; j < affectedProperties.length; j++ ) {
-					if( property == affectedProperties[j] ) {
+		for (ScheduleListener sl : scheduleListeners) {
+			if (sl instanceof edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior) {
+				edu.cmu.cs.stage3.alice.core.Property[] affectedProperties = ((edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior) sl).getAffectedProperties();
+				for (Property affectedPropertie : affectedProperties) {
+					if (property == affectedPropertie) {
 						return true;
 					}
 				}

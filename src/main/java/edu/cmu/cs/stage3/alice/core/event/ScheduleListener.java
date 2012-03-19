@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.core.event;
 
 public interface ScheduleListener {
-	public void scheduled( ScheduleEvent scheduleEvent );
+	public void scheduled(ScheduleEvent scheduleEvent);
 }

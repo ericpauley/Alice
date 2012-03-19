@@ -23,6 +23,8 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
+import edu.cmu.cs.stage3.alice.core.event.PropertyListener;
+
 /**
  * @author Jason Pratt
  */
@@ -31,9 +33,9 @@ public class ObjectArrayPropertyItem extends edu.cmu.cs.stage3.alice.core.Proper
 	protected int index;
 	protected Class type;
 
-	public ObjectArrayPropertyItem( edu.cmu.cs.stage3.alice.core.Element element, edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty objectArrayProperty, int index, Class type ) {
-		super( element, "item " + index, null, objectArrayProperty.getComponentType() );
-//		this.setIsAcceptingOfNull( true );
+	public ObjectArrayPropertyItem(edu.cmu.cs.stage3.alice.core.Element element, edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty objectArrayProperty, int index, Class type) {
+		super(element, "item " + index, null, objectArrayProperty.getComponentType());
+		// this.setIsAcceptingOfNull( true );
 		this.objectArrayProperty = objectArrayProperty;
 		this.index = index;
 		this.type = type;
@@ -47,34 +49,33 @@ public class ObjectArrayPropertyItem extends edu.cmu.cs.stage3.alice.core.Proper
 		return index;
 	}
 
-	
+	@Override
 	public Object get() {
-		return objectArrayProperty.get( index );
+		return objectArrayProperty.get(index);
 	}
 
-	
+	@Override
 	public Object getValue() {
-		return objectArrayProperty.get( index );
+		return objectArrayProperty.get(index);
 	}
 
-	
+	@Override
 	public Class getValueClass() {
 		return type;
 	}
 
-	
-	public void set( Object value ) throws IllegalArgumentException {
-		objectArrayProperty.set( index, value );
-		//super.set( value );
+	@Override
+	public void set(Object value) throws IllegalArgumentException {
+		objectArrayProperty.set(index, value);
+		// super.set( value );
 	}
 
 	public void dispose() {
-		edu.cmu.cs.stage3.alice.core.event.PropertyListener[] listeners = this.getPropertyListeners();
-		for( int i = 0; i < listeners.length; i++ ) {
-			this.removePropertyListener( listeners[i] );
+		edu.cmu.cs.stage3.alice.core.event.PropertyListener[] listeners = getPropertyListeners();
+		for (PropertyListener listener : listeners) {
+			removePropertyListener(listener);
 		}
 		objectArrayProperty = null;
 	}
-
 
 }

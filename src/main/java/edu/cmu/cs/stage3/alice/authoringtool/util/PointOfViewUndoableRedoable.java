@@ -27,18 +27,18 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public class PointOfViewUndoableRedoable extends OneShotUndoableRedoable {
-	public PointOfViewUndoableRedoable( edu.cmu.cs.stage3.alice.core.Transformable transformable, edu.cmu.cs.stage3.math.Matrix44 oldTransformation, edu.cmu.cs.stage3.math.Matrix44 newTransformation, edu.cmu.cs.stage3.alice.core.Scheduler scheduler ) {
-		super( new edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation(), new edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation(), new edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior(), scheduler );
+	public PointOfViewUndoableRedoable(edu.cmu.cs.stage3.alice.core.Transformable transformable, edu.cmu.cs.stage3.math.Matrix44 oldTransformation, edu.cmu.cs.stage3.math.Matrix44 newTransformation, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
+		super(new edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation(), new edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation(), new edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior(), scheduler);
 
-		edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation redoResponse = (edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation)getRedoResponse();
-		edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation undoResponse = (edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation)getUndoResponse();
+		edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation redoResponse = (edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation) getRedoResponse();
+		edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation undoResponse = (edu.cmu.cs.stage3.alice.core.response.PointOfViewAnimation) getUndoResponse();
 		edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior oneShotBehavior = getOneShotBehavior();
 
-		redoResponse.subject.set( transformable );
-		redoResponse.pointOfView.set( newTransformation );
-		undoResponse.subject.set( transformable );
-		undoResponse.pointOfView.set( oldTransformation );
+		redoResponse.subject.set(transformable);
+		redoResponse.pointOfView.set(newTransformation);
+		undoResponse.subject.set(transformable);
+		undoResponse.pointOfView.set(oldTransformation);
 
-		oneShotBehavior.setAffectedProperties( new edu.cmu.cs.stage3.alice.core.Property[] { transformable.localTransformation } );
+		oneShotBehavior.setAffectedProperties(new edu.cmu.cs.stage3.alice.core.Property[]{transformable.localTransformation});
 	}
 }

@@ -27,10 +27,8 @@ import edu.cmu.cs.stage3.alice.core.Element;
 
 public class DataSourceProperty extends ObjectProperty {
 
-	public DataSourceProperty(Element owner, String name,
-			edu.cmu.cs.stage3.media.DataSource defaultValue) {
-		super(owner, name, defaultValue,
-				edu.cmu.cs.stage3.media.DataSource.class);
+	public DataSourceProperty(Element owner, String name, edu.cmu.cs.stage3.media.DataSource defaultValue) {
+		super(owner, name, defaultValue, edu.cmu.cs.stage3.media.DataSource.class);
 	}
 
 	public edu.cmu.cs.stage3.media.DataSource getDataSourceValue() {
@@ -39,55 +37,45 @@ public class DataSourceProperty extends ObjectProperty {
 
 	private String getFilename() {
 		edu.cmu.cs.stage3.media.DataSource dataSourceValue = getDataSourceValue();
-		return getOwner().name.getStringValue() + '.'
-				+ dataSourceValue.getExtension();
+		return getOwner().name.getStringValue() + '.' + dataSourceValue.getExtension();
 	}
 
-	
-	protected void decodeObject(org.w3c.dom.Element node,
-			edu.cmu.cs.stage3.io.DirectoryTreeLoader loader,
-			java.util.Vector referencesToBeResolved, double version)
-			throws java.io.IOException {
+	@Override
+	protected void decodeObject(org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version) throws java.io.IOException {
 		m_associatedFileKey = null;
-		
+
 		String filename = getFilename(getNodeText(node));
-		
+
 		java.io.InputStream is = loader.readFile(filename);
-		set(edu.cmu.cs.stage3.media.Manager.createDataSource(is,
-				edu.cmu.cs.stage3.io.FileUtilities.getExtension(filename)));
+		set(edu.cmu.cs.stage3.media.Manager.createDataSource(is, edu.cmu.cs.stage3.io.FileUtilities.getExtension(filename)));
 		loader.closeCurrentFile();
 
 		try {
-			String durationHintText = node.getAttribute( "durationHint" );
-			if( durationHintText != null ) {
-				double durationHint = Double.parseDouble( durationHintText );
-				getDataSourceValue().setDurationHint( durationHint );
+			String durationHintText = node.getAttribute("durationHint");
+			if (durationHintText != null) {
+				double durationHint = Double.parseDouble(durationHintText);
+				getDataSourceValue().setDurationHint(durationHint);
 			}
-		} catch( Throwable t ) {
-			//pass
+		} catch (Throwable t) {
+			// pass
 		}
-		
-		try {
-            m_associatedFileKey = loader.getKeepKey( filename );
-        } catch( edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse ) {
-            m_associatedFileKey = null;
-        }
-    }
 
-	
-	protected void encodeObject(org.w3c.dom.Document document,
-			org.w3c.dom.Element node,
-			edu.cmu.cs.stage3.io.DirectoryTreeStorer storer,
-			edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator)
-			throws java.io.IOException {
+		try {
+			m_associatedFileKey = loader.getKeepKey(filename);
+		} catch (edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse) {
+			m_associatedFileKey = null;
+		}
+	}
+
+	@Override
+	protected void encodeObject(org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator) throws java.io.IOException {
 		edu.cmu.cs.stage3.media.DataSource dataSourceValue = getDataSourceValue();
 		if (dataSourceValue != null) {
-			double duration = dataSourceValue
-					.getDuration(edu.cmu.cs.stage3.media.DataSource.USE_HINT_IF_NECESSARY);
+			double duration = dataSourceValue.getDuration(edu.cmu.cs.stage3.media.DataSource.USE_HINT_IF_NECESSARY);
 			if (Double.isNaN(duration)) {
 				// pass
 			} else {
-				node.setAttribute( "durationHint", Double.toString( duration ) );
+				node.setAttribute("durationHint", Double.toString(duration));
 			}
 
 			String filename = getFilename();
@@ -97,13 +85,10 @@ public class DataSourceProperty extends ObjectProperty {
 			} catch (edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse) {
 				associatedFileAbsolutePath = null;
 			}
-			if (m_associatedFileKey == null
-					|| !m_associatedFileKey.equals(associatedFileAbsolutePath)) {
+			if (m_associatedFileKey == null || !m_associatedFileKey.equals(associatedFileAbsolutePath)) {
 				m_associatedFileKey = null;
-				java.io.OutputStream os = storer.createFile(filename,
-						dataSourceValue.isCompressionWorthwhile());
-				java.io.BufferedOutputStream bos = new java.io.BufferedOutputStream(
-						os);
+				java.io.OutputStream os = storer.createFile(filename, dataSourceValue.isCompressionWorthwhile());
+				java.io.BufferedOutputStream bos = new java.io.BufferedOutputStream(os);
 				bos.write(dataSourceValue.getData());
 				bos.flush();
 				storer.closeCurrentFile();
@@ -117,16 +102,12 @@ public class DataSourceProperty extends ObjectProperty {
 					kfdne.printStackTrace();
 				}
 			}
-			node.appendChild(document.createTextNode("java.io.File[" + filename
-					+ "]"));
+			node.appendChild(document.createTextNode("java.io.File[" + filename + "]"));
 		}
 	}
 
-	
-	public void keepAnyAssociatedFiles(
-			edu.cmu.cs.stage3.io.DirectoryTreeStorer storer)
-			throws edu.cmu.cs.stage3.io.KeepFileNotSupportedException,
-			edu.cmu.cs.stage3.io.KeepFileDoesNotExistException {
+	@Override
+	public void keepAnyAssociatedFiles(edu.cmu.cs.stage3.io.DirectoryTreeStorer storer) throws edu.cmu.cs.stage3.io.KeepFileNotSupportedException, edu.cmu.cs.stage3.io.KeepFileDoesNotExistException {
 		super.keepAnyAssociatedFiles(storer);
 		edu.cmu.cs.stage3.media.DataSource dataSourceValue = getDataSourceValue(); // todo:
 																					// handle

@@ -26,7 +26,7 @@ public class StartMovieCapture implements Runnable {
 	private Thread active = null;
 
 	private Rectangle reg = null;
-	
+
 	private edu.cmu.cs.stage3.alice.authoringtool.dialog.CaptureContentPane renderContent = null;
 
 	private AuthoringTool author = null;
@@ -42,10 +42,7 @@ public class StartMovieCapture implements Runnable {
 	 * @param area
 	 *            the region to capture
 	 */
-	public StartMovieCapture(
-			AuthoringTool a,
-			edu.cmu.cs.stage3.alice.authoringtool.dialog.CaptureContentPane pane,
-			FrameSequencer sequencer, int framesPerSec) {
+	public StartMovieCapture(AuthoringTool a, edu.cmu.cs.stage3.alice.authoringtool.dialog.CaptureContentPane pane, FrameSequencer sequencer, int framesPerSec) {
 		frameSequencer = sequencer;
 		framesPerSecond = framesPerSec;
 		author = a;
@@ -57,32 +54,33 @@ public class StartMovieCapture implements Runnable {
 	 * Method to capture a movie until the stop method is called and sets the
 	 * active thread to null
 	 */
-	public void upDateRectangle()
-	{
+	public void upDateRectangle() {
 		reg = new Rectangle(1, 1, 1, 1);
-		if (renderContent.getRenderPanel() != null)
+		if (renderContent.getRenderPanel() != null) {
 			reg.setSize(renderContent.getRenderPanel().getSize());
-		//TODO: Get rid of black space??
-		//Would need to get configured values, which seem to wrong at the moment...
-		
+			// TODO: Get rid of black space??
+			// Would need to get configured values, which seem to wrong at the
+			// moment...
+		}
+
 		Rectangle r = new Rectangle(1, 1, 1, 1);
-		r = renderContent.getRenderPanelLocation() ;
-		reg.y = r.y+3;
+		r = renderContent.getRenderPanelLocation();
+		reg.y = r.y + 3;
 		int buttonPanelWidth = renderContent.getButtonPanel().getWidth();
-		reg.x=r.x+(buttonPanelWidth-reg.width)/2;
-		reg.height-=2;
+		reg.x = r.x + (buttonPanelWidth - reg.width) / 2;
+		reg.height -= 2;
 	}
-	
+
 	public void captureMovie() {
 		long startTime = 0;
 		long endTime = 0;
-		int timeToSleep = (1000 / framesPerSecond);
-		
+		int timeToSleep = 1000 / framesPerSecond;
+
 		Thread current = Thread.currentThread();
-		
+
 		upDateRectangle();
 		while (current == active && renderContent.getEnd()) {
-					
+
 			if (author.getWorld().isRunning() && renderContent.getRunning()) {
 				startTime = System.currentTimeMillis();
 				try {
@@ -91,11 +89,12 @@ public class StartMovieCapture implements Runnable {
 					author.getSoundStorage().frameList.add(new Long(startTime));
 					frameSequencer.addFrame(new Picture(bi));
 					endTime = System.currentTimeMillis();
-					if (endTime - startTime < timeToSleep)
+					if (endTime - startTime < timeToSleep) {
 						Thread.sleep(timeToSleep - (endTime - startTime));
+					}
 				} catch (Exception ex) {
 					System.err.println("Caught exception in StartMovieCapture");
-					//done = true;
+					// done = true;
 				}
 			}
 		}
@@ -104,6 +103,7 @@ public class StartMovieCapture implements Runnable {
 	/**
 	 * Method to start the thread
 	 */
+	@Override
 	public void run() {
 		active = Thread.currentThread();
 		captureMovie();

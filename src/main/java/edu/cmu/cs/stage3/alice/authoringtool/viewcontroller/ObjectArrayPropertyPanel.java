@@ -32,28 +32,28 @@ public class ObjectArrayPropertyPanel extends edu.cmu.cs.stage3.alice.authoringt
 	protected edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool;
 	protected RefreshListener refreshListener = new RefreshListener();
 
-	public ObjectArrayPropertyPanel( String title, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool ) {
+	public ObjectArrayPropertyPanel(String title, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool) {
 		this.authoringTool = authoringTool;
-		guiInit( title );
+		guiInit(title);
 	}
 
-	private void guiInit( String title ) {
-		setTitle( title );
-		contentPanel.setLayout( new java.awt.GridBagLayout() );
-		setContent( contentPanel );
-		setOpaque( false );
-		contentPanel.setOpaque( false );
+	private void guiInit(String title) {
+		setTitle(title);
+		contentPanel.setLayout(new java.awt.GridBagLayout());
+		setContent(contentPanel);
+		setOpaque(false);
+		contentPanel.setOpaque(false);
 	}
 
-	public void setObjectArrayProperty( edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty objectArrayProperty ) {
-		if( this.objectArrayProperty != null ) {
-			this.objectArrayProperty.removeObjectArrayPropertyListener( refreshListener );
+	public void setObjectArrayProperty(edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty objectArrayProperty) {
+		if (this.objectArrayProperty != null) {
+			this.objectArrayProperty.removeObjectArrayPropertyListener(refreshListener);
 		}
 
 		this.objectArrayProperty = objectArrayProperty;
 
-		if( objectArrayProperty != null ) {
-			objectArrayProperty.addObjectArrayPropertyListener( refreshListener );
+		if (objectArrayProperty != null) {
+			objectArrayProperty.addObjectArrayPropertyListener(refreshListener);
 		}
 
 		refreshGUI();
@@ -62,29 +62,32 @@ public class ObjectArrayPropertyPanel extends edu.cmu.cs.stage3.alice.authoringt
 	public void refreshGUI() {
 		contentPanel.removeAll();
 
-		if( objectArrayProperty != null ) {
+		if (objectArrayProperty != null) {
 			int count = 0;
-			for( int i = 0; i < objectArrayProperty.size(); i++ ) {
-				final Object object = objectArrayProperty.get( i );
-				javax.swing.JComponent gui = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getGUI( object );
-				if( gui != null ) {
-					contentPanel.add( gui, new java.awt.GridBagConstraints( 0, count++, 1, 1, 1.0, 0.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.NONE, new java.awt.Insets( 0, 2, 0, 2 ), 0, 0 ) );
+			for (int i = 0; i < objectArrayProperty.size(); i++) {
+				final Object object = objectArrayProperty.get(i);
+				javax.swing.JComponent gui = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getGUI(object);
+				if (gui != null) {
+					contentPanel.add(gui, new java.awt.GridBagConstraints(0, count++, 1, 1, 1.0, 0.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.NONE, new java.awt.Insets(0, 2, 0, 2), 0, 0));
 				} else {
-					edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Unable to create gui for object: " + object, null );
+					edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Unable to create gui for object: " + object, null);
 				}
 			}
 
 			java.awt.Component glue = javax.swing.Box.createGlue();
-			contentPanel.add( glue, new java.awt.GridBagConstraints( 0, count++, 1, 1, 1.0, 1.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.BOTH, new java.awt.Insets( 2, 2, 2, 2 ), 0, 0 ) );
+			contentPanel.add(glue, new java.awt.GridBagConstraints(0, count++, 1, 1, 1.0, 1.0, java.awt.GridBagConstraints.WEST, java.awt.GridBagConstraints.BOTH, new java.awt.Insets(2, 2, 2, 2), 0, 0));
 		}
 		revalidate();
 		repaint();
 	}
 
 	protected class RefreshListener implements edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyListener {
-		public void objectArrayPropertyChanging( edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev ) {}
-		public void objectArrayPropertyChanged( edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev ) {
-			ObjectArrayPropertyPanel.this.refreshGUI();
+		@Override
+		public void objectArrayPropertyChanging(edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev) {
+		}
+		@Override
+		public void objectArrayPropertyChanged(edu.cmu.cs.stage3.alice.core.event.ObjectArrayPropertyEvent ev) {
+			refreshGUI();
 		}
 	}
 }

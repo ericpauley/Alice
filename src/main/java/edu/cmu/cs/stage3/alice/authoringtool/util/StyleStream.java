@@ -30,27 +30,27 @@ public class StyleStream extends java.io.PrintStream {
 	protected javax.swing.text.Style style;
 	protected StyledStreamTextPane styledStreamTextPane;
 
-	public StyleStream( StyledStreamTextPane styledStreamTextPane, javax.swing.text.Style style ) {
-		super( System.out );
+	public StyleStream(StyledStreamTextPane styledStreamTextPane, javax.swing.text.Style style) {
+		super(System.out);
 		this.styledStreamTextPane = styledStreamTextPane;
 		this.style = style;
 	}
 
-	
-	public void write( int b ) {
+	@Override
+	public void write(int b) {
 		try {
-			styledStreamTextPane.document.insertString( styledStreamTextPane.endPosition.getOffset() - 1, String.valueOf( b ), style );
-		} catch( javax.swing.text.BadLocationException e ) {
-			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Error while printing.", e );
+			styledStreamTextPane.document.insertString(styledStreamTextPane.endPosition.getOffset() - 1, String.valueOf(b), style);
+		} catch (javax.swing.text.BadLocationException e) {
+			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Error while printing.", e);
 		}
 	}
 
-	
-	public void write( byte buf[], int off, int len ) {
+	@Override
+	public void write(byte buf[], int off, int len) {
 		try {
-			styledStreamTextPane.document.insertString( styledStreamTextPane.endPosition.getOffset() - 1, new String( buf, off, len ), style );
-		} catch( javax.swing.text.BadLocationException e ) {
-			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Error while printing.", e );
+			styledStreamTextPane.document.insertString(styledStreamTextPane.endPosition.getOffset() - 1, new String(buf, off, len), style);
+		} catch (javax.swing.text.BadLocationException e) {
+			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Error while printing.", e);
 		}
 	}
 }

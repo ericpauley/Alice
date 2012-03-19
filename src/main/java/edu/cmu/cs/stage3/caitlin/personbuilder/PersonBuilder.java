@@ -52,7 +52,7 @@ public class PersonBuilder extends javax.swing.JPanel {
 
 		return builders;
 	}
-	
+
 	private AllStepsPanel allStepsPanel = null;
 	private NavigationPanel navPanel = null;
 	private RenderPanel renderPanel = null;
@@ -60,20 +60,21 @@ public class PersonBuilder extends javax.swing.JPanel {
 	private ModelWrapper modelWrapper = null;
 	private String builderName = "";
 
-	public PersonBuilder( String builderName, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver ) throws edu.cmu.cs.stage3.progress.ProgressCancelException {
+	public PersonBuilder(String builderName, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver) throws edu.cmu.cs.stage3.progress.ProgressCancelException {
 		this.builderName = builderName;
 		String builderFile = "images/" + builderName + ".xml";
 		int progressOffset = 0;
-		//progressObserver.progressBegin( edu.cmu.cs.stage3.progress.ProgressObserver.UNKNOWN_TOTAL );
-		progressObserver.progressBegin( 7 );
+		// progressObserver.progressBegin(
+		// edu.cmu.cs.stage3.progress.ProgressObserver.UNKNOWN_TOTAL );
+		progressObserver.progressBegin(7);
 		try {
 			org.w3c.dom.Document doc = (org.w3c.dom.Document) XMLDirectoryUtilities.loadFile(builderFile);
-			progressObserver.progressUpdate( progressOffset++, null );
+			progressObserver.progressUpdate(progressOffset++, null);
 			org.w3c.dom.Node root = doc.getDocumentElement();
-			progressObserver.progressUpdate( progressOffset++, null );
+			progressObserver.progressUpdate(progressOffset++, null);
 			modelWrapper = new ModelWrapper(root);
-			progressObserver.progressUpdate( progressOffset++, null );
-			allStepsPanel = new AllStepsPanel(root, modelWrapper, progressObserver, progressOffset );
+			progressObserver.progressUpdate(progressOffset++, null);
+			allStepsPanel = new AllStepsPanel(root, modelWrapper, progressObserver, progressOffset);
 			navPanel = new NavigationPanel(root, allStepsPanel);
 			renderPanel = new RenderPanel(modelWrapper);
 			namePanel = new NamePanel();
@@ -103,25 +104,25 @@ public class PersonBuilder extends javax.swing.JPanel {
 	public edu.cmu.cs.stage3.alice.core.Model getModel() {
 		edu.cmu.cs.stage3.alice.core.Model model = modelWrapper.getModel();
 		String text = namePanel.getCreatedBy();
-		if( text.length()== 0 ) {
+		if (text.length() == 0) {
 			text = "Anonymous";
 		}
-		model.data.put( "created by", text );
+		model.data.put("created by", text);
 
 		text = namePanel.getName();
-		if( text.length()== 0 ) {
-			text = edu.cmu.cs.stage3.swing.DialogManager.showInputDialog( "What would you like to name your character?" );
+		if (text.length() == 0) {
+			text = edu.cmu.cs.stage3.swing.DialogManager.showInputDialog("What would you like to name your character?");
 		}
 		text = text.trim();
-		if( text.startsWith( "\"" ) || text.startsWith( "'" ) ) {
-			text = text.substring( 1 );
+		if (text.startsWith("\"") || text.startsWith("'")) {
+			text = text.substring(1);
 		}
-		if( text.endsWith( "\"" ) || text.endsWith( "'" ) ) {
-			text = text.substring( 0, text.length()-1 );
+		if (text.endsWith("\"") || text.endsWith("'")) {
+			text = text.substring(0, text.length() - 1);
 		}
-		model.name.set( text );
+		model.name.set(text);
 
 		return model;
 	}
-	
+
 }

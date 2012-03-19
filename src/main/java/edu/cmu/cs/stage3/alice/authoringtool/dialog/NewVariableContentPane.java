@@ -23,22 +23,22 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.dialog;
 
-
 /**
  * @author Jason Pratt, David Culyba, Dennis Cosgrove
  */
 public class NewVariableContentPane extends NewNamedTypedElementContentPane {
 	private String m_title = "New Variable";
-	
+
+	@Override
 	public String getTitle() {
 		return m_title;
 	}
-	public void setTitle( String title ) {
+	public void setTitle(String title) {
 		m_title = title;
 	}
-	
-	
-	protected void initVariables(){
+
+	@Override
+	protected void initVariables() {
 		listsOnly = false;
 		showValue = true;
 	}

@@ -25,7 +25,7 @@ package edu.cmu.cs.stage3.alice.scenegraph;
 
 /**
  * solid, wireframe, or points.
- *
+ * 
  * @see Visual#setFillingStyle
  * @author Dennis Cosgrove
  */
@@ -33,7 +33,7 @@ public class FillingStyle extends edu.cmu.cs.stage3.util.Enumerable {
 	public static final FillingStyle SOLID = new FillingStyle();
 	public static final FillingStyle WIREFRAME = new FillingStyle();
 	public static final FillingStyle POINTS = new FillingStyle();
-    public static FillingStyle valueOf( String s ) {
-        return (FillingStyle)edu.cmu.cs.stage3.util.Enumerable.valueOf( s, FillingStyle.class );
-    }
+	public static FillingStyle valueOf(String s) {
+		return (FillingStyle) edu.cmu.cs.stage3.util.Enumerable.valueOf(s, FillingStyle.class);
+	}
 }

@@ -23,6 +23,8 @@
 
 package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
+import edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener;
+
 public abstract class AbstractRenderTarget implements edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget {
 	private AbstractRenderer m_abstractRenderer;
 	private java.util.Vector m_sgCameras = new java.util.Vector();
@@ -31,59 +33,73 @@ public abstract class AbstractRenderTarget implements edu.cmu.cs.stage3.alice.sc
 	private edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener[] m_renderTargetListenerArray = null;
 	private String m_name = null;
 
-	protected AbstractRenderTarget( AbstractRenderer abstractRenderer ) {
+	protected AbstractRenderTarget(AbstractRenderer abstractRenderer) {
 		m_abstractRenderer = abstractRenderer;
-		m_abstractRenderer.addRenderTarget( this );
+		m_abstractRenderer.addRenderTarget(this);
 	}
+	@Override
 	public void release() {
-		m_abstractRenderer.removeRenderTarget( this );
+		m_abstractRenderer.removeRenderTarget(this);
 	}
-	
+
+	@Override
 	protected void finalize() throws Throwable {
 		release();
 		super.finalize();
 	}
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.renderer.Renderer getRenderer() {
 		return m_abstractRenderer;
 	}
 
+	@Override
 	public void markDirty() {
 	}
+	@Override
 	public java.awt.Dimension getSize() {
 		java.awt.Dimension size = new java.awt.Dimension();
-		return getSize( size );
+		return getSize(size);
 	}
+	@Override
 	public String getName() {
 		return m_name;
 	}
-	public void setName( String name ) {
+	@Override
+	public void setName(String name) {
 		m_name = name;
 	}
-	public void addCamera( edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		if( m_sgCameras.contains( camera ) ) {
-			//pass
+	@Override
+	public void addCamera(edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		if (m_sgCameras.contains(camera)) {
+			// pass
 		} else {
-			m_sgCameras.addElement( camera );
+			m_sgCameras.addElement(camera);
 			m_sgCameraArray = null;
-			//if( m_sgCameras.size()>1 ) {
-			//	Element.warnln( "what the monkey???  more than one camera in renderTarget: " + this );
-			//	Element.warnln( "editors- please remember to remove cameras when opening new worlds." );
-			//	for( int i=0; i<m_sgCameras.size(); i++ ) {
-			//		Element.warnln( "\t" + i  + m_sgCameras.elementAt( i ) );
-			//	}
-			//}
+			// if( m_sgCameras.size()>1 ) {
+			// Element.warnln(
+			// "what the monkey???  more than one camera in renderTarget: " +
+			// this );
+			// Element.warnln(
+			// "editors- please remember to remove cameras when opening new worlds."
+			// );
+			// for( int i=0; i<m_sgCameras.size(); i++ ) {
+			// Element.warnln( "\t" + i + m_sgCameras.elementAt( i ) );
+			// }
+			// }
 		}
 		markDirty();
 	}
-	public void removeCamera( edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		m_sgCameras.removeElement( camera );
+	@Override
+	public void removeCamera(edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		m_sgCameras.removeElement(camera);
 		m_sgCameraArray = null;
 		markDirty();
 	}
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.Camera[] getCameras() {
-		if( m_sgCameraArray == null ) {
-			m_sgCameraArray = new edu.cmu.cs.stage3.alice.scenegraph.Camera[ m_sgCameras.size() ];
-			m_sgCameras.copyInto( m_sgCameraArray );
+		if (m_sgCameraArray == null) {
+			m_sgCameraArray = new edu.cmu.cs.stage3.alice.scenegraph.Camera[m_sgCameras.size()];
+			m_sgCameras.copyInto(m_sgCameraArray);
 		}
 		return m_sgCameraArray;
 	}
@@ -92,92 +108,94 @@ public abstract class AbstractRenderTarget implements edu.cmu.cs.stage3.alice.sc
 		markDirty();
 	}
 
-	public void addRenderTargetListener( edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener renderTargetListener ) {
-		m_renderTargetListeners.addElement( renderTargetListener );
+	@Override
+	public void addRenderTargetListener(edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener renderTargetListener) {
+		m_renderTargetListeners.addElement(renderTargetListener);
 		m_renderTargetListenerArray = null;
 	}
-	public void removeRenderTargetListener( edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener renderTargetListener ) {
-		m_renderTargetListeners.removeElement( renderTargetListener );
+	@Override
+	public void removeRenderTargetListener(edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener renderTargetListener) {
+		m_renderTargetListeners.removeElement(renderTargetListener);
 		m_renderTargetListenerArray = null;
 	}
+	@Override
 	public edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener[] getRenderTargetListeners() {
-		if( m_renderTargetListenerArray == null ) {
-			m_renderTargetListenerArray = new edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener[ m_renderTargetListeners.size() ];
-			m_renderTargetListeners.copyInto( m_renderTargetListenerArray );
+		if (m_renderTargetListenerArray == null) {
+			m_renderTargetListenerArray = new edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener[m_renderTargetListeners.size()];
+			m_renderTargetListeners.copyInto(m_renderTargetListenerArray);
 		}
 		return m_renderTargetListenerArray;
 	}
 
-	public javax.vecmath.Vector4d transformFromViewportToProjection( javax.vecmath.Vector3d xyz, edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		java.awt.Rectangle viewport = getActualViewport( camera );
+	@Override
+	public javax.vecmath.Vector4d transformFromViewportToProjection(javax.vecmath.Vector3d xyz, edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		java.awt.Rectangle viewport = getActualViewport(camera);
 		double halfWidth = viewport.width / 2.0;
 		double halfHeight = viewport.height / 2.0;
 		double x = (xyz.x - halfWidth) / halfWidth;
 		double y = -(xyz.y - halfHeight) / halfHeight;
-		return new javax.vecmath.Vector4d( x, y, xyz.z, 1 );
+		return new javax.vecmath.Vector4d(x, y, xyz.z, 1);
 	}
-	public javax.vecmath.Vector3d transformFromProjectionToCamera( javax.vecmath.Vector4d xyzw, edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		javax.vecmath.Matrix4d inverseProjectionMatrix = getProjectionMatrix( camera );
+	@Override
+	public javax.vecmath.Vector3d transformFromProjectionToCamera(javax.vecmath.Vector4d xyzw, edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		javax.vecmath.Matrix4d inverseProjectionMatrix = getProjectionMatrix(camera);
 		inverseProjectionMatrix.invert();
-		return edu.cmu.cs.stage3.math.MathUtilities.createVector3d( edu.cmu.cs.stage3.math.MathUtilities.multiply( xyzw, inverseProjectionMatrix ) );
+		return edu.cmu.cs.stage3.math.MathUtilities.createVector3d(edu.cmu.cs.stage3.math.MathUtilities.multiply(xyzw, inverseProjectionMatrix));
 	}
-	public javax.vecmath.Vector3d transformFromViewportToCamera( javax.vecmath.Vector3d xyz, edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		return transformFromProjectionToCamera( transformFromViewportToProjection( xyz, camera ), camera );
+	@Override
+	public javax.vecmath.Vector3d transformFromViewportToCamera(javax.vecmath.Vector3d xyz, edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		return transformFromProjectionToCamera(transformFromViewportToProjection(xyz, camera), camera);
 	}
 
-	public javax.vecmath.Vector4d transformFromCameraToProjection( javax.vecmath.Vector3d xyz, edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		javax.vecmath.Matrix4d projectionMatrix = getProjectionMatrix( camera );
-		return edu.cmu.cs.stage3.math.MathUtilities.multiply( xyz, 1, projectionMatrix );
+	@Override
+	public javax.vecmath.Vector4d transformFromCameraToProjection(javax.vecmath.Vector3d xyz, edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		javax.vecmath.Matrix4d projectionMatrix = getProjectionMatrix(camera);
+		return edu.cmu.cs.stage3.math.MathUtilities.multiply(xyz, 1, projectionMatrix);
 	}
-	public javax.vecmath.Vector3d transformFromProjectionToViewport( javax.vecmath.Vector4d xyzw, edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		java.awt.Rectangle viewport = getActualViewport( camera );
+	@Override
+	public javax.vecmath.Vector3d transformFromProjectionToViewport(javax.vecmath.Vector4d xyzw, edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		java.awt.Rectangle viewport = getActualViewport(camera);
 		double halfWidth = viewport.width / 2.0;
 		double halfHeight = viewport.height / 2.0;
-		javax.vecmath.Vector3d xyz = edu.cmu.cs.stage3.math.MathUtilities.createVector3d( xyzw );
+		javax.vecmath.Vector3d xyz = edu.cmu.cs.stage3.math.MathUtilities.createVector3d(xyzw);
 		xyz.x = (xyz.x + 1) * halfWidth;
-		xyz.y = viewport.height - ((xyz.y + 1) * halfHeight);
+		xyz.y = viewport.height - (xyz.y + 1) * halfHeight;
 		return xyz;
 	}
-	public javax.vecmath.Vector3d transformFromCameraToViewport( javax.vecmath.Vector3d xyz, edu.cmu.cs.stage3.alice.scenegraph.Camera camera ) {
-		return transformFromProjectionToViewport( transformFromCameraToProjection( xyz, camera ), camera );
+	@Override
+	public javax.vecmath.Vector3d transformFromCameraToViewport(javax.vecmath.Vector3d xyz, edu.cmu.cs.stage3.alice.scenegraph.Camera camera) {
+		return transformFromProjectionToViewport(transformFromCameraToProjection(xyz, camera), camera);
 	}
 
-	public edu.cmu.cs.stage3.math.Ray getRayAtPixel( edu.cmu.cs.stage3.alice.scenegraph.Camera camera, int pixelX, int pixelY ) {
-		javax.vecmath.Matrix4d inverseProjection = getProjectionMatrix( camera );
+	@Override
+	public edu.cmu.cs.stage3.math.Ray getRayAtPixel(edu.cmu.cs.stage3.alice.scenegraph.Camera camera, int pixelX, int pixelY) {
+		javax.vecmath.Matrix4d inverseProjection = getProjectionMatrix(camera);
 		inverseProjection.invert();
 
-		javax.vecmath.Point3d origin = new javax.vecmath.Point3d( 
-				inverseProjection.m20 / inverseProjection.m23, 
-				inverseProjection.m21 / inverseProjection.m23, 
-				inverseProjection.m22 / inverseProjection.m23 
-		);
+		javax.vecmath.Point3d origin = new javax.vecmath.Point3d(inverseProjection.m20 / inverseProjection.m23, inverseProjection.m21 / inverseProjection.m23, inverseProjection.m22 / inverseProjection.m23);
 
-		java.awt.Rectangle viewport = getActualViewport( camera );
+		java.awt.Rectangle viewport = getActualViewport(camera);
 		double halfWidth = viewport.width / 2.0;
 		double halfHeight = viewport.height / 2.0;
 		double x = (pixelX + 0.5 - halfWidth) / halfWidth;
 		double y = -(pixelY + 0.5 - halfHeight) / halfHeight;
 
-		javax.vecmath.Vector4d qs = new javax.vecmath.Vector4d( x, y, 0, 1 );
-		javax.vecmath.Vector4d qw = edu.cmu.cs.stage3.math.MathUtilities.multiply( qs, inverseProjection );
+		javax.vecmath.Vector4d qs = new javax.vecmath.Vector4d(x, y, 0, 1);
+		javax.vecmath.Vector4d qw = edu.cmu.cs.stage3.math.MathUtilities.multiply(qs, inverseProjection);
 
-		javax.vecmath.Vector3d direction = new javax.vecmath.Vector3d( 
-				qw.x * inverseProjection.m23 - qw.w * inverseProjection.m20, 
-				qw.y * inverseProjection.m23 - qw.w * inverseProjection.m21, 
-				qw.z * inverseProjection.m23 - qw.w * inverseProjection.m22 
-		);
+		javax.vecmath.Vector3d direction = new javax.vecmath.Vector3d(qw.x * inverseProjection.m23 - qw.w * inverseProjection.m20, qw.y * inverseProjection.m23 - qw.w * inverseProjection.m21, qw.z * inverseProjection.m23 - qw.w * inverseProjection.m22);
 		direction.normalize();
 
-		return new edu.cmu.cs.stage3.math.Ray( origin, direction );
+		return new edu.cmu.cs.stage3.math.Ray(origin, direction);
 	}
 
 	protected void onClear() {
 		m_abstractRenderer.enterIgnore();
 		try {
-			edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetEvent renderTargetEvent = new edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetEvent( this );
+			edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetEvent renderTargetEvent = new edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetEvent(this);
 			edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener[] rtls = getRenderTargetListeners();
-			for( int i = 0; i < rtls.length; i++ ) {
-				rtls[ i ].cleared( renderTargetEvent );
+			for (RenderTargetListener rtl : rtls) {
+				rtl.cleared(renderTargetEvent);
 			}
 		} finally {
 			m_abstractRenderer.leaveIgnore();
@@ -186,16 +204,17 @@ public abstract class AbstractRenderTarget implements edu.cmu.cs.stage3.alice.sc
 	protected void onRender() {
 		m_abstractRenderer.enterIgnore();
 		try {
-			edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetEvent renderTargetEvent = new edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetEvent( this );
+			edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetEvent renderTargetEvent = new edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetEvent(this);
 			edu.cmu.cs.stage3.alice.scenegraph.renderer.event.RenderTargetListener[] rtls = getRenderTargetListeners();
-			for( int i = 0; i < rtls.length; i++ ) {
-				rtls[ i ].rendered( renderTargetEvent );
+			for (RenderTargetListener rtl : rtls) {
+				rtl.rendered(renderTargetEvent);
 			}
 		} finally {
 			m_abstractRenderer.leaveIgnore();
 		}
 	}
-	
+
+	@Override
 	public String toString() {
 		return getClass().getName() + "[" + getName() + "]";
 	}

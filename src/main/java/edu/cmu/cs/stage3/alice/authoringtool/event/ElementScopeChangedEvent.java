@@ -30,7 +30,7 @@ public class ElementScopeChangedEvent {
 	protected edu.cmu.cs.stage3.alice.core.Element oldElementScope;
 	protected edu.cmu.cs.stage3.alice.core.Element newElementScope;
 
-	public ElementScopeChangedEvent( edu.cmu.cs.stage3.alice.core.Element oldElementScope, edu.cmu.cs.stage3.alice.core.Element newElementScope ) {
+	public ElementScopeChangedEvent(edu.cmu.cs.stage3.alice.core.Element oldElementScope, edu.cmu.cs.stage3.alice.core.Element newElementScope) {
 		this.oldElementScope = oldElementScope;
 		this.newElementScope = newElementScope;
 	}

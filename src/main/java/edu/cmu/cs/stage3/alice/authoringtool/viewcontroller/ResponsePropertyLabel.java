@@ -27,14 +27,14 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
  * @author Jason Pratt
  * @deprecated
  */
+@Deprecated
 public class ResponsePropertyLabel extends PropertyLabel {
-	public ResponsePropertyLabel( edu.cmu.cs.stage3.alice.core.property.ResponseProperty property ) {
-		super( property );
+	public ResponsePropertyLabel(edu.cmu.cs.stage3.alice.core.property.ResponseProperty property) {
+		super(property);
 	}
 
-	
+	@Override
 	public void update() {
-		setText( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( property.get(), property ) );
+		setText(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(property.get(), property));
 	}
 }
-

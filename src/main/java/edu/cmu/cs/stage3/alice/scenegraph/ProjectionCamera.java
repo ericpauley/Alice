@@ -27,24 +27,26 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class ProjectionCamera extends Camera {
-	public static final Property PROJECTION_PROPERTY = new Property( ProjectionCamera.class, "PROJECTION" );
+	public static final Property PROJECTION_PROPERTY = new Property(ProjectionCamera.class, "PROJECTION");
 	private javax.vecmath.Matrix4d m_projection = null;
 
 	/**
 	 * @see #setProjection
 	 */
-	
+
+	@Override
 	public javax.vecmath.Matrix4d getProjection() {
 		return m_projection;
 	}
 	/**
 	 * sets the projection property.<br>
+	 * 
 	 * @see #getProjection
 	 */
-	public void setProjection( javax.vecmath.Matrix4d projection ) {
-		if( notequal( m_projection, projection ) ) {
+	public void setProjection(javax.vecmath.Matrix4d projection) {
+		if (notequal(m_projection, projection)) {
 			m_projection = projection;
-			onPropertyChange( PROJECTION_PROPERTY );
+			onPropertyChange(PROJECTION_PROPERTY);
 		}
 	}
 }

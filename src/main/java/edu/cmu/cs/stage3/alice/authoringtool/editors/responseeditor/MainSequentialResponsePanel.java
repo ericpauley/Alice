@@ -24,27 +24,25 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.responseeditor;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2001 Company:
+ * 
  * @author
  * @version 1.0
  */
 
-public class MainSequentialResponsePanel extends MainCompositeResponsePanel{
+public class MainSequentialResponsePanel extends MainCompositeResponsePanel {
 
-    public MainSequentialResponsePanel(){
-        super();
-    }
+	public MainSequentialResponsePanel() {
+		super();
+	}
 
-    
-	protected java.awt.Color getCustomBackgroundColor(){
-        return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("DoInOrder");
-    }
+	@Override
+	protected java.awt.Color getCustomBackgroundColor() {
+		return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("DoInOrder");
+	}
 
-    public void set(edu.cmu.cs.stage3.alice.core.response.CompositeResponse response, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool newAuthoringTool) {
-        super.set(response, newAuthoringTool);
-    }
+	public void set(edu.cmu.cs.stage3.alice.core.response.CompositeResponse response, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool newAuthoringTool) {
+		super.set(response, newAuthoringTool);
+	}
 
 }

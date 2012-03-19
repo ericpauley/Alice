@@ -27,14 +27,15 @@ import edu.cmu.cs.stage3.alice.core.Queue;
 import edu.cmu.cs.stage3.alice.core.property.QueueProperty;
 
 public abstract class QueueNumberQuestion extends edu.cmu.cs.stage3.alice.core.question.NumberQuestion {
-	public final QueueProperty queue = new QueueProperty( this, "queue", null );
-	//protected abstract double getValue( Queue queue );
-	protected abstract int getValue( Queue queue );
-	
+	public final QueueProperty queue = new QueueProperty(this, "queue", null);
+	// protected abstract double getValue( Queue queue );
+	protected abstract int getValue(Queue queue);
+
+	@Override
 	public Object getValue() {
 		Queue queueValue = queue.getQueueValue();
-		if( queueValue!=null ) {
-            return new Integer( getValue( queueValue ) );
+		if (queueValue != null) {
+			return new Integer(getValue(queueValue));
 		} else {
 			return null;
 		}

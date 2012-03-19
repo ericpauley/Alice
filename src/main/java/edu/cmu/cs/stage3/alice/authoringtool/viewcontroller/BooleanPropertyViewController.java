@@ -32,63 +32,73 @@ public class BooleanPropertyViewController extends PropertyViewController {
 	protected java.awt.Color originalForegroundColor;
 
 	public BooleanPropertyViewController() {
-		originalForegroundColor = booleanLabel.getForeground(); // a bit of a hack; default color should be defined somewhere
+		originalForegroundColor = booleanLabel.getForeground(); // a bit of a
+																// hack; default
+																// color should
+																// be defined
+																// somewhere
 
-		checkBox.setOpaque( false );
-		checkBox.addActionListener(
-			new java.awt.event.ActionListener() {
-				public void actionPerformed( java.awt.event.ActionEvent ev ) {
-					((Runnable)factory.createItem( BooleanPropertyViewController.this.checkBox.isSelected() ? Boolean.TRUE : Boolean.FALSE )).run();
-				}
+		checkBox.setOpaque(false);
+		checkBox.addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent ev) {
+				((Runnable) factory.createItem(checkBox.isSelected() ? Boolean.TRUE : Boolean.FALSE)).run();
 			}
-		);
+		});
 	}
 
-	public void set( edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-		super.set( property, includeDefaults, allowExpressions, false, omitPropertyName, factory );
-		if( omitPropertyName ) {
-			add( javax.swing.Box.createHorizontalStrut( 8 ), java.awt.BorderLayout.WEST );
+	public void set(edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
+		super.set(property, includeDefaults, allowExpressions, false, omitPropertyName, factory);
+		if (omitPropertyName) {
+			add(javax.swing.Box.createHorizontalStrut(8), java.awt.BorderLayout.WEST);
 		}
 
 		refreshGUI();
 	}
 
-	
-	public void setEditingEnabled( boolean editingEnabled ) {
-		super.setEditingEnabled( editingEnabled );
-		checkBox.setEnabled( editingEnabled );
+	@Override
+	public void setEditingEnabled(boolean editingEnabled) {
+		super.setEditingEnabled(editingEnabled);
+		checkBox.setEnabled(editingEnabled);
 	}
 
-	
+	@Override
 	protected java.awt.Component getNativeComponent() {
 		return booleanLabel;
 	}
 
-	
+	@Override
 	protected Class getNativeClass() {
 		return Boolean.class;
 	}
 
-	
+	@Override
 	protected void updateNativeComponent() {
-//		boolean b = ((Boolean)property.get()).booleanValue();
-//		if( checkBox.isSelected() != b ) {
-//			checkBox.setSelected( b );
-//		}
-		if( (property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.response.IfElseInOrder) ||
-			(property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.question.userdefined.IfElse) ||
-			(property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.question.And) ||
-			(property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.question.Or) ||
-			(property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.question.Not) )
-		{ // hack for red, unfinished look
-//			if( property.getValue().equals( Boolean.TRUE ) || property.getValue().equals( Boolean.FALSE ) ) {
-//				booleanLabel.setForeground( new java.awt.Color( 200, 30, 30 ) );
-//			} else {
-//				booleanLabel.setForeground( originalForegroundColor ); // a bit of a hack; default color should be defined somewhere
-//			}
+		// boolean b = ((Boolean)property.get()).booleanValue();
+		// if( checkBox.isSelected() != b ) {
+		// checkBox.setSelected( b );
+		// }
+		if (property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.response.IfElseInOrder || property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.question.userdefined.IfElse || property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.question.And || property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.question.Or || property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.question.Not) { // hack
+																																																																																																								// for
+																																																																																																								// red,
+																																																																																																								// unfinished
+																																																																																																								// look
+		// if( property.getValue().equals( Boolean.TRUE ) ||
+		// property.getValue().equals( Boolean.FALSE ) ) {
+		// booleanLabel.setForeground( new java.awt.Color( 200, 30, 30 ) );
+		// } else {
+		// booleanLabel.setForeground( originalForegroundColor ); // a bit of a
+		// hack; default color should be defined somewhere
+		// }
 		} else {
-			booleanLabel.setForeground( originalForegroundColor ); // a bit of a hack; default color should be defined somewhere
+			booleanLabel.setForeground(originalForegroundColor); // a bit of a
+																	// hack;
+																	// default
+																	// color
+																	// should be
+																	// defined
+																	// somewhere
 		}
-		booleanLabel.setText( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue( property.getValue(), property, property.getOwner().data ) );
+		booleanLabel.setText(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getReprForValue(property.getValue(), property, property.getOwner().data));
 	}
 }

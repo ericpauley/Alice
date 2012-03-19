@@ -28,110 +28,115 @@ public class AxisAngle implements Cloneable {
 	protected double m_angle = 0;
 	public AxisAngle() {
 	}
-	public AxisAngle( double x, double y, double z, double angle ) {
-		this( new javax.vecmath.Vector3d( x, y, z ), angle );
+	public AxisAngle(double x, double y, double z, double angle) {
+		this(new javax.vecmath.Vector3d(x, y, z), angle);
 	}
-	public AxisAngle( double[] axis, double angle ) {
-		this( new javax.vecmath.Vector3d( axis ), angle );
+	public AxisAngle(double[] axis, double angle) {
+		this(new javax.vecmath.Vector3d(axis), angle);
 	}
-	public AxisAngle( double[] array ) {
-		this( array[0], array[1], array[2], array[3] );
+	public AxisAngle(double[] array) {
+		this(array[0], array[1], array[2], array[3]);
 	}
-	public AxisAngle( javax.vecmath.Vector3d axis, double angle ) {
+	public AxisAngle(javax.vecmath.Vector3d axis, double angle) {
 		m_axis = axis;
 		m_angle = angle;
 	}
-	public AxisAngle( Matrix33 m ) {
-		setMatrix33( m );
+	public AxisAngle(Matrix33 m) {
+		setMatrix33(m);
 	}
-	public AxisAngle( Quaternion q ) {
-		setQuaternion( q );
+	public AxisAngle(Quaternion q) {
+		setQuaternion(q);
 	}
-	public AxisAngle( EulerAngles ea ) {
-		setEulerAngles( ea );
+	public AxisAngle(EulerAngles ea) {
+		setEulerAngles(ea);
 	}
 	public double getAngle() {
 		return m_angle;
 	}
-	public void setAngle( double angle ) {
+	public void setAngle(double angle) {
 		m_angle = angle;
 	}
 	public javax.vecmath.Vector3d getAxis() {
-		if( m_axis!=null ) {
-			return (javax.vecmath.Vector3d)m_axis.clone();
+		if (m_axis != null) {
+			return (javax.vecmath.Vector3d) m_axis.clone();
 		} else {
 			return null;
 		}
 	}
-	public void setAxis( javax.vecmath.Vector3d axis ) {
+	public void setAxis(javax.vecmath.Vector3d axis) {
 		m_axis = axis;
 	}
-	
+
+	@Override
 	public synchronized Object clone() {
 		try {
-			AxisAngle axisAngle = (AxisAngle)super.clone();
-			axisAngle.setAxis( (javax.vecmath.Vector3d)m_axis.clone() );
+			AxisAngle axisAngle = (AxisAngle) super.clone();
+			axisAngle.setAxis((javax.vecmath.Vector3d) m_axis.clone());
 			return axisAngle;
-		} catch( CloneNotSupportedException e ) {
+		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
 		}
 	}
-	
-	public boolean equals( Object o ) {
-		if( o==this ) return true;
-		if( o!=null && o instanceof AxisAngle ) {
-			AxisAngle aa = (AxisAngle)o;
-			//todo handle null
-			return m_axis.equals( aa.m_axis ) && m_angle==aa.m_angle;
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (o != null && o instanceof AxisAngle) {
+			AxisAngle aa = (AxisAngle) o;
+			// todo handle null
+			return m_axis.equals(aa.m_axis) && m_angle == aa.m_angle;
 		} else {
 			return false;
 		}
 	}
 	public double[] getArray() {
-		double[] a = { m_axis.x, m_axis.y, m_axis.z, m_angle };
+		double[] a = {m_axis.x, m_axis.y, m_axis.z, m_angle};
 		return a;
 	}
-	public void setArray( double[] a ) {
+	public void setArray(double[] a) {
 		m_axis.x = a[0];
 		m_axis.y = a[1];
 		m_axis.z = a[2];
 		m_angle = a[3];
 	}
 	public Quaternion getQuaternion() {
-		return new Quaternion( this );
+		return new Quaternion(this);
 	}
-	public void setQuaternion( Quaternion q ) {
-		m_angle  = 2*Math.acos(q.w);
-		m_axis.x = 2*Math.asin(q.x);
-		m_axis.y = 2*Math.asin(q.y);
-		m_axis.z = 2*Math.asin(q.z);
+	public void setQuaternion(Quaternion q) {
+		m_angle = 2 * Math.acos(q.w);
+		m_axis.x = 2 * Math.asin(q.x);
+		m_axis.y = 2 * Math.asin(q.y);
+		m_axis.z = 2 * Math.asin(q.z);
 	}
 	public EulerAngles getEulerAngles() {
-		return new EulerAngles( this );
+		return new EulerAngles(this);
 	}
-	public void setEulerAngles( EulerAngles ea ) {
-		//todo: optimize?
-		setQuaternion( ea.getQuaternion() );
+	public void setEulerAngles(EulerAngles ea) {
+		// todo: optimize?
+		setQuaternion(ea.getQuaternion());
 	}
 	public Matrix33 getMatrix33() {
-		return new Matrix33( this );
+		return new Matrix33(this);
 	}
-	public void setMatrix33( Matrix33 m ) {
-		//todo: optimize?
-		setQuaternion( m.getQuaternion() );
+	public void setMatrix33(Matrix33 m) {
+		// todo: optimize?
+		setQuaternion(m.getQuaternion());
 	}
-	
+
+	@Override
 	public String toString() {
-		return "edu.cmu.cs.stage3.math.AxisAngle[axis.x="+m_axis.x+",axis.y="+m_axis.y+",axis.z="+m_axis.z+",angle="+m_angle+"]";
+		return "edu.cmu.cs.stage3.math.AxisAngle[axis.x=" + m_axis.x + ",axis.y=" + m_axis.y + ",axis.z=" + m_axis.z + ",angle=" + m_angle + "]";
 	}
-	public static AxisAngle valueOf( String s ) {
-		String[] markers = { "edu.cmu.cs.stage3.math.AxisAngle[axis.x=", ",axis.y=", ",axis.z=", ",angle=", "]" };
-		double[] values = new double[markers.length-1];
-		for( int i=0; i<values.length; i++ ) {
-			int begin = s.indexOf( markers[i] ) + markers[i].length();
-			int end = s.indexOf( markers[i+1] );
-			values[i] = Double.valueOf( s.substring( begin, end ) ).doubleValue();
+	public static AxisAngle valueOf(String s) {
+		String[] markers = {"edu.cmu.cs.stage3.math.AxisAngle[axis.x=", ",axis.y=", ",axis.z=", ",angle=", "]"};
+		double[] values = new double[markers.length - 1];
+		for (int i = 0; i < values.length; i++) {
+			int begin = s.indexOf(markers[i]) + markers[i].length();
+			int end = s.indexOf(markers[i + 1]);
+			values[i] = Double.valueOf(s.substring(begin, end)).doubleValue();
 		}
-		return new AxisAngle( values );
+		return new AxisAngle(values);
 	}
 }

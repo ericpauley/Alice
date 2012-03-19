@@ -38,7 +38,7 @@ public class EStreamTokenizer extends java.io.StreamTokenizer {
 		hold_back = false;
 	}
 
-	
+	@Override
 	public int nextToken() throws java.io.IOException {
 		if (hold_back) {
 			ttype = next_ttype;

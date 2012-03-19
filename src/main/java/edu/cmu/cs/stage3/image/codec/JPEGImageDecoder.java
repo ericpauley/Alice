@@ -59,76 +59,76 @@ import com.sun.image.codec.jpeg.ImageFormatException;
  */
 public class JPEGImageDecoder extends ImageDecoderImpl {
 
-    public JPEGImageDecoder(InputStream input,
-                            ImageDecodeParam param) {
-        super(input, param);
-    }
+	public JPEGImageDecoder(InputStream input, ImageDecodeParam param) {
+		super(input, param);
+	}
 
-    
+	@Override
 	public RenderedImage decodeAsRenderedImage(int page) throws IOException {
-        if (page != 0) {
-            throw new IOException(JaiI18N.getString("JPEGImageDecoder0"));
-        }
-        return new JPEGImage(input);
-    }
+		if (page != 0) {
+			throw new IOException(JaiI18N.getString("JPEGImageDecoder0"));
+		}
+		return new JPEGImage(input);
+	}
 }
 
 class JPEGImage extends SimpleRenderedImage {
 
-    private BufferedImage image = null;
+	private BufferedImage image = null;
 
-    /**
-     * Construct a JPEGmage.
-     *
-     * @param stream The JPEG InputStream.
-     */
-    public JPEGImage(InputStream stream) {
-        com.sun.image.codec.jpeg.JPEGImageDecoder decoder =
-            com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(stream);
-        try {
-            // decodeAsBufferedImage performs default color conversions
-            image = decoder.decodeAsBufferedImage();
-        } catch (ImageFormatException e) {
-            throw new RuntimeException(JaiI18N.getString("JPEGImageDecoder1"));
-        } catch (IOException e) {
-            throw new RuntimeException(JaiI18N.getString("JPEGImageDecoder2"));
+	/**
+	 * Construct a JPEGmage.
+	 * 
+	 * @param stream
+	 *            The JPEG InputStream.
+	 */
+	public JPEGImage(InputStream stream) {
+		com.sun.image.codec.jpeg.JPEGImageDecoder decoder = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(stream);
+		try {
+			// decodeAsBufferedImage performs default color conversions
+			image = decoder.decodeAsBufferedImage();
+		} catch (ImageFormatException e) {
+			throw new RuntimeException(JaiI18N.getString("JPEGImageDecoder1"));
+		} catch (IOException e) {
+			throw new RuntimeException(JaiI18N.getString("JPEGImageDecoder2"));
+		}
+
+		minX = 0;
+		minY = 0;
+		tileWidth = width = image.getWidth();
+		tileHeight = height = image.getHeight();
+
+		// Force image to have a ComponentSampleModel
+		// since SinglePixelPackedSampleModels are not working
+		if (!(image.getSampleModel() instanceof ComponentSampleModel)) {
+			int type = -1;
+			int numBands = image.getSampleModel().getNumBands();
+			if (numBands == 1) {
+				type = BufferedImage.TYPE_BYTE_GRAY;
+			} else if (numBands == 3) {
+				type = BufferedImage.TYPE_3BYTE_BGR;
+			} else if (numBands == 4) {
+				type = BufferedImage.TYPE_4BYTE_ABGR;
+			} else {
+				throw new RuntimeException(JaiI18N.getString("JPEGImageDecoder3"));
+			}
+
+			BufferedImage bi = new BufferedImage(width, height, type);
+			Graphics2D g = bi.createGraphics();
+			g.drawRenderedImage(image, new AffineTransform());
+			image = bi;
+		}
+
+		sampleModel = image.getSampleModel();
+		colorModel = image.getColorModel();
 	}
 
-        minX = 0;
-        minY = 0;
-        tileWidth = width = image.getWidth();
-        tileHeight = height = image.getHeight();
+	@Override
+	public synchronized Raster getTile(int tileX, int tileY) {
+		if (tileX != 0 || tileY != 0) {
+			throw new IllegalArgumentException(JaiI18N.getString("JPEGImageDecoder4"));
+		}
 
-        // Force image to have a ComponentSampleModel
-        // since SinglePixelPackedSampleModels are not working
-        if (!(image.getSampleModel() instanceof ComponentSampleModel)) {
-            int type = -1;
-            int numBands = image.getSampleModel().getNumBands();
-            if (numBands == 1) {
-                type = BufferedImage.TYPE_BYTE_GRAY;
-            } else if (numBands == 3) {
-                type = BufferedImage.TYPE_3BYTE_BGR;
-            } else if (numBands == 4) {
-                type = BufferedImage.TYPE_4BYTE_ABGR;
-            } else {
-                throw new RuntimeException(JaiI18N.getString("JPEGImageDecoder3"));
-            }
-
-            BufferedImage bi = new BufferedImage(width, height, type);
-            Graphics2D g = bi.createGraphics();
-            g.drawRenderedImage(image, new AffineTransform());
-            image = bi;
-        }
-
-        sampleModel = image.getSampleModel();
-        colorModel = image.getColorModel();
-    }
-
-    public synchronized Raster getTile(int tileX, int tileY) {
-        if (tileX != 0 || tileY != 0) {
-            throw new IllegalArgumentException(JaiI18N.getString("JPEGImageDecoder4"));
-        }
-
-        return image.getTile(0, 0);
-    }
+		return image.getTile(0, 0);
+	}
 }

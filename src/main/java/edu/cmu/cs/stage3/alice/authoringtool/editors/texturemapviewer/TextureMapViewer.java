@@ -23,8 +23,12 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.editors.texturemapviewer;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Image;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
  * @author Jason Pratt
@@ -39,23 +43,26 @@ public class TextureMapViewer extends javax.swing.JPanel implements edu.cmu.cs.s
 		jbInit();
 	}
 
+	@Override
 	public javax.swing.JComponent getJComponent() {
 		return this;
 	}
 
+	@Override
 	public Object getObject() {
 		return textureMap;
 	}
 
-	public void setAuthoringTool( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool ) {
+	@Override
+	public void setAuthoringTool(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool) {
 	}
 
-	public void setObject( edu.cmu.cs.stage3.alice.core.TextureMap textureMap ) {
+	public void setObject(edu.cmu.cs.stage3.alice.core.TextureMap textureMap) {
 		this.textureMap = textureMap;
-		if( textureMap != null ) {
-			texturePanel.setImage( textureMap.image.getImageValue() );
+		if (textureMap != null) {
+			texturePanel.setImage(textureMap.image.getImageValue());
 		} else {
-			texturePanel.setImage( null );
+			texturePanel.setImage(null);
 		}
 		texturePanel.revalidate();
 		texturePanel.repaint();
@@ -68,71 +75,99 @@ public class TextureMapViewer extends javax.swing.JPanel implements edu.cmu.cs.s
 		int imageHeight = 0;
 
 		public ImagePanel() {
-			this.setBackground( java.awt.Color.black );
+			setBackground(java.awt.Color.black);
 		}
 
-		public void setImage( Image image ) {
+		public void setImage(Image image) {
 			this.image = image;
-			if( image != null ) {
-				java.awt.MediaTracker tracker = new java.awt.MediaTracker( this );
-				tracker.addImage( image, 0 );
+			if (image != null) {
+				java.awt.MediaTracker tracker = new java.awt.MediaTracker(this);
+				tracker.addImage(image, 0);
 				try {
-					tracker.waitForAll( 1000 ); // wait a second max.
-					imageWidth = image.getWidth( this );
-					imageHeight = image.getHeight( this );
-					java.awt.Dimension size = new java.awt.Dimension( imageWidth + buffer*2, imageHeight + buffer*2 );
-					setMinimumSize( size );
-					setPreferredSize( size );
-				} catch( java.lang.InterruptedException e ) {
-					edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Interrupted while loading image.", e );
+					tracker.waitForAll(1000); // wait a second max.
+					imageWidth = image.getWidth(this);
+					imageHeight = image.getHeight(this);
+					java.awt.Dimension size = new java.awt.Dimension(imageWidth + buffer * 2, imageHeight + buffer * 2);
+					setMinimumSize(size);
+					setPreferredSize(size);
+				} catch (java.lang.InterruptedException e) {
+					edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Interrupted while loading image.", e);
 				}
 			} else {
-				java.awt.Dimension size = new java.awt.Dimension( buffer*2, buffer*2 );
-				setMinimumSize( size );
-				setPreferredSize( size );
+				java.awt.Dimension size = new java.awt.Dimension(buffer * 2, buffer * 2);
+				setMinimumSize(size);
+				setPreferredSize(size);
 			}
 		}
 
-		
-		public void paintComponent( java.awt.Graphics g ) {
-			super.paintComponent( g );
-			if( image != null ) {
-				g.setColor( java.awt.Color.white );
-				g.drawRect( buffer, buffer, imageWidth + 1, imageHeight + 1 );
-				g.drawImage( image, buffer + 1, buffer + 1, this );
+		@Override
+		public void paintComponent(java.awt.Graphics g) {
+			super.paintComponent(g);
+			if (image != null) {
+				g.setColor(java.awt.Color.white);
+				g.drawRect(buffer, buffer, imageWidth + 1, imageHeight + 1);
+				g.drawImage(image, buffer + 1, buffer + 1, this);
 			}
 		}
 	}
 
-	///////////////////////////////////////////////
+	// /////////////////////////////////////////////
 	// AuthoringToolStateListener interface
-	///////////////////////////////////////////////
+	// /////////////////////////////////////////////
 
-	public void stateChanging( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldLoading( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldUnLoading( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStarting( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStopping( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldPausing( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldSaving( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
+	@Override
+	public void stateChanging(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldLoading(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldUnLoading(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStarting(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStopping(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldPausing(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldSaving(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
 
-	public void stateChanged( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldLoaded( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldUnLoaded( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStarted( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldStopped( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldPaused( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
-	public void worldSaved( edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev ) {}
+	@Override
+	public void stateChanged(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldLoaded(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldUnLoaded(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStarted(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldStopped(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldPaused(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
+	@Override
+	public void worldSaved(edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent ev) {
+	}
 
-	//////////////////////
+	// ////////////////////
 	// Autogenerated
-	//////////////////////
+	// ////////////////////
 	BorderLayout borderLayout1 = new BorderLayout();
 	JScrollPane textureScrollPane = new JScrollPane();
 
 	private void jbInit() {
-		this.setLayout(borderLayout1);
-		this.setBackground(Color.black);
+		setLayout(borderLayout1);
+		setBackground(Color.black);
 		textureScrollPane.getViewport().setBackground(Color.black);
 		textureScrollPane.setBorder(null);
 		this.add(textureScrollPane, BorderLayout.CENTER);

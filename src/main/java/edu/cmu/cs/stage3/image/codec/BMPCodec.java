@@ -57,94 +57,79 @@ import java.io.OutputStream;
  */
 public final class BMPCodec extends ImageCodec {
 
-    public BMPCodec() {}
+	public BMPCodec() {
+	}
 
-    
+	@Override
 	public String getFormatName() {
-        return "bmp";
-    }
+		return "bmp";
+	}
 
-    
+	@Override
 	public Class getEncodeParamClass() {
-        return BMPEncodeParam.class;
-    }
+		return BMPEncodeParam.class;
+	}
 
-    
+	@Override
 	public Class getDecodeParamClass() {
-        return Object.class;
-    }
+		return Object.class;
+	}
 
-    
-	public boolean canEncodeImage(RenderedImage im,
-                                  ImageEncodeParam param) {
-        SampleModel sampleModel = im.getSampleModel();
-        int dataType = sampleModel.getTransferType();
-        if ((dataType == DataBuffer.TYPE_USHORT) ||
-	    (dataType == DataBuffer.TYPE_SHORT) ||
-	    (dataType == DataBuffer.TYPE_INT) ||
-	    (dataType == DataBuffer.TYPE_FLOAT) ||
-            (dataType == DataBuffer.TYPE_DOUBLE)) {
-            return false;
-        }
+	@Override
+	public boolean canEncodeImage(RenderedImage im, ImageEncodeParam param) {
+		SampleModel sampleModel = im.getSampleModel();
+		int dataType = sampleModel.getTransferType();
+		if (dataType == DataBuffer.TYPE_USHORT || dataType == DataBuffer.TYPE_SHORT || dataType == DataBuffer.TYPE_INT || dataType == DataBuffer.TYPE_FLOAT || dataType == DataBuffer.TYPE_DOUBLE) {
+			return false;
+		}
 
-        if (param != null) {
-            if (!(param instanceof BMPEncodeParam)) {
-                return false;
-            }
-            BMPEncodeParam BMPParam = (BMPEncodeParam)param;
+		if (param != null) {
+			if (!(param instanceof BMPEncodeParam)) {
+				return false;
+			}
+			BMPEncodeParam BMPParam = (BMPEncodeParam) param;
 
-            int version = BMPParam.getVersion();
-            if ((version == BMPEncodeParam.VERSION_2) ||
-                (version == BMPEncodeParam.VERSION_4)) {
-                return false;
-            }
-        }
+			int version = BMPParam.getVersion();
+			if (version == BMPEncodeParam.VERSION_2 || version == BMPEncodeParam.VERSION_4) {
+				return false;
+			}
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    
-	protected ImageEncoder createImageEncoder(OutputStream dst,
-                                              ImageEncodeParam param) {
-        BMPEncodeParam p = null;
-        if (param != null) {
-            p = (BMPEncodeParam)param;
-        }
+	@Override
+	protected ImageEncoder createImageEncoder(OutputStream dst, ImageEncodeParam param) {
+		BMPEncodeParam p = null;
+		if (param != null) {
+			p = (BMPEncodeParam) param;
+		}
 
-        return new BMPImageEncoder(dst, p);
-    }
+		return new BMPImageEncoder(dst, p);
+	}
 
-    
-	protected ImageDecoder createImageDecoder(InputStream src,
-                                              ImageDecodeParam param) {
-        return new BMPImageDecoder(src, null);
-    }
+	@Override
+	protected ImageDecoder createImageDecoder(InputStream src, ImageDecodeParam param) {
+		return new BMPImageDecoder(src, null);
+	}
 
-    
-	protected ImageDecoder createImageDecoder(File src,
-                                              ImageDecodeParam param)
-        throws IOException {
-        return new BMPImageDecoder(new FileInputStream(src), null);
-    }
+	@Override
+	protected ImageDecoder createImageDecoder(File src, ImageDecodeParam param) throws IOException {
+		return new BMPImageDecoder(new FileInputStream(src), null);
+	}
 
-    
-	protected ImageDecoder createImageDecoder(SeekableStream src,
-                                              ImageDecodeParam param) {
-        return new BMPImageDecoder(src, null);
-    }
+	@Override
+	protected ImageDecoder createImageDecoder(SeekableStream src, ImageDecodeParam param) {
+		return new BMPImageDecoder(src, null);
+	}
 
-    
+	@Override
 	public int getNumHeaderBytes() {
-        return 2;
-    }
+		return 2;
+	}
 
-    
+	@Override
 	public boolean isFormatRecognized(byte[] header) {
-        return ((header[0] == 0x42) &&
-                (header[1] == 0x4d));
-    }
+		return header[0] == 0x42 && header[1] == 0x4d;
+	}
 }
-
-
-
-

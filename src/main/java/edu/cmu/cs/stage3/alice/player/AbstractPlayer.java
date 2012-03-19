@@ -23,6 +23,9 @@
 
 package edu.cmu.cs.stage3.alice.player;
 
+import edu.cmu.cs.stage3.alice.core.RenderTarget;
+import edu.cmu.cs.stage3.alice.core.reference.PropertyReference;
+
 public abstract class AbstractPlayer {
 	private edu.cmu.cs.stage3.alice.scenegraph.renderer.DefaultRenderTargetFactory m_drtf;
 	private edu.cmu.cs.stage3.alice.core.Clock m_clock = newClock();
@@ -30,85 +33,88 @@ public abstract class AbstractPlayer {
 	private edu.cmu.cs.stage3.alice.core.World m_world = null;
 	private boolean m_isGoodToSchedule = false;
 
-	public AbstractPlayer( Class<?> rendererClass ) {
-		m_drtf = new edu.cmu.cs.stage3.alice.scenegraph.renderer.DefaultRenderTargetFactory( rendererClass );
+	public AbstractPlayer(Class<?> rendererClass) {
+		m_drtf = new edu.cmu.cs.stage3.alice.scenegraph.renderer.DefaultRenderTargetFactory(rendererClass);
 		edu.cmu.cs.stage3.scheduler.Scheduler scheduler = new edu.cmu.cs.stage3.scheduler.AbstractScheduler() {
-			
-			protected void handleCaughtThowable( Runnable source, Throwable t ) {
-				markEachFrameRunnableForRemoval( source );
+
+			@Override
+			protected void handleCaughtThowable(Runnable source, Throwable t) {
+				markEachFrameRunnableForRemoval(source);
 				t.printStackTrace();
 			}
 		};
-		scheduler.addEachFrameRunnable( new Runnable() {
+		scheduler.addEachFrameRunnable(new Runnable() {
+			@Override
 			public void run() {
 				AbstractPlayer.this.schedule();
 			}
-		} );
-		edu.cmu.cs.stage3.scheduler.SchedulerThread schedulerThread = new edu.cmu.cs.stage3.scheduler.SchedulerThread( scheduler );
-		//schedulerThread.setSleepMillis( 1 );
-		//schedulerThread.setPriority( Thread.MAX_PRIORITY );
+		});
+		edu.cmu.cs.stage3.scheduler.SchedulerThread schedulerThread = new edu.cmu.cs.stage3.scheduler.SchedulerThread(scheduler);
+		// schedulerThread.setSleepMillis( 1 );
+		// schedulerThread.setPriority( Thread.MAX_PRIORITY );
 		schedulerThread.start();
 	}
 	public AbstractPlayer() {
-		this( null );
+		this(null);
 	}
-	
+
 	protected edu.cmu.cs.stage3.alice.core.Clock newClock() {
 		return new edu.cmu.cs.stage3.alice.core.clock.DefaultClock();
 	}
 
-	protected abstract void handleRenderTarget( edu.cmu.cs.stage3.alice.core.RenderTarget renderTarget );
+	protected abstract void handleRenderTarget(edu.cmu.cs.stage3.alice.core.RenderTarget renderTarget);
 	protected abstract boolean isPreserveAndRestoreRequired();
 
-	public void loadWorld( edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver ) throws java.io.IOException {
+	public void loadWorld(edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver) throws java.io.IOException {
 		try {
-			m_world = (edu.cmu.cs.stage3.alice.core.World)edu.cmu.cs.stage3.alice.core.Element.load( loader, null, progressObserver);
-			m_world.setRenderTargetFactory( m_drtf );
-			m_world.setClock( m_clock );
-			m_clock.setWorld( m_world );
-			edu.cmu.cs.stage3.alice.core.RenderTarget[] renderTargets = (edu.cmu.cs.stage3.alice.core.RenderTarget[])m_world.getDescendants( edu.cmu.cs.stage3.alice.core.RenderTarget.class );
-			for( int i=0; i<renderTargets.length; i++ ) {
-				handleRenderTarget( renderTargets[ i ] );
+			m_world = (edu.cmu.cs.stage3.alice.core.World) edu.cmu.cs.stage3.alice.core.Element.load(loader, null, progressObserver);
+			m_world.setRenderTargetFactory(m_drtf);
+			m_world.setClock(m_clock);
+			m_clock.setWorld(m_world);
+			edu.cmu.cs.stage3.alice.core.RenderTarget[] renderTargets = (edu.cmu.cs.stage3.alice.core.RenderTarget[]) m_world.getDescendants(edu.cmu.cs.stage3.alice.core.RenderTarget.class);
+			for (RenderTarget renderTarget : renderTargets) {
+				handleRenderTarget(renderTarget);
 			}
-		} catch( edu.cmu.cs.stage3.progress.ProgressCancelException pce ) {
-			throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( pce, loader.toString() );
-		} catch( edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre ) {
+		} catch (edu.cmu.cs.stage3.progress.ProgressCancelException pce) {
+			throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper(pce, loader.toString());
+		} catch (edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre) {
 			edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] propertyReferences = upre.getPropertyReferences();
-			System.err.println( "could not load: " + loader + ".  was unable to resolve the following references." );
-			for( int i=0; i<propertyReferences.length; i++ ) {
-				System.err.println( "\t" + propertyReferences[ i ] );
+			System.err.println("could not load: " + loader + ".  was unable to resolve the following references.");
+			for (PropertyReference propertyReference : propertyReferences) {
+				System.err.println("\t" + propertyReference);
 			}
-			//throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( upre, file.toString() );
+			// throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( upre,
+			// file.toString() );
 		}
 	}
 
-	public void loadWorld( java.io.InputStream ios, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver ) throws java.io.IOException {
+	public void loadWorld(java.io.InputStream ios, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver) throws java.io.IOException {
 		edu.cmu.cs.stage3.io.DirectoryTreeLoader loader = new edu.cmu.cs.stage3.io.ZipTreeLoader();
-		loader.open( ios );
-		loadWorld( loader, progressObserver );
+		loader.open(ios);
+		loadWorld(loader, progressObserver);
 	}
 
-    public void loadWorld( java.net.URL url, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver ) throws java.io.IOException {
+	public void loadWorld(java.net.URL url, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver) throws java.io.IOException {
 		edu.cmu.cs.stage3.io.DirectoryTreeLoader loader = new edu.cmu.cs.stage3.io.ZipTreeLoader();
-		loader.open( url );
-    	loadWorld( loader, progressObserver );
-    }
+		loader.open(url);
+		loadWorld(loader, progressObserver);
+	}
 
-	public void loadWorld( java.io.File file, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver ) throws java.io.IOException {
+	public void loadWorld(java.io.File file, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver) throws java.io.IOException {
 		edu.cmu.cs.stage3.io.DirectoryTreeLoader loader = new edu.cmu.cs.stage3.io.ZipFileTreeLoader();
-		loader.open( file );
-		loadWorld( loader, progressObserver );
+		loader.open(file);
+		loadWorld(loader, progressObserver);
 	}
 
 	public void unloadWorld() {
-		if( m_world != null ) {
+		if (m_world != null) {
 			stopWorldIfNecessary();
 			m_world.release();
 			m_world = null;
 		}
 	}
 	public void startWorld() {
-		if( isPreserveAndRestoreRequired() ) {
+		if (isPreserveAndRestoreRequired()) {
 			m_world.preserve();
 		}
 		m_clock.start();
@@ -125,24 +131,24 @@ public abstract class AbstractPlayer {
 	public void stopWorld() {
 		m_isGoodToSchedule = false;
 		m_clock.stop();
-		if( isPreserveAndRestoreRequired() ) {
+		if (isPreserveAndRestoreRequired()) {
 			m_world.restore();
 		}
 	}
-	
+
 	public void stopWorldIfNecessary() {
-		if( m_world != null && m_world.isRunning() ) {
+		if (m_world != null && m_world.isRunning()) {
 			stopWorld();
 		}
 	}
 
 	@SuppressWarnings("unused")
 	private double getTime() {
-		return ( System.currentTimeMillis()-m_when0 ) * 0.001;
+		return (System.currentTimeMillis() - m_when0) * 0.001;
 	}
 
 	public void schedule() {
-		if( m_isGoodToSchedule ) {
+		if (m_isGoodToSchedule) {
 			m_clock.schedule();
 		}
 	}

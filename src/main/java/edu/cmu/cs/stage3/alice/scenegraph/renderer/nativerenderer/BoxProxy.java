@@ -24,19 +24,20 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class BoxProxy extends ShapeProxy {
-	protected abstract void onWidthChange( double value );
-	protected abstract void onHeightChange( double value );
-	protected abstract void onDepthChange( double value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Box.WIDTH_PROPERTY ) {
-			onWidthChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Box.HEIGHT_PROPERTY ) {
-			onHeightChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Box.DEPTH_PROPERTY ) {
-			onDepthChange( ((Double)value).doubleValue() );
+	protected abstract void onWidthChange(double value);
+	protected abstract void onHeightChange(double value);
+	protected abstract void onDepthChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Box.WIDTH_PROPERTY) {
+			onWidthChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Box.HEIGHT_PROPERTY) {
+			onHeightChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Box.DEPTH_PROPERTY) {
+			onDepthChange(((Double) value).doubleValue());
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

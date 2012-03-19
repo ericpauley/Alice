@@ -26,12 +26,13 @@ package edu.cmu.cs.stage3.alice.core.response.list;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class InsertItemAtIndex extends ListItemResponse {
-	public final NumberProperty index = new NumberProperty( this, "index", new Integer( -1 ) );
+	public final NumberProperty index = new NumberProperty(this, "index", new Integer(-1));
 	public class RuntimeInsertItemAtIndex extends RuntimeListItemResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			getList().insertItemValueAtIndex( InsertItemAtIndex.this.index.intValue(), getItem() );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			getList().insertItemValueAtIndex(index.intValue(), getItem());
 		}
 	}
 }

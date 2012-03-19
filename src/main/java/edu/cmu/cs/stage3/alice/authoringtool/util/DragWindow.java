@@ -33,27 +33,27 @@ public class DragWindow extends Window {
 	protected int width;
 	protected int height;
 
-	public DragWindow( java.awt.Frame owner ) {
-		super( owner );
-		setLayout( new java.awt.BorderLayout( 0, 0 ) );
+	public DragWindow(java.awt.Frame owner) {
+		super(owner);
+		setLayout(new java.awt.BorderLayout(0, 0));
 	}
 
-	public void setImage( java.awt.Image image ) {
+	public void setImage(java.awt.Image image) {
 		this.image = image;
-		if( image != null ) {
+		if (image != null) {
 			try {
-				width = edu.cmu.cs.stage3.image.ImageUtilities.getWidth( image );
-				height = edu.cmu.cs.stage3.image.ImageUtilities.getHeight( image );
-				setSize( width, height );
-			} catch( InterruptedException e ) {
-				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Interrupted while waiting for drag image to load.", e );
+				width = edu.cmu.cs.stage3.image.ImageUtilities.getWidth(image);
+				height = edu.cmu.cs.stage3.image.ImageUtilities.getHeight(image);
+				setSize(width, height);
+			} catch (InterruptedException e) {
+				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Interrupted while waiting for drag image to load.", e);
 			}
 		}
 		repaint();
 	}
 
-	
-	public void paint( java.awt.Graphics g ) {
-		g.drawImage( image, 0, 0, this );
+	@Override
+	public void paint(java.awt.Graphics g) {
+		g.drawImage(image, 0, 0, this);
 	}
 }

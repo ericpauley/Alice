@@ -32,7 +32,7 @@ public abstract class PostImportRunnable implements Runnable {
 	public edu.cmu.cs.stage3.alice.core.Element getImportedElement() {
 		return m_importedElement;
 	}
-	public void setImportedElement( edu.cmu.cs.stage3.alice.core.Element importedElement ) {
+	public void setImportedElement(edu.cmu.cs.stage3.alice.core.Element importedElement) {
 		m_importedElement = importedElement;
 	}
 }

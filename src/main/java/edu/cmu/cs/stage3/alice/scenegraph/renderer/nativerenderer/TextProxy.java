@@ -24,21 +24,22 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class TextProxy extends GeometryProxy {
-	protected abstract void onTextChange( java.lang.String value );
-	protected abstract void onFontChange( String name, int style, int size );
-	protected abstract void onExtrusionChange( double x, double y, double z );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Text.TEXT_PROPERTY ) {
-			onTextChange( (java.lang.String)value );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Text.FONT_PROPERTY ) {
-			java.awt.Font font = (java.awt.Font)value;
-			onFontChange( font.getName(), font.getStyle(), font.getSize() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Text.EXTRUSION_PROPERTY ) {
-			javax.vecmath.Vector3d v = (javax.vecmath.Vector3d)value;
-			onExtrusionChange( v.x, v.y, v.z );
+	protected abstract void onTextChange(java.lang.String value);
+	protected abstract void onFontChange(String name, int style, int size);
+	protected abstract void onExtrusionChange(double x, double y, double z);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Text.TEXT_PROPERTY) {
+			onTextChange((java.lang.String) value);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Text.FONT_PROPERTY) {
+			java.awt.Font font = (java.awt.Font) value;
+			onFontChange(font.getName(), font.getStyle(), font.getSize());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Text.EXTRUSION_PROPERTY) {
+			javax.vecmath.Vector3d v = (javax.vecmath.Vector3d) value;
+			onExtrusionChange(v.x, v.y, v.z);
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

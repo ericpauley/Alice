@@ -23,20 +23,29 @@
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.util.Vector;
-import java.awt.event.*;
-import org.w3c.dom.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 import edu.cmu.cs.stage3.alice.core.Element;
 import edu.cmu.cs.stage3.alice.core.Model;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2002
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2002 Company:
+ * 
  * @author
  * @version 1.0
  */
@@ -101,8 +110,7 @@ public class ItemChooser extends JPanel {
 							java.awt.MediaTracker tracker = new java.awt.MediaTracker(this);
 							tracker.addImage(img, 0);
 							tracker.waitForID(0);
-						} catch (java.lang.InterruptedException ie) {
-						}
+						} catch (java.lang.InterruptedException ie) {}
 						cmdInfo.texture = img;
 					} else if (attr.getNodeName().equals("layer")) {
 						String layerString = attr.getNodeValue();
@@ -199,8 +207,7 @@ public class ItemChooser extends JPanel {
 							java.awt.MediaTracker tracker = new java.awt.MediaTracker(this);
 							tracker.addImage(img, 0);
 							tracker.waitForID(0);
-						} catch (java.lang.InterruptedException ie) {
-						}
+						} catch (java.lang.InterruptedException ie) {}
 						cmdInfo.texture = img;
 					} else if (attr.getNodeName().equals("layer")) {
 						String layerString = attr.getNodeValue();
@@ -258,7 +265,7 @@ public class ItemChooser extends JPanel {
 						}
 						cmdInfo.altModel = part;
 						cmdInfo.altModelFactory = part.createCopyFactory();
-						//cmdInfo.altModelName = modelString;
+						// cmdInfo.altModelName = modelString;
 					} else if (attr.getNodeName().equals("parent2")) {
 						String parentString = attr.getNodeValue();
 						cmdInfo.altParentString = parentString;
@@ -269,8 +276,7 @@ public class ItemChooser extends JPanel {
 							java.awt.MediaTracker tracker = new java.awt.MediaTracker(this);
 							tracker.addImage(img, 0);
 							tracker.waitForID(0);
-						} catch (java.lang.InterruptedException ie) {
-						}
+						} catch (java.lang.InterruptedException ie) {}
 						cmdInfo.texture = img;
 					} else if (attr.getNodeName().equals("layer")) {
 						String layerString = attr.getNodeValue();
@@ -302,7 +308,7 @@ public class ItemChooser extends JPanel {
 		Vector allImages = XMLDirectoryUtilities.getImages(itemsNode);
 		Document configDoc = loadXMLFile(itemsNode);
 
-		if ((allImages != null) && (allImages.size() > 0) && (configDoc != null)) {
+		if (allImages != null && allImages.size() > 0 && configDoc != null) {
 			NodeList choices = configDoc.getChildNodes();
 			for (int i = 0; i < choices.getLength(); i++) {
 				initializeCommandInfos(itemsNode, choices.item(i));
@@ -328,9 +334,9 @@ public class ItemChooser extends JPanel {
 	}
 
 	private void currentLosingFocus() {
-		if ((index >= 0) && (index < commandInfos.size())) {
+		if (index >= 0 && index < commandInfos.size()) {
 			CommandInfo currentInfo = (CommandInfo) commandInfos.elementAt(index);
-			if ((currentInfo.id.equals("addTexture")) && (currentInfo.altModelName != null)) {
+			if (currentInfo.id.equals("addTexture") && currentInfo.altModelName != null) {
 				modelWrapper.switchToOrigModel(currentInfo.altModelName);
 			} else if (currentInfo.id.equals("addTexture")) {
 				modelWrapper.clearLevel(currentInfo.level);
@@ -350,7 +356,7 @@ public class ItemChooser extends JPanel {
 
 	private void setIcon() {
 		try {
-			if ((index >= 0) && (index < commandInfos.size())) {
+			if (index >= 0 && index < commandInfos.size()) {
 				CommandInfo currentInfo = (CommandInfo) commandInfos.elementAt(index);
 				itemPicture.setIcon(currentInfo.imageIcon);
 				if (currentInfo.id.equals("addTexture")) {
@@ -386,21 +392,22 @@ public class ItemChooser extends JPanel {
 					modelWrapper.addTexture(currentInfo.texture, currentInfo.level);
 				}
 			}
-		} catch( edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre ) {
-			throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( upre, "UnresolvablePropertyReferencesException" );
+		} catch (edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre) {
+			throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper(upre, "UnresolvablePropertyReferencesException");
 		}
 	}
 
 	/*
-	These will only be called by modelWrapper if this itemChooser has altModels
-	*/
+	 * These will only be called by modelWrapper if this itemChooser has
+	 * altModels
+	 */
 	public edu.cmu.cs.stage3.alice.core.Model getAltModel() {
 		CommandInfo currentInfo = (CommandInfo) commandInfos.elementAt(index);
 		if (currentInfo.altModelFactory != null) {
 			try {
 				return (edu.cmu.cs.stage3.alice.core.Model) currentInfo.altModelFactory.manufactureCopy(null);
-			} catch( edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre ) {
-				throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( upre, "UnresolvablePropertyReferencesException" );
+			} catch (edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre) {
+				throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper(upre, "UnresolvablePropertyReferencesException");
 			}
 		} else {
 			return null;
@@ -412,8 +419,8 @@ public class ItemChooser extends JPanel {
 		if (currentInfo.modelFactory != null) {
 			try {
 				return (edu.cmu.cs.stage3.alice.core.Model) currentInfo.modelFactory.manufactureCopy(null);
-			} catch( edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre ) {
-				throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( upre, "UnresolvablePropertyReferencesException" );
+			} catch (edu.cmu.cs.stage3.alice.core.UnresolvablePropertyReferencesException upre) {
+				throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper(upre, "UnresolvablePropertyReferencesException");
 			}
 		} else {
 			return null;
@@ -440,15 +447,16 @@ public class ItemChooser extends JPanel {
 
 	// AUTOGENERATED...
 	private void jbInit() throws Exception {
-		this.setBackground(new java.awt.Color(155, 159, 206));
+		setBackground(new java.awt.Color(155, 159, 206));
 		itemPicture.setMaximumSize(new Dimension(110, 110));
 		itemPicture.setMinimumSize(new Dimension(110, 110));
 		itemPicture.setPreferredSize(new Dimension(110, 110));
-		this.setLayout(borderLayout1);
+		setLayout(borderLayout1);
 		backButton.setIcon(backImage);
 		backButton.setBackground(new java.awt.Color(155, 159, 206));
 		backButton.setBorder(null);
 		backButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				backButton_actionPerformed(e);
 			}
@@ -458,6 +466,7 @@ public class ItemChooser extends JPanel {
 		forwardButton.setBackground(new java.awt.Color(155, 159, 206));
 		forwardButton.setBorder(null);
 		forwardButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				forwardButton_actionPerformed(e);
 			}
@@ -470,18 +479,20 @@ public class ItemChooser extends JPanel {
 	void backButton_actionPerformed(ActionEvent e) {
 		currentLosingFocus();
 		index -= 1;
-		//if (index < 0) index += itemIcons.size();
-		if (index < 0)
+		// if (index < 0) index += itemIcons.size();
+		if (index < 0) {
 			index += commandInfos.size();
+		}
 		setIcon();
 	}
 
 	void forwardButton_actionPerformed(ActionEvent e) {
 		currentLosingFocus();
 		index += 1;
-		//if (index > itemIcons.size()-1) index -= itemIcons.size();
-		if (index > commandInfos.size() - 1)
+		// if (index > itemIcons.size()-1) index -= itemIcons.size();
+		if (index > commandInfos.size() - 1) {
 			index -= commandInfos.size();
+		}
 		setIcon();
 	}
 }

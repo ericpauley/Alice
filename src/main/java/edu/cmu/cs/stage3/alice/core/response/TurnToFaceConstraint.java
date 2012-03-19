@@ -25,7 +25,8 @@ package edu.cmu.cs.stage3.alice.core.response;
 
 public class TurnToFaceConstraint extends AbstractPointAtConstraint {
 	public class RuntimeTurnToFaceConstraint extends RuntimeAbstractPointAtConstraint {
-		
+
+		@Override
 		protected boolean onlyAffectYaw() {
 			return true;
 		}

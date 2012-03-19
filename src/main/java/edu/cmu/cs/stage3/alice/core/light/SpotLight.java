@@ -26,39 +26,40 @@ package edu.cmu.cs.stage3.alice.core.light;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class SpotLight extends PointLight {
-	public final NumberProperty innerBeamAngle = new NumberProperty( this, "innerBeamAngle", new Double( 0.4 ) );
-	public final NumberProperty outerBeamAngle = new NumberProperty( this, "outerBeamAngle", new Double( 0.5 ) );
+	public final NumberProperty innerBeamAngle = new NumberProperty(this, "innerBeamAngle", new Double(0.4));
+	public final NumberProperty outerBeamAngle = new NumberProperty(this, "outerBeamAngle", new Double(0.5));
 	public SpotLight() {
-		super( new edu.cmu.cs.stage3.alice.scenegraph.SpotLight() );
-		innerBeamAngle.set( new Double( getSceneGraphSpotLight().getInnerBeamAngle() ) );
-		outerBeamAngle.set( new Double( getSceneGraphSpotLight().getOuterBeamAngle() ) );
+		super(new edu.cmu.cs.stage3.alice.scenegraph.SpotLight());
+		innerBeamAngle.set(new Double(getSceneGraphSpotLight().getInnerBeamAngle()));
+		outerBeamAngle.set(new Double(getSceneGraphSpotLight().getOuterBeamAngle()));
 	}
 	public edu.cmu.cs.stage3.alice.scenegraph.SpotLight getSceneGraphSpotLight() {
-		return (edu.cmu.cs.stage3.alice.scenegraph.SpotLight)getSceneGraphPointLight();
+		return (edu.cmu.cs.stage3.alice.scenegraph.SpotLight) getSceneGraphPointLight();
 	}
 
-	private void innerBeamAngleValueChanged( Number value ) {
+	private void innerBeamAngleValueChanged(Number value) {
 		double d = Double.NaN;
-		if( value!=null ) {
+		if (value != null) {
 			d = value.doubleValue();
 		}
-		getSceneGraphSpotLight().setInnerBeamAngle( d );
+		getSceneGraphSpotLight().setInnerBeamAngle(d);
 	}
-	private void outerBeamAngleValueChanged( Number value ) {
+	private void outerBeamAngleValueChanged(Number value) {
 		double d = Double.NaN;
-		if( value!=null ) {
+		if (value != null) {
 			d = value.doubleValue();
 		}
-		getSceneGraphSpotLight().setOuterBeamAngle( d );
+		getSceneGraphSpotLight().setOuterBeamAngle(d);
 	}
-	
-	protected void propertyChanged( edu.cmu.cs.stage3.alice.core.Property property, Object value ) {
-		if( property == innerBeamAngle ) {
-			innerBeamAngleValueChanged( (Number)value );
-		} else if( property == outerBeamAngle ) {
-			outerBeamAngleValueChanged( (Number)value );
+
+	@Override
+	protected void propertyChanged(edu.cmu.cs.stage3.alice.core.Property property, Object value) {
+		if (property == innerBeamAngle) {
+			innerBeamAngleValueChanged((Number) value);
+		} else if (property == outerBeamAngle) {
+			outerBeamAngleValueChanged((Number) value);
 		} else {
-			super.propertyChanged( property, value );
+			super.propertyChanged(property, value);
 		}
 	}
 }

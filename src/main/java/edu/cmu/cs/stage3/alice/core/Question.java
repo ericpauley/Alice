@@ -24,12 +24,12 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public abstract class Question extends Expression {
-	//protected Object getValueOfPropertyNamed( String propertyName ) {
-	//	World world = getWorld();
-	//	if( world != null ) {
-	//		return world.getValueOfQuestionPropertyNamed( this, propertyName );
-	//	} else {
-	//		return null;
-	//	}
-	//}
+	// protected Object getValueOfPropertyNamed( String propertyName ) {
+	// World world = getWorld();
+	// if( world != null ) {
+	// return world.getValueOfQuestionPropertyNamed( this, propertyName );
+	// } else {
+	// return null;
+	// }
+	// }
 }

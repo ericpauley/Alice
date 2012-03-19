@@ -26,10 +26,10 @@ package edu.cmu.cs.stage3.alice.core.criterion;
 public class ElementKeyedCriterion implements edu.cmu.cs.stage3.util.Criterion {
 	private String m_key;
 	private boolean m_ignoreCase;
-	public ElementKeyedCriterion( String key ) {
-		this( key, true );
+	public ElementKeyedCriterion(String key) {
+		this(key, true);
 	}
-	public ElementKeyedCriterion( String key, boolean ignoreCase ) {
+	public ElementKeyedCriterion(String key, boolean ignoreCase) {
 		m_key = key;
 		m_ignoreCase = ignoreCase;
 	}
@@ -39,43 +39,45 @@ public class ElementKeyedCriterion implements edu.cmu.cs.stage3.util.Criterion {
 	public boolean getIgnoreCase() {
 		return m_ignoreCase;
 	}
-	public boolean accept( Object o ) {
-		if( o instanceof edu.cmu.cs.stage3.alice.core.Element ) {
-			String key = ((edu.cmu.cs.stage3.alice.core.Element)o).getKey();
-			if( m_key==null ) {
-				return key==null;
+	@Override
+	public boolean accept(Object o) {
+		if (o instanceof edu.cmu.cs.stage3.alice.core.Element) {
+			String key = ((edu.cmu.cs.stage3.alice.core.Element) o).getKey();
+			if (m_key == null) {
+				return key == null;
 			} else {
-				if( m_ignoreCase ) {
-					return m_key.equalsIgnoreCase( key );
+				if (m_ignoreCase) {
+					return m_key.equalsIgnoreCase(key);
 				} else {
-					return m_key.equals( key );
+					return m_key.equals(key);
 				}
 			}
 		} else {
 			return false;
 		}
 	}
-	
+
+	@Override
 	public String toString() {
-		return getClass().getName()+"["+m_key+"]";
+		return getClass().getName() + "[" + m_key + "]";
 	}
 
-	protected static ElementKeyedCriterion valueOf( String s, Class cls ) {
-		String beginMarker = cls.getName()+"[";
+	protected static ElementKeyedCriterion valueOf(String s, Class cls) {
+		String beginMarker = cls.getName() + "[";
 		String endMarker = "]";
-		int begin = s.indexOf( beginMarker ) + beginMarker.length();
-		int end = s.lastIndexOf( endMarker );
+		int begin = s.indexOf(beginMarker) + beginMarker.length();
+		int end = s.lastIndexOf(endMarker);
 		try {
-			Class[] types = { String.class };
-			Object[] values = { s.substring( begin, end ) };
-			java.lang.reflect.Constructor constructor = cls.getConstructor( types );
-			return (ElementKeyedCriterion)constructor.newInstance( values );
-		} catch( Throwable t ) {
-			throw( new RuntimeException() );
+			Class[] types = {String.class};
+			Object[] values = {s.substring(begin, end)};
+			java.lang.reflect.Constructor constructor = cls.getConstructor(types);
+			return (ElementKeyedCriterion) constructor.newInstance(values);
+		} catch (Throwable t) {
+			throw new RuntimeException();
 		}
 	}
 
-	public static ElementKeyedCriterion valueOf( String s ) {
-		return valueOf( s, edu.cmu.cs.stage3.alice.core.criterion.ElementKeyedCriterion.class );
+	public static ElementKeyedCriterion valueOf(String s) {
+		return valueOf(s, edu.cmu.cs.stage3.alice.core.criterion.ElementKeyedCriterion.class);
 	}
 }

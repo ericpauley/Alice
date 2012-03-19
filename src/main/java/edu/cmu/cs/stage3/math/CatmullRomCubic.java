@@ -23,12 +23,12 @@
 
 package edu.cmu.cs.stage3.math;
 
-public class CatmullRomCubic extends BasisMatrixCubic  {
-	private static final javax.vecmath.Matrix4d s_h = new javax.vecmath.Matrix4d( -0.5,1.5,-1.5,0.5,   1,-2.5,2,-0.5,   -0.5,0,0.5,0,   0,1,0,0 );
-	public CatmullRomCubic( javax.vecmath.Vector4d g ) {
-		super( s_h, g );
+public class CatmullRomCubic extends BasisMatrixCubic {
+	private static final javax.vecmath.Matrix4d s_h = new javax.vecmath.Matrix4d(-0.5, 1.5, -1.5, 0.5, 1, -2.5, 2, -0.5, -0.5, 0, 0.5, 0, 0, 1, 0, 0);
+	public CatmullRomCubic(javax.vecmath.Vector4d g) {
+		super(s_h, g);
 	}
-	public CatmullRomCubic( double g0, double g1, double g2, double g3 ) {
-		this( new javax.vecmath.Vector4d( g0, g1, g2, g3 ) );
+	public CatmullRomCubic(double g0, double g1, double g2, double g3) {
+		this(new javax.vecmath.Vector4d(g0, g1, g2, g3));
 	}
 }

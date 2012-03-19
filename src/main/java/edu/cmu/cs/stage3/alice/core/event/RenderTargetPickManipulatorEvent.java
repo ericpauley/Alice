@@ -30,7 +30,7 @@ public class RenderTargetPickManipulatorEvent {
 	private edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget renderTarget;
 	private edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo;
 
-	public RenderTargetPickManipulatorEvent( edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget renderTarget, edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo ) {
+	public RenderTargetPickManipulatorEvent(edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTarget renderTarget, edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo) {
 		this.renderTarget = renderTarget;
 		this.pickInfo = pickInfo;
 	}

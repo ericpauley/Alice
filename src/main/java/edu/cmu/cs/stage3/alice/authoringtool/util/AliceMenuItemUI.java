@@ -23,124 +23,142 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
-import javax.swing.*;
+import java.awt.Component;
+import java.awt.Point;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JComponent;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.MenuElement;
+import javax.swing.MenuSelectionManager;
 import javax.swing.event.MouseInputListener;
-import java.awt.*;
-import java.awt.event.*;
 
 /**
  * @author Jason Pratt
  */
 public class AliceMenuItemUI extends javax.swing.plaf.basic.BasicMenuItemUI {
-	
-	protected MouseInputListener createMouseInputListener( JComponent c ) {
+
+	@Override
+	protected MouseInputListener createMouseInputListener(JComponent c) {
 		return new MouseInputHandler();
 	}
 
 	protected class MouseInputHandler implements MouseInputListener {
-		public void mouseReleased( MouseEvent e ) {
+		@Override
+		public void mouseReleased(MouseEvent e) {
 			MenuSelectionManager manager = MenuSelectionManager.defaultManager();
 			Point p = e.getPoint();
 
-			if( ( p.x >= 0 ) && ( p.x < menuItem.getWidth() ) && ( p.y >= 0 ) && ( p.y < menuItem.getHeight() ) ) {
+			if (p.x >= 0 && p.x < menuItem.getWidth() && p.y >= 0 && p.y < menuItem.getHeight()) {
 				MenuElement[] path = getPath();
 				manager.clearSelectedPath();
-				menuItem.doClick( 0 );
+				menuItem.doClick(0);
 
 				// HACK
-				for( int i = 0; i < path.length; i++ ) {
-					if( path[i] instanceof AlicePopupMenu ) {
-						((AlicePopupMenu)path[i]).setVisible( false );
+				for (MenuElement element : path) {
+					if (element instanceof AlicePopupMenu) {
+						((AlicePopupMenu) element).setVisible(false);
 					}
-//					if( path[i] instanceof AliceMenu ) {
-//						((AliceMenu)path[i]).setPopupMenuVisible( false );
-//					}
+					// if( path[i] instanceof AliceMenu ) {
+					// ((AliceMenu)path[i]).setPopupMenuVisible( false );
+					// }
 				}
 			} else {
-				manager.processMouseEvent( e );
+				manager.processMouseEvent(e);
 			}
 		}
 
-		public void mouseEntered( MouseEvent e ) {
+		@Override
+		public void mouseEntered(MouseEvent e) {
 			MenuSelectionManager manager = MenuSelectionManager.defaultManager();
 			int modifiers = e.getModifiers();
 
 			// 4188027: drag enter/exit added in JDK 1.1.7A, JDK1.2
-			if( ( modifiers & ( InputEvent.BUTTON1_MASK | InputEvent.BUTTON2_MASK | InputEvent.BUTTON3_MASK ) ) != 0 ) {
-				MenuSelectionManager.defaultManager().processMouseEvent( e );
+			if ((modifiers & (InputEvent.BUTTON1_MASK | InputEvent.BUTTON2_MASK | InputEvent.BUTTON3_MASK)) != 0) {
+				MenuSelectionManager.defaultManager().processMouseEvent(e);
 			} else {
-				manager.setSelectedPath( getPath() );
-//				System.out.print( "0_item setSelectedPath: " );
-//				printPath( getPath() );
+				manager.setSelectedPath(getPath());
+				// System.out.print( "0_item setSelectedPath: " );
+				// printPath( getPath() );
 			}
 		}
 
-		public void mouseExited( MouseEvent e ) {
+		@Override
+		public void mouseExited(MouseEvent e) {
 			MenuSelectionManager manager = MenuSelectionManager.defaultManager();
 			int modifiers = e.getModifiers();
 
 			// 4188027: drag enter/exit added in JDK 1.1.7A, JDK1.2
-			if( ( modifiers & ( InputEvent.BUTTON1_MASK | InputEvent.BUTTON2_MASK | InputEvent.BUTTON3_MASK ) ) != 0 ) {
-				MenuSelectionManager.defaultManager().processMouseEvent( e );
+			if ((modifiers & (InputEvent.BUTTON1_MASK | InputEvent.BUTTON2_MASK | InputEvent.BUTTON3_MASK)) != 0) {
+				MenuSelectionManager.defaultManager().processMouseEvent(e);
 			} else {
 				MenuElement[] path = manager.getSelectedPath();
 
-				if( path.length > 1 ) {
+				if (path.length > 1) {
 					MenuElement[] newPath = new MenuElement[path.length - 1];
 					int i;
 					int c;
 
-					for( i = 0, c = path.length - 1; i < c; i++ ) {
+					for (i = 0, c = path.length - 1; i < c; i++) {
 						newPath[i] = path[i];
 					}
 
-					manager.setSelectedPath( newPath );
+					manager.setSelectedPath(newPath);
 				}
 			}
 		}
 
-		public void mouseDragged( MouseEvent e ) {
-			MenuSelectionManager.defaultManager().processMouseEvent( e );
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			MenuSelectionManager.defaultManager().processMouseEvent(e);
 		}
 
-		public void mouseClicked( MouseEvent e ) {}
-		public void mousePressed( MouseEvent e ) {}
-		public void mouseMoved( MouseEvent e ) {}
+		@Override
+		public void mouseClicked(MouseEvent e) {
+		}
+		@Override
+		public void mousePressed(MouseEvent e) {
+		}
+		@Override
+		public void mouseMoved(MouseEvent e) {
+		}
 	}
 
-	
+	@Override
 	public MenuElement[] getPath() {
 		MenuSelectionManager m = MenuSelectionManager.defaultManager();
 		MenuElement[] oldPath = m.getSelectedPath();
 		MenuElement[] newPath;
 		int i = oldPath.length;
 
-		if( i == 0 ) {
+		if (i == 0) {
 			return new MenuElement[0];
 		}
 
 		Component parent = menuItem.getParent();
 
-		if( oldPath[i - 1].getComponent() == parent ) {
+		if (oldPath[i - 1].getComponent() == parent) {
 			newPath = new MenuElement[i + 1];
-			System.arraycopy( oldPath, 0, newPath, 0, i );
+			System.arraycopy(oldPath, 0, newPath, 0, i);
 			newPath[i] = menuItem;
 		} else {
 			java.util.Vector path = new java.util.Vector();
 			MenuElement me = menuItem;
-			while( me instanceof MenuElement ) {
-				path.add( 0, me );
-				if( me instanceof JPopupMenu ) {
-					Object o = ((JPopupMenu)me).getInvoker();
-					if( (o instanceof MenuElement) && (o != me) ) {
-						me = (MenuElement)o;
+			while (me instanceof MenuElement) {
+				path.add(0, me);
+				if (me instanceof JPopupMenu) {
+					Object o = ((JPopupMenu) me).getInvoker();
+					if (o instanceof MenuElement && o != me) {
+						me = (MenuElement) o;
 					} else {
 						me = null;
 					}
-				} else if( me instanceof JMenuItem ) {
-					Object o = ((JMenuItem)me).getParent();
-					if( (o instanceof MenuElement) && (o != me) ) {
-						me = (MenuElement)o;
+				} else if (me instanceof JMenuItem) {
+					Object o = ((JMenuItem) me).getParent();
+					if (o instanceof MenuElement && o != me) {
+						me = (MenuElement) o;
 					} else {
 						me = null;
 					}
@@ -149,29 +167,28 @@ public class AliceMenuItemUI extends javax.swing.plaf.basic.BasicMenuItemUI {
 				}
 			}
 
-			newPath = (MenuElement[])path.toArray( new MenuElement[0] );
+			newPath = (MenuElement[]) path.toArray(new MenuElement[0]);
 		}
 
 		return newPath;
 	}
 
-	public void printPath( javax.swing.MenuElement[] path ) {
-		System.out.print( "path [" );
-		for( int i = 0; i < path.length; i++ ) {
-			javax.swing.MenuElement me = path[i];
-			if( me instanceof javax.swing.JMenu ) {
-				System.out.print( ((javax.swing.JMenu)me).getText() + ", " );
-			} else if( me instanceof javax.swing.JPopupMenu ) {
-				Object invoker = ((javax.swing.JPopupMenu)me).getInvoker();
-				if( invoker instanceof javax.swing.JMenu ) {
-					System.out.print( ((javax.swing.JMenu)invoker).getText() + ".popupMenu, " );
+	public void printPath(javax.swing.MenuElement[] path) {
+		System.out.print("path [");
+		for (MenuElement me : path) {
+			if (me instanceof javax.swing.JMenu) {
+				System.out.print(((javax.swing.JMenu) me).getText() + ", ");
+			} else if (me instanceof javax.swing.JPopupMenu) {
+				Object invoker = ((javax.swing.JPopupMenu) me).getInvoker();
+				if (invoker instanceof javax.swing.JMenu) {
+					System.out.print(((javax.swing.JMenu) invoker).getText() + ".popupMenu, ");
 				} else {
-					System.out.print( "anonymous popupMenu, " );
+					System.out.print("anonymous popupMenu, ");
 				}
 			} else {
-				System.out.print( me.getClass().getName() );
+				System.out.print(me.getClass().getName());
 			}
 		}
-		System.out.println( "]" );
+		System.out.println("]");
 	}
 }

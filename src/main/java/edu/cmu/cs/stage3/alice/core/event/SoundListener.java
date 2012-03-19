@@ -23,8 +23,6 @@ package edu.cmu.cs.stage3.alice.core.event;
  *    "This product includes software developed by Carnegie Mellon University"
  */
 
-
 public interface SoundListener {
-	public void SoundStarted( SoundEvent soundEvent );
+	public void SoundStarted(SoundEvent soundEvent);
 }
-

@@ -23,16 +23,18 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.datatransfer;
 
+import java.awt.datatransfer.DataFlavor;
+
 /**
  * @author Jason Pratt
  */
 public class ObjectArrayPropertyItemTransferable implements java.awt.datatransfer.Transferable {
-	public final static java.awt.datatransfer.DataFlavor objectArrayPropertyItemFlavor = new java.awt.datatransfer.DataFlavor( java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem", "objectArrayPropertyItemFlavor" );
+	public final static java.awt.datatransfer.DataFlavor objectArrayPropertyItemFlavor = new java.awt.datatransfer.DataFlavor(java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem", "objectArrayPropertyItemFlavor");
 
 	protected java.awt.datatransfer.DataFlavor[] flavors;
 	protected edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem objectArrayPropertyItem;
 
-	public ObjectArrayPropertyItemTransferable( edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem objectArrayPropertyItem ) {
+	public ObjectArrayPropertyItemTransferable(edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem objectArrayPropertyItem) {
 		this.objectArrayPropertyItem = objectArrayPropertyItem;
 
 		flavors = new java.awt.datatransfer.DataFlavor[2];
@@ -40,26 +42,29 @@ public class ObjectArrayPropertyItemTransferable implements java.awt.datatransfe
 		flavors[1] = java.awt.datatransfer.DataFlavor.stringFlavor;
 	}
 
+	@Override
 	public java.awt.datatransfer.DataFlavor[] getTransferDataFlavors() {
 		return flavors;
 	}
 
-	public boolean isDataFlavorSupported( java.awt.datatransfer.DataFlavor flavor ) {
-		for( int i = 0; i < flavors.length; i++ ) {
-			if( flavor.equals( flavors[i] ) ) {
+	@Override
+	public boolean isDataFlavorSupported(java.awt.datatransfer.DataFlavor flavor) {
+		for (DataFlavor flavor2 : flavors) {
+			if (flavor.equals(flavor2)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public Object getTransferData( java.awt.datatransfer.DataFlavor flavor ) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
-		if( flavor.equals( objectArrayPropertyItemFlavor ) ) {
+	@Override
+	public Object getTransferData(java.awt.datatransfer.DataFlavor flavor) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
+		if (flavor.equals(objectArrayPropertyItemFlavor)) {
 			return objectArrayPropertyItem;
-		} else if( flavor.equals( java.awt.datatransfer.DataFlavor.stringFlavor ) ) {
+		} else if (flavor.equals(java.awt.datatransfer.DataFlavor.stringFlavor)) {
 			return objectArrayPropertyItem.getObjectArrayProperty() + "[" + objectArrayPropertyItem.getIndex() + "]";
 		} else {
-			throw new java.awt.datatransfer.UnsupportedFlavorException( flavor );
+			throw new java.awt.datatransfer.UnsupportedFlavorException(flavor);
 		}
 	}
 }

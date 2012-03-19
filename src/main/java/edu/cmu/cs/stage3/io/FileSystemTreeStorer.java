@@ -34,121 +34,127 @@ public class FileSystemTreeStorer implements DirectoryTreeStorer {
 	/**
 	 * pathname can be a String or java.io.File
 	 */
-	public void open( Object pathname ) throws IllegalArgumentException, java.io.IOException {
-		if( root != null ) {
+	@Override
+	public void open(Object pathname) throws IllegalArgumentException, java.io.IOException {
+		if (root != null) {
 			close();
 		}
 
-		if( pathname instanceof String ) {
-			root = new java.io.File( (String)pathname );
-		}
-		else if( pathname instanceof java.io.File ) {
-			root = (java.io.File)pathname;
-		}
-		else {
-			throw new IllegalArgumentException( "pathname must be an instance of String or java.io.File" );
+		if (pathname instanceof String) {
+			root = new java.io.File((String) pathname);
+		} else if (pathname instanceof java.io.File) {
+			root = (java.io.File) pathname;
+		} else {
+			throw new IllegalArgumentException("pathname must be an instance of String or java.io.File");
 		}
 
-		if( root.exists() ) {
-			if( ! root.canWrite() ) {
-				throw new java.io.IOException( "cannot write to " + root );
+		if (root.exists()) {
+			if (!root.canWrite()) {
+				throw new java.io.IOException("cannot write to " + root);
 			}
-		}
-		else {
-			if( ! root.mkdir() ) {
-				throw new java.io.IOException( "cannot create " + root );
+		} else {
+			if (!root.mkdir()) {
+				throw new java.io.IOException("cannot create " + root);
 			}
-			if( ! root.canWrite() ) {
-				throw new java.io.IOException( "cannot write to " + root );
+			if (!root.canWrite()) {
+				throw new java.io.IOException("cannot write to " + root);
 			}
 		}
 
 		currentDirectory = root;
 	}
 
+	@Override
 	public void close() throws java.io.IOException {
 		closeCurrentFile();
 		root = null;
 		currentDirectory = null;
 
-		//TODO: handle keepFile cleanup
+		// TODO: handle keepFile cleanup
 	}
 
-	public void createDirectory( String pathname ) throws IllegalArgumentException, java.io.IOException {
-		if( pathname.indexOf( '/' ) != -1 ) {
-			throw new IllegalArgumentException( "pathname cannot contain path separators" );
+	@Override
+	public void createDirectory(String pathname) throws IllegalArgumentException, java.io.IOException {
+		if (pathname.indexOf('/') != -1) {
+			throw new IllegalArgumentException("pathname cannot contain path separators");
 		}
-		if( pathname.length() <= 0 ) {
-			throw new IllegalArgumentException( "pathname has no length" );
+		if (pathname.length() <= 0) {
+			throw new IllegalArgumentException("pathname has no length");
 		}
-		java.io.File newDir = new java.io.File( currentDirectory, pathname );
-		if( ! newDir.exists() ) {
-			if( ! newDir.mkdir() ) {
-				throw new java.io.IOException( "cannot create " + newDir );
+		java.io.File newDir = new java.io.File(currentDirectory, pathname);
+		if (!newDir.exists()) {
+			if (!newDir.mkdir()) {
+				throw new java.io.IOException("cannot create " + newDir);
 			}
 		}
 	}
 
-	public void setCurrentDirectory( String pathname ) throws IllegalArgumentException {
+	@Override
+	public void setCurrentDirectory(String pathname) throws IllegalArgumentException {
 		java.io.File newCurrentDirectory;
-		if( (pathname.length() == 0) || (pathname.charAt( 0 ) == '/') || (pathname.charAt( 0 ) == '\\') ) {
-			newCurrentDirectory = new java.io.File( root.getAbsolutePath() + pathname );
-		}
-		else {
-			newCurrentDirectory = new java.io.File( currentDirectory.getAbsolutePath() + "/" + pathname );
+		if (pathname.length() == 0 || pathname.charAt(0) == '/' || pathname.charAt(0) == '\\') {
+			newCurrentDirectory = new java.io.File(root.getAbsolutePath() + pathname);
+		} else {
+			newCurrentDirectory = new java.io.File(currentDirectory.getAbsolutePath() + "/" + pathname);
 		}
 
-		if( ! newCurrentDirectory.exists() ) {
-			throw new IllegalArgumentException( newCurrentDirectory + " doesn't exist" );
+		if (!newCurrentDirectory.exists()) {
+			throw new IllegalArgumentException(newCurrentDirectory + " doesn't exist");
 		}
-		if( ! newCurrentDirectory.isDirectory() ) {
-			throw new IllegalArgumentException( newCurrentDirectory + " isn't a directory" );
+		if (!newCurrentDirectory.isDirectory()) {
+			throw new IllegalArgumentException(newCurrentDirectory + " isn't a directory");
 		}
 
 		currentDirectory = newCurrentDirectory;
 	}
 
+	@Override
 	public String getCurrentDirectory() {
-		StringBuffer dir = new StringBuffer( currentDirectory.getAbsolutePath() );
-		dir.delete( 0, root.getAbsolutePath().length() );
+		StringBuffer dir = new StringBuffer(currentDirectory.getAbsolutePath());
+		dir.delete(0, root.getAbsolutePath().length());
 		return dir.toString();
 	}
 
-	public java.io.OutputStream createFile( String filename, boolean compressItIfYouGotIt ) throws IllegalArgumentException, java.io.IOException {
-		java.io.File newFile = new java.io.File( currentDirectory, filename );
-		if( ! newFile.exists() ) {
-			if( ! newFile.createNewFile() ) {
-				throw new java.io.IOException( "cannot create " + newFile );
+	@Override
+	public java.io.OutputStream createFile(String filename, boolean compressItIfYouGotIt) throws IllegalArgumentException, java.io.IOException {
+		java.io.File newFile = new java.io.File(currentDirectory, filename);
+		if (!newFile.exists()) {
+			if (!newFile.createNewFile()) {
+				throw new java.io.IOException("cannot create " + newFile);
 			}
 		}
-		if( ! newFile.canWrite() ) {
-			throw new java.io.IOException( "cannot write to " + newFile );
+		if (!newFile.canWrite()) {
+			throw new java.io.IOException("cannot write to " + newFile);
 		}
 
-		currentlyOpenStream = new java.io.FileOutputStream( newFile );
+		currentlyOpenStream = new java.io.FileOutputStream(newFile);
 		return currentlyOpenStream;
 	}
 
+	@Override
 	public void closeCurrentFile() throws java.io.IOException {
-		if( currentlyOpenStream != null ) {
+		if (currentlyOpenStream != null) {
 			currentlyOpenStream.flush();
 			currentlyOpenStream.close();
 			currentlyOpenStream = null;
 		}
 	}
 
-	public Object getKeepKey( String filename ) throws KeepFileNotSupportedException {
-		return FileSystemTreeLoader.getKeepKey( currentDirectory, filename );
+	@Override
+	public Object getKeepKey(String filename) throws KeepFileNotSupportedException {
+		return FileSystemTreeLoader.getKeepKey(currentDirectory, filename);
 	}
 
+	@Override
 	public boolean isKeepFileSupported() {
 		return true;
 	}
 
-	public void keepFile( String filename ) throws KeepFileNotSupportedException, KeepFileDoesNotExistException {
-		java.io.File file = new java.io.File( currentDirectory, filename );
-		if( ! file.exists() ) {
-			throw new KeepFileDoesNotExistException( currentDirectory.getAbsolutePath(), filename );
+	@Override
+	public void keepFile(String filename) throws KeepFileNotSupportedException, KeepFileDoesNotExistException {
+		java.io.File file = new java.io.File(currentDirectory, filename);
+		if (!file.exists()) {
+			throw new KeepFileDoesNotExistException(currentDirectory.getAbsolutePath(), filename);
 		}
 	}
 }

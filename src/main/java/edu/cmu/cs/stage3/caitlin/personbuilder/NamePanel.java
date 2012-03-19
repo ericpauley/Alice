@@ -30,30 +30,30 @@ public class NamePanel extends javax.swing.JPanel {
 	public NamePanel() {
 		m_nameField = new javax.swing.JTextField();
 		m_createdByField = new javax.swing.JTextField("Anonymous");
-		
-		setLayout( new java.awt.GridBagLayout() );
+
+		setLayout(new java.awt.GridBagLayout());
 		java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
 		gbc.anchor = java.awt.GridBagConstraints.NORTHWEST;
 		gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
 
 		gbc.gridwidth = java.awt.GridBagConstraints.RELATIVE;
 		gbc.weightx = 0.0;
-		add( new javax.swing.JLabel( "Name:" ), gbc );
+		add(new javax.swing.JLabel("Name:"), gbc);
 
 		gbc.gridwidth = java.awt.GridBagConstraints.REMAINDER;
 		gbc.weightx = 1.0;
-		add( m_nameField, gbc );
+		add(m_nameField, gbc);
 
 		gbc.gridwidth = java.awt.GridBagConstraints.RELATIVE;
 		gbc.weightx = 0.0;
-		add( new javax.swing.JLabel( "Created By:" ), gbc );
+		add(new javax.swing.JLabel("Created By:"), gbc);
 
 		gbc.gridwidth = java.awt.GridBagConstraints.REMAINDER;
 		gbc.weightx = 1.0;
-		add( m_createdByField, gbc );
+		add(m_createdByField, gbc);
 	}
 
-	
+	@Override
 	public String getName() {
 		return m_nameField.getText();
 	}

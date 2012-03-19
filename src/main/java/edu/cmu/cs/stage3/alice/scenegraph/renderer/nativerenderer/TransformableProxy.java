@@ -24,16 +24,16 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class TransformableProxy extends ReferenceFrameProxy {
-	
+
+	@Override
 	protected boolean listenToHierarchyAndAbsoluteTransformationChanges() {
 		return false;
 	}
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Transformable.LOCAL_TRANSFORMATION_PROPERTY ) {
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Transformable.IS_FIRST_CLASS_PROPERTY ) {
-		} else {
-			super.changed( property, value );
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Transformable.LOCAL_TRANSFORMATION_PROPERTY) {} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Transformable.IS_FIRST_CLASS_PROPERTY) {} else {
+			super.changed(property, value);
 		}
 	}
 }

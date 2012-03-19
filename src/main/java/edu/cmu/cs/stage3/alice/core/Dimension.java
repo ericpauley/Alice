@@ -26,32 +26,35 @@ package edu.cmu.cs.stage3.alice.core;
 import edu.cmu.cs.stage3.math.MathUtilities;
 
 public class Dimension extends edu.cmu.cs.stage3.util.Enumerable {
-	public static final Dimension ALL = new Dimension( new javax.vecmath.Vector3d( 1, 1, 1 ) );
-	public static final Dimension LEFT_TO_RIGHT = new Dimension( MathUtilities.createXAxis() );
-	public static final Dimension TOP_TO_BOTTOM = new Dimension( MathUtilities.createYAxis() );
-	public static final Dimension FRONT_TO_BACK = new Dimension( MathUtilities.createZAxis() );
+	public static final Dimension ALL = new Dimension(new javax.vecmath.Vector3d(1, 1, 1));
+	public static final Dimension LEFT_TO_RIGHT = new Dimension(MathUtilities.createXAxis());
+	public static final Dimension TOP_TO_BOTTOM = new Dimension(MathUtilities.createYAxis());
+	public static final Dimension FRONT_TO_BACK = new Dimension(MathUtilities.createZAxis());
 	private javax.vecmath.Vector3d m_scaleAxis;
-	public Dimension( javax.vecmath.Vector3d scaleAxis ) {
+	public Dimension(javax.vecmath.Vector3d scaleAxis) {
 		m_scaleAxis = scaleAxis;
 	}
 	public javax.vecmath.Vector3d getScaleAxis() {
 		return m_scaleAxis;
 	}
-	
-	public boolean equals( Object o ) {
-		if( o==this ) return true;
-		if( o!=null && o instanceof Direction ) {
-			Dimension dimension = (Dimension)o;
-			if( m_scaleAxis == null ) {
-				return dimension.m_scaleAxis==null;
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (o != null && o instanceof Direction) {
+			Dimension dimension = (Dimension) o;
+			if (m_scaleAxis == null) {
+				return dimension.m_scaleAxis == null;
 			} else {
-				return m_scaleAxis.equals( dimension.m_scaleAxis );
+				return m_scaleAxis.equals(dimension.m_scaleAxis);
 			}
 		} else {
 			return false;
 		}
 	}
-	public static Dimension valueOf( String s ) {
-		return (Dimension)edu.cmu.cs.stage3.util.Enumerable.valueOf( s, Dimension.class );
+	public static Dimension valueOf(String s) {
+		return (Dimension) edu.cmu.cs.stage3.util.Enumerable.valueOf(s, Dimension.class);
 	}
 }

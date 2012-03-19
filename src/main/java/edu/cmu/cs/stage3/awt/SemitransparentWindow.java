@@ -27,17 +27,17 @@ public class SemitransparentWindow {
 	private static boolean s_successfullyLoadedLibrary;
 	static {
 		try {
-			System.loadLibrary( "jni_semitransparent" );
+			System.loadLibrary("jni_semitransparent");
 			s_successfullyLoadedLibrary = true;
-			//} catch( UnsatisfiedLinkError ule ) {
-		} catch( Throwable t ) {
+			// } catch( UnsatisfiedLinkError ule ) {
+		} catch (Throwable t) {
 			s_successfullyLoadedLibrary = false;
 		}
 	}
 
 	private static native boolean isSupportedNative();
 	public static boolean isSupported() {
-		if( s_successfullyLoadedLibrary ) {
+		if (s_successfullyLoadedLibrary) {
 			return isSupportedNative();
 		} else {
 			return false;
@@ -50,49 +50,50 @@ public class SemitransparentWindow {
 	private native void destroyNative();
 	private native void showNative();
 	private native void hideNative();
-	private native void setLocationOnScreenNative( int x, int y );
-	private native void setOpacityNative( double opacity );
-	private native void setImageNative( int width, int height, int[] pixels );
+	private native void setLocationOnScreenNative(int x, int y);
+	private native void setOpacityNative(double opacity);
+	private native void setImageNative(int width, int height, int[] pixels);
 
 	public SemitransparentWindow() {
-		if( SemitransparentWindow.isSupported() ) {
+		if (SemitransparentWindow.isSupported()) {
 			createNative();
 		}
 	}
-	
+
+	@Override
 	protected void finalize() throws Throwable {
-		if( SemitransparentWindow.isSupported() ) {
+		if (SemitransparentWindow.isSupported()) {
 			destroyNative();
 		}
 		super.finalize();
 	}
-	public void setImage( java.awt.Image image ) throws InterruptedException {
-		if( SemitransparentWindow.isSupported() ) {
-			int width = edu.cmu.cs.stage3.image.ImageUtilities.getWidth( image );
-			int height = edu.cmu.cs.stage3.image.ImageUtilities.getHeight( image );
-			int[] pixels = edu.cmu.cs.stage3.image.ImageUtilities.getPixels( image, width, height );
-			setImageNative( width, height, pixels );
+	public void setImage(java.awt.Image image) throws InterruptedException {
+		if (SemitransparentWindow.isSupported()) {
+			int width = edu.cmu.cs.stage3.image.ImageUtilities.getWidth(image);
+			int height = edu.cmu.cs.stage3.image.ImageUtilities.getHeight(image);
+			int[] pixels = edu.cmu.cs.stage3.image.ImageUtilities.getPixels(image, width, height);
+			setImageNative(width, height, pixels);
 		}
 	}
 
 	public void show() {
-		if( SemitransparentWindow.isSupported() ) {
+		if (SemitransparentWindow.isSupported()) {
 			showNative();
 		}
 	}
 	public void hide() {
-		if( SemitransparentWindow.isSupported() ) {
+		if (SemitransparentWindow.isSupported()) {
 			hideNative();
 		}
 	}
-	public void setLocationOnScreen( int x, int y ) {
-		if( SemitransparentWindow.isSupported() ) {
-			setLocationOnScreenNative( x, y );
+	public void setLocationOnScreen(int x, int y) {
+		if (SemitransparentWindow.isSupported()) {
+			setLocationOnScreenNative(x, y);
 		}
 	}
-	public void setOpacity( double opacity ) {
-		if( SemitransparentWindow.isSupported() ) {
-			setOpacityNative( opacity );
+	public void setOpacity(double opacity) {
+		if (SemitransparentWindow.isSupported()) {
+			setOpacityNative(opacity);
 		}
 	}
 }

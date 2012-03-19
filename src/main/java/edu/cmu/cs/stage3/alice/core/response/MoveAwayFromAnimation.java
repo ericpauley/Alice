@@ -25,9 +25,10 @@ package edu.cmu.cs.stage3.alice.core.response;
 
 public class MoveAwayFromAnimation extends AbstractMoveInDirectionOfAnimation {
 	public class RuntimeMoveAwayFromAnimation extends RuntimeAbstractMoveInDirectionOfAnimationAnimation {
-        
+
+		@Override
 		protected double getActualAmountValue() {
-            return -MoveAwayFromAnimation.this.amount.doubleValue();
-        }
-    }
+			return -MoveAwayFromAnimation.this.amount.doubleValue();
+		}
+	}
 }

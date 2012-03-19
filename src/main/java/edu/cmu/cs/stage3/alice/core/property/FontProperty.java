@@ -26,44 +26,44 @@ package edu.cmu.cs.stage3.alice.core.property;
 import edu.cmu.cs.stage3.alice.core.Element;
 
 public class FontProperty extends ObjectProperty {
-	public FontProperty( Element owner, String name, java.awt.Font defaultValue ) {
-		super( owner, name, defaultValue, java.awt.Font.class );
+	public FontProperty(Element owner, String name, java.awt.Font defaultValue) {
+		super(owner, name, defaultValue, java.awt.Font.class);
 	}
 	public java.awt.Font getFontValue() {
-		return (java.awt.Font)getValue();
+		return (java.awt.Font) getValue();
 	}
 
-    
-	protected void decodeObject( org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version ) throws java.io.IOException {
-        org.w3c.dom.Node familyNode = node.getElementsByTagName( "family" ).item( 0 );
-        org.w3c.dom.Node nameNode = node.getElementsByTagName( "name" ).item( 0 );
-        org.w3c.dom.Node styleNode = node.getElementsByTagName( "style" ).item( 0 );
-        org.w3c.dom.Node sizeNode = node.getElementsByTagName( "size" ).item( 0 );
-        String family = getNodeText( familyNode );
-        String name = getNodeText( nameNode );
-        int style = Integer.parseInt( getNodeText( styleNode ) );
-        int size = Integer.parseInt( getNodeText( sizeNode ) );
-        set( new java.awt.Font( name, style, size ) );
-    }
+	@Override
+	protected void decodeObject(org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version) throws java.io.IOException {
+		org.w3c.dom.Node familyNode = node.getElementsByTagName("family").item(0);
+		org.w3c.dom.Node nameNode = node.getElementsByTagName("name").item(0);
+		org.w3c.dom.Node styleNode = node.getElementsByTagName("style").item(0);
+		org.w3c.dom.Node sizeNode = node.getElementsByTagName("size").item(0);
+		String family = getNodeText(familyNode);
+		String name = getNodeText(nameNode);
+		int style = Integer.parseInt(getNodeText(styleNode));
+		int size = Integer.parseInt(getNodeText(sizeNode));
+		set(new java.awt.Font(name, style, size));
+	}
 
-    
-	protected void encodeObject( org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator ) throws java.io.IOException {
-        java.awt.Font f = getFontValue();
+	@Override
+	protected void encodeObject(org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator) throws java.io.IOException {
+		java.awt.Font f = getFontValue();
 
-        org.w3c.dom.Element familyNode = document.createElement( "family" );
-        familyNode.appendChild( createNodeForString( document, f.getFamily() ) );
-        node.appendChild( familyNode );
+		org.w3c.dom.Element familyNode = document.createElement("family");
+		familyNode.appendChild(createNodeForString(document, f.getFamily()));
+		node.appendChild(familyNode);
 
-        org.w3c.dom.Element nameNode = document.createElement( "name" );
-        nameNode.appendChild( createNodeForString( document, f.getName() ) );
-        node.appendChild( nameNode );
+		org.w3c.dom.Element nameNode = document.createElement("name");
+		nameNode.appendChild(createNodeForString(document, f.getName()));
+		node.appendChild(nameNode);
 
-        org.w3c.dom.Element styleNode = document.createElement( "style" );
-        styleNode.appendChild( createNodeForString( document, Integer.toString( f.getStyle() ) ) );
-        node.appendChild( styleNode );
+		org.w3c.dom.Element styleNode = document.createElement("style");
+		styleNode.appendChild(createNodeForString(document, Integer.toString(f.getStyle())));
+		node.appendChild(styleNode);
 
-        org.w3c.dom.Element sizeNode = document.createElement( "size" );
-        sizeNode.appendChild( createNodeForString( document, Integer.toString( f.getSize() ) ) );
-        node.appendChild( sizeNode );
-    }
+		org.w3c.dom.Element sizeNode = document.createElement("size");
+		sizeNode.appendChild(createNodeForString(document, Integer.toString(f.getSize())));
+		node.appendChild(sizeNode);
+	}
 }

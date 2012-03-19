@@ -32,55 +32,57 @@ public class ImagePanel extends javax.swing.JPanel {
 	protected java.awt.Dimension size;
 
 	public ImagePanel() {
-		setOpaque( false );
-		tracker = new java.awt.MediaTracker( this );
+		setOpaque(false);
+		tracker = new java.awt.MediaTracker(this);
 		size = new java.awt.Dimension();
 	}
 
-	public void setImage( java.awt.Image image ) {
-		if( this.image != image ) {
-			if( this.image != null ) {
-				tracker.removeImage( this.image );
+	public void setImage(java.awt.Image image) {
+		if (this.image != image) {
+			if (this.image != null) {
+				tracker.removeImage(this.image);
 			}
 			this.image = image;
-			if( image != null ) {
-				tracker.addImage( this.image, 0 );
+			if (image != null) {
+				tracker.addImage(this.image, 0);
 			}
 			try {
 				tracker.waitForAll();
-			} catch( InterruptedException e ) {
-				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "Interrupted while waiting for image to load.", e );
+			} catch (InterruptedException e) {
+				edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("Interrupted while waiting for image to load.", e);
 			}
 			revalidate();
 			repaint();
 		}
 	}
 
-	
-	protected void paintComponent( java.awt.Graphics g ) {
-		if( image != null ) {
-			g.drawImage( image, 0, 0, null );
+	@Override
+	protected void paintComponent(java.awt.Graphics g) {
+		if (image != null) {
+			g.drawImage(image, 0, 0, null);
 		}
 	}
 
 	protected java.awt.Dimension getImageSize() {
-		if( image != null ) {
-			size.setSize( image.getWidth( null ), image.getHeight( null ) );
+		if (image != null) {
+			size.setSize(image.getWidth(null), image.getHeight(null));
 		} else {
-			size.setSize( 0, 0 );
+			size.setSize(0, 0);
 		}
 		return size;
 	}
 
-	
+	@Override
 	public java.awt.Dimension getMinimumSize() {
 		return getImageSize();
 	}
-	
+
+	@Override
 	public java.awt.Dimension getMaximumSize() {
 		return getImageSize();
 	}
-	
+
+	@Override
 	public java.awt.Dimension getPreferredSize() {
 		return getImageSize();
 	}

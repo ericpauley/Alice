@@ -27,18 +27,17 @@ import edu.cmu.cs.stage3.alice.core.Element;
 import edu.cmu.cs.stage3.alice.core.ReferenceFrame;
 
 public class VehicleProperty extends ReferenceFrameProperty {
-	public VehicleProperty( Element owner, String name, ReferenceFrame defaultValue ) {
-		super( owner, name, defaultValue );
+	public VehicleProperty(Element owner, String name, ReferenceFrame defaultValue) {
+		super(owner, name, defaultValue);
 	}
-	public void set( Object o, boolean preserveAbsoluteTransformation ) {
-		if( preserveAbsoluteTransformation ) {
-			edu.cmu.cs.stage3.alice.core.Transformable transformable = (edu.cmu.cs.stage3.alice.core.Transformable)getOwner();
-			edu.cmu.cs.stage3.math.Matrix44 m = transformable.getTransformation( edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE );
-			set( o );
-			transformable.setAbsoluteTransformationRightNow( m );
+	public void set(Object o, boolean preserveAbsoluteTransformation) {
+		if (preserveAbsoluteTransformation) {
+			edu.cmu.cs.stage3.alice.core.Transformable transformable = (edu.cmu.cs.stage3.alice.core.Transformable) getOwner();
+			edu.cmu.cs.stage3.math.Matrix44 m = transformable.getTransformation(edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE);
+			set(o);
+			transformable.setAbsoluteTransformationRightNow(m);
 		} else {
-			set( o );
+			set(o);
 		}
 	}
 }
-

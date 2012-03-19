@@ -25,14 +25,16 @@ package edu.cmu.cs.stage3.alice.core.response;
 
 public class TurnAwayFromAnimation extends AbstractPointAtAnimation {
 	public class RuntimeTurnAwayFromAnimation extends RuntimeAbstractPointAtAnimation {
-		
+
+		@Override
 		protected boolean onlyAffectYaw() {
 			return true;
 		}
-		
+
+		@Override
 		protected edu.cmu.cs.stage3.math.Matrix33 getTargetMatrix33() {
 			edu.cmu.cs.stage3.math.Matrix33 m = super.getTargetMatrix33();
-			m.rotateY( Math.PI );
+			m.rotateY(Math.PI);
 			return m;
 		}
 	}

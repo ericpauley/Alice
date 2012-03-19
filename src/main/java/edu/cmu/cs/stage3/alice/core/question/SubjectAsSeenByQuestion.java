@@ -24,15 +24,16 @@
 package edu.cmu.cs.stage3.alice.core.question;
 
 import edu.cmu.cs.stage3.alice.core.ReferenceFrame;
-import edu.cmu.cs.stage3.alice.core.property.ReferenceFrameProperty;
 import edu.cmu.cs.stage3.alice.core.Transformable;
+import edu.cmu.cs.stage3.alice.core.property.ReferenceFrameProperty;
 
 public abstract class SubjectAsSeenByQuestion extends SubjectQuestion {
-	public final ReferenceFrameProperty asSeenBy = new ReferenceFrameProperty( this, "asSeenBy", null );
-	protected abstract Object getValue( Transformable subjectValue, ReferenceFrame asSeenByValue );
-	
-	protected Object getValue( Transformable subjectValue ) {
+	public final ReferenceFrameProperty asSeenBy = new ReferenceFrameProperty(this, "asSeenBy", null);
+	protected abstract Object getValue(Transformable subjectValue, ReferenceFrame asSeenByValue);
+
+	@Override
+	protected Object getValue(Transformable subjectValue) {
 		ReferenceFrame asSeenByValue = asSeenBy.getReferenceFrameValue();
-		return getValue( subjectValue, asSeenByValue );
+		return getValue(subjectValue, asSeenByValue);
 	}
 }

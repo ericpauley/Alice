@@ -24,17 +24,17 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
 public interface PickInfo {
-    public edu.cmu.cs.stage3.alice.scenegraph.Component getSource();
+	public edu.cmu.cs.stage3.alice.scenegraph.Component getSource();
 	public edu.cmu.cs.stage3.alice.scenegraph.Visual[] getVisuals();
 	public edu.cmu.cs.stage3.alice.scenegraph.Geometry[] getGeometries();
 	public boolean[] isFrontFacings();
 	public int[] getSubElements();
 	public double[] getZs();
 	public int getCount();
-	public edu.cmu.cs.stage3.alice.scenegraph.Visual getVisualAt( int index );
-	public boolean isFrontFacingAt( int index );
-	public edu.cmu.cs.stage3.alice.scenegraph.Geometry getGeometryAt( int index );
-	public int getSubElementAt( int index );
-	public double getZAt( int index );
-	public javax.vecmath.Vector3d getLocalPositionAt( int index );
+	public edu.cmu.cs.stage3.alice.scenegraph.Visual getVisualAt(int index);
+	public boolean isFrontFacingAt(int index);
+	public edu.cmu.cs.stage3.alice.scenegraph.Geometry getGeometryAt(int index);
+	public int getSubElementAt(int index);
+	public double getZAt(int index);
+	public javax.vecmath.Vector3d getLocalPositionAt(int index);
 }

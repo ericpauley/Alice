@@ -27,17 +27,18 @@ import edu.cmu.cs.stage3.alice.core.property.StyleProperty;
 import edu.cmu.cs.stage3.alice.core.style.TraditionalAnimationStyle;
 
 public abstract class Animation extends edu.cmu.cs.stage3.alice.core.Response {
-	public final StyleProperty style = new StyleProperty( this, "style", TraditionalAnimationStyle.BEGIN_AND_END_GENTLY );
+	public final StyleProperty style = new StyleProperty(this, "style", TraditionalAnimationStyle.BEGIN_AND_END_GENTLY);
 	public abstract class RuntimeAnimation extends RuntimeResponse {
 		protected edu.cmu.cs.stage3.alice.core.Style m_style;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			m_style = Animation.this.style.getStyleValue();
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			m_style = style.getStyleValue();
 		}
-		protected double getPortion( double t ) {
+		protected double getPortion(double t) {
 			double duration = getDuration();
-			return m_style.getPortion( Math.min( getTimeElapsed( t ), duration ), duration );
+			return m_style.getPortion(Math.min(getTimeElapsed(t), duration), duration);
 		}
 	}
 }

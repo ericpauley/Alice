@@ -26,14 +26,15 @@ package edu.cmu.cs.stage3.alice.core.question.list;
 import edu.cmu.cs.stage3.alice.core.property.ObjectProperty;
 
 public class Contains extends ListBooleanQuestion {
-	public final ObjectProperty item = new ObjectProperty( this, "item", null, Object.class );
-	
-	protected boolean getValue( edu.cmu.cs.stage3.alice.core.List listValue ) {
-		for ( int i = 0; i < listValue.size(); i++){
-			if ( listValue.itemAtIndex(i).equals( item.getValue() ) ){
+	public final ObjectProperty item = new ObjectProperty(this, "item", null, Object.class);
+
+	@Override
+	protected boolean getValue(edu.cmu.cs.stage3.alice.core.List listValue) {
+		for (int i = 0; i < listValue.size(); i++) {
+			if (listValue.itemAtIndex(i).equals(item.getValue())) {
 				return true;
 			}
 		}
 		return false;
-    }
+	}
 }

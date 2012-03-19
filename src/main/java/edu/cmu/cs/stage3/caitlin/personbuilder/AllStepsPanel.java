@@ -23,10 +23,12 @@
 
 package edu.cmu.cs.stage3.caitlin.personbuilder;
 
-import javax.swing.JPanel;
-import javax.swing.ImageIcon;
 import java.util.Vector;
-import org.w3c.dom.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+
+import org.w3c.dom.Node;
 
 public class AllStepsPanel extends JPanel {
 	protected java.awt.CardLayout cLayout = null;
@@ -36,12 +38,12 @@ public class AllStepsPanel extends JPanel {
 	protected ImageIcon backImage = null;
 	protected Vector stepPanels = new Vector();
 
-	public AllStepsPanel(Node root, ModelWrapper modelWrapper, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver, int progressOffset ) throws edu.cmu.cs.stage3.progress.ProgressCancelException {
+	public AllStepsPanel(Node root, ModelWrapper modelWrapper, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver, int progressOffset) throws edu.cmu.cs.stage3.progress.ProgressCancelException {
 		createGuiElements(root, modelWrapper, progressObserver, progressOffset);
 		setSelected(1);
 	}
 
-	private void createGuiElements(Node root, ModelWrapper modelWrapper, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver, int progressOffset ) throws edu.cmu.cs.stage3.progress.ProgressCancelException {
+	private void createGuiElements(Node root, ModelWrapper modelWrapper, edu.cmu.cs.stage3.progress.ProgressObserver progressObserver, int progressOffset) throws edu.cmu.cs.stage3.progress.ProgressCancelException {
 		Vector imageURLs = XMLDirectoryUtilities.getImageURLs(root);
 		for (int i = 0; i < imageURLs.size(); i++) {
 			java.net.URL url = (java.net.URL) imageURLs.elementAt(i);
@@ -54,18 +56,18 @@ public class AllStepsPanel extends JPanel {
 		Vector stepNodes = XMLDirectoryUtilities.getDirectories(root);
 		if (stepNodes != null) {
 			cLayout = new java.awt.CardLayout();
-			this.setLayout(cLayout);
+			setLayout(cLayout);
 			numSteps = stepNodes.size();
-			progressObserver.progressUpdateTotal( progressOffset+stepNodes.size() );
+			progressObserver.progressUpdateTotal(progressOffset + stepNodes.size());
 			for (int i = 0; i < stepNodes.size(); i++) {
 				Node currentStepNode = (Node) stepNodes.elementAt(i);
 				Vector stepImages = XMLDirectoryUtilities.getImages(currentStepNode);
-				if ((stepImages != null) && (stepImages.size() > 0)) {
+				if (stepImages != null && stepImages.size() > 0) {
 					StepPanel stepPanel = new StepPanel(currentStepNode, nextImage, backImage, modelWrapper);
 					stepPanels.addElement(stepPanel);
 					this.add(stepPanel, "Step " + (i + 1) + " Panel");
 				}
-				progressObserver.progressUpdate( progressOffset++, null );
+				progressObserver.progressUpdate(progressOffset++, null);
 			}
 		}
 	}
@@ -82,10 +84,12 @@ public class AllStepsPanel extends JPanel {
 	}
 
 	public void setSelected(int i) {
-		if (i < 1)
+		if (i < 1) {
 			i = 1;
-		if (i > numSteps)
+		}
+		if (i > numSteps) {
 			i = numSteps;
+		}
 		selectedPanel = i;
 		cLayout.show(this, "Step " + i + " Panel");
 	}

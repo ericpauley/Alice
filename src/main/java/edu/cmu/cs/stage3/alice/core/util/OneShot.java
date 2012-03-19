@@ -34,41 +34,42 @@ public class OneShot implements edu.cmu.cs.stage3.alice.core.event.ScheduleListe
 	public Response getResponse() {
 		return m_response;
 	}
-	public void setResponse( Response response ) {
+	public void setResponse(Response response) {
 		m_response = response;
 	}
-	public void stopRunningResponse( double time ) {
-		if( m_runtimeResponse != null ) {
-			m_runtimeResponse.stop( time );
+	public void stopRunningResponse(double time) {
+		if (m_runtimeResponse != null) {
+			m_runtimeResponse.stop(time);
 			m_runtimeResponse = null;
 		}
 	}
-	public void scheduled( edu.cmu.cs.stage3.alice.core.event.ScheduleEvent scheduleEvent ) {
+	@Override
+	public void scheduled(edu.cmu.cs.stage3.alice.core.event.ScheduleEvent scheduleEvent) {
 		double t = scheduleEvent.getTime();
 		boolean done;
-		if( m_response == null || m_response.isCommentedOut.booleanValue() ) {
+		if (m_response == null || m_response.isCommentedOut.booleanValue()) {
 			done = true;
 		} else {
-			if( m_runtimeResponse==null ) {
+			if (m_runtimeResponse == null) {
 				m_runtimeResponse = m_response.manufactureRuntimeResponse();
-				m_runtimeResponse.prologue( t );
+				m_runtimeResponse.prologue(t);
 			}
-			m_runtimeResponse.update( t );
-			double timeRemaining = m_runtimeResponse.getTimeRemaining( t );
-			done = timeRemaining<=0;
-			if( done ) {
-				m_runtimeResponse.epilogue( t );
+			m_runtimeResponse.update(t);
+			double timeRemaining = m_runtimeResponse.getTimeRemaining(t);
+			done = timeRemaining <= 0;
+			if (done) {
+				m_runtimeResponse.epilogue(t);
 				m_runtimeResponse = null;
 			}
 		}
-		if( done ) {
-			if( m_scheduler != null ){
-				m_scheduler.removeScheduleListener( this );
+		if (done) {
+			if (m_scheduler != null) {
+				m_scheduler.removeScheduleListener(this);
 			}
 		}
 	}
-	public void start( Scheduler scheduler ) {
+	public void start(Scheduler scheduler) {
 		m_scheduler = scheduler;
-		m_scheduler.addScheduleListener( this );
+		m_scheduler.addScheduleListener(this);
 	}
 }

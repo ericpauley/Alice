@@ -34,11 +34,11 @@ public class OneShotUndoableRedoable implements ContextAssignableUndoableRedoabl
 	protected edu.cmu.cs.stage3.alice.core.Scheduler scheduler;
 
 	/**
-	 * use this constructor if you already have a OneShotSimpleBehavior that's being run.
-	 * if undo or redo are called while the bevavior is still being scheduled, its response
-	 * will be stopped before the undo or redo occurs.
+	 * use this constructor if you already have a OneShotSimpleBehavior that's
+	 * being run. if undo or redo are called while the bevavior is still being
+	 * scheduled, its response will be stopped before the undo or redo occurs.
 	 */
-	public OneShotUndoableRedoable( edu.cmu.cs.stage3.alice.core.Response redoResponse, edu.cmu.cs.stage3.alice.core.Response undoResponse, OneShotSimpleBehavior oneShotBehavior, edu.cmu.cs.stage3.alice.core.Scheduler scheduler ) {
+	public OneShotUndoableRedoable(edu.cmu.cs.stage3.alice.core.Response redoResponse, edu.cmu.cs.stage3.alice.core.Response undoResponse, OneShotSimpleBehavior oneShotBehavior, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
 		this.redoResponse = redoResponse;
 		this.undoResponse = undoResponse;
 		this.oneShotBehavior = oneShotBehavior;
@@ -46,36 +46,42 @@ public class OneShotUndoableRedoable implements ContextAssignableUndoableRedoabl
 	}
 
 	/**
-	 * this constructor is a convenience, in case you don't already have a OneShotSimpleBehavior built.
+	 * this constructor is a convenience, in case you don't already have a
+	 * OneShotSimpleBehavior built.
 	 */
-	public OneShotUndoableRedoable( edu.cmu.cs.stage3.alice.core.Response redoResponse, edu.cmu.cs.stage3.alice.core.Response undoResponse, edu.cmu.cs.stage3.alice.core.Property[] affectedProperties, edu.cmu.cs.stage3.alice.core.Scheduler scheduler ) {
+	public OneShotUndoableRedoable(edu.cmu.cs.stage3.alice.core.Response redoResponse, edu.cmu.cs.stage3.alice.core.Response undoResponse, edu.cmu.cs.stage3.alice.core.Property[] affectedProperties, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
 		this.redoResponse = redoResponse;
 		this.undoResponse = undoResponse;
-		this.oneShotBehavior = new edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior();
-		this.oneShotBehavior.setAffectedProperties( affectedProperties );
+		oneShotBehavior = new edu.cmu.cs.stage3.alice.authoringtool.util.OneShotSimpleBehavior();
+		oneShotBehavior.setAffectedProperties(affectedProperties);
 		this.scheduler = scheduler;
 	}
 
-	public void setContext( Object context ) {
+	@Override
+	public void setContext(Object context) {
 		this.context = context;
 	}
 
+	@Override
 	public void undo() {
-		oneShotBehavior.stopRunningResponse( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getCurrentTime() );
-		oneShotBehavior.setResponse( undoResponse );
-		oneShotBehavior.start( scheduler );
+		oneShotBehavior.stopRunningResponse(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getCurrentTime());
+		oneShotBehavior.setResponse(undoResponse);
+		oneShotBehavior.start(scheduler);
 	}
 
+	@Override
 	public void redo() {
-		oneShotBehavior.stopRunningResponse( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getCurrentTime() );
-		oneShotBehavior.setResponse( redoResponse );
-		oneShotBehavior.start( scheduler );
+		oneShotBehavior.stopRunningResponse(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getCurrentTime());
+		oneShotBehavior.setResponse(redoResponse);
+		oneShotBehavior.start(scheduler);
 	}
 
+	@Override
 	public Object getAffectedObject() {
 		return this;
 	}
 
+	@Override
 	public Object getContext() {
 		return context;
 	}

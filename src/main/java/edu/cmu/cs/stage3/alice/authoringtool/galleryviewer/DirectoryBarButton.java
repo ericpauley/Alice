@@ -25,33 +25,33 @@ package edu.cmu.cs.stage3.alice.authoringtool.galleryviewer;
 
 /**
  * @author David Culyba
- *
+ * 
  */
 
 public class DirectoryBarButton extends javax.swing.JButton {
-    GalleryViewer.DirectoryStructure directoryData;
-    GalleryViewer mainViewer;
+	GalleryViewer.DirectoryStructure directoryData;
+	GalleryViewer mainViewer;
 
-    public DirectoryBarButton(GalleryViewer.DirectoryStructure dirData, GalleryViewer viewer) {
-        super();
-        this.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        if (dirData == null){
-            super.setText("Home");
-        }
-        else{
-            super.setText(dirData.name);
-        }
-        this.setBorder(null);
-        this.setOpaque(false);
-        this.setForeground(GalleryViewer.linkColor);
-        directoryData = dirData;
-        mainViewer = viewer;
-        this.addActionListener(new java.awt.event.ActionListener(){
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-                if (mainViewer != null){
-                    mainViewer.changeDirectory(directoryData);
-                }
-            }
-        });
-    }
+	public DirectoryBarButton(GalleryViewer.DirectoryStructure dirData, GalleryViewer viewer) {
+		super();
+		setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+		if (dirData == null) {
+			super.setText("Home");
+		} else {
+			super.setText(dirData.name);
+		}
+		setBorder(null);
+		setOpaque(false);
+		setForeground(GalleryViewer.linkColor);
+		directoryData = dirData;
+		mainViewer = viewer;
+		addActionListener(new java.awt.event.ActionListener() {
+			@Override
+			public void actionPerformed(java.awt.event.ActionEvent e) {
+				if (mainViewer != null) {
+					mainViewer.changeDirectory(directoryData);
+				}
+			}
+		});
+	}
 }

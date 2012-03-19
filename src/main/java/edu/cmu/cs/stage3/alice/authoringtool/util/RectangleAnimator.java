@@ -33,7 +33,7 @@ public class RectangleAnimator extends javax.swing.JWindow implements Runnable {
 	protected long duration = 300;
 	protected long startTime;
 
-	public RectangleAnimator( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool ) {
+	public RectangleAnimator(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool) {
 		this.authoringTool = authoringTool;
 	}
 
@@ -41,15 +41,15 @@ public class RectangleAnimator extends javax.swing.JWindow implements Runnable {
 		return getBackground();
 	}
 
-	public void setColor( java.awt.Color color ) {
-		setBackground( color );
+	public void setColor(java.awt.Color color) {
+		setBackground(color);
 	}
 
 	public long getDuration() {
 		return duration;
 	}
 
-	public void setDuration( long duration ) {
+	public void setDuration(long duration) {
 		this.duration = duration;
 	}
 
@@ -57,7 +57,7 @@ public class RectangleAnimator extends javax.swing.JWindow implements Runnable {
 		return sourceBounds;
 	}
 
-	public void setSourceBounds( java.awt.Rectangle r ) {
+	public void setSourceBounds(java.awt.Rectangle r) {
 		sourceBounds = r;
 	}
 
@@ -65,54 +65,58 @@ public class RectangleAnimator extends javax.swing.JWindow implements Runnable {
 		return targetBounds;
 	}
 
-	public void setTargetBounds( java.awt.Rectangle r ) {
+	public void setTargetBounds(java.awt.Rectangle r) {
 		targetBounds = r;
 	}
 
-	public void animate( java.awt.Rectangle sourceBounds, java.awt.Rectangle targetBounds ) {
-		setSourceBounds( sourceBounds );
-		setTargetBounds( targetBounds );
+	public void animate(java.awt.Rectangle sourceBounds, java.awt.Rectangle targetBounds) {
+		setSourceBounds(sourceBounds);
+		setTargetBounds(targetBounds);
 
-		setBounds( sourceBounds );
-		setVisible( true );
+		setBounds(sourceBounds);
+		setVisible(true);
 
 		startTime = System.currentTimeMillis();
-		authoringTool.getScheduler().addEachFrameRunnable( this );
+		authoringTool.getScheduler().addEachFrameRunnable(this);
 	}
 
-	public void animate( java.awt.Rectangle sourceBounds, java.awt.Rectangle targetBounds, java.awt.Color color ) {
-		setColor( color );
-		animate( sourceBounds, targetBounds );
+	public void animate(java.awt.Rectangle sourceBounds, java.awt.Rectangle targetBounds, java.awt.Color color) {
+		setColor(color);
+		animate(sourceBounds, targetBounds);
 	}
 
+	@Override
 	public void run() {
 		long time = System.currentTimeMillis();
 		long dt = time - startTime;
-		if( dt <= duration ) {
-			double portion = ((double)dt)/((double)duration);
-			int x = sourceBounds.x + (int)(portion*(targetBounds.x - sourceBounds.x));
-			int y = sourceBounds.y + (int)(portion*(targetBounds.y - sourceBounds.y));
-			int w = sourceBounds.width + (int)(portion*(targetBounds.width - sourceBounds.width));
-			int h = sourceBounds.height + (int)(portion*(targetBounds.height - sourceBounds.height));
-			setBounds( x, y, w, h );
+		if (dt <= duration) {
+			double portion = (double) dt / (double) duration;
+			int x = sourceBounds.x + (int) (portion * (targetBounds.x - sourceBounds.x));
+			int y = sourceBounds.y + (int) (portion * (targetBounds.y - sourceBounds.y));
+			int w = sourceBounds.width + (int) (portion * (targetBounds.width - sourceBounds.width));
+			int h = sourceBounds.height + (int) (portion * (targetBounds.height - sourceBounds.height));
+			setBounds(x, y, w, h);
 			repaint();
 		} else {
-			setVisible( false );
-			authoringTool.getScheduler().removeEachFrameRunnable( RectangleAnimator.this );
-//			
-//			authoringTool.getScheduler().addDoOnceRunnable( new Runnable() {
-//				public void run() {
-//					authoringTool.getScheduler().removeEachFrameRunnable( RectangleAnimator.this );
-//				}
-//			} );
-//
-//			SwingWorker worker = new SwingWorker() { // use a separate thread to avoid concurrent modification of the scheduler
-//				public Object construct() {
-//					authoringTool.getScheduler().removeEachFrameRunnable( RectangleAnimator.this );
-//					return null;
-//				}
-//			};
-//			worker.start();
+			setVisible(false);
+			authoringTool.getScheduler().removeEachFrameRunnable(RectangleAnimator.this);
+			//
+			// authoringTool.getScheduler().addDoOnceRunnable( new Runnable() {
+			// public void run() {
+			// authoringTool.getScheduler().removeEachFrameRunnable(
+			// RectangleAnimator.this );
+			// }
+			// } );
+			//
+			// SwingWorker worker = new SwingWorker() { // use a separate thread
+			// to avoid concurrent modification of the scheduler
+			// public Object construct() {
+			// authoringTool.getScheduler().removeEachFrameRunnable(
+			// RectangleAnimator.this );
+			// return null;
+			// }
+			// };
+			// worker.start();
 		}
 	}
 }

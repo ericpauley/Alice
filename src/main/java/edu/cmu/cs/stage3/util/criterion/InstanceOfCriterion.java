@@ -24,11 +24,12 @@
 package edu.cmu.cs.stage3.util.criterion;
 
 public class InstanceOfCriterion implements edu.cmu.cs.stage3.util.Criterion {
-    private Class m_class;
-    public InstanceOfCriterion( Class _class ) {
-        m_class = _class;
-    }
-    public boolean accept( Object o ) {
-        return m_class.isInstance( o );
-    }
+	private Class m_class;
+	public InstanceOfCriterion(Class _class) {
+		m_class = _class;
+	}
+	@Override
+	public boolean accept(Object o) {
+		return m_class.isInstance(o);
+	}
 }

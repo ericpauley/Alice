@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.array;
 
 public class Size extends ArrayNumberQuestion {
-	
-	public int getValue( edu.cmu.cs.stage3.alice.core.Array arrayValue ) {
+
+	@Override
+	public int getValue(edu.cmu.cs.stage3.alice.core.Array arrayValue) {
 		return arrayValue.size();
 	}
 }

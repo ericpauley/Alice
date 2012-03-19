@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.list;
 
 public class IsEmpty extends ListBooleanQuestion {
-	
-	protected boolean getValue( edu.cmu.cs.stage3.alice.core.List listValue ) {
-        return listValue.isEmpty();
-    }
+
+	@Override
+	protected boolean getValue(edu.cmu.cs.stage3.alice.core.List listValue) {
+		return listValue.isEmpty();
+	}
 }

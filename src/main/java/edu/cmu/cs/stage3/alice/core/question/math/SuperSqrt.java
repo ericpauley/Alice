@@ -26,9 +26,10 @@ package edu.cmu.cs.stage3.alice.core.question.math;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class SuperSqrt extends edu.cmu.cs.stage3.alice.core.question.UnaryNumberResultingInNumberQuestion {
-	public final NumberProperty b = new NumberProperty( this, "b", new Double( 2 ) );
-	
-	protected double getValue( double aValue ) {
-		return Math.pow( aValue, 1.0/b.doubleValue() );
+	public final NumberProperty b = new NumberProperty(this, "b", new Double(2));
+
+	@Override
+	protected double getValue(double aValue) {
+		return Math.pow(aValue, 1.0 / b.doubleValue());
 	}
 }

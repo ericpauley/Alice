@@ -27,12 +27,14 @@ import edu.cmu.cs.stage3.alice.core.ReferenceFrame;
 import edu.cmu.cs.stage3.alice.core.Transformable;
 
 public class Position extends SubjectAsSeenByQuestion {
-	
+
+	@Override
 	public Class getValueClass() {
 		return edu.cmu.cs.stage3.math.Vector3.class;
 	}
-	
-	protected Object getValue( Transformable subjectValue, ReferenceFrame asSeenByValue ) {
-		return subjectValue.getPosition( asSeenByValue );
+
+	@Override
+	protected Object getValue(Transformable subjectValue, ReferenceFrame asSeenByValue) {
+		return subjectValue.getPosition(asSeenByValue);
 	}
 }

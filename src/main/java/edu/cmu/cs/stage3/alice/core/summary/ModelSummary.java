@@ -11,10 +11,10 @@ public class ModelSummary extends ElementSummary {
 	private String[] m_soundNames;
 
 	private edu.cmu.cs.stage3.alice.core.Model getModel() {
-		return (edu.cmu.cs.stage3.alice.core.Model)getElement();
+		return (edu.cmu.cs.stage3.alice.core.Model) getElement();
 	}
-	public void setModel( edu.cmu.cs.stage3.alice.core.Model model ) {
-		super.setElement( model );
+	public void setModel(edu.cmu.cs.stage3.alice.core.Model model) {
+		super.setElement(model);
 		m_name = null;
 		m_modeledBy = null;
 		m_paintedBy = null;
@@ -24,24 +24,24 @@ public class ModelSummary extends ElementSummary {
 		m_questionNames = null;
 		m_soundNames = null;
 	}
-	
+
 	public String getName() {
-		if( getModel() != null ) {
+		if (getModel() != null) {
 			return getModel().name.getStringValue();
 		} else {
 			return m_name;
 		}
 	}
 	public String getModeledBy() {
-		if( getModel() != null ) {
-			return (String)getModel().data.get( "modeled by" );
+		if (getModel() != null) {
+			return (String) getModel().data.get("modeled by");
 		} else {
 			return m_modeledBy;
 		}
 	}
 	public String getPaintedBy() {
-		if( getModel() != null ) {
-			return (String)getModel().data.get( "painted by" );
+		if (getModel() != null) {
+			return (String) getModel().data.get("painted by");
 		} else {
 			return m_paintedBy;
 		}
@@ -49,16 +49,16 @@ public class ModelSummary extends ElementSummary {
 	public int getPartCount() {
 		return m_partCount;
 	}
-	//todo: getBoundingBox?
+	// todo: getBoundingBox?
 	public String getPhysicalSizeDescription() {
 		return m_physicalSizeDescription;
 	}
 	public String[] getMethodNames() {
-		if( getModel() != null ) {
-			String[] methodNames = new String[ getModel().responses.size() ];
-			for( int i=0; i<methodNames.length; i++ ) {
-				edu.cmu.cs.stage3.alice.core.response.UserDefinedResponse methodI = (edu.cmu.cs.stage3.alice.core.response.UserDefinedResponse)getModel().responses.get( i );
-				methodNames[ i ] = methodI.name.getStringValue(); 
+		if (getModel() != null) {
+			String[] methodNames = new String[getModel().responses.size()];
+			for (int i = 0; i < methodNames.length; i++) {
+				edu.cmu.cs.stage3.alice.core.response.UserDefinedResponse methodI = (edu.cmu.cs.stage3.alice.core.response.UserDefinedResponse) getModel().responses.get(i);
+				methodNames[i] = methodI.name.getStringValue();
 			}
 			return methodNames;
 		} else {

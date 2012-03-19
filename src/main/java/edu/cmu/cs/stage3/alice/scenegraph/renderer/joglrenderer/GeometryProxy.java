@@ -24,13 +24,13 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 abstract class GeometryProxy extends ElementProxy {
-    private boolean m_isGeometryChanged;
-    protected boolean isGeometryChanged() {
-        return m_isGeometryChanged;
-    }
-    protected void setIsGeometryChanged( boolean isGeometryChanged ) {
-        m_isGeometryChanged = isGeometryChanged;
-    }
-    public abstract void render( RenderContext context );
-	public abstract void pick( PickContext context, boolean isSubElementRequired );
+	private boolean m_isGeometryChanged;
+	protected boolean isGeometryChanged() {
+		return m_isGeometryChanged;
+	}
+	protected void setIsGeometryChanged(boolean isGeometryChanged) {
+		m_isGeometryChanged = isGeometryChanged;
+	}
+	public abstract void render(RenderContext context);
+	public abstract void pick(PickContext context, boolean isSubElementRequired);
 }

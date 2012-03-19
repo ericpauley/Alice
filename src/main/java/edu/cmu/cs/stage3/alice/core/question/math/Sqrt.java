@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class Sqrt extends edu.cmu.cs.stage3.alice.core.question.UnaryNumberResultingInNumberQuestion {
-	
-	protected double getValue( double aValue ) {
-		return Math.sqrt( aValue );
+
+	@Override
+	protected double getValue(double aValue) {
+		return Math.sqrt(aValue);
 	}
 }

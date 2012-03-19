@@ -32,51 +32,53 @@ public class Dummy extends Model {
 	private static edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray s_sgITA = null;
 	private static edu.cmu.cs.stage3.alice.scenegraph.TextureMap s_sgTexture = null;
 	public Dummy() {
-		isFirstClass.set( true );
-		opacity.set( new Double( .5 ) );
-		isShowing.set( false );
-		emissiveColor.set( edu.cmu.cs.stage3.alice.scenegraph.Color.LIGHT_GRAY );
+		isFirstClass.set(true);
+		opacity.set(new Double(.5));
+		isShowing.set(false);
+		emissiveColor.set(edu.cmu.cs.stage3.alice.scenegraph.Color.LIGHT_GRAY);
 
-		if( s_sgITA == null ) {
+		if (s_sgITA == null) {
 			s_sgITA = new edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray();
 			try {
-				java.io.InputStream is = Dummy.class.getResourceAsStream( "axesIndices.bin" );
-				s_sgITA.setIndices( edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.loadIndices( is ) );
+				java.io.InputStream is = Dummy.class.getResourceAsStream("axesIndices.bin");
+				s_sgITA.setIndices(edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.loadIndices(is));
 				is.close();
-			} catch( java.io.IOException ioe ) {
-				throw new ExceptionWrapper( ioe, "failed to load axesIndices.bin resource" );
+			} catch (java.io.IOException ioe) {
+				throw new ExceptionWrapper(ioe, "failed to load axesIndices.bin resource");
 			}
 			try {
-				java.io.InputStream is = Dummy.class.getResourceAsStream( "axesVertices.bin" );
-				s_sgITA.setVertices( VertexGeometry.loadVertices( is ) );
+				java.io.InputStream is = Dummy.class.getResourceAsStream("axesVertices.bin");
+				s_sgITA.setVertices(VertexGeometry.loadVertices(is));
 				is.close();
-			} catch( java.io.IOException ioe ) {
-				throw new ExceptionWrapper( ioe, "failed to load axesVertices.bin resource" );
+			} catch (java.io.IOException ioe) {
+				throw new ExceptionWrapper(ioe, "failed to load axesVertices.bin resource");
 			}
 		}
-		if( s_sgTexture == null ) {
+		if (s_sgTexture == null) {
 			s_sgTexture = new edu.cmu.cs.stage3.alice.scenegraph.TextureMap();
 			try {
-				java.io.InputStream is = Dummy.class.getResourceAsStream( "axesImage.png" );
-				java.awt.Image image = edu.cmu.cs.stage3.image.ImageIO.load( "png", is );
+				java.io.InputStream is = Dummy.class.getResourceAsStream("axesImage.png");
+				java.awt.Image image = edu.cmu.cs.stage3.image.ImageIO.load("png", is);
 				is.close();
-				s_sgTexture.setImage( image );
-			} catch( java.io.IOException ioe ) {
-				throw new ExceptionWrapper( ioe, "failed to load axesImage.png resource" );
+				s_sgTexture.setImage(image);
+			} catch (java.io.IOException ioe) {
+				throw new ExceptionWrapper(ioe, "failed to load axesImage.png resource");
 			}
 		}
-		getSceneGraphVisual().setGeometry( s_sgITA );
-		getSceneGraphAppearance().setDiffuseColorMap( s_sgTexture );
+		getSceneGraphVisual().setGeometry(s_sgITA);
+		getSceneGraphAppearance().setDiffuseColorMap(s_sgTexture);
 	}
-	// override to prevent core property values (null) from triggering scenegraph changes
-	
-	protected void propertyChanged( edu.cmu.cs.stage3.alice.core.Property property, Object value ) {
-		if( property == diffuseColorMap ) {
-			//pass
-		} else if( property == geometry ) {
-			//pass
+	// override to prevent core property values (null) from triggering
+	// scenegraph changes
+
+	@Override
+	protected void propertyChanged(edu.cmu.cs.stage3.alice.core.Property property, Object value) {
+		if (property == diffuseColorMap) {
+			// pass
+		} else if (property == geometry) {
+			// pass
 		} else {
-			super.propertyChanged( property, value );
+			super.propertyChanged(property, value);
 		}
 	}
 }

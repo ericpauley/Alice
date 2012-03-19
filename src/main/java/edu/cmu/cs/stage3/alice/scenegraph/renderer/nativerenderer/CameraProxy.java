@@ -24,19 +24,20 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class CameraProxy extends ComponentProxy {
-	protected abstract void onNearClippingPlaneDistanceChange( double value );
-	protected abstract void onFarClippingPlaneDistanceChange( double value );
-	protected abstract void onBackgroundChange( BackgroundProxy value );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Camera.NEAR_CLIPPING_PLANE_DISTANCE_PROPERTY ) {
-			onNearClippingPlaneDistanceChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Camera.FAR_CLIPPING_PLANE_DISTANCE_PROPERTY ) {
-			onFarClippingPlaneDistanceChange( ((Double)value).doubleValue() );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Camera.BACKGROUND_PROPERTY ) {
-			onBackgroundChange( (BackgroundProxy)getProxyFor( (edu.cmu.cs.stage3.alice.scenegraph.Background)value ) );
+	protected abstract void onNearClippingPlaneDistanceChange(double value);
+	protected abstract void onFarClippingPlaneDistanceChange(double value);
+	protected abstract void onBackgroundChange(BackgroundProxy value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Camera.NEAR_CLIPPING_PLANE_DISTANCE_PROPERTY) {
+			onNearClippingPlaneDistanceChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Camera.FAR_CLIPPING_PLANE_DISTANCE_PROPERTY) {
+			onFarClippingPlaneDistanceChange(((Double) value).doubleValue());
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Camera.BACKGROUND_PROPERTY) {
+			onBackgroundChange((BackgroundProxy) getProxyFor((edu.cmu.cs.stage3.alice.scenegraph.Background) value));
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

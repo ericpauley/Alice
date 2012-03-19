@@ -24,8 +24,9 @@
 package edu.cmu.cs.stage3.alice.core.question;
 
 public class Not extends UnaryBooleanResultingInBooleanQuestion {
-	
-	protected boolean getValue( boolean a ) {
+
+	@Override
+	protected boolean getValue(boolean a) {
 		return !a;
 	}
 }

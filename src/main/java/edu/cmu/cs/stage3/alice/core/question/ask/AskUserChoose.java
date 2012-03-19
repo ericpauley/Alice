@@ -30,38 +30,42 @@ import edu.cmu.cs.stage3.alice.core.property.StringProperty;
  */
 
 public class AskUserChoose extends edu.cmu.cs.stage3.alice.core.question.list.ListObjectQuestion {
-    public final StringProperty title = new StringProperty( this, "title", "Question" );
-    public final StringProperty question = new StringProperty(this, "question", "Pick an Item:" );
+	public final StringProperty title = new StringProperty(this, "title", "Question");
+	public final StringProperty question = new StringProperty(this, "question", "Pick an Item:");
 
 	private edu.cmu.cs.stage3.alice.core.Clock m_clock;
 
-    
-	public Object getValue( edu.cmu.cs.stage3.alice.core.List listValue ) {
-		if( m_clock != null ) {
+	@Override
+	public Object getValue(edu.cmu.cs.stage3.alice.core.List listValue) {
+		if (m_clock != null) {
 			m_clock.pause();
 		}
 		try {
-			//todo:
-			//javax.swing.JList message = new javax.swing.JList();
-			//Object = edu.cmu.cs.stage3.swing.DialogManager.showInputDialog( question.getStringValue(), message, title.getStringValue(), javax.swing.JOptionPane.QUESTION_MESSAGE, icon, selectionValues, initialSelectionValue );
+			// todo:
+			// javax.swing.JList message = new javax.swing.JList();
+			// Object = edu.cmu.cs.stage3.swing.DialogManager.showInputDialog(
+			// question.getStringValue(), message, title.getStringValue(),
+			// javax.swing.JOptionPane.QUESTION_MESSAGE, icon, selectionValues,
+			// initialSelectionValue );
 			return null;
 		} finally {
-			if( m_clock != null ) {
+			if (m_clock != null) {
 				m_clock.resume();
 			}
 		}
-    }
-
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		if( world != null ) {
-			m_clock = world.getClock();
-		} 
 	}
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		if (world != null) {
+			m_clock = world.getClock();
+		}
+	}
+
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
 		m_clock = null;
-		super.stopped( world, time );
+		super.stopped(world, time);
 	}
 }

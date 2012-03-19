@@ -25,9 +25,10 @@ package edu.cmu.cs.stage3.alice.core.response.list;
 
 public class RemoveItemFromEnd extends ListResponse {
 	public class RuntimeRemoveItemFromEnd extends RuntimeListResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
 			getList().removeItemFromEnd();
 		}
 	}

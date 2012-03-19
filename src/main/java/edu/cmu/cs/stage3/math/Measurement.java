@@ -26,34 +26,40 @@ package edu.cmu.cs.stage3.math;
 public class Measurement extends Number {
 	private double m_value;
 	private double m_factor;
-    public Measurement( double value, double factor ) {
+	public Measurement(double value, double factor) {
 		m_value = value;
 		m_factor = factor;
-    }
-    
-	public byte byteValue() {
-        return (byte)doubleValue();
-    }
-    
-	public double doubleValue() {
-        return m_value*m_factor;
-    }
-    
-	public float floatValue() {
-        return (float)doubleValue();
-    }
-    
-	public int intValue() {
-        return (int)doubleValue();
-    }
-    
-	public long longValue() {
-        return (long)doubleValue();
-    }
-    
-	public short shortValue() {
-        return (short)doubleValue();
-    }
+	}
 
-	//todo toString, valueOf
+	@Override
+	public byte byteValue() {
+		return (byte) doubleValue();
+	}
+
+	@Override
+	public double doubleValue() {
+		return m_value * m_factor;
+	}
+
+	@Override
+	public float floatValue() {
+		return (float) doubleValue();
+	}
+
+	@Override
+	public int intValue() {
+		return (int) doubleValue();
+	}
+
+	@Override
+	public long longValue() {
+		return (long) doubleValue();
+	}
+
+	@Override
+	public short shortValue() {
+		return (short) doubleValue();
+	}
+
+	// todo toString, valueOf
 }

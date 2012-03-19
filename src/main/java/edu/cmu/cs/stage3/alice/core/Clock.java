@@ -30,10 +30,10 @@ public interface Clock {
 	public void resume();
 	public double getTime();
 	public double getTimeElapsed();
-	
+
 	public World getWorld();
-	public void setWorld( World world );
-	
+	public void setWorld(World world);
+
 	public void schedule();
-	
+
 }

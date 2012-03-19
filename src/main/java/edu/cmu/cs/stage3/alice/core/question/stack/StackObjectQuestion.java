@@ -27,17 +27,19 @@ import edu.cmu.cs.stage3.alice.core.Stack;
 import edu.cmu.cs.stage3.alice.core.property.StackProperty;
 
 public abstract class StackObjectQuestion extends edu.cmu.cs.stage3.alice.core.Question {
-	public final StackProperty stack = new StackProperty( this, "stack", null );
-	protected abstract Object getValue( Stack stack );
-    
+	public final StackProperty stack = new StackProperty(this, "stack", null);
+	protected abstract Object getValue(Stack stack);
+
+	@Override
 	public Class getValueClass() {
-        return stack.getStackValue().valueClass.getClassValue();
-    }
-	
+		return stack.getStackValue().valueClass.getClassValue();
+	}
+
+	@Override
 	public Object getValue() {
 		Stack stackValue = stack.getStackValue();
-		if( stackValue!=null ) {
-            return getValue( stackValue );
+		if (stackValue != null) {
+			return getValue(stackValue);
 		} else {
 			return null;
 		}

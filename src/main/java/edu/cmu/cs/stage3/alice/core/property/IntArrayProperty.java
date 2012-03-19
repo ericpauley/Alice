@@ -26,73 +26,76 @@ package edu.cmu.cs.stage3.alice.core.property;
 import edu.cmu.cs.stage3.alice.core.Element;
 
 public class IntArrayProperty extends ObjectProperty {
-	public IntArrayProperty( Element owner, String name, int[] defaultValue ) {
-		super( owner, name, defaultValue, int[].class );
+	public IntArrayProperty(Element owner, String name, int[] defaultValue) {
+		super(owner, name, defaultValue, int[].class);
 	}
 	public int[] getIntArrayValue() {
-		return (int[])getValue();
+		return (int[]) getValue();
 	}
 	public int size() {
 		int[] value = getIntArrayValue();
-		if( value!=null ) {
+		if (value != null) {
 			return value.length;
 		} else {
 			return 0;
 		}
 	}
-    
-	protected void decodeObject( org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version ) throws java.io.IOException {
+
+	@Override
+	protected void decodeObject(org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeLoader loader, java.util.Vector referencesToBeResolved, double version) throws java.io.IOException {
 		m_associatedFileKey = null;
-        String filename = getFilename( getNodeText( node ) );
-        String extension = filename.substring( filename.lastIndexOf( '.' )+1 );
-        int[] indicesValue;
-        java.io.InputStream is = loader.readFile( filename );
-        if( extension.equalsIgnoreCase( "vfb" ) ) {
-            indicesValue = edu.cmu.cs.stage3.alice.scenegraph.io.VFB.loadIndices( is );
-        } else {
-            indicesValue = edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.loadIndices( is );
-        }
-        loader.closeCurrentFile();
-        set( indicesValue );
-        try {
-            m_associatedFileKey = loader.getKeepKey( filename );
-        } catch( edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse ) {
-            m_associatedFileKey = null;
-        }
-    }
-    
-	protected void encodeObject( org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator ) throws java.io.IOException {
+		String filename = getFilename(getNodeText(node));
+		String extension = filename.substring(filename.lastIndexOf('.') + 1);
+		int[] indicesValue;
+		java.io.InputStream is = loader.readFile(filename);
+		if (extension.equalsIgnoreCase("vfb")) {
+			indicesValue = edu.cmu.cs.stage3.alice.scenegraph.io.VFB.loadIndices(is);
+		} else {
+			indicesValue = edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.loadIndices(is);
+		}
+		loader.closeCurrentFile();
+		set(indicesValue);
+		try {
+			m_associatedFileKey = loader.getKeepKey(filename);
+		} catch (edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse) {
+			m_associatedFileKey = null;
+		}
+	}
+
+	@Override
+	protected void encodeObject(org.w3c.dom.Document document, org.w3c.dom.Element node, edu.cmu.cs.stage3.io.DirectoryTreeStorer storer, edu.cmu.cs.stage3.alice.core.ReferenceGenerator referenceGenerator) throws java.io.IOException {
 		int[] indicesValue = getIntArrayValue();
-        String filename = "indices.bin";
-        Object associatedFileKey;
-        try {
-            associatedFileKey = storer.getKeepKey( filename );
-        } catch( edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse ) {
-            associatedFileKey = null;
-        }
-        if( m_associatedFileKey==null || !m_associatedFileKey.equals( associatedFileKey ) ) {
-            m_associatedFileKey = null;
-            java.io.OutputStream os = storer.createFile( filename, true );
-            edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.storeIndices( indicesValue, os );
-            storer.closeCurrentFile();
-            m_associatedFileKey = associatedFileKey;
-        } else {
-            if( storer.isKeepFileSupported() ) {
-                try {
-                    storer.keepFile( filename );
-                } catch( edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse ) {
-                    throw new Error( storer + " returns true for isKeepFileSupported(), but then throws " + kfnse );
-                } catch( edu.cmu.cs.stage3.io.KeepFileDoesNotExistException kfdne ) {
-                    throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper( kfdne, filename );
-                }
-            }
-        }
-        node.appendChild( createNodeForString( document, "java.io.File["+filename+"]" ) );
-    }
-    
-	public void keepAnyAssociatedFiles( edu.cmu.cs.stage3.io.DirectoryTreeStorer storer ) throws edu.cmu.cs.stage3.io.KeepFileNotSupportedException, edu.cmu.cs.stage3.io.KeepFileDoesNotExistException {
-        super.keepAnyAssociatedFiles( storer );
-        String filename = "indices.bin";
-        storer.keepFile( filename );
-    }
+		String filename = "indices.bin";
+		Object associatedFileKey;
+		try {
+			associatedFileKey = storer.getKeepKey(filename);
+		} catch (edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse) {
+			associatedFileKey = null;
+		}
+		if (m_associatedFileKey == null || !m_associatedFileKey.equals(associatedFileKey)) {
+			m_associatedFileKey = null;
+			java.io.OutputStream os = storer.createFile(filename, true);
+			edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray.storeIndices(indicesValue, os);
+			storer.closeCurrentFile();
+			m_associatedFileKey = associatedFileKey;
+		} else {
+			if (storer.isKeepFileSupported()) {
+				try {
+					storer.keepFile(filename);
+				} catch (edu.cmu.cs.stage3.io.KeepFileNotSupportedException kfnse) {
+					throw new Error(storer + " returns true for isKeepFileSupported(), but then throws " + kfnse);
+				} catch (edu.cmu.cs.stage3.io.KeepFileDoesNotExistException kfdne) {
+					throw new edu.cmu.cs.stage3.alice.core.ExceptionWrapper(kfdne, filename);
+				}
+			}
+		}
+		node.appendChild(createNodeForString(document, "java.io.File[" + filename + "]"));
+	}
+
+	@Override
+	public void keepAnyAssociatedFiles(edu.cmu.cs.stage3.io.DirectoryTreeStorer storer) throws edu.cmu.cs.stage3.io.KeepFileNotSupportedException, edu.cmu.cs.stage3.io.KeepFileDoesNotExistException {
+		super.keepAnyAssociatedFiles(storer);
+		String filename = "indices.bin";
+		storer.keepFile(filename);
+	}
 }

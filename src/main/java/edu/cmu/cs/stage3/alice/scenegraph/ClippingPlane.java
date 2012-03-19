@@ -27,5 +27,5 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class ClippingPlane extends Affector {
-    //todo: add inFrontAsOpposedToBehind?
+	// todo: add inFrontAsOpposedToBehind?
 }

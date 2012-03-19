@@ -27,7 +27,7 @@ package edu.cmu.cs.stage3.io;
  * @author Jason Pratt
  */
 public class KeepFileDoesNotExistException extends Exception {
-	public KeepFileDoesNotExistException( String pathname, String filename ) {
-		super( "\'" + filename + "\' in directory \'" + pathname + "\' cannot be retained, because it does not exist in this store." );
+	public KeepFileDoesNotExistException(String pathname, String filename) {
+		super("\'" + filename + "\' in directory \'" + pathname + "\' cannot be retained, because it does not exist in this store.");
 	}
 }

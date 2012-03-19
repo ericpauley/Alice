@@ -24,29 +24,30 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class BackgroundProxy extends ElementProxy {
-	protected abstract void onColorChange( double r, double g, double b, double a );
-	protected abstract void onTextureMapChange( TextureMapProxy value );
-	protected abstract void onTextureMapSourceRectangleChange( int x, int y, int width, int height );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Background.COLOR_PROPERTY ) {
-			edu.cmu.cs.stage3.alice.scenegraph.Color color = (edu.cmu.cs.stage3.alice.scenegraph.Color)value;
-			if( color!=null ) {
-				onColorChange( color.red, color.green, color.blue, color.alpha );
+	protected abstract void onColorChange(double r, double g, double b, double a);
+	protected abstract void onTextureMapChange(TextureMapProxy value);
+	protected abstract void onTextureMapSourceRectangleChange(int x, int y, int width, int height);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Background.COLOR_PROPERTY) {
+			edu.cmu.cs.stage3.alice.scenegraph.Color color = (edu.cmu.cs.stage3.alice.scenegraph.Color) value;
+			if (color != null) {
+				onColorChange(color.red, color.green, color.blue, color.alpha);
 			} else {
-				onColorChange( 0,0,0,0 );
+				onColorChange(0, 0, 0, 0);
 			}
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Background.TEXTURE_MAP_PROPERTY ) {
-			onTextureMapChange( (TextureMapProxy)getProxyFor( (edu.cmu.cs.stage3.alice.scenegraph.TextureMap)value ) );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Background.TEXTURE_MAP_SOURCE_RECTANGLE_PROPERTY ) {
-			java.awt.Rectangle rect = (java.awt.Rectangle)value;
-			if( rect!=null ) {
-				onTextureMapSourceRectangleChange( rect.x, rect.y, rect.width, rect.height );
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Background.TEXTURE_MAP_PROPERTY) {
+			onTextureMapChange((TextureMapProxy) getProxyFor((edu.cmu.cs.stage3.alice.scenegraph.TextureMap) value));
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Background.TEXTURE_MAP_SOURCE_RECTANGLE_PROPERTY) {
+			java.awt.Rectangle rect = (java.awt.Rectangle) value;
+			if (rect != null) {
+				onTextureMapSourceRectangleChange(rect.x, rect.y, rect.width, rect.height);
 			} else {
-				onTextureMapSourceRectangleChange( 0, 0, 1, 1 );
+				onTextureMapSourceRectangleChange(0, 0, 1, 1);
 			}
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

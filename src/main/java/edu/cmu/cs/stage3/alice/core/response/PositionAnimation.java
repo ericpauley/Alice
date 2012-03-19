@@ -26,15 +26,17 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.property.Vector3Property;
 
 public class PositionAnimation extends AbstractPositionAnimation {
-	public final Vector3Property position = new Vector3Property( this, "position", new javax.vecmath.Vector3d( 0,0,0 ) );
+	public final Vector3Property position = new Vector3Property(this, "position", new javax.vecmath.Vector3d(0, 0, 0));
 	public class RuntimePositionAnimation extends RuntimeAbstractPositionAnimation {
-		
+
+		@Override
 		protected javax.vecmath.Vector3d getPositionBegin() {
-			return m_subject.getPosition( edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE );
+			return m_subject.getPosition(edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE);
 		}
-		
+
+		@Override
 		protected javax.vecmath.Vector3d getPositionEnd() {
-			return m_asSeenBy.getPosition( PositionAnimation.this.position.getVector3Value(), edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE );
+			return m_asSeenBy.getPosition(position.getVector3Value(), edu.cmu.cs.stage3.alice.core.ReferenceFrame.ABSOLUTE);
 		}
 	}
 }

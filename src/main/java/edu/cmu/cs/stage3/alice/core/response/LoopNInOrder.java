@@ -28,89 +28,95 @@ import edu.cmu.cs.stage3.alice.core.property.VariableProperty;
 
 public class LoopNInOrder extends DoInOrder {
 	/** @deprecated */
-	public final NumberProperty count = new NumberProperty( this, "count", null );
+	@Deprecated
+	public final NumberProperty count = new NumberProperty(this, "count", null);
 
-	public final VariableProperty index = new VariableProperty( this, "index", null );
+	public final VariableProperty index = new VariableProperty(this, "index", null);
 
-	public final NumberProperty start = new NumberProperty( this, "start", new Double( 0 ) );
-	public final NumberProperty end = new NumberProperty( this, "end", new Double( Double.POSITIVE_INFINITY ) );
-	public final NumberProperty increment = new NumberProperty( this, "increment", new Double( 1 ) );
+	public final NumberProperty start = new NumberProperty(this, "start", new Double(0));
+	public final NumberProperty end = new NumberProperty(this, "end", new Double(Double.POSITIVE_INFINITY));
+	public final NumberProperty increment = new NumberProperty(this, "increment", new Double(1));
 
 	private static Class[] s_supportedCoercionClasses = {};
-	
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
 
 	public LoopNInOrder() {
-		//count.deprecate();
+		// count.deprecate();
 	}
 
-	
+	@Override
 	protected void loadCompleted() {
 		super.loadCompleted();
-		if( index.get() == null ) {
-			if( count.get() != null ) {
-				end.set( count.get() );
+		if (index.get() == null) {
+			if (count.get() != null) {
+				end.set(count.get());
 			}
 			edu.cmu.cs.stage3.alice.core.Variable indexVariable = new edu.cmu.cs.stage3.alice.core.Variable();
-			indexVariable.valueClass.set( Number.class );
-			indexVariable.name.set( "index" );
-			indexVariable.setParent( this );
-			index.set( indexVariable );
+			indexVariable.valueClass.set(Number.class);
+			indexVariable.name.set("index");
+			indexVariable.setParent(this);
+			index.set(indexVariable);
 		}
 	}
-	
-	protected void internalFindAccessibleExpressions( Class cls, java.util.Vector v ) {
-		internalAddExpressionIfAssignableTo( (edu.cmu.cs.stage3.alice.core.Expression)index.get(), cls, v );
-		super.internalFindAccessibleExpressions( cls, v );
+
+	@Override
+	protected void internalFindAccessibleExpressions(Class cls, java.util.Vector v) {
+		internalAddExpressionIfAssignableTo((edu.cmu.cs.stage3.alice.core.Expression) index.get(), cls, v);
+		super.internalFindAccessibleExpressions(cls, v);
 	}
 	public class RuntimeLoopNInOrder extends RuntimeDoInOrder {
 		private int m_endTest;
 		private double getIndexValue() {
-			edu.cmu.cs.stage3.alice.core.Variable indexVariable = LoopNInOrder.this.index.getVariableValue();
-			Number number = (Number)indexVariable.value.getValue();
+			edu.cmu.cs.stage3.alice.core.Variable indexVariable = index.getVariableValue();
+			Number number = (Number) indexVariable.value.getValue();
 			return number.doubleValue();
 		}
-		private void setIndexValue( double value ) {
-			edu.cmu.cs.stage3.alice.core.Variable indexVariable = LoopNInOrder.this.index.getVariableValue();
-			indexVariable.value.set( new Double( value ) );
+		private void setIndexValue(double value) {
+			edu.cmu.cs.stage3.alice.core.Variable indexVariable = index.getVariableValue();
+			indexVariable.value.set(new Double(value));
 		}
-		
-		protected boolean preLoopTest( double t ) {
+
+		@Override
+		protected boolean preLoopTest(double t) {
 			return getIndexValue() < m_endTest;
 		}
-		
-		protected boolean postLoopTest( double t ) {
-			setIndexValue( getIndexValue() + LoopNInOrder.this.increment.doubleValue( 1 ) );
+
+		@Override
+		protected boolean postLoopTest(double t) {
+			setIndexValue(getIndexValue() + increment.doubleValue(1));
 			return true;
 		}
-		
+
+		@Override
 		protected boolean isCullable() {
 			return false;
 		}
-		
-		public void prologue( double t ) {
+
+		@Override
+		public void prologue(double t) {
 			edu.cmu.cs.stage3.alice.core.Behavior currentBehavior = getCurrentBehavior();
-			if( currentBehavior != null ) {
-				edu.cmu.cs.stage3.alice.core.Variable indexVariable = LoopNInOrder.this.index.getVariableValue();
+			if (currentBehavior != null) {
+				edu.cmu.cs.stage3.alice.core.Variable indexVariable = index.getVariableValue();
 				edu.cmu.cs.stage3.alice.core.Variable indexRuntimeVariable = new edu.cmu.cs.stage3.alice.core.Variable();
-				indexRuntimeVariable.valueClass.set( indexVariable.valueClass.get() );
-				indexRuntimeVariable.value.set( LoopNInOrder.this.start.getNumberValue() );
-				currentBehavior.pushEach( indexVariable, indexRuntimeVariable );
+				indexRuntimeVariable.valueClass.set(indexVariable.valueClass.get());
+				indexRuntimeVariable.value.set(start.getNumberValue());
+				currentBehavior.pushEach(indexVariable, indexRuntimeVariable);
 			}
-			m_endTest = (int)LoopNInOrder.this.end.doubleValue( Double.POSITIVE_INFINITY );
-			super.prologue( t );
+			m_endTest = (int) end.doubleValue(Double.POSITIVE_INFINITY);
+			super.prologue(t);
 		}
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
 			edu.cmu.cs.stage3.alice.core.Behavior currentBehavior = getCurrentBehavior();
-			if( currentBehavior != null ) {
+			if (currentBehavior != null) {
 				currentBehavior.popStack();
 			}
-		}		
+		}
 	}
 }
-
-

@@ -25,24 +25,28 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public class OffscreenRenderTarget extends RenderTarget implements edu.cmu.cs.stage3.alice.scenegraph.renderer.OffscreenRenderTarget {
 	private java.awt.Dimension m_size = new java.awt.Dimension();
-	protected OffscreenRenderTarget( Renderer renderer ) {
-		super( renderer );
+	protected OffscreenRenderTarget(Renderer renderer) {
+		super(renderer);
 	}
-	
+
+	@Override
 	public java.awt.Dimension getSize() {
 		return m_size;
 	}
-	public java.awt.Dimension getSize( java.awt.Dimension rv ) {
-        rv.width = m_size.width;
-        rv.height = m_size.height;
-        return rv;
-    }
-	public void setSize( int width, int height ) {
+	@Override
+	public java.awt.Dimension getSize(java.awt.Dimension rv) {
+		rv.width = m_size.width;
+		rv.height = m_size.height;
+		return rv;
+	}
+	@Override
+	public void setSize(int width, int height) {
 		m_size.width = width;
 		m_size.height = height;
-		getAdapter().setDesiredSize( width, height );
+		getAdapter().setDesiredSize(width, height);
 	}
-	public void setSize( java.awt.Dimension size ) {
-		setSize( size.width, size.height );
+	@Override
+	public void setSize(java.awt.Dimension size) {
+		setSize(size.width, size.height);
 	}
 }

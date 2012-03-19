@@ -26,38 +26,42 @@ package edu.cmu.cs.stage3.alice.core.question.mouse;
 import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 
 public class DistanceFromLeftEdge extends edu.cmu.cs.stage3.alice.core.question.NumberQuestion {
-	public final BooleanProperty relativeToRenderTarget = new BooleanProperty( this, "relativeToRenderTarget", Boolean.TRUE );
-	private static Class[] s_supportedCoercionClasses = { DistanceFromTopEdge.class };
+	public final BooleanProperty relativeToRenderTarget = new BooleanProperty(this, "relativeToRenderTarget", Boolean.TRUE);
+	private static Class[] s_supportedCoercionClasses = {DistanceFromTopEdge.class};
 	private edu.cmu.cs.stage3.alice.core.RenderTarget[] m_renderTargets = null;
-	
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
+
+	@Override
 	public Object getValue() {
 		java.awt.Point p = edu.cmu.cs.stage3.awt.AWTUtilities.getCursorLocation();
-		if( p!= null ) {
+		if (p != null) {
 			int x = p.x;
-			if( relativeToRenderTarget.booleanValue() ) {
-				if( m_renderTargets != null ) {
-					if( m_renderTargets.length > 0 ) {
-						x-= m_renderTargets[ 0 ].getAWTComponent().getLocationOnScreen().x;
+			if (relativeToRenderTarget.booleanValue()) {
+				if (m_renderTargets != null) {
+					if (m_renderTargets.length > 0) {
+						x -= m_renderTargets[0].getAWTComponent().getLocationOnScreen().x;
 					}
 				}
 			}
-			return new Double( x );
+			return new Double(x);
 		} else {
 			return null;
 		}
 	}
-	
-	protected void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		m_renderTargets = (edu.cmu.cs.stage3.alice.core.RenderTarget[])world.getDescendants( edu.cmu.cs.stage3.alice.core.RenderTarget.class );
+
+	@Override
+	protected void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		m_renderTargets = (edu.cmu.cs.stage3.alice.core.RenderTarget[]) world.getDescendants(edu.cmu.cs.stage3.alice.core.RenderTarget.class);
 	}
-	
-	protected void stopped( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.stopped( world, time );
+
+	@Override
+	protected void stopped(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.stopped(world, time);
 		m_renderTargets = null;
 	}
 }

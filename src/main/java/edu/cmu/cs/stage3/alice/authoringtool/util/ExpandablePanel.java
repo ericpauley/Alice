@@ -43,41 +43,41 @@ public class ExpandablePanel extends javax.swing.JPanel {
 	}
 
 	private void guiInit() {
-		setLayout( new java.awt.BorderLayout() );
-		add( topPanel, java.awt.BorderLayout.NORTH );
-		add( mainPanel, java.awt.BorderLayout.CENTER );
-		setOpaque( false );
-		
-		topPanel.setLayout( new java.awt.BorderLayout() );
-		topPanel.add( expandButton, java.awt.BorderLayout.WEST );
-		topPanel.add( titleLabel, java.awt.BorderLayout.CENTER );
-		titleLabel.setBorder( javax.swing.BorderFactory.createEmptyBorder( 0, 10, 0, 0 ) );
-		topPanel.setOpaque( false );
+		setLayout(new java.awt.BorderLayout());
+		add(topPanel, java.awt.BorderLayout.NORTH);
+		add(mainPanel, java.awt.BorderLayout.CENTER);
+		setOpaque(false);
 
-		mainPanel.setLayout( new java.awt.BorderLayout() );
-		mainPanel.setBorder( javax.swing.BorderFactory.createEmptyBorder( 0, 20, 0, 0 ) );
-		mainPanel.setOpaque( false );
+		topPanel.setLayout(new java.awt.BorderLayout());
+		topPanel.add(expandButton, java.awt.BorderLayout.WEST);
+		topPanel.add(titleLabel, java.awt.BorderLayout.CENTER);
+		titleLabel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 10, 0, 0));
+		topPanel.setOpaque(false);
 
-		plusIcon = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue( "plus" );
-		minusIcon = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue( "minus" );
-		squareIcon = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue( "square" );
-		expandButton.setBorder( javax.swing.BorderFactory.createEmptyBorder( 0, 3, 0, 0 ) );
-		expandButton.setOpaque( false );
-		expandButton.setIcon( plusIcon );
-		expandButton.setSelectedIcon( minusIcon );
-		expandButton.setPressedIcon( squareIcon );
-		expandButton.setSelected( true );
-		expandButton.setFocusPainted( false );
-		expandButton.setContentAreaFilled( false );
-		expandButton.addChangeListener( expandButtonListener );
+		mainPanel.setLayout(new java.awt.BorderLayout());
+		mainPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 20, 0, 0));
+		mainPanel.setOpaque(false);
+
+		plusIcon = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue("plus");
+		minusIcon = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue("minus");
+		squareIcon = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getIconForValue("square");
+		expandButton.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 3, 0, 0));
+		expandButton.setOpaque(false);
+		expandButton.setIcon(plusIcon);
+		expandButton.setSelectedIcon(minusIcon);
+		expandButton.setPressedIcon(squareIcon);
+		expandButton.setSelected(true);
+		expandButton.setFocusPainted(false);
+		expandButton.setContentAreaFilled(false);
+		expandButton.addChangeListener(expandButtonListener);
 		expandButton.setBorderPainted(false);
-		titleLabel.setOpaque( false );
+		titleLabel.setOpaque(false);
 	}
 
-	public void setTitle( String title ) {
-		titleLabel.setText( title );
-		if( collapsedSet.contains( title ) ) {
-			expandButton.setSelected( false );
+	public void setTitle(String title) {
+		titleLabel.setText(title);
+		if (collapsedSet.contains(title)) {
+			expandButton.setSelected(false);
 		}
 	}
 
@@ -85,26 +85,26 @@ public class ExpandablePanel extends javax.swing.JPanel {
 		return titleLabel.getText();
 	}
 
-	public void setContent( javax.swing.JComponent component ) {
+	public void setContent(javax.swing.JComponent component) {
 		mainPanel.removeAll();
-		mainPanel.add( component, java.awt.BorderLayout.CENTER );
+		mainPanel.add(component, java.awt.BorderLayout.CENTER);
 	}
 
-	public void setExpanded( boolean b ) {
-		if( b ) {
-			if( ! this.isAncestorOf( mainPanel ) ) {
-				add( mainPanel, java.awt.BorderLayout.CENTER );
-				collapsedSet.remove( titleLabel.getText() );
-				if( ! expandButton.isSelected() ) {
-					expandButton.setSelected( true );
+	public void setExpanded(boolean b) {
+		if (b) {
+			if (!isAncestorOf(mainPanel)) {
+				add(mainPanel, java.awt.BorderLayout.CENTER);
+				collapsedSet.remove(titleLabel.getText());
+				if (!expandButton.isSelected()) {
+					expandButton.setSelected(true);
 				}
 			}
 		} else {
-			if( this.isAncestorOf( mainPanel ) ) {
-				remove( mainPanel );
-				collapsedSet.add( titleLabel.getText() );
-				if( expandButton.isSelected() ) {
-					expandButton.setSelected( false );
+			if (isAncestorOf(mainPanel)) {
+				remove(mainPanel);
+				collapsedSet.add(titleLabel.getText());
+				if (expandButton.isSelected()) {
+					expandButton.setSelected(false);
 				}
 			}
 		}
@@ -113,8 +113,9 @@ public class ExpandablePanel extends javax.swing.JPanel {
 	}
 
 	protected class ExpandButtonListener implements javax.swing.event.ChangeListener {
-		public void stateChanged( javax.swing.event.ChangeEvent ev ) {
-			ExpandablePanel.this.setExpanded( ExpandablePanel.this.expandButton.isSelected() );
+		@Override
+		public void stateChanged(javax.swing.event.ChangeEvent ev) {
+			setExpanded(expandButton.isSelected());
 		}
 	}
 }

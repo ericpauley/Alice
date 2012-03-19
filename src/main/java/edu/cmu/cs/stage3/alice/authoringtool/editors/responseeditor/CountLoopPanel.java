@@ -24,29 +24,26 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.responseeditor;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2001 Company:
+ * 
  * @author
  * @version 1.0
  */
 
 public class CountLoopPanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.LoopNElementPanel {
 
-    public CountLoopPanel(){
-        super();
-        backgroundColor = getCustomBackgroundColor();
-    }
+	public CountLoopPanel() {
+		super();
+		backgroundColor = getCustomBackgroundColor();
+	}
 
+	public void set(edu.cmu.cs.stage3.alice.core.response.LoopNInOrder r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		super.set(r, authoringToolIn);
+	}
 
-    public void set(edu.cmu.cs.stage3.alice.core.response.LoopNInOrder r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        super.set(r, authoringToolIn);
-    }
-
-    
-	protected java.awt.Color getCustomBackgroundColor(){
-        return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("LoopNInOrder");
-    }
+	@Override
+	protected java.awt.Color getCustomBackgroundColor() {
+		return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("LoopNInOrder");
+	}
 
 }

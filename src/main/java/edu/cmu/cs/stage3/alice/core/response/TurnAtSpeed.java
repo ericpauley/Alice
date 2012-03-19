@@ -26,19 +26,22 @@ package edu.cmu.cs.stage3.alice.core.response;
 import edu.cmu.cs.stage3.alice.core.Direction;
 
 public class TurnAtSpeed extends RotateAtSpeed {
-	private static Class[] s_supportedCoercionClasses = { RollAtSpeed.class };
-	
+	private static Class[] s_supportedCoercionClasses = {RollAtSpeed.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected boolean acceptsDirection( Direction direction ) {
-		return direction.getTurnAxis()!=null;
+
+	@Override
+	protected boolean acceptsDirection(Direction direction) {
+		return direction.getTurnAxis() != null;
 	}
 	public class RuntimeTurnAtSpeed extends RuntimeRotateAtSpeed {
-		
-		protected javax.vecmath.Vector3d getAxis( Direction direction ) {
-			if( direction!=null ) {
+
+		@Override
+		protected javax.vecmath.Vector3d getAxis(Direction direction) {
+			if (direction != null) {
 				return direction.getTurnAxis();
 			} else {
 				return null;

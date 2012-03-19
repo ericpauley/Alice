@@ -25,11 +25,12 @@ package edu.cmu.cs.stage3.alice.scenegraph;
 
 /**
  * defined by a regualar pyramidal frustum
+ * 
  * @author Dennis Cosgrove
  */
 public class PerspectiveCamera extends Camera {
-	public static final Property PLANE_PROPERTY = new Property( PerspectiveCamera.class, "PLANE" );
-	private double[] m_plane = { -1, -1, 1, 1 };
+	public static final Property PLANE_PROPERTY = new Property(PerspectiveCamera.class, "PLANE");
+	private double[] m_plane = {-1, -1, 1, 1};
 
 	/**
 	 * @see #setPlane
@@ -39,23 +40,25 @@ public class PerspectiveCamera extends Camera {
 	}
 	/**
 	 * sets the plane property.<br>
+	 * 
 	 * @param double (default: { -1, -1, 1, 1 })
 	 * @see #getPlane
 	 */
-	public void setPlane( double[] plane ) {
-		if( notequal( m_plane, plane ) ) {
+	public void setPlane(double[] plane) {
+		if (notequal(m_plane, plane)) {
 			m_plane = plane;
-			onPropertyChange( PLANE_PROPERTY );
+			onPropertyChange(PLANE_PROPERTY);
 		}
 	}
-	public void setPlane( double minX, double minY, double maxX, double maxY ) {
-		setPlane( new double[] { minX, minY, maxX, maxY } );
+	public void setPlane(double minX, double minY, double maxX, double maxY) {
+		setPlane(new double[]{minX, minY, maxX, maxY});
 	}
 
-    //todo
-    
+	// todo
+
+	@Override
 	public javax.vecmath.Matrix4d getProjection() {
-        javax.vecmath.Matrix4d m = new javax.vecmath.Matrix4d();
-        return m;
-    }
+		javax.vecmath.Matrix4d m = new javax.vecmath.Matrix4d();
+		return m;
+	}
 }

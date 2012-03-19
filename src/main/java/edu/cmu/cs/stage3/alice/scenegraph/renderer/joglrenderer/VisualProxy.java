@@ -26,124 +26,124 @@ package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 import javax.media.opengl.GL;
 
 class VisualProxy extends ComponentProxy {
-    private AppearanceProxy m_frontFacingAppearanceProxy = null;
-    private AppearanceProxy m_backFacingAppearanceProxy = null;
-    private GeometryProxy m_geometryProxy = null;
-    private boolean m_isShowing = false;
-    private double[] m_scale = new double[ 16 ];
+	private AppearanceProxy m_frontFacingAppearanceProxy = null;
+	private AppearanceProxy m_backFacingAppearanceProxy = null;
+	private GeometryProxy m_geometryProxy = null;
+	private boolean m_isShowing = false;
+	private double[] m_scale = new double[16];
 
-    private java.nio.DoubleBuffer m_scaleBuffer = java.nio.DoubleBuffer.wrap( m_scale );
-    public edu.cmu.cs.stage3.alice.scenegraph.Visual getSceneGraphVisual() {
-	    return (edu.cmu.cs.stage3.alice.scenegraph.Visual)getSceneGraphElement();
+	private java.nio.DoubleBuffer m_scaleBuffer = java.nio.DoubleBuffer.wrap(m_scale);
+	public edu.cmu.cs.stage3.alice.scenegraph.Visual getSceneGraphVisual() {
+		return (edu.cmu.cs.stage3.alice.scenegraph.Visual) getSceneGraphElement();
 	}
 
-    
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Visual.FRONT_FACING_APPEARANCE_PROPERTY ) {
-            m_frontFacingAppearanceProxy = (AppearanceProxy)getProxyFor( (edu.cmu.cs.stage3.alice.scenegraph.Appearance)value );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Visual.BACK_FACING_APPEARANCE_PROPERTY ) {
-            m_backFacingAppearanceProxy = (AppearanceProxy)getProxyFor( (edu.cmu.cs.stage3.alice.scenegraph.Appearance)value );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Visual.GEOMETRY_PROPERTY ) {
-            m_geometryProxy = (GeometryProxy)getProxyFor( (edu.cmu.cs.stage3.alice.scenegraph.Geometry)value );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Visual.SCALE_PROPERTY ) {
-		    copy( m_scale, (javax.vecmath.Matrix3d)value );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Visual.IS_SHOWING_PROPERTY ) {
-            m_isShowing = value!=null && ((Boolean)value).booleanValue();
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Visual.DISABLED_AFFECTORS_PROPERTY ) {
-            //todo
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Visual.FRONT_FACING_APPEARANCE_PROPERTY) {
+			m_frontFacingAppearanceProxy = (AppearanceProxy) getProxyFor((edu.cmu.cs.stage3.alice.scenegraph.Appearance) value);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Visual.BACK_FACING_APPEARANCE_PROPERTY) {
+			m_backFacingAppearanceProxy = (AppearanceProxy) getProxyFor((edu.cmu.cs.stage3.alice.scenegraph.Appearance) value);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Visual.GEOMETRY_PROPERTY) {
+			m_geometryProxy = (GeometryProxy) getProxyFor((edu.cmu.cs.stage3.alice.scenegraph.Geometry) value);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Visual.SCALE_PROPERTY) {
+			copy(m_scale, (javax.vecmath.Matrix3d) value);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Visual.IS_SHOWING_PROPERTY) {
+			m_isShowing = value != null && ((Boolean) value).booleanValue();
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Visual.DISABLED_AFFECTORS_PROPERTY) {
+			// todo
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
-    
-	public void setup( RenderContext context ) {
-        //pass
-    }
-    
-   
-    
-    private double opacity() {
-        if( m_isShowing && m_geometryProxy != null ) {
-            if( m_frontFacingAppearanceProxy != null ) {
-               return m_frontFacingAppearanceProxy.Showing();
-            }
-            if( m_backFacingAppearanceProxy != null ) {
-                return m_backFacingAppearanceProxy.Showing();
-            }
-        }
-        return 0.0;
-    }
-    
-	public void render( RenderContext context ) {
-        if( opacity()>0.0) {
-        	if(opacity()<1.0 && context.renderOpaque())
-        		return;
-         	else if(opacity()==1.0 && !context.renderOpaque())
-          		return;
-            if( m_frontFacingAppearanceProxy != null ) {
-                if( m_backFacingAppearanceProxy != null ) {   	
-                    context.gl.glDisable( GL.GL_CULL_FACE );
-                } else {
-                    context.gl.glEnable( GL.GL_CULL_FACE );
-    			    context.gl.glCullFace( GL.GL_BACK );
-                }
-            } else {
-                if( m_backFacingAppearanceProxy != null ) {
-                    context.gl.glEnable( GL.GL_CULL_FACE );
-    			    context.gl.glCullFace( GL.GL_FRONT );
-                } else {
-                    //should never reach here
-                }
-            }
-            	
-        	
-            if( m_frontFacingAppearanceProxy == m_backFacingAppearanceProxy ) {
-                if( m_frontFacingAppearanceProxy != null ) {
-                    m_frontFacingAppearanceProxy.setPipelineState( context, GL.GL_FRONT_AND_BACK );
-                } else {
-                    //should never reach here
-                }
-            } else {
-                if( m_frontFacingAppearanceProxy != null ) {
-                    m_frontFacingAppearanceProxy.setPipelineState( context, GL.GL_FRONT );
-                }
-                if( m_backFacingAppearanceProxy != null ) {
-                    m_backFacingAppearanceProxy.setPipelineState( context, GL.GL_BACK );
-                }
-            }
-            
-            
-            context.gl.glPushMatrix();
-            context.gl.glMultMatrixd( m_scaleBuffer );
-            m_geometryProxy.render( context );
-            context.gl.glPopMatrix();
-          
-            context.gl.glDepthMask(true);
-        	
-       }
-    }
-	
-	public void pick( PickContext context, PickParameters pickParameters ) {
-        if( opacity()>0.0 ) {
-	        context.gl.glPushMatrix();
-	        context.gl.glMultMatrixd( m_scaleBuffer );
 
-	        context.gl.glPushName( context.getPickNameForVisualProxy( this ) );
-		    context.gl.glEnable( GL.GL_CULL_FACE );
-			if( m_backFacingAppearanceProxy != null ) {
-			    context.gl.glCullFace( GL.GL_FRONT );
-			    context.gl.glPushName( 0 );
-		        m_geometryProxy.pick( context, pickParameters.isSubElementRequired() );
-			    context.gl.glPopName();
+	@Override
+	public void setup(RenderContext context) {
+		// pass
+	}
+
+	private double opacity() {
+		if (m_isShowing && m_geometryProxy != null) {
+			if (m_frontFacingAppearanceProxy != null) {
+				return m_frontFacingAppearanceProxy.Showing();
 			}
-			if( m_frontFacingAppearanceProxy != null ) {
-			    context.gl.glCullFace( GL.GL_BACK );
-			    context.gl.glPushName( 1 );
-		        m_geometryProxy.pick( context, pickParameters.isSubElementRequired() );
-			    context.gl.glPopName();
+			if (m_backFacingAppearanceProxy != null) {
+				return m_backFacingAppearanceProxy.Showing();
 			}
-	        context.gl.glPopName();
-	        context.gl.glPopMatrix();
-        }
+		}
+		return 0.0;
+	}
+
+	@Override
+	public void render(RenderContext context) {
+		if (opacity() > 0.0) {
+			if (opacity() < 1.0 && context.renderOpaque()) {
+				return;
+			} else if (opacity() == 1.0 && !context.renderOpaque()) {
+				return;
+			}
+			if (m_frontFacingAppearanceProxy != null) {
+				if (m_backFacingAppearanceProxy != null) {
+					context.gl.glDisable(GL.GL_CULL_FACE);
+				} else {
+					context.gl.glEnable(GL.GL_CULL_FACE);
+					context.gl.glCullFace(GL.GL_BACK);
+				}
+			} else {
+				if (m_backFacingAppearanceProxy != null) {
+					context.gl.glEnable(GL.GL_CULL_FACE);
+					context.gl.glCullFace(GL.GL_FRONT);
+				} else {
+					// should never reach here
+				}
+			}
+
+			if (m_frontFacingAppearanceProxy == m_backFacingAppearanceProxy) {
+				if (m_frontFacingAppearanceProxy != null) {
+					m_frontFacingAppearanceProxy.setPipelineState(context, GL.GL_FRONT_AND_BACK);
+				} else {
+					// should never reach here
+				}
+			} else {
+				if (m_frontFacingAppearanceProxy != null) {
+					m_frontFacingAppearanceProxy.setPipelineState(context, GL.GL_FRONT);
+				}
+				if (m_backFacingAppearanceProxy != null) {
+					m_backFacingAppearanceProxy.setPipelineState(context, GL.GL_BACK);
+				}
+			}
+
+			context.gl.glPushMatrix();
+			context.gl.glMultMatrixd(m_scaleBuffer);
+			m_geometryProxy.render(context);
+			context.gl.glPopMatrix();
+
+			context.gl.glDepthMask(true);
+
+		}
+	}
+
+	@Override
+	public void pick(PickContext context, PickParameters pickParameters) {
+		if (opacity() > 0.0) {
+			context.gl.glPushMatrix();
+			context.gl.glMultMatrixd(m_scaleBuffer);
+
+			context.gl.glPushName(context.getPickNameForVisualProxy(this));
+			context.gl.glEnable(GL.GL_CULL_FACE);
+			if (m_backFacingAppearanceProxy != null) {
+				context.gl.glCullFace(GL.GL_FRONT);
+				context.gl.glPushName(0);
+				m_geometryProxy.pick(context, pickParameters.isSubElementRequired());
+				context.gl.glPopName();
+			}
+			if (m_frontFacingAppearanceProxy != null) {
+				context.gl.glCullFace(GL.GL_BACK);
+				context.gl.glPushName(1);
+				m_geometryProxy.pick(context, pickParameters.isSubElementRequired());
+				context.gl.glPopName();
+			}
+			context.gl.glPopName();
+			context.gl.glPopMatrix();
+		}
 	}
 }

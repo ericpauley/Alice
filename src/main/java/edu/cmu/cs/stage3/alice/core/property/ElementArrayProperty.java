@@ -26,53 +26,55 @@ package edu.cmu.cs.stage3.alice.core.property;
 import edu.cmu.cs.stage3.alice.core.Element;
 
 public class ElementArrayProperty extends ObjectArrayProperty {
-	public ElementArrayProperty( Element owner, String name, Object[] defaultValue, Class valueClass ) {
-		super( owner, name, defaultValue, valueClass );
+	public ElementArrayProperty(Element owner, String name, Object[] defaultValue, Class valueClass) {
+		super(owner, name, defaultValue, valueClass);
 	}
 	public Element[] getElementArrayValue() {
-		return (Element[])getArrayValue();
+		return (Element[]) getArrayValue();
 	}
-    private void sortByName( final boolean ignoreCase ) {
-        Element[] src = getElementArrayValue();
-        Element[] dst = (Element[])java.lang.reflect.Array.newInstance( getComponentType(), src.length );
-        System.arraycopy( src, 0, dst, 0, dst.length );
-        java.util.Arrays.sort( dst, new java.util.Comparator() {
-            public int compare( Object o1, Object o2 ) {
-                Element e1 = (Element)o1;
-                Element e2 = (Element)o2;
-                String n1 = e1.name.getStringValue();
-                String n2 = e2.name.getStringValue();
-                if( n1 != null ) {
-                    if( n2 != null ) {
-                        if( ignoreCase ) {
-                            return n1.compareTo( n2 );
-                        } else {
-                            return n1.compareToIgnoreCase( n2 );
-                        }
-                    } else {
-                        return -1;
-                    }
-                } else {
-                    if( n2 != null ) {
-                        return 1;
-                    } else {
-                        return 0;
-                    }
-                }
-            }
-            
-			public boolean equals( Object obj ) {
-                return super.equals( obj );
+	private void sortByName(final boolean ignoreCase) {
+		Element[] src = getElementArrayValue();
+		Element[] dst = (Element[]) java.lang.reflect.Array.newInstance(getComponentType(), src.length);
+		System.arraycopy(src, 0, dst, 0, dst.length);
+		java.util.Arrays.sort(dst, new java.util.Comparator() {
+			@Override
+			public int compare(Object o1, Object o2) {
+				Element e1 = (Element) o1;
+				Element e2 = (Element) o2;
+				String n1 = e1.name.getStringValue();
+				String n2 = e2.name.getStringValue();
+				if (n1 != null) {
+					if (n2 != null) {
+						if (ignoreCase) {
+							return n1.compareTo(n2);
+						} else {
+							return n1.compareToIgnoreCase(n2);
+						}
+					} else {
+						return -1;
+					}
+				} else {
+					if (n2 != null) {
+						return 1;
+					} else {
+						return 0;
+					}
+				}
+			}
 
-            }
-        } );
-        set( dst );
-    }
+			@Override
+			public boolean equals(Object obj) {
+				return super.equals(obj);
 
-    public void sortByName() {
-        sortByName( false );
-    }
-    public void sortByNameIgnoreCase() {
-        sortByName( true );
-    }
+			}
+		});
+		set(dst);
+	}
+
+	public void sortByName() {
+		sortByName(false);
+	}
+	public void sortByNameIgnoreCase() {
+		sortByName(true);
+	}
 }

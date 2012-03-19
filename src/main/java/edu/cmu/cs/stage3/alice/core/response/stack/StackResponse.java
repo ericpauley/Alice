@@ -26,10 +26,10 @@ package edu.cmu.cs.stage3.alice.core.response.stack;
 import edu.cmu.cs.stage3.alice.core.property.StackProperty;
 
 public class StackResponse extends edu.cmu.cs.stage3.alice.core.Response {
-	public final StackProperty stack = new StackProperty( this, "stack", null );
+	public final StackProperty stack = new StackProperty(this, "stack", null);
 	public class RuntimeStackResponse extends RuntimeResponse {
-        protected edu.cmu.cs.stage3.alice.core.Stack getStack() {
-            return StackResponse.this.stack.getStackValue();
-        }
+		protected edu.cmu.cs.stage3.alice.core.Stack getStack() {
+			return stack.getStackValue();
+		}
 	}
 }

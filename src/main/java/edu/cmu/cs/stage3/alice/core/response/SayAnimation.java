@@ -25,7 +25,8 @@ package edu.cmu.cs.stage3.alice.core.response;
 
 public class SayAnimation extends AbstractBubbleAnimation {
 	public class RuntimeSayAnimation extends RuntimeAbstractBubbleAnimation {
-		
+
+		@Override
 		protected edu.cmu.cs.stage3.alice.core.bubble.Bubble createBubble() {
 			return new edu.cmu.cs.stage3.alice.core.bubble.SpeechBubble();
 		}

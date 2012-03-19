@@ -27,12 +27,12 @@ package edu.cmu.cs.stage3.alice.authoringtool.datatransfer;
  * @author Jason Pratt
  */
 public class CallToUserDefinedResponsePrototypeReferenceTransferable extends ResponsePrototypeReferenceTransferable {
-	public final static java.awt.datatransfer.DataFlavor callToUserDefinedResponsePrototypeReferenceFlavor = new java.awt.datatransfer.DataFlavor( java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype", "callToUserDefinedResponsePrototypeReferenceFlavor" );
+	public final static java.awt.datatransfer.DataFlavor callToUserDefinedResponsePrototypeReferenceFlavor = new java.awt.datatransfer.DataFlavor(java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype", "callToUserDefinedResponsePrototypeReferenceFlavor");
 
 	protected edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype callToUserDefinedResponsePrototype;
 
-	public CallToUserDefinedResponsePrototypeReferenceTransferable( edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype callToUserDefinedResponsePrototype ) {
-		super( callToUserDefinedResponsePrototype );
+	public CallToUserDefinedResponsePrototypeReferenceTransferable(edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype callToUserDefinedResponsePrototype) {
+		super(callToUserDefinedResponsePrototype);
 		this.callToUserDefinedResponsePrototype = callToUserDefinedResponsePrototype;
 
 		flavors = new java.awt.datatransfer.DataFlavor[4];
@@ -42,18 +42,18 @@ public class CallToUserDefinedResponsePrototypeReferenceTransferable extends Res
 		flavors[3] = java.awt.datatransfer.DataFlavor.stringFlavor;
 	}
 
-	
-	public Object getTransferData( java.awt.datatransfer.DataFlavor flavor ) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
-		if( flavor.equals( callToUserDefinedResponsePrototypeReferenceFlavor ) ) {
+	@Override
+	public Object getTransferData(java.awt.datatransfer.DataFlavor flavor) throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException {
+		if (flavor.equals(callToUserDefinedResponsePrototypeReferenceFlavor)) {
 			return callToUserDefinedResponsePrototype;
-		} else if( flavor.equals( ResponsePrototypeReferenceTransferable.responsePrototypeReferenceFlavor ) ) {
+		} else if (flavor.equals(ResponsePrototypeReferenceTransferable.responsePrototypeReferenceFlavor)) {
 			return callToUserDefinedResponsePrototype;
-		} else if( flavor.equals( ElementPrototypeReferenceTransferable.elementPrototypeReferenceFlavor ) ) {
+		} else if (flavor.equals(ElementPrototypeReferenceTransferable.elementPrototypeReferenceFlavor)) {
 			return callToUserDefinedResponsePrototype;
-		} else if( flavor.equals( java.awt.datatransfer.DataFlavor.stringFlavor ) ) {
+		} else if (flavor.equals(java.awt.datatransfer.DataFlavor.stringFlavor)) {
 			return callToUserDefinedResponsePrototype.toString();
 		} else {
-			throw new java.awt.datatransfer.UnsupportedFlavorException( flavor );
+			throw new java.awt.datatransfer.UnsupportedFlavorException(flavor);
 		}
 	}
 }

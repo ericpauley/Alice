@@ -24,13 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.question;
 
 public class NumberDivision extends BinaryNumberResultingInNumberQuestion {
-	private static Class[] s_supportedCoercionClasses = { NumberAddition.class, NumberSubtraction.class, NumberMultiplication.class };
-	
+	private static Class[] s_supportedCoercionClasses = {NumberAddition.class, NumberSubtraction.class, NumberMultiplication.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected double getValue( double aValue, double bValue ) {
-		return aValue/bValue;
+
+	@Override
+	protected double getValue(double aValue, double bValue) {
+		return aValue / bValue;
 	}
 }

@@ -25,10 +25,11 @@ package edu.cmu.cs.stage3.alice.core.response.set;
 
 public class Remove extends SetItemResponse {
 	public class RuntimeRemove extends RuntimeSetItemResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			getSet().removeValue( getItem() );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			getSet().removeValue(getItem());
 		}
 	}
 }

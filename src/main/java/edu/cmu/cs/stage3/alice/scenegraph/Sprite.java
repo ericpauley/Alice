@@ -27,29 +27,32 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class Sprite extends Geometry {
-	public static final Property RADIUS_PROPERTY = new Property( Sprite.class, "RADIUS" );
+	public static final Property RADIUS_PROPERTY = new Property(Sprite.class, "RADIUS");
 	private double m_radius = 1;
 	public double getRadius() {
 		return m_radius;
 	}
-	public void setRadius( double radius ) {
-		if( m_radius != radius ) {
+	public void setRadius(double radius) {
+		if (m_radius != radius) {
 			m_radius = radius;
-			m_boundingSphere.setRadius( m_radius );
-			onPropertyChange( RADIUS_PROPERTY );
+			m_boundingSphere.setRadius(m_radius);
+			onPropertyChange(RADIUS_PROPERTY);
 			onBoundsChange();
 		}
 	}
-	
+
+	@Override
 	protected void updateBoundingBox() {
-		//todo
+		// todo
 	}
-	
+
+	@Override
 	protected void updateBoundingSphere() {
-		//todo
+		// todo
 	}
-	
-	public void transform( javax.vecmath.Matrix4d trans ) {
-		//todo
+
+	@Override
+	public void transform(javax.vecmath.Matrix4d trans) {
+		// todo
 	}
 }

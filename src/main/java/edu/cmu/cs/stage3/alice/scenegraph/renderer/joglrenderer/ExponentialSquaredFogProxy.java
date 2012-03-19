@@ -24,19 +24,21 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class ExponentialSquaredFogProxy extends FogProxy {
-    private float m_density;
-    
-	public void setup( RenderContext context ) {
-        super.setup( context );
-        context.gl.glFogi( javax.media.opengl.GL.GL_FOG_MODE, javax.media.opengl.GL.GL_EXP2 );
-        context.gl.glFogf( javax.media.opengl.GL.GL_FOG_DENSITY, m_density );
-    }
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.ExponentialFog.DENSITY_PROPERTY ) {
-			m_density = ((Number)value).floatValue();
+	private float m_density;
+
+	@Override
+	public void setup(RenderContext context) {
+		super.setup(context);
+		context.gl.glFogi(javax.media.opengl.GL.GL_FOG_MODE, javax.media.opengl.GL.GL_EXP2);
+		context.gl.glFogf(javax.media.opengl.GL.GL_FOG_DENSITY, m_density);
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.ExponentialFog.DENSITY_PROPERTY) {
+			m_density = ((Number) value).floatValue();
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

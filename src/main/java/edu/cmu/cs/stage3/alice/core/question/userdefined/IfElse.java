@@ -27,14 +27,15 @@ import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 import edu.cmu.cs.stage3.alice.core.property.ElementArrayProperty;
 
 public class IfElse extends Composite {
-	public final BooleanProperty condition = new BooleanProperty( this, "condition", Boolean.TRUE );
-	public final ElementArrayProperty elseComponents = new ElementArrayProperty( this, "elseComponents", null, Component[].class );
-    
+	public final BooleanProperty condition = new BooleanProperty(this, "condition", Boolean.TRUE);
+	public final ElementArrayProperty elseComponents = new ElementArrayProperty(this, "elseComponents", null, Component[].class);
+
+	@Override
 	public Object[] execute() {
-        if( condition.booleanValue() ) {
-            return execute( components );
-        } else {
-            return execute( elseComponents );
-        }
-    }
+		if (condition.booleanValue()) {
+			return execute(components);
+		} else {
+			return execute(elseComponents);
+		}
+	}
 }

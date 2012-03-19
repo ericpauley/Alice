@@ -34,7 +34,7 @@ public class ConfigurationEvent {
 	protected String[] oldValueList;
 	protected String[] newValueList;
 
-	public ConfigurationEvent( String keyName, boolean isList, String oldValue, String newValue, String[] oldValueList, String[] newValueList ) {
+	public ConfigurationEvent(String keyName, boolean isList, String oldValue, String newValue, String[] oldValueList, String[] newValueList) {
 		this.keyName = keyName;
 		this.isList = isList;
 		this.oldValue = oldValue;
@@ -64,8 +64,10 @@ public class ConfigurationEvent {
 	}
 
 	/**
-	 * this method will not necessarily return the correct array if this event is produced by an
-	 * <code>addToValueList</code> or <code>removeFromValueList</code> call.  Instead, it will return <code>null</code>.
+	 * this method will not necessarily return the correct array if this event
+	 * is produced by an <code>addToValueList</code> or
+	 * <code>removeFromValueList</code> call. Instead, it will return
+	 * <code>null</code>.
 	 */
 	public String[] getNewValueList() {
 		return newValueList;

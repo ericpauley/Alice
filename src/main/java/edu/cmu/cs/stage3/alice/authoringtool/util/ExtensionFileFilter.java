@@ -30,17 +30,17 @@ public class ExtensionFileFilter extends javax.swing.filechooser.FileFilter impl
 	private String extension;
 	private String description;
 
-	public ExtensionFileFilter( String extension, String description ) {
+	public ExtensionFileFilter(String extension, String description) {
 		this.extension = extension.toUpperCase();
 		this.description = description;
 	}
 
-	
-	public boolean accept( java.io.File f ) {
-		return f.isDirectory() || getExtension( f ).equalsIgnoreCase( extension );
+	@Override
+	public boolean accept(java.io.File f) {
+		return f.isDirectory() || getExtension(f).equalsIgnoreCase(extension);
 	}
 
-	
+	@Override
 	public String getDescription() {
 		return description;
 	}
@@ -49,21 +49,22 @@ public class ExtensionFileFilter extends javax.swing.filechooser.FileFilter impl
 		return extension;
 	}
 
-	private String getExtension( java.io.File f ) {
+	private String getExtension(java.io.File f) {
 		String ext = "";
 		String fullName = f.getName();
-		int i = fullName.lastIndexOf( '.' );
+		int i = fullName.lastIndexOf('.');
 
-		if( (i > 0) && (i < fullName.length() - 1) ) {
-		   ext = fullName.substring( i+1 ).toUpperCase();
+		if (i > 0 && i < fullName.length() - 1) {
+			ext = fullName.substring(i + 1).toUpperCase();
 		}
 		return ext;
 	}
 
-	public int compareTo( Object o ) {
-		if( o instanceof ExtensionFileFilter ) {
-			return description.compareTo( ((ExtensionFileFilter)o).getDescription() );
+	@Override
+	public int compareTo(Object o) {
+		if (o instanceof ExtensionFileFilter) {
+			return description.compareTo(((ExtensionFileFilter) o).getDescription());
 		}
-		return description.compareTo( o.toString() );
+		return description.compareTo(o.toString());
 	}
 }

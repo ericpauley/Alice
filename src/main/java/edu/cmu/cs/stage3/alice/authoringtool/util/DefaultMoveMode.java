@@ -33,7 +33,7 @@ public class DefaultMoveMode extends RenderTargetManipulatorMode {
 	protected edu.cmu.cs.stage3.alice.core.Camera camera = null;
 	protected edu.cmu.cs.stage3.alice.core.Transformable identity = new edu.cmu.cs.stage3.alice.core.Transformable();
 	protected javax.vecmath.Vector3d tempVec = new javax.vecmath.Vector3d();
-	protected javax.vecmath.Vector3d zeroVec = new javax.vecmath.Vector3d( 0.0, 0.0, 0.0 );
+	protected javax.vecmath.Vector3d zeroVec = new javax.vecmath.Vector3d(0.0, 0.0, 0.0);
 	protected javax.vecmath.Vector4d tempVec4 = new javax.vecmath.Vector4d();
 	protected javax.vecmath.Vector3d cameraForward = new javax.vecmath.Vector3d();
 	protected javax.vecmath.Vector3d cameraUp = new javax.vecmath.Vector3d();
@@ -42,117 +42,135 @@ public class DefaultMoveMode extends RenderTargetManipulatorMode {
 	protected edu.cmu.cs.stage3.alice.core.Scheduler scheduler;
 
 	public DefaultMoveMode() {
-		this( null, null );
+		this(null, null);
 	}
 
-	public DefaultMoveMode( edu.cmu.cs.stage3.alice.authoringtool.MainUndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler  ) {
+	public DefaultMoveMode(edu.cmu.cs.stage3.alice.authoringtool.MainUndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
 		this.undoRedoStack = undoRedoStack;
 		this.scheduler = scheduler;
 		init();
 	}
 
 	private void init() {
-		helper.name.set( "helper" );
+		helper.name.set("helper");
 	}
 
-	
+	@Override
 	public boolean requiresPickedObject() {
 		return true;
 	}
 
-	
+	@Override
 	public boolean hideCursorOnDrag() {
 		return true;
 	}
 
-	
-	public void mousePressed( java.awt.event.MouseEvent ev, edu.cmu.cs.stage3.alice.core.Transformable pickedTransformable, edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo ) {
+	@Override
+	public void mousePressed(java.awt.event.MouseEvent ev, edu.cmu.cs.stage3.alice.core.Transformable pickedTransformable, edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pickInfo) {
 		this.pickedTransformable = pickedTransformable;
-		if( pickedTransformable != null ) {
-			camera = (edu.cmu.cs.stage3.alice.core.Camera)pickInfo.getSource().getBonus();
-			world = (edu.cmu.cs.stage3.alice.core.World)camera.getSceneGraphCamera().getRoot().getBonus();
+		if (pickedTransformable != null) {
+			camera = (edu.cmu.cs.stage3.alice.core.Camera) pickInfo.getSource().getBonus();
+			world = (edu.cmu.cs.stage3.alice.core.World) camera.getSceneGraphCamera().getRoot().getBonus();
 			oldTransformation = pickedTransformable.getLocalTransformation();
-			helper.vehicle.set( world );
-			identity.vehicle.set( world );
+			helper.vehicle.set(world);
+			identity.vehicle.set(world);
 		}
 	}
 
-	
-	public void mouseReleased( java.awt.event.MouseEvent ev ) {
-		if( (pickedTransformable != null) && (undoRedoStack != null)  ) {
-			if( ! ev.isPopupTrigger() ) { // TODO: this is a hack.  this method should never be called if the popup is triggered
-				undoRedoStack.push( new PointOfViewUndoableRedoable( pickedTransformable, oldTransformation, pickedTransformable.getLocalTransformation(), scheduler ) );
+	@Override
+	public void mouseReleased(java.awt.event.MouseEvent ev) {
+		if (pickedTransformable != null && undoRedoStack != null) {
+			if (!ev.isPopupTrigger()) { // TODO: this is a hack. this method
+										// should never be called if the popup
+										// is triggered
+				undoRedoStack.push(new PointOfViewUndoableRedoable(pickedTransformable, oldTransformation, pickedTransformable.getLocalTransformation(), scheduler));
 			}
 		}
 	}
 
-	
-	public void mouseDragged( java.awt.event.MouseEvent ev, int dx, int dy ) {
-		if( pickedTransformable != null ) {
+	@Override
+	public void mouseDragged(java.awt.event.MouseEvent ev, int dx, int dy) {
+		if (pickedTransformable != null) {
 			boolean controlDown = ev.isControlDown();
 			boolean shiftDown = ev.isShiftDown();
 
 			double deltaFactor;
-			if( camera instanceof edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera ) {
-				edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera orthoCamera = (edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera)camera;
-				double nearClipHeightInScreen = renderTarget.getAWTComponent().getHeight();  //TODO: should be viewport, but not working right now
+			if (camera instanceof edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera) {
+				edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera orthoCamera = (edu.cmu.cs.stage3.alice.core.camera.OrthographicCamera) camera;
+				double nearClipHeightInScreen = renderTarget.getAWTComponent().getHeight(); // TODO:
+																							// should
+																							// be
+																							// viewport,
+																							// but
+																							// not
+																							// working
+																							// right
+																							// now
 				double nearClipHeightInWorld = orthoCamera.getSceneGraphOrthographicCamera().getPlane()[3] - orthoCamera.getSceneGraphOrthographicCamera().getPlane()[1];
-				deltaFactor = nearClipHeightInWorld/nearClipHeightInScreen;
+				deltaFactor = nearClipHeightInWorld / nearClipHeightInScreen;
 
-				if( controlDown ) {
-					if( shiftDown ) {
-						helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera );
-						helper.setPositionRightNow( zeroVec, pickedTransformable );
-						pickedTransformable.rotateRightNow( edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy*.01, helper );
-						pickedTransformable.rotateRightNow( edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), -dx*.01, pickedTransformable );
+				if (controlDown) {
+					if (shiftDown) {
+						helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera);
+						helper.setPositionRightNow(zeroVec, pickedTransformable);
+						pickedTransformable.rotateRightNow(edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy * .01, helper);
+						pickedTransformable.rotateRightNow(edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), -dx * .01, pickedTransformable);
 					} else {
-						helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera );
-						helper.setPositionRightNow( zeroVec, pickedTransformable );
-						pickedTransformable.rotateRightNow( edu.cmu.cs.stage3.math.MathUtilities.getZAxis(), -dx*.01, helper );
+						helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera);
+						helper.setPositionRightNow(zeroVec, pickedTransformable);
+						pickedTransformable.rotateRightNow(edu.cmu.cs.stage3.math.MathUtilities.getZAxis(), -dx * .01, helper);
 					}
-				} else if( shiftDown ) {
-					helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera );
-					helper.setPositionRightNow( zeroVec, pickedTransformable );
+				} else if (shiftDown) {
+					helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera);
+					helper.setPositionRightNow(zeroVec, pickedTransformable);
 					tempVec.x = 0.0;
-					tempVec.y = -dy*deltaFactor;
+					tempVec.y = -dy * deltaFactor;
 					tempVec.z = 0.0;
-					pickedTransformable.moveRightNow( tempVec, helper );
+					pickedTransformable.moveRightNow(tempVec, helper);
 				} else {
-					helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera );
-					helper.setPositionRightNow( zeroVec, pickedTransformable );
-					tempVec.x = dx*deltaFactor;
-					tempVec.y = -dy*deltaFactor;
+					helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera);
+					helper.setPositionRightNow(zeroVec, pickedTransformable);
+					tempVec.x = dx * deltaFactor;
+					tempVec.y = -dy * deltaFactor;
 					tempVec.z = 0.0;
-					pickedTransformable.moveRightNow( tempVec, helper );
+					pickedTransformable.moveRightNow(tempVec, helper);
 				}
 			} else {
-				double projectionMatrix11 = renderTarget.getProjectionMatrix( camera.getSceneGraphCamera() ).getElement( 1, 1 );
+				double projectionMatrix11 = renderTarget.getProjectionMatrix(camera.getSceneGraphCamera()).getElement(1, 1);
 				double nearClipDist = camera.nearClippingPlaneDistance.doubleValue();
-				double nearClipHeightInWorld = 2*(nearClipDist/projectionMatrix11);
-				double nearClipHeightInScreen = renderTarget.getAWTComponent().getHeight();  //TODO: should be viewport, but not working right now
-				double pixelHeight = nearClipHeightInWorld/nearClipHeightInScreen;
-//				double pixelHeight = nearClipHeightInWorld/300;
-				double objectDist = pickedTransformable.getPosition( camera ).getLength();
-				deltaFactor = (objectDist*pixelHeight)/nearClipDist;
+				double nearClipHeightInWorld = 2 * (nearClipDist / projectionMatrix11);
+				double nearClipHeightInScreen = renderTarget.getAWTComponent().getHeight(); // TODO:
+																							// should
+																							// be
+																							// viewport,
+																							// but
+																							// not
+																							// working
+																							// right
+																							// now
+				double pixelHeight = nearClipHeightInWorld / nearClipHeightInScreen;
+				// double pixelHeight = nearClipHeightInWorld/300;
+				double objectDist = pickedTransformable.getPosition(camera).getLength();
+				deltaFactor = objectDist * pixelHeight / nearClipDist;
 
-				if( controlDown ) {
-					if( shiftDown ) {
-						helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera );
-						helper.setPositionRightNow( zeroVec, pickedTransformable );
-						pickedTransformable.rotateRightNow( edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy*.01, helper );
-						pickedTransformable.rotateRightNow( edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), -dx*.01, pickedTransformable );
+				if (controlDown) {
+					if (shiftDown) {
+						helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera);
+						helper.setPositionRightNow(zeroVec, pickedTransformable);
+						pickedTransformable.rotateRightNow(edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy * .01, helper);
+						pickedTransformable.rotateRightNow(edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), -dx * .01, pickedTransformable);
 					} else {
-						helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), world );
-						helper.setPositionRightNow( zeroVec, pickedTransformable );
-						pickedTransformable.rotateRightNow( edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), -dx*.01, helper );
+						helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), world);
+						helper.setPositionRightNow(zeroVec, pickedTransformable);
+						pickedTransformable.rotateRightNow(edu.cmu.cs.stage3.math.MathUtilities.getYAxis(), -dx * .01, helper);
 					}
-				} else if( shiftDown ) {
-					helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), world );
-					helper.setPositionRightNow( zeroVec, pickedTransformable );
+				} else if (shiftDown) {
+					helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), world);
+					helper.setPositionRightNow(zeroVec, pickedTransformable);
 					tempVec.x = 0.0;
-					tempVec.y = -dy*deltaFactor;
+					tempVec.y = -dy * deltaFactor;
 					tempVec.z = 0.0;
-					pickedTransformable.moveRightNow( tempVec, helper );
+					pickedTransformable.moveRightNow(tempVec, helper);
 				} else {
 					javax.vecmath.Matrix4d cameraTransformation = camera.getSceneGraphTransformable().getAbsoluteTransformation();
 					cameraUp.x = cameraTransformation.m10;
@@ -162,20 +180,24 @@ public class DefaultMoveMode extends RenderTargetManipulatorMode {
 					cameraForward.y = cameraTransformation.m21;
 					cameraForward.z = cameraTransformation.m22;
 
-					helper.setPositionRightNow( zeroVec, pickedTransformable );
-					if( Math.abs( cameraForward.y ) < Math.abs( cameraUp.y ) ) { // if we're looking mostly level
+					helper.setPositionRightNow(zeroVec, pickedTransformable);
+					if (Math.abs(cameraForward.y) < Math.abs(cameraUp.y)) { // if
+																			// we're
+																			// looking
+																			// mostly
+																			// level
 						cameraForward.y = 0.0;
-						helper.setOrientationRightNow( cameraForward, cameraUp, world );
+						helper.setOrientationRightNow(cameraForward, cameraUp, world);
 					} else { // if we're looking mostly up or down
 						cameraUp.y = 0.0;
 						cameraForward.negate();
-						helper.setOrientationRightNow( cameraUp, cameraForward, world );
+						helper.setOrientationRightNow(cameraUp, cameraForward, world);
 					}
 
-					tempVec.x = dx*deltaFactor;
+					tempVec.x = dx * deltaFactor;
 					tempVec.y = 0.0;
-					tempVec.z = -dy*deltaFactor;
-					pickedTransformable.moveRightNow( tempVec, helper );
+					tempVec.z = -dy * deltaFactor;
+					pickedTransformable.moveRightNow(tempVec, helper);
 				}
 			}
 

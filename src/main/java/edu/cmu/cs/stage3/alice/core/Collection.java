@@ -23,30 +23,31 @@
 
 package edu.cmu.cs.stage3.alice.core;
 
-import edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty;
 import edu.cmu.cs.stage3.alice.core.property.ClassProperty;
+import edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty;
 
 public abstract class Collection extends Element {
-	public final ObjectArrayProperty values = new ObjectArrayProperty( this, "values", null, Object[].class );
-	public final ClassProperty valueClass = new ClassProperty( this, "valueClass", null );
-	
-	protected void propertyChanged( Property property, Object value ) {
-		if( property == valueClass ) {
-            values.setComponentType( (Class)value );
+	public final ObjectArrayProperty values = new ObjectArrayProperty(this, "values", null, Object[].class);
+	public final ClassProperty valueClass = new ClassProperty(this, "valueClass", null);
+
+	@Override
+	protected void propertyChanged(Property property, Object value) {
+		if (property == valueClass) {
+			values.setComponentType((Class) value);
 		} else {
-            super.propertyChanged( property, value );
-        }
+			super.propertyChanged(property, value);
+		}
 	}
 
 	// for jython
 	/** @depracated */
-	public void append( Object o ) {
-		values.add( o );
+	public void append(Object o) {
+		values.add(o);
 	}
 	// for jython
 	/** @depracated */
-	public void insert( Number index, Object o ) {
-		values.add( index.intValue(), o );
+	public void insert(Number index, Object o) {
+		values.add(index.intValue(), o);
 	}
 
 }

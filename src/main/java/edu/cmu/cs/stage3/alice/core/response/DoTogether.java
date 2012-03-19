@@ -24,75 +24,79 @@
 package edu.cmu.cs.stage3.alice.core.response;
 
 public class DoTogether extends CompositeResponse {
-	private static Class[] s_supportedCoercionClasses = { DoInOrder.class };
-	
+	private static Class[] s_supportedCoercionClasses = {DoInOrder.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
 	public class RuntimeDoTogether extends RuntimeCompositeResponse {
 		private double m_timeRemaining;
-        private edu.cmu.cs.stage3.alice.core.Behavior m_currentBehavior = null;
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			RuntimeResponse[] runtimeResponses = getRuntimeResponses();
-            if( runtimeResponses.length > 0 ) {
-                edu.cmu.cs.stage3.alice.core.World world = DoTogether.this.getWorld();
-                if( world != null ) {
-                    edu.cmu.cs.stage3.alice.core.Sandbox sandbox = world.getCurrentSandbox();
-                    if( sandbox != null ) {
-                        m_currentBehavior = sandbox.getCurrentBehavior();
-                        m_currentBehavior.openFork( this, runtimeResponses.length );
-                    }
-                }
-            } else {
-                m_currentBehavior = null;
-            }
-            for( int i=0; i<runtimeResponses.length; i++ ) {
-                if( m_currentBehavior != null ) {
-                    m_currentBehavior.setForkIndex( this, i );
-                }
-                runtimeResponses[ i ].prologue( t );
-            }
-            if( m_currentBehavior != null ) {
-                m_currentBehavior.setForkIndex( this, -1 );
-            }
-		}
-		
-		public void update( double t ) {
-			super.update( t );
-			RuntimeResponse[] runtimeResponses = getRuntimeResponses();
-			m_timeRemaining = -getTimeElapsed( t );
-            for( int i=0; i<runtimeResponses.length; i++ ) {
-                if( m_currentBehavior != null ) {
-                    m_currentBehavior.setForkIndex( this, i );
-                }
-                if( runtimeResponses[ i ].isActive() ) {
-                    runtimeResponses[ i ].update( t );
-                    double timeRemaining = runtimeResponses[ i ].getTimeRemaining( t );
-                    if( timeRemaining<=0 ) {
-                        runtimeResponses[ i ].epilogue( t );
-                    }
-                    m_timeRemaining = Math.max( timeRemaining, m_timeRemaining );
-                }
-            }
-            if( m_currentBehavior != null ) {
-                m_currentBehavior.setForkIndex( this, -1 );
-            }
-		}
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-            if( m_currentBehavior != null ) {
-                //todo?
-                m_currentBehavior.setForkIndex( this, 0 );
-                m_currentBehavior.closeFork( this );
-                m_currentBehavior = null;
-            }
-        }
+		private edu.cmu.cs.stage3.alice.core.Behavior m_currentBehavior = null;
 
-		
-		public double getTimeRemaining( double t ) {
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			RuntimeResponse[] runtimeResponses = getRuntimeResponses();
+			if (runtimeResponses.length > 0) {
+				edu.cmu.cs.stage3.alice.core.World world = getWorld();
+				if (world != null) {
+					edu.cmu.cs.stage3.alice.core.Sandbox sandbox = world.getCurrentSandbox();
+					if (sandbox != null) {
+						m_currentBehavior = sandbox.getCurrentBehavior();
+						m_currentBehavior.openFork(this, runtimeResponses.length);
+					}
+				}
+			} else {
+				m_currentBehavior = null;
+			}
+			for (int i = 0; i < runtimeResponses.length; i++) {
+				if (m_currentBehavior != null) {
+					m_currentBehavior.setForkIndex(this, i);
+				}
+				runtimeResponses[i].prologue(t);
+			}
+			if (m_currentBehavior != null) {
+				m_currentBehavior.setForkIndex(this, -1);
+			}
+		}
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			RuntimeResponse[] runtimeResponses = getRuntimeResponses();
+			m_timeRemaining = -getTimeElapsed(t);
+			for (int i = 0; i < runtimeResponses.length; i++) {
+				if (m_currentBehavior != null) {
+					m_currentBehavior.setForkIndex(this, i);
+				}
+				if (runtimeResponses[i].isActive()) {
+					runtimeResponses[i].update(t);
+					double timeRemaining = runtimeResponses[i].getTimeRemaining(t);
+					if (timeRemaining <= 0) {
+						runtimeResponses[i].epilogue(t);
+					}
+					m_timeRemaining = Math.max(timeRemaining, m_timeRemaining);
+				}
+			}
+			if (m_currentBehavior != null) {
+				m_currentBehavior.setForkIndex(this, -1);
+			}
+		}
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			if (m_currentBehavior != null) {
+				// todo?
+				m_currentBehavior.setForkIndex(this, 0);
+				m_currentBehavior.closeFork(this);
+				m_currentBehavior = null;
+			}
+		}
+
+		@Override
+		public double getTimeRemaining(double t) {
 			return m_timeRemaining;
 		}
 	}

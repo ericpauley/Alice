@@ -25,18 +25,19 @@ package edu.cmu.cs.stage3.pratt.maxkeyframing;
 
 public class QuaternionKeyframeResponse extends edu.cmu.cs.stage3.pratt.maxkeyframing.KeyframeResponse {
 	public class RuntimeQuaternionKeyframeResponse extends RuntimeKeyframeResponse {
-		
-		public void update( double t ) {
-			double timeElapsed = getTimeElapsed( t );
-			double splineTimeElapsed = timeElapsed*timeFactor;
+
+		@Override
+		public void update(double t) {
+			double timeElapsed = getTimeElapsed(t);
+			double splineTimeElapsed = timeElapsed * timeFactor;
 
 			try {
-				edu.cmu.cs.stage3.math.Quaternion q = (edu.cmu.cs.stage3.math.Quaternion)runtimeSpline.getSample( splineTimeElapsed );
-				if( q != null ) {
-					m_transformable.setOrientationRightNow( q );
+				edu.cmu.cs.stage3.math.Quaternion q = (edu.cmu.cs.stage3.math.Quaternion) runtimeSpline.getSample(splineTimeElapsed);
+				if (q != null) {
+					m_transformable.setOrientationRightNow(q);
 				}
-			} catch( ClassCastException e ) {
-				System.err.println( "Incorrect sample type from spline " + runtimeSpline + ".  Quaternion expected.  Found " + runtimeSpline.getSample( splineTimeElapsed ) );
+			} catch (ClassCastException e) {
+				System.err.println("Incorrect sample type from spline " + runtimeSpline + ".  Quaternion expected.  Found " + runtimeSpline.getSample(splineTimeElapsed));
 			}
 		}
 	}

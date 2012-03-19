@@ -27,10 +27,10 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public class Background extends Element {
-	public static final Property COLOR_PROPERTY = new Property( Background.class, "COLOR" );
-	public static final Property TEXTURE_MAP_PROPERTY = new Property( Background.class, "TEXTURE_MAP" );
-	public static final Property TEXTURE_MAP_SOURCE_RECTANGLE_PROPERTY = new Property( Background.class, "TEXTURE_MAP_SOURCE_RECTANGLE" );
-	private edu.cmu.cs.stage3.alice.scenegraph.Color m_color = new edu.cmu.cs.stage3.alice.scenegraph.Color( 0, 0, 1, 1 );
+	public static final Property COLOR_PROPERTY = new Property(Background.class, "COLOR");
+	public static final Property TEXTURE_MAP_PROPERTY = new Property(Background.class, "TEXTURE_MAP");
+	public static final Property TEXTURE_MAP_SOURCE_RECTANGLE_PROPERTY = new Property(Background.class, "TEXTURE_MAP_SOURCE_RECTANGLE");
+	private edu.cmu.cs.stage3.alice.scenegraph.Color m_color = new edu.cmu.cs.stage3.alice.scenegraph.Color(0, 0, 1, 1);
 	private TextureMap m_textureMap = null;
 	private java.awt.Rectangle m_textureMapSourceRectangle = null;
 
@@ -41,19 +41,18 @@ public class Background extends Element {
 		return m_color;
 	}
 	/**
-	 * sets the color property.
-	 * used when a camera clears its viewport.
-	 * the scenegraph is then rendered "in front of" this color.
-	 * this property is ignored if if the image is not null.
-	 *
+	 * sets the color property. used when a camera clears its viewport. the
+	 * scenegraph is then rendered "in front of" this color. this property is
+	 * ignored if if the image is not null.
+	 * 
 	 * @param color
 	 * @see #getColor
 	 * @see #setImage
 	 */
-	public void setColor( edu.cmu.cs.stage3.alice.scenegraph.Color color ) {
-		if( notequal( m_color, color ) ) {
+	public void setColor(edu.cmu.cs.stage3.alice.scenegraph.Color color) {
+		if (notequal(m_color, color)) {
 			m_color = color;
-			onPropertyChange( COLOR_PROPERTY );
+			onPropertyChange(COLOR_PROPERTY);
 		}
 	}
 	/**
@@ -63,19 +62,18 @@ public class Background extends Element {
 		return m_textureMap;
 	}
 	/**
-	 * sets the texture map property.
-	 * used when a camera clears its viewport.
-	 * the scenegraph is then rendered "in front of" this texture map.
-	 * this property takes precedence over the color if it is not null.
-	 *
+	 * sets the texture map property. used when a camera clears its viewport.
+	 * the scenegraph is then rendered "in front of" this texture map. this
+	 * property takes precedence over the color if it is not null.
+	 * 
 	 * @param TextureMap
 	 * @see #getTextureMap
 	 * @see #setColor
 	 */
-	public void setTextureMap( TextureMap textureMap ) {
-		if( notequal( m_textureMap, textureMap ) ) {
+	public void setTextureMap(TextureMap textureMap) {
+		if (notequal(m_textureMap, textureMap)) {
 			m_textureMap = textureMap;
-			onPropertyChange( TEXTURE_MAP_PROPERTY );
+			onPropertyChange(TEXTURE_MAP_PROPERTY);
 		}
 	}
 
@@ -87,16 +85,17 @@ public class Background extends Element {
 	}
 	/**
 	 * sets the texture map source rectangle property.
-	 *
-	 * @param java.awt.Rectangle
+	 * 
+	 * @param java
+	 *            .awt.Rectangle
 	 * @see #getTextureMapSourceRectangle
 	 * @see #setTextureMapSourceRectangle
 	 * @see #setTextureMap
 	 */
-	public void setTextureMapSourceRectangle( java.awt.Rectangle textureMapSourceRectangle ) {
-		if( notequal( m_textureMapSourceRectangle, textureMapSourceRectangle ) ) {
+	public void setTextureMapSourceRectangle(java.awt.Rectangle textureMapSourceRectangle) {
+		if (notequal(m_textureMapSourceRectangle, textureMapSourceRectangle)) {
 			m_textureMapSourceRectangle = textureMapSourceRectangle;
-			onPropertyChange( TEXTURE_MAP_SOURCE_RECTANGLE_PROPERTY );
+			onPropertyChange(TEXTURE_MAP_SOURCE_RECTANGLE_PROPERTY);
 		}
 	}
 }

@@ -24,27 +24,25 @@
 package edu.cmu.cs.stage3.alice.authoringtool.editors.responseeditor;
 
 /**
- * Title:
- * Description:
- * Copyright:    Copyright (c) 2001
- * Company:
+ * Title: Description: Copyright: Copyright (c) 2001 Company:
+ * 
  * @author
  * @version 1.0
  */
 
 public class ForEachInListSequentialLoopPanel extends edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor.ForEachElementPanel {
 
-     public ForEachInListSequentialLoopPanel(){
-        super();
-    }
+	public ForEachInListSequentialLoopPanel() {
+		super();
+	}
 
-    public void set(edu.cmu.cs.stage3.alice.core.response.ForEachInOrder r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn){
-        super.set(r, authoringToolIn);
-    }
+	public void set(edu.cmu.cs.stage3.alice.core.response.ForEachInOrder r, edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringToolIn) {
+		super.set(r, authoringToolIn);
+	}
 
-    
-	protected java.awt.Color getCustomBackgroundColor(){
-        return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("ForEachInOrder");
-    }
+	@Override
+	protected java.awt.Color getCustomBackgroundColor() {
+		return edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("ForEachInOrder");
+	}
 
 }

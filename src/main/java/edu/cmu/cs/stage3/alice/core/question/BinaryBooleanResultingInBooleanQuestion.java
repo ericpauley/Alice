@@ -26,27 +26,26 @@ package edu.cmu.cs.stage3.alice.core.question;
 import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 
 public abstract class BinaryBooleanResultingInBooleanQuestion extends BooleanQuestion {
-	public final BooleanProperty a = new BooleanProperty( this, "a", Boolean.TRUE );
-	public final BooleanProperty b = new BooleanProperty( this, "b", Boolean.TRUE );
-	protected abstract boolean getValue( boolean a, boolean b );
-	protected abstract boolean isShortCircuitable( boolean a );
-	
+	public final BooleanProperty a = new BooleanProperty(this, "a", Boolean.TRUE);
+	public final BooleanProperty b = new BooleanProperty(this, "b", Boolean.TRUE);
+	protected abstract boolean getValue(boolean a, boolean b);
+	protected abstract boolean isShortCircuitable(boolean a);
+
+	@Override
 	public Object getValue() {
 		boolean aValue = a.booleanValue();
 		boolean returnValue;
-		if (this instanceof edu.cmu.cs.stage3.alice.core.question.And){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= 
-				"both " + aValue + " and " + b.booleanValue() + " is ";		
-		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.Or){
-			edu.cmu.cs.stage3.alice.core.response.Print.outputtext= 
-				"either " + aValue + " or " + b.booleanValue() + " is ";		
-		} 
-		if( isShortCircuitable( aValue ) ) {
+		if (this instanceof edu.cmu.cs.stage3.alice.core.question.And) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "both " + aValue + " and " + b.booleanValue() + " is ";
+		} else if (this instanceof edu.cmu.cs.stage3.alice.core.question.Or) {
+			edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "either " + aValue + " or " + b.booleanValue() + " is ";
+		}
+		if (isShortCircuitable(aValue)) {
 			returnValue = aValue;
 		} else {
-			returnValue = getValue( aValue, b.booleanValue() ); 
+			returnValue = getValue(aValue, b.booleanValue());
 		}
-		if( returnValue ) {
+		if (returnValue) {
 			return Boolean.TRUE;
 		} else {
 			return Boolean.FALSE;

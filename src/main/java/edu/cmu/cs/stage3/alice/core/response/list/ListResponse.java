@@ -26,10 +26,10 @@ package edu.cmu.cs.stage3.alice.core.response.list;
 import edu.cmu.cs.stage3.alice.core.property.ListProperty;
 
 public class ListResponse extends edu.cmu.cs.stage3.alice.core.Response {
-	public final ListProperty list = new ListProperty( this, "list", null );
+	public final ListProperty list = new ListProperty(this, "list", null);
 	public class RuntimeListResponse extends RuntimeResponse {
-        protected edu.cmu.cs.stage3.alice.core.List getList() {
-            return ListResponse.this.list.getListValue();
-        }
+		protected edu.cmu.cs.stage3.alice.core.List getList() {
+			return list.getListValue();
+		}
 	}
 }

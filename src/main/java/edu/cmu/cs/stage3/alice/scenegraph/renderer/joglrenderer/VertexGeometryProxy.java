@@ -24,27 +24,27 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 abstract class VertexGeometryProxy extends GeometryProxy {
-    private edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] m_vertices;
-    protected edu.cmu.cs.stage3.alice.scenegraph.Vertex3d getVertexAt( int index ) {
-        return m_vertices[ index ];
-    }
-    
-    protected int getNumVertices(){
-    
-    		return m_vertices.length;
-    }
-    
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.VERTICES_PROPERTY ) {
-		    m_vertices = (edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[])value;
-		    setIsGeometryChanged( true );
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.VERTEX_LOWER_BOUND_PROPERTY ) {
-            //todo
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.VERTEX_UPPER_BOUND_PROPERTY ) {
-            //todo
+	private edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] m_vertices;
+	protected edu.cmu.cs.stage3.alice.scenegraph.Vertex3d getVertexAt(int index) {
+		return m_vertices[index];
+	}
+
+	protected int getNumVertices() {
+
+		return m_vertices.length;
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.VERTICES_PROPERTY) {
+			m_vertices = (edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[]) value;
+			setIsGeometryChanged(true);
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.VERTEX_LOWER_BOUND_PROPERTY) {
+			// todo
+		} else if (property == edu.cmu.cs.stage3.alice.scenegraph.VertexGeometry.VERTEX_UPPER_BOUND_PROPERTY) {
+			// todo
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

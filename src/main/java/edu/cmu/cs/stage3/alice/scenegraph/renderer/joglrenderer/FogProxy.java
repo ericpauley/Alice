@@ -24,19 +24,21 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 abstract class FogProxy extends AffectorProxy {
-    private float[] m_color = new float[ 4 ];
-    private java.nio.FloatBuffer m_colorBuffer = java.nio.FloatBuffer.wrap( m_color );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Fog.COLOR_PROPERTY ) {
-			copy( m_color, (edu.cmu.cs.stage3.alice.scenegraph.Color)value );
+	private float[] m_color = new float[4];
+	private java.nio.FloatBuffer m_colorBuffer = java.nio.FloatBuffer.wrap(m_color);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Fog.COLOR_PROPERTY) {
+			copy(m_color, (edu.cmu.cs.stage3.alice.scenegraph.Color) value);
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
-    
-	public void setup( RenderContext context ) {
-        context.setIsFogEnabled( true );
-        context.gl.glFogfv( javax.media.opengl.GL.GL_FOG_COLOR, m_colorBuffer );
-    }
+
+	@Override
+	public void setup(RenderContext context) {
+		context.setIsFogEnabled(true);
+		context.gl.glFogfv(javax.media.opengl.GL.GL_FOG_COLOR, m_colorBuffer);
+	}
 }

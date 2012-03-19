@@ -31,18 +31,18 @@ public class CollectionEditorPanel extends javax.swing.JPanel {
 
 	public CollectionEditorPanel() {
 		javax.swing.JScrollPane editorScrollPane = new javax.swing.JScrollPane();
-		editorScrollPane.setViewportView( objectArrayPropertyEditor );
+		editorScrollPane.setViewportView(objectArrayPropertyEditor);
 
-		setLayout( new java.awt.BorderLayout() );
+		setLayout(new java.awt.BorderLayout());
 
-		add( new javax.swing.JLabel("Values:"), java.awt.BorderLayout.NORTH );
-		add( editorScrollPane, java.awt.BorderLayout.CENTER );
+		add(new javax.swing.JLabel("Values:"), java.awt.BorderLayout.NORTH);
+		add(editorScrollPane, java.awt.BorderLayout.CENTER);
 
-		setPreferredSize( new java.awt.Dimension( 350, 350 ) );
+		setPreferredSize(new java.awt.Dimension(350, 350));
 	}
 
-	public void setCollection( edu.cmu.cs.stage3.alice.core.Collection collection ) {
-		objectArrayPropertyEditor.setType( collection.valueClass.getClassValue() );
-		objectArrayPropertyEditor.setObjectArrayProperty( collection.values );
+	public void setCollection(edu.cmu.cs.stage3.alice.core.Collection collection) {
+		objectArrayPropertyEditor.setType(collection.valueClass.getClassValue());
+		objectArrayPropertyEditor.setObjectArrayProperty(collection.values);
 	}
 }

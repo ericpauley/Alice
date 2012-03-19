@@ -26,19 +26,22 @@ package edu.cmu.cs.stage3.alice.core.behavior;
 import edu.cmu.cs.stage3.alice.core.property.BooleanProperty;
 
 public class ConditionalBehavior extends AbstractConditionalBehavior {
-	private static Class[] s_supportedCoercionClasses = { ConditionalTriggerBehavior.class };
-	
+	private static Class[] s_supportedCoercionClasses = {ConditionalTriggerBehavior.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	public final BooleanProperty condition = new BooleanProperty( this, "condition", null );
-	
-	public void preSchedule( double t ) {
-		super.preSchedule( t );
-		set( condition.booleanValue( false ) );
+	public final BooleanProperty condition = new BooleanProperty(this, "condition", null);
+
+	@Override
+	public void preSchedule(double t) {
+		super.preSchedule(t);
+		set(condition.booleanValue(false));
 	}
-	
-	protected void internalSchedule( double t, double dt ) {
-		super.internalSchedule( t, dt );
+
+	@Override
+	protected void internalSchedule(double t, double dt) {
+		super.internalSchedule(t, dt);
 	}
 }

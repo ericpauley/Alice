@@ -25,7 +25,7 @@ package edu.cmu.cs.stage3.alice.scenegraph;
 
 /**
  * none, flat, or smooth.
- *
+ * 
  * @see Visual#setCullingStyle
  * @author Dennis Cosgrove
  */
@@ -34,7 +34,7 @@ public class CullingStyle extends edu.cmu.cs.stage3.util.Enumerable {
 	public static final CullingStyle FRONT = new CullingStyle();
 	public static final CullingStyle BACK = new CullingStyle();
 
-    public static CullingStyle valueOf( String s ) {
-        return (CullingStyle)edu.cmu.cs.stage3.util.Enumerable.valueOf( s, CullingStyle.class );
-    }
+	public static CullingStyle valueOf(String s) {
+		return (CullingStyle) edu.cmu.cs.stage3.util.Enumerable.valueOf(s, CullingStyle.class);
+	}
 }

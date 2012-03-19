@@ -57,14 +57,13 @@ import java.util.Iterator;
 import java.util.Vector;
 
 /**
- * A simple class implemented the <code>RenderedImage</code>
- * interface.  Only the <code>getTile()</code> method needs to be
- * implemented by subclasses.  The instance variables must also be
- * filled in properly.
- *
- * <p> Normally in JAI <code>PlanarImage</code> is used for this
- * purpose, but in the interest of modularity the
- * use of <code>PlanarImage</code> has been avoided.
+ * A simple class implemented the <code>RenderedImage</code> interface. Only the
+ * <code>getTile()</code> method needs to be implemented by subclasses. The
+ * instance variables must also be filled in properly.
+ * 
+ * <p>
+ * Normally in JAI <code>PlanarImage</code> is used for this purpose, but in the
+ * interest of modularity the use of <code>PlanarImage</code> has been avoided.
  */
 public abstract class SimpleRenderedImage implements RenderedImage {
 
@@ -104,60 +103,65 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 	/** A Hashtable containing the image properties. */
 	protected Hashtable properties = new Hashtable();
 
-	public SimpleRenderedImage() {}
+	public SimpleRenderedImage() {
+	}
 
 	/** Returns the X coordinate of the leftmost column of the image. */
+	@Override
 	public int getMinX() {
 		return minX;
 	}
 
 	/**
-	 * Returns the X coordinate of the column immediatetely to the
-	 * right of the rightmost column of the image.  getMaxX() is
-	 * implemented in terms of getMinX() and getWidth() and so does
-	 * not need to be implemented by subclasses.
+	 * Returns the X coordinate of the column immediatetely to the right of the
+	 * rightmost column of the image. getMaxX() is implemented in terms of
+	 * getMinX() and getWidth() and so does not need to be implemented by
+	 * subclasses.
 	 */
 	public final int getMaxX() {
 		return getMinX() + getWidth();
 	}
 
 	/** Returns the X coordinate of the uppermost row of the image. */
+	@Override
 	public int getMinY() {
 		return minY;
 	}
 
 	/**
-	 * Returns the Y coordinate of the row immediately below the
-	 * bottom row of the image.  getMaxY() is implemented in terms of
-	 * getMinY() and getHeight() and so does not need to be
-	 * implemented by subclasses.
+	 * Returns the Y coordinate of the row immediately below the bottom row of
+	 * the image. getMaxY() is implemented in terms of getMinY() and getHeight()
+	 * and so does not need to be implemented by subclasses.
 	 */
 	public final int getMaxY() {
 		return getMinY() + getHeight();
 	}
 
 	/** Returns the width of the image. */
+	@Override
 	public int getWidth() {
 		return width;
 	}
 
 	/** Returns the height of the image. */
+	@Override
 	public int getHeight() {
 		return height;
 	}
 
 	/** Returns a Rectangle indicating the image bounds. */
 	public Rectangle getBounds() {
-		return new Rectangle(getMinX(), getMinY(),
-							 getWidth(), getHeight());
+		return new Rectangle(getMinX(), getMinY(), getWidth(), getHeight());
 	}
 
 	/** Returns the width of a tile. */
+	@Override
 	public int getTileWidth() {
 		return tileWidth;
 	}
 
 	/** Returns the height of a tile. */
+	@Override
 	public int getTileHeight() {
 		return tileHeight;
 	}
@@ -165,6 +169,7 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 	/**
 	 * Returns the X coordinate of the upper-left pixel of tile (0, 0).
 	 */
+	@Override
 	public int getTileGridXOffset() {
 		return tileGridXOffset;
 	}
@@ -172,51 +177,54 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 	/**
 	 * Returns the Y coordinate of the upper-left pixel of tile (0, 0).
 	 */
+	@Override
 	public int getTileGridYOffset() {
 		return tileGridYOffset;
 	}
 
 	/**
 	 * Returns the horizontal index of the leftmost column of tiles.
-	 * getMinTileX() is implemented in terms of getMinX()
-	 * and so does not need to be implemented by subclasses.
+	 * getMinTileX() is implemented in terms of getMinX() and so does not need
+	 * to be implemented by subclasses.
 	 */
+	@Override
 	public int getMinTileX() {
 		return XToTileX(getMinX());
 	}
 
 	/**
 	 * Returns the horizontal index of the rightmost column of tiles.
-	 * getMaxTileX() is implemented in terms of getMaxX()
-	 * and so does not need to be implemented by subclasses.
+	 * getMaxTileX() is implemented in terms of getMaxX() and so does not need
+	 * to be implemented by subclasses.
 	 */
 	public int getMaxTileX() {
 		return XToTileX(getMaxX() - 1);
 	}
 
 	/**
-	 * Returns the number of tiles along the tile grid in the
-	 * horizontal direction.  getNumXTiles() is implemented in terms
-	 * of getMinTileX() and getMaxTileX() and so does not need to be
-	 * implemented by subclasses.
+	 * Returns the number of tiles along the tile grid in the horizontal
+	 * direction. getNumXTiles() is implemented in terms of getMinTileX() and
+	 * getMaxTileX() and so does not need to be implemented by subclasses.
 	 */
+	@Override
 	public int getNumXTiles() {
 		return getMaxTileX() - getMinTileX() + 1;
 	}
 
 	/**
-	 * Returns the vertical index of the uppermost row of tiles.  getMinTileY()
+	 * Returns the vertical index of the uppermost row of tiles. getMinTileY()
 	 * is implemented in terms of getMinY() and so does not need to be
 	 * implemented by subclasses.
 	 */
+	@Override
 	public int getMinTileY() {
 		return YToTileY(getMinY());
 	}
 
 	/**
-	 * Returns the vertical index of the bottom row of tiles.  getMaxTileY()
-	 * is implemented in terms of getMaxY() and so does not need to
-	 * be implemented by subclasses.
+	 * Returns the vertical index of the bottom row of tiles. getMaxTileY() is
+	 * implemented in terms of getMaxY() and so does not need to be implemented
+	 * by subclasses.
 	 */
 	public int getMaxTileY() {
 		return YToTileY(getMaxY() - 1);
@@ -224,54 +232,57 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 
 	/**
 	 * Returns the number of tiles along the tile grid in the vertical
-	 * direction.  getNumYTiles() is implemented in terms
-	 * of getMinTileY() and getMaxTileY() and so does not need to be
-	 * implemented by subclasses.
+	 * direction. getNumYTiles() is implemented in terms of getMinTileY() and
+	 * getMaxTileY() and so does not need to be implemented by subclasses.
 	 */
+	@Override
 	public int getNumYTiles() {
 		return getMaxTileY() - getMinTileY() + 1;
 	}
 
 	/** Returns the SampleModel of the image. */
+	@Override
 	public SampleModel getSampleModel() {
 		return sampleModel;
 	}
 
 	/** Returns the ColorModel of the image. */
+	@Override
 	public ColorModel getColorModel() {
 		return colorModel;
 	}
 
 	/**
-	 * Gets a property from the property set of this image.  If the
-	 * property name is not recognized,
-	 * <code>java.awt.Image.UndefinedProperty</code> will be returned.
-	 *
-	 * @param name the name of the property to get, as a
-	 * <code>String</code>.  @return a reference to the property
-	 * <code>Object</code>, or the value
-	 * <code>java.awt.Image.UndefinedProperty.</code>
+	 * Gets a property from the property set of this image. If the property name
+	 * is not recognized, <code>java.awt.Image.UndefinedProperty</code> will be
+	 * returned.
+	 * 
+	 * @param name
+	 *            the name of the property to get, as a <code>String</code>. @return
+	 *            a reference to the property <code>Object</code>, or the value
+	 *            <code>java.awt.Image.UndefinedProperty.</code>
 	 */
+	@Override
 	public Object getProperty(String name) {
 		name = name.toLowerCase();
 		return properties.get(name);
 	}
 
 	/**
-	 * Returns a list of the properties recognized by this image.  If
-	 * no properties are available, <code>null</code> will be
-	 * returned.
-	 *
-	 * @return an array of <code>String</code>s representing valid
-	 *         property names.
+	 * Returns a list of the properties recognized by this image. If no
+	 * properties are available, <code>null</code> will be returned.
+	 * 
+	 * @return an array of <code>String</code>s representing valid property
+	 *         names.
 	 */
+	@Override
 	public String[] getPropertyNames() {
 		String[] names = new String[properties.size()];
 		int index = 0;
 
 		Enumeration e = properties.keys();
 		while (e.hasMoreElements()) {
-			String name = (String)e.nextElement();
+			String name = (String) e.nextElement();
 			names[index++] = name;
 		}
 
@@ -279,17 +290,16 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 	}
 
 	/**
-	 * Returns an array of <code>String</code>s recognized as names by
-	 * this property source that begin with the supplied prefix.  If
-	 * no property names match, <code>null</code> will be returned.
-	 * The comparison is done in a case-independent manner.
-	 *
-	 * <p> The default implementation calls
-	 * <code>getPropertyNames()</code> and searches the list of names
-	 * for matches.
-	 *
-	 * @return an array of <code>String</code>s giving the valid
-	 * property names.
+	 * Returns an array of <code>String</code>s recognized as names by this
+	 * property source that begin with the supplied prefix. If no property names
+	 * match, <code>null</code> will be returned. The comparison is done in a
+	 * case-independent manner.
+	 * 
+	 * <p>
+	 * The default implementation calls <code>getPropertyNames()</code> and
+	 * searches the list of names for matches.
+	 * 
+	 * @return an array of <code>String</code>s giving the valid property names.
 	 */
 	public String[] getPropertyNames(String prefix) {
 		String propertyNames[] = getPropertyNames();
@@ -300,9 +310,9 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 		prefix = prefix.toLowerCase();
 
 		Vector names = new Vector();
-		for (int i = 0; i < propertyNames.length; i++) {
-			if (propertyNames[i].startsWith(prefix)) {
-				names.addElement(propertyNames[i]);
+		for (String propertyName : propertyNames) {
+			if (propertyName.startsWith(prefix)) {
+				names.addElement(propertyName);
 			}
 		}
 
@@ -313,8 +323,8 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 		// Copy the strings from the Vector over to a String array.
 		String prefixNames[] = new String[names.size()];
 		int count = 0;
-		for (Iterator it = names.iterator(); it.hasNext(); ) {
-			prefixNames[count++] = (String)it.next();
+		for (Iterator it = names.iterator(); it.hasNext();) {
+			prefixNames[count++] = (String) it.next();
 		}
 
 		return prefixNames;
@@ -323,37 +333,36 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 	// Utility methods.
 
 	/**
-	 * Converts a pixel's X coordinate into a horizontal tile index
-	 * relative to a given tile grid layout specified by its X offset
-	 * and tile width.
+	 * Converts a pixel's X coordinate into a horizontal tile index relative to
+	 * a given tile grid layout specified by its X offset and tile width.
 	 */
 	public static int XToTileX(int x, int tileGridXOffset, int tileWidth) {
 		x -= tileGridXOffset;
 		if (x < 0) {
 			x += 1 - tileWidth; // Force round to -infinity
 		}
-		return x/tileWidth;
+		return x / tileWidth;
 	}
 
 	/**
-	 * Converts a pixel's Y coordinate into a vertical tile index
-	 * relative to a given tile grid layout specified by its Y offset
-	 * and tile height.
+	 * Converts a pixel's Y coordinate into a vertical tile index relative to a
+	 * given tile grid layout specified by its Y offset and tile height.
 	 */
 	public static int YToTileY(int y, int tileGridYOffset, int tileHeight) {
 		y -= tileGridYOffset;
 		if (y < 0) {
 			y += 1 - tileHeight; // Force round to -infinity
 		}
-		return y/tileHeight;
+		return y / tileHeight;
 	}
 
 	/**
-	 * Converts a pixel's X coordinate into a horizontal tile index.
-	 * This is a convenience method.  No attempt is made to detect
-	 * out-of-range coordinates.
-	 *
-	 * @param x the X coordinate of a pixel.
+	 * Converts a pixel's X coordinate into a horizontal tile index. This is a
+	 * convenience method. No attempt is made to detect out-of-range
+	 * coordinates.
+	 * 
+	 * @param x
+	 *            the X coordinate of a pixel.
 	 * @return the X index of the tile containing the pixel.
 	 */
 	public int XToTileX(int x) {
@@ -361,11 +370,12 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 	}
 
 	/**
-	 * Converts a pixel's Y coordinate into a vertical tile index.
-	 * This is a convenience method.  No attempt is made to detect
-	 * out-of-range coordinates.
-	 *
-	 * @param y the Y coordinate of a pixel.
+	 * Converts a pixel's Y coordinate into a vertical tile index. This is a
+	 * convenience method. No attempt is made to detect out-of-range
+	 * coordinates.
+	 * 
+	 * @param y
+	 *            the Y coordinate of a pixel.
 	 * @return the Y index of the tile containing the pixel.
 	 */
 	public int YToTileY(int y) {
@@ -373,90 +383,94 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 	}
 
 	/**
-	 * Converts a horizontal tile index into the X coordinate of its
-	 * upper left pixel relative to a given tile grid layout specified
-	 * by its X offset and tile width.
+	 * Converts a horizontal tile index into the X coordinate of its upper left
+	 * pixel relative to a given tile grid layout specified by its X offset and
+	 * tile width.
 	 */
 	public static int tileXToX(int tx, int tileGridXOffset, int tileWidth) {
-		return tx*tileWidth + tileGridXOffset;
+		return tx * tileWidth + tileGridXOffset;
 	}
 
 	/**
-	 * Converts a vertical tile index into the Y coordinate of
-	 * its upper left pixel relative to a given tile grid layout
-	 * specified by its Y offset and tile height.
+	 * Converts a vertical tile index into the Y coordinate of its upper left
+	 * pixel relative to a given tile grid layout specified by its Y offset and
+	 * tile height.
 	 */
 	public static int tileYToY(int ty, int tileGridYOffset, int tileHeight) {
-		return ty*tileHeight + tileGridYOffset;
+		return ty * tileHeight + tileGridYOffset;
 	}
 
 	/**
-	 * Converts a horizontal tile index into the X coordinate of its
-	 * upper left pixel.  This is a convenience method.  No attempt is made
-	 * to detect out-of-range indices.
-	 *
-	 * @param tx the horizontal index of a tile.
+	 * Converts a horizontal tile index into the X coordinate of its upper left
+	 * pixel. This is a convenience method. No attempt is made to detect
+	 * out-of-range indices.
+	 * 
+	 * @param tx
+	 *            the horizontal index of a tile.
 	 * @return the X coordinate of the tile's upper left pixel.
 	 */
 	public int tileXToX(int tx) {
-		return tx*tileWidth + tileGridXOffset;
+		return tx * tileWidth + tileGridXOffset;
 	}
 
 	/**
-	 * Converts a vertical tile index into the Y coordinate of its
-	 * upper left pixel.  This is a convenience method.  No attempt is made
-	 * to detect out-of-range indices.
-	 *
-	 * @param ty the vertical index of a tile.
+	 * Converts a vertical tile index into the Y coordinate of its upper left
+	 * pixel. This is a convenience method. No attempt is made to detect
+	 * out-of-range indices.
+	 * 
+	 * @param ty
+	 *            the vertical index of a tile.
 	 * @return the Y coordinate of the tile's upper left pixel.
 	 */
 	public int tileYToY(int ty) {
-		return ty*tileHeight + tileGridYOffset;
+		return ty * tileHeight + tileGridYOffset;
 	}
 
+	@Override
 	public Vector getSources() {
 		return null;
 	}
 
 	/**
-	 * Returns the entire image in a single Raster.  For images with
-	 * multiple tiles this will require making a copy.
-	 *
-	 * <p> The returned Raster is semantically a copy.  This means
-	 * that updates to the source image will not be reflected in the
-	 * returned Raster.  For non-writable (immutable) source images,
-	 * the returned value may be a reference to the image's internal
-	 * data.  The returned Raster should be considered non-writable;
-	 * any attempt to alter its pixel data (such as by casting it to
-	 * WritableRaster or obtaining and modifying its DataBuffer) may
-	 * result in undefined behavior.  The copyData method should be
-	 * used if the returned Raster is to be modified.
-	 *
+	 * Returns the entire image in a single Raster. For images with multiple
+	 * tiles this will require making a copy.
+	 * 
+	 * <p>
+	 * The returned Raster is semantically a copy. This means that updates to
+	 * the source image will not be reflected in the returned Raster. For
+	 * non-writable (immutable) source images, the returned value may be a
+	 * reference to the image's internal data. The returned Raster should be
+	 * considered non-writable; any attempt to alter its pixel data (such as by
+	 * casting it to WritableRaster or obtaining and modifying its DataBuffer)
+	 * may result in undefined behavior. The copyData method should be used if
+	 * the returned Raster is to be modified.
+	 * 
 	 * @return a Raster containing a copy of this image's data.
 	 */
+	@Override
 	public Raster getData() {
-		Rectangle rect = new Rectangle(getMinX(), getMinY(),
-									   getWidth(), getHeight());
+		Rectangle rect = new Rectangle(getMinX(), getMinY(), getWidth(), getHeight());
 		return getData(rect);
 	}
 
 	/**
-	 * Returns an arbitrary rectangular region of the RenderedImage
-	 * in a Raster.  The rectangle of interest will be clipped against
-	 * the image bounds.
-	 *
-	 * <p> The returned Raster is semantically a copy.  This means
-	 * that updates to the source image will not be reflected in the
-	 * returned Raster.  For non-writable (immutable) source images,
-	 * the returned value may be a reference to the image's internal
-	 * data.  The returned Raster should be considered non-writable;
-	 * any attempt to alter its pixel data (such as by casting it to
-	 * WritableRaster or obtaining and modifying its DataBuffer) may
-	 * result in undefined behavior.  The copyData method should be
-	 * used if the returned Raster is to be modified.
-	 *
-	 * @param bounds the region of the RenderedImage to be returned.
+	 * Returns an arbitrary rectangular region of the RenderedImage in a Raster.
+	 * The rectangle of interest will be clipped against the image bounds.
+	 * 
+	 * <p>
+	 * The returned Raster is semantically a copy. This means that updates to
+	 * the source image will not be reflected in the returned Raster. For
+	 * non-writable (immutable) source images, the returned value may be a
+	 * reference to the image's internal data. The returned Raster should be
+	 * considered non-writable; any attempt to alter its pixel data (such as by
+	 * casting it to WritableRaster or obtaining and modifying its DataBuffer)
+	 * may result in undefined behavior. The copyData method should be used if
+	 * the returned Raster is to be modified.
+	 * 
+	 * @param bounds
+	 *            the region of the RenderedImage to be returned.
 	 */
+	@Override
 	public Raster getData(Rectangle bounds) {
 		int startX = XToTileX(bounds.x);
 		int startY = YToTileY(bounds.y);
@@ -464,43 +478,28 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 		int endY = YToTileY(bounds.y + bounds.height - 1);
 		Raster tile;
 
-		if ((startX == endX) && (startY == endY)) {
+		if (startX == endX && startY == endY) {
 			tile = getTile(startX, startY);
-			return tile.createChild(bounds.x, bounds.y,
-									bounds.width, bounds.height,
-									bounds.x, bounds.y, null);
+			return tile.createChild(bounds.x, bounds.y, bounds.width, bounds.height, bounds.x, bounds.y, null);
 		} else {
 			// Create a WritableRaster of the desired size
-			SampleModel sm =
-				sampleModel.createCompatibleSampleModel(bounds.width,
-													   bounds.height);
+			SampleModel sm = sampleModel.createCompatibleSampleModel(bounds.width, bounds.height);
 
 			// Translate it
-			WritableRaster dest =
-				Raster.createWritableRaster(sm, bounds.getLocation());
+			WritableRaster dest = Raster.createWritableRaster(sm, bounds.getLocation());
 
 			for (int j = startY; j <= endY; j++) {
 				for (int i = startX; i <= endX; i++) {
 					tile = getTile(i, j);
-					Rectangle intersectRect = bounds.intersection( tile.getBounds() );
-					Raster liveRaster = tile.createChild(intersectRect.x,
-														 intersectRect.y,
-														 intersectRect.width,
-														 intersectRect.height,
-														 0,
-														 0,
-														 null);
-					dest.setDataElements( intersectRect.x, intersectRect.y, liveRaster );
+					Rectangle intersectRect = bounds.intersection(tile.getBounds());
+					Raster liveRaster = tile.createChild(intersectRect.x, intersectRect.y, intersectRect.width, intersectRect.height, 0, 0, null);
+					dest.setDataElements(intersectRect.x, intersectRect.y, liveRaster);
 					/*
-					Raster liveRaster = tile.createChild(intersectRect.x,
-														 intersectRect.y,
-														 intersectRect.width,
-														 intersectRect.height,
-														 intersectRect.x,
-														 intersectRect.y,
-														 null);
-					dest.setDataElements(0, 0, liveRaster);
-					*/
+					 * Raster liveRaster = tile.createChild(intersectRect.x,
+					 * intersectRect.y, intersectRect.width,
+					 * intersectRect.height, intersectRect.x, intersectRect.y,
+					 * null); dest.setDataElements(0, 0, liveRaster);
+					 */
 				}
 			}
 			return dest;
@@ -508,22 +507,23 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 	}
 
 	/**
-	 * Copies an arbitrary rectangular region of the RenderedImage
-	 * into a caller-supplied WritableRaster.  The region to be
-	 * computed is determined by clipping the bounds of the supplied
-	 * WritableRaster against the bounds of the image.  The supplied
-	 * WritableRaster must have a SampleModel that is compatible with
+	 * Copies an arbitrary rectangular region of the RenderedImage into a
+	 * caller-supplied WritableRaster. The region to be computed is determined
+	 * by clipping the bounds of the supplied WritableRaster against the bounds
+	 * of the image. The supplied WritableRaster must have a SampleModel that is
+	 * compatible with that of the image.
+	 * 
+	 * <p>
+	 * If the raster argument is null, the entire image will be copied into a
+	 * newly-created WritableRaster with a SampleModel that is compatible with
 	 * that of the image.
-	 *
-	 * <p> If the raster argument is null, the entire image will
-	 * be copied into a newly-created WritableRaster with a SampleModel
-	 * that is compatible with that of the image.
-	 *
-	 * @param dest a WritableRaster to hold the returned portion of
-	 *        the image.
-	 * @return a reference to the supplied WritableRaster, or to a
-	 *         new WritableRaster if the supplied one was null.
+	 * 
+	 * @param dest
+	 *            a WritableRaster to hold the returned portion of the image.
+	 * @return a reference to the supplied WritableRaster, or to a new
+	 *         WritableRaster if the supplied one was null.
 	 */
+	@Override
 	public WritableRaster copyData(WritableRaster dest) {
 		Rectangle bounds;
 		Raster tile;
@@ -532,8 +532,7 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 			bounds = getBounds();
 			Point p = new Point(minX, minY);
 			/* A SampleModel to hold the entire image. */
-			SampleModel sm = sampleModel.createCompatibleSampleModel(
-										 width, height);
+			SampleModel sm = sampleModel.createCompatibleSampleModel(width, height);
 			dest = Raster.createWritableRaster(sm, p);
 		} else {
 			bounds = dest.getBounds();
@@ -548,15 +547,8 @@ public abstract class SimpleRenderedImage implements RenderedImage {
 			for (int i = startX; i <= endX; i++) {
 				tile = getTile(i, j);
 				Rectangle tileRect = tile.getBounds();
-				Rectangle intersectRect =
-					bounds.intersection(tile.getBounds());
-				Raster liveRaster = tile.createChild(intersectRect.x,
-													 intersectRect.y,
-													 intersectRect.width,
-													 intersectRect.height,
-													 intersectRect.x,
-													 intersectRect.y,
-													 null);
+				Rectangle intersectRect = bounds.intersection(tile.getBounds());
+				Raster liveRaster = tile.createChild(intersectRect.x, intersectRect.y, intersectRect.width, intersectRect.height, intersectRect.x, intersectRect.y, null);
 
 				/*
 				 * WritableRaster.setDataElements takes into account of

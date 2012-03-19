@@ -24,41 +24,46 @@
 package edu.cmu.cs.stage3.alice.core.response;
 
 import edu.cmu.cs.stage3.alice.core.Direction;
-import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 import edu.cmu.cs.stage3.alice.core.property.DirectionProperty;
+import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public abstract class DirectionAmountTransformAnimation extends TransformAnimation {
-	public final DirectionProperty direction = new DirectionProperty( this, "direction", getDefaultDirection() );
-	public final NumberProperty amount = new NumberProperty( this, "amount", new Double( 1 ) );
+	public final DirectionProperty direction = new DirectionProperty(this, "direction", getDefaultDirection());
+	public final NumberProperty amount = new NumberProperty(this, "amount", new Double(1));
 	protected abstract Direction getDefaultDirection();
-	protected abstract boolean acceptsDirection( Direction direction );
-	
-	
-	protected void propertyChanging( edu.cmu.cs.stage3.alice.core.Property property, Object value ) {
-		if( property == direction ) {
-			if( value instanceof Direction ) {
-				if( acceptsDirection( (Direction)value ) ) {
-					//pass
+	protected abstract boolean acceptsDirection(Direction direction);
+
+	@Override
+	protected void propertyChanging(edu.cmu.cs.stage3.alice.core.Property property, Object value) {
+		if (property == direction) {
+			if (value instanceof Direction) {
+				if (acceptsDirection((Direction) value)) {
+					// pass
 				} else {
-					throw new RuntimeException( this + " does not accept direction " + value );
+					throw new RuntimeException(this + " does not accept direction " + value);
 				}
 			}
 		} else {
-			super.propertyChanging( property, value );
+			super.propertyChanging(property, value);
 		}
 	}
 
 	public class RuntimeDirectionAmountTransformAnimation extends RuntimeTransformAnimation {
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			if( DirectionAmountTransformAnimation.this.direction.getDirectionValue() == null ) {
-				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( "direction value must not be null.", null, DirectionAmountTransformAnimation.this.direction );
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			if (direction.getDirectionValue() == null) {
+				throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException("direction value must not be null.", null, direction);
 			}
-			//if( DirectionAmountTransformAnimation.this.amount.getValue() == null ) {
-			//	throw new edu.cmu.cs.stage3.alice.core.SimulationPropertyException( "amount value must not be null.", null, DirectionAmountTransformAnimation.this.amount );
-			//}
+			// if( DirectionAmountTransformAnimation.this.amount.getValue() ==
+			// null ) {
+			// throw new
+			// edu.cmu.cs.stage3.alice.core.SimulationPropertyException(
+			// "amount value must not be null.", null,
+			// DirectionAmountTransformAnimation.this.amount );
+			// }
 		}
 	}
-	
+
 }

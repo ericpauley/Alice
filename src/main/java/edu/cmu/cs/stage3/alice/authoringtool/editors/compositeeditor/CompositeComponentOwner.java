@@ -5,20 +5,20 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.editors.compositeeditor;
 
-import edu.cmu.cs.stage3.alice.core.Element;
 import java.awt.Component;
 import java.awt.Container;
 
-public interface CompositeComponentOwner
-{
+import edu.cmu.cs.stage3.alice.core.Element;
 
-    public abstract Element getElement();
+public interface CompositeComponentOwner {
 
-    public abstract void setEnabled(boolean flag);
+	public abstract Element getElement();
 
-    public abstract Container getParent();
+	public abstract void setEnabled(boolean flag);
 
-    public abstract boolean isExpanded();
+	public abstract Container getParent();
 
-    public abstract Component getGrip();
+	public abstract boolean isExpanded();
+
+	public abstract Component getGrip();
 }

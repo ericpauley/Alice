@@ -25,19 +25,20 @@ package edu.cmu.cs.stage3.alice.core.criterion;
 
 public class ExpressionIsAssignableToCriterion extends edu.cmu.cs.stage3.util.criterion.InstanceOfCriterion {
 	private Class m_valueClass;
-	protected ExpressionIsAssignableToCriterion( Class expressionClass, Class valueClass ) {
-		super( expressionClass );
+	protected ExpressionIsAssignableToCriterion(Class expressionClass, Class valueClass) {
+		super(expressionClass);
 		m_valueClass = valueClass;
 	}
-	public ExpressionIsAssignableToCriterion( Class cls ) {
-		this( edu.cmu.cs.stage3.alice.core.Expression.class, cls );
+	public ExpressionIsAssignableToCriterion(Class cls) {
+		this(edu.cmu.cs.stage3.alice.core.Expression.class, cls);
 	}
-	
-	public boolean accept( Object o ) {
-		if( super.accept( o ) ) {
-			Class valueClass = ((edu.cmu.cs.stage3.alice.core.Expression)o).getValueClass();
-			if( valueClass != null ) {
-				return m_valueClass.isAssignableFrom( valueClass );
+
+	@Override
+	public boolean accept(Object o) {
+		if (super.accept(o)) {
+			Class valueClass = ((edu.cmu.cs.stage3.alice.core.Expression) o).getValueClass();
+			if (valueClass != null) {
+				return m_valueClass.isAssignableFrom(valueClass);
 			} else {
 				return false;
 			}

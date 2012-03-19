@@ -26,9 +26,7 @@ package edu.cmu.cs.stage3.alice.core.event;
 public class SoundEvent extends java.util.EventObject {
 	private Object time, dataSource, duration;
 
-	public SoundEvent(
-			edu.cmu.cs.stage3.alice.core.response.SoundResponse source,
-			Object value, Object ds, Object dur) {
+	public SoundEvent(edu.cmu.cs.stage3.alice.core.response.SoundResponse source, Object value, Object ds, Object dur) {
 		super(source);
 		time = value;
 		dataSource = ds;

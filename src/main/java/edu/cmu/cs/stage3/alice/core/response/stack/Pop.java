@@ -25,9 +25,10 @@ package edu.cmu.cs.stage3.alice.core.response.stack;
 
 public class Pop extends StackResponse {
 	public class RuntimePop extends RuntimeStackResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
 			getStack().pop();
 		}
 	}

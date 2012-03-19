@@ -27,56 +27,57 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public class InAppropriateObjectArrayPropertyCriterion implements edu.cmu.cs.stage3.util.Criterion {
-	public boolean accept( Object object ) {
-		if( object instanceof edu.cmu.cs.stage3.alice.core.Element ) {
-			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element)object;
+	@Override
+	public boolean accept(Object object) {
+		if (object instanceof edu.cmu.cs.stage3.alice.core.Element) {
+			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) object;
 			edu.cmu.cs.stage3.alice.core.Element parent = element.getParent();
 
-			if( parent != null ) {
+			if (parent != null) {
 				edu.cmu.cs.stage3.alice.core.property.ObjectArrayProperty oap = null;
-				if( element instanceof edu.cmu.cs.stage3.alice.core.Transformable ) {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.World ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.World)parent).sandboxes;
-					} else if( parent instanceof edu.cmu.cs.stage3.alice.core.Transformable ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Transformable)parent).parts;
-					} else if( parent instanceof edu.cmu.cs.stage3.alice.core.Group ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Group)parent).values;
+				if (element instanceof edu.cmu.cs.stage3.alice.core.Transformable) {
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.World) {
+						oap = ((edu.cmu.cs.stage3.alice.core.World) parent).sandboxes;
+					} else if (parent instanceof edu.cmu.cs.stage3.alice.core.Transformable) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Transformable) parent).parts;
+					} else if (parent instanceof edu.cmu.cs.stage3.alice.core.Group) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Group) parent).values;
 					}
-				} else if( element instanceof edu.cmu.cs.stage3.alice.core.Response ) {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox)parent).responses;
+				} else if (element instanceof edu.cmu.cs.stage3.alice.core.Response) {
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox) parent).responses;
 					}
-				} else if( element instanceof edu.cmu.cs.stage3.alice.core.Behavior ) {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox)parent).behaviors;
+				} else if (element instanceof edu.cmu.cs.stage3.alice.core.Behavior) {
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox) parent).behaviors;
 					}
-				} else if( element instanceof edu.cmu.cs.stage3.alice.core.Variable ) {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox)parent).variables;
+				} else if (element instanceof edu.cmu.cs.stage3.alice.core.Variable) {
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox) parent).variables;
 					}
-				} else if( element instanceof edu.cmu.cs.stage3.alice.core.Question ) {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox)parent).questions;
+				} else if (element instanceof edu.cmu.cs.stage3.alice.core.Question) {
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox) parent).questions;
 					}
-				} else if( element instanceof edu.cmu.cs.stage3.alice.core.Sound ) {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox)parent).sounds;
+				} else if (element instanceof edu.cmu.cs.stage3.alice.core.Sound) {
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox) parent).sounds;
 					}
-				} else if( element instanceof edu.cmu.cs.stage3.alice.core.TextureMap ) {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox)parent).textureMaps;
+				} else if (element instanceof edu.cmu.cs.stage3.alice.core.TextureMap) {
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox) parent).textureMaps;
 					}
-				} else if( element instanceof edu.cmu.cs.stage3.alice.core.Pose ) {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.Transformable ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Transformable)parent).poses;
+				} else if (element instanceof edu.cmu.cs.stage3.alice.core.Pose) {
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.Transformable) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Transformable) parent).poses;
 					}
 				} else {
-					if( parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox ) {
-						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox)parent).misc;
+					if (parent instanceof edu.cmu.cs.stage3.alice.core.Sandbox) {
+						oap = ((edu.cmu.cs.stage3.alice.core.Sandbox) parent).misc;
 					}
 				}
-				if( oap != null ) {
-					return oap.contains( element );
+				if (oap != null) {
+					return oap.contains(element);
 				}
 			}
 		}

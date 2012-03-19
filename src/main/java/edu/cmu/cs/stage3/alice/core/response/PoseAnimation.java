@@ -27,24 +27,26 @@ package edu.cmu.cs.stage3.alice.core.response;
  * @author Jason Pratt
  */
 public class PoseAnimation extends Animation {
-	public final edu.cmu.cs.stage3.alice.core.property.TransformableProperty subject = new edu.cmu.cs.stage3.alice.core.property.TransformableProperty( this, "subject", null );
-	public final PoseProperty pose = new PoseProperty( this, "pose", null );
+	public final edu.cmu.cs.stage3.alice.core.property.TransformableProperty subject = new edu.cmu.cs.stage3.alice.core.property.TransformableProperty(this, "subject", null);
+	public final PoseProperty pose = new PoseProperty(this, "pose", null);
 
 	public PoseAnimation() {
-//		subject.setIsAcceptingOfNull( true );
-//		pose.setIsAcceptingOfNull( true );
+		// subject.setIsAcceptingOfNull( true );
+		// pose.setIsAcceptingOfNull( true );
 	}
 
 	public class PoseProperty extends edu.cmu.cs.stage3.alice.core.property.ElementProperty {
-		public PoseProperty( edu.cmu.cs.stage3.alice.core.Element owner, String name, edu.cmu.cs.stage3.alice.core.Pose defaultValue ) {
-			super( owner, name, defaultValue, edu.cmu.cs.stage3.alice.core.Pose.class );
+		public PoseProperty(edu.cmu.cs.stage3.alice.core.Element owner, String name, edu.cmu.cs.stage3.alice.core.Pose defaultValue) {
+			super(owner, name, defaultValue, edu.cmu.cs.stage3.alice.core.Pose.class);
 		}
 		public edu.cmu.cs.stage3.alice.core.Pose getPoseValue() {
-			return (edu.cmu.cs.stage3.alice.core.Pose)getElementValue();
+			return (edu.cmu.cs.stage3.alice.core.Pose) getElementValue();
 		}
-//		public edu.cmu.cs.stage3.alice.core.Pose getPoseValue( RuntimePoseAnimation runtimePoseAnimation ) {
-//			return (edu.cmu.cs.stage3.alice.core.Pose)super.getElementValue( runtimePoseAnimation );
-//		}
+		// public edu.cmu.cs.stage3.alice.core.Pose getPoseValue(
+		// RuntimePoseAnimation runtimePoseAnimation ) {
+		// return (edu.cmu.cs.stage3.alice.core.Pose)super.getElementValue(
+		// runtimePoseAnimation );
+		// }
 	}
 
 	public class RuntimePoseAnimation extends RuntimeAnimation {
@@ -60,56 +62,56 @@ public class PoseAnimation extends Animation {
 		protected java.util.Dictionary sourceScaleMap = new java.util.Hashtable();
 		protected java.util.Dictionary targetScaleMap = new java.util.Hashtable();
 
-		
-		public void prologue( double t ) {
-			super.prologue( t );
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
 			subject = PoseAnimation.this.subject.getTransformableValue();
 			pose = PoseAnimation.this.pose.getPoseValue();
 			java.util.Dictionary poseStringMap = pose.poseMap.getDictionaryValue();
-			for( java.util.Enumeration enum0 = poseStringMap.keys(); enum0.hasMoreElements(); ) {
-				String stringKey = (String)enum0.nextElement();
-				edu.cmu.cs.stage3.alice.core.Transformable key = (edu.cmu.cs.stage3.alice.core.Transformable)subject.getDescendantKeyed( stringKey );
-				if( key != null ) {
-					transformableKeys.add( key );
-					edu.cmu.cs.stage3.math.Matrix44 m = (edu.cmu.cs.stage3.math.Matrix44)poseStringMap.get( stringKey );
-					sourcePositionMap.put( key, key.getPosition() );
-					sourceQuaternionMap.put( key, key.getOrientationAsQuaternion() );
-					targetPositionMap.put( key, m.getPosition() );
-					targetQuaternionMap.put( key, m.getAxes().getQuaternion() );
+			for (java.util.Enumeration enum0 = poseStringMap.keys(); enum0.hasMoreElements();) {
+				String stringKey = (String) enum0.nextElement();
+				edu.cmu.cs.stage3.alice.core.Transformable key = (edu.cmu.cs.stage3.alice.core.Transformable) subject.getDescendantKeyed(stringKey);
+				if (key != null) {
+					transformableKeys.add(key);
+					edu.cmu.cs.stage3.math.Matrix44 m = (edu.cmu.cs.stage3.math.Matrix44) poseStringMap.get(stringKey);
+					sourcePositionMap.put(key, key.getPosition());
+					sourceQuaternionMap.put(key, key.getOrientationAsQuaternion());
+					targetPositionMap.put(key, m.getPosition());
+					targetQuaternionMap.put(key, m.getAxes().getQuaternion());
 				} else {
-					System.err.println( "Can't find " + stringKey + " in " + subject );
+					System.err.println("Can't find " + stringKey + " in " + subject);
 				}
 			}
 		}
 
-		
-		public void update( double t ) {
-			super.update( t );
-			double portion = getPortion( t );
-			for( java.util.Enumeration enum0 = transformableKeys.elements(); enum0.hasMoreElements(); ) {
-				edu.cmu.cs.stage3.alice.core.Transformable key = (edu.cmu.cs.stage3.alice.core.Transformable)enum0.nextElement();
+		@Override
+		public void update(double t) {
+			super.update(t);
+			double portion = getPortion(t);
+			for (java.util.Enumeration enum0 = transformableKeys.elements(); enum0.hasMoreElements();) {
+				edu.cmu.cs.stage3.alice.core.Transformable key = (edu.cmu.cs.stage3.alice.core.Transformable) enum0.nextElement();
 
-				edu.cmu.cs.stage3.math.Vector3 sourcePosition = (edu.cmu.cs.stage3.math.Vector3)sourcePositionMap.get( key );
-				edu.cmu.cs.stage3.math.Vector3 targetPosition = (edu.cmu.cs.stage3.math.Vector3)targetPositionMap.get( key );
-				edu.cmu.cs.stage3.math.Quaternion sourceQuaternion = (edu.cmu.cs.stage3.math.Quaternion)sourceQuaternionMap.get( key );
-				edu.cmu.cs.stage3.math.Quaternion targetQuaternion = (edu.cmu.cs.stage3.math.Quaternion)targetQuaternionMap.get( key );
+				edu.cmu.cs.stage3.math.Vector3 sourcePosition = (edu.cmu.cs.stage3.math.Vector3) sourcePositionMap.get(key);
+				edu.cmu.cs.stage3.math.Vector3 targetPosition = (edu.cmu.cs.stage3.math.Vector3) targetPositionMap.get(key);
+				edu.cmu.cs.stage3.math.Quaternion sourceQuaternion = (edu.cmu.cs.stage3.math.Quaternion) sourceQuaternionMap.get(key);
+				edu.cmu.cs.stage3.math.Quaternion targetQuaternion = (edu.cmu.cs.stage3.math.Quaternion) targetQuaternionMap.get(key);
 
-				edu.cmu.cs.stage3.math.Vector3 currentPosition = edu.cmu.cs.stage3.math.Vector3.interpolate( sourcePosition, targetPosition, portion  );
-				edu.cmu.cs.stage3.math.Quaternion currentQuaternion = edu.cmu.cs.stage3.math.Quaternion.interpolate( sourceQuaternion, targetQuaternion, portion );
+				edu.cmu.cs.stage3.math.Vector3 currentPosition = edu.cmu.cs.stage3.math.Vector3.interpolate(sourcePosition, targetPosition, portion);
+				edu.cmu.cs.stage3.math.Quaternion currentQuaternion = edu.cmu.cs.stage3.math.Quaternion.interpolate(sourceQuaternion, targetQuaternion, portion);
 
-				key.setPositionRightNow( currentPosition );
-				key.setOrientationRightNow( currentQuaternion );
+				key.setPositionRightNow(currentPosition);
+				key.setOrientationRightNow(currentQuaternion);
 			}
 		}
 
 		/*
-		private edu.cmu.cs.stage3.alice.core.Transformable getDescendantFromKey( edu.cmu.cs.stage3.alice.core.Transformable subject, String relativeKey ) {
-			java.util.StringTokenizer tokenizer = new java.util.StringTokenizer( relativeKey, ".", false );
-			while( tokenizer.hasMoreTokens() ) {
-				subject = (edu.cmu.cs.stage3.alice.core.Transformable)subject.getChildNamed( tokenizer.nextToken() );
-			}
-			return subject;
-		}
-		*/
+		 * private edu.cmu.cs.stage3.alice.core.Transformable
+		 * getDescendantFromKey( edu.cmu.cs.stage3.alice.core.Transformable
+		 * subject, String relativeKey ) { java.util.StringTokenizer tokenizer =
+		 * new java.util.StringTokenizer( relativeKey, ".", false ); while(
+		 * tokenizer.hasMoreTokens() ) { subject =
+		 * (edu.cmu.cs.stage3.alice.core.Transformable)subject.getChildNamed(
+		 * tokenizer.nextToken() ); } return subject; }
+		 */
 	}
 }

@@ -24,13 +24,14 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class SpriteProxy extends GeometryProxy {
-    protected abstract void onRadiusChange( double value );
-    
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-        if( property == edu.cmu.cs.stage3.alice.scenegraph.Sprite.RADIUS_PROPERTY ) {
-            onRadiusChange( ((Double)value).doubleValue() );
-        } else {
-            super.changed( property, value );
-        }
-    }
+	protected abstract void onRadiusChange(double value);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Sprite.RADIUS_PROPERTY) {
+			onRadiusChange(((Double) value).doubleValue());
+		} else {
+			super.changed(property, value);
+		}
+	}
 }

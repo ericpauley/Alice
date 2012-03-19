@@ -29,20 +29,22 @@ import edu.cmu.cs.stage3.alice.core.property.StringProperty;
 import edu.cmu.cs.stage3.alice.core.property.TransformableProperty;
 
 public class PartKeyed extends Question {
-	public final TransformableProperty owner = new TransformableProperty( this, "owner", null );
-	public final StringProperty key = new StringProperty( this, "key", "" );
-	public final BooleanProperty ignoreCase = new BooleanProperty( this, "ignoreCase", Boolean.TRUE );
-	
+	public final TransformableProperty owner = new TransformableProperty(this, "owner", null);
+	public final StringProperty key = new StringProperty(this, "key", "");
+	public final BooleanProperty ignoreCase = new BooleanProperty(this, "ignoreCase", Boolean.TRUE);
+
+	@Override
 	public Object getValue() {
 		edu.cmu.cs.stage3.alice.core.Transformable parentValue = owner.getTransformableValue();
 		String keyValue = key.getStringValue();
-		if( ignoreCase.booleanValue() ) {
-			return parentValue.getPartKeyedIgnoreCase( keyValue );
+		if (ignoreCase.booleanValue()) {
+			return parentValue.getPartKeyedIgnoreCase(keyValue);
 		} else {
-			return parentValue.getPartKeyed( keyValue );
+			return parentValue.getPartKeyed(keyValue);
 		}
 	}
-	
+
+	@Override
 	public Class getValueClass() {
 		return edu.cmu.cs.stage3.alice.core.Model.class;
 	}

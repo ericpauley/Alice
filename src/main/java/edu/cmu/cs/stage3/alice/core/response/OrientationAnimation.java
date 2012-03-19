@@ -29,7 +29,8 @@ public abstract class OrientationAnimation extends TransformAnimation {
 		private edu.cmu.cs.stage3.math.Quaternion m_quaternion1;
 		protected abstract edu.cmu.cs.stage3.math.Quaternion getTargetQuaternion();
 
-		public void absoluteTransformationChanged( edu.cmu.cs.stage3.alice.scenegraph.event.AbsoluteTransformationEvent absoluteTransformationEvent ) {
+		@Override
+		public void absoluteTransformationChanged(edu.cmu.cs.stage3.alice.scenegraph.event.AbsoluteTransformationEvent absoluteTransformationEvent) {
 			markTargetQuaternionDirty();
 		}
 		protected void markTargetQuaternionDirty() {
@@ -38,40 +39,44 @@ public abstract class OrientationAnimation extends TransformAnimation {
 		protected boolean affectQuaternion() {
 			return true;
 		}
-		
+
 		protected void setSubject(edu.cmu.cs.stage3.alice.core.Transformable newSubject) {
 			m_subject = newSubject;
-			if (m_subject != null) m_quaternion0 = m_subject.getOrientationAsQuaternion( m_asSeenBy );
+			if (m_subject != null) {
+				m_quaternion0 = m_subject.getOrientationAsQuaternion(m_asSeenBy);
+			}
 		}
 
-		
-		public void prologue( double t ) {
-			super.prologue( t );
-			if( m_asSeenBy == null ) {
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
+			if (m_asSeenBy == null) {
 				m_asSeenBy = m_subject.vehicle.getReferenceFrameValue();
 			}
-			if( affectQuaternion() ) {
-				m_quaternion0 = m_subject.getOrientationAsQuaternion( m_asSeenBy );
+			if (affectQuaternion()) {
+				m_quaternion0 = m_subject.getOrientationAsQuaternion(m_asSeenBy);
 				markTargetQuaternionDirty();
 			}
-			m_asSeenBy.addAbsoluteTransformationListener( this );
+			m_asSeenBy.addAbsoluteTransformationListener(this);
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-			if( affectQuaternion() ) {
-				if( m_quaternion1==null ) {
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			if (affectQuaternion()) {
+				if (m_quaternion1 == null) {
 					m_quaternion1 = getTargetQuaternion();
 				}
-				edu.cmu.cs.stage3.math.Quaternion q = edu.cmu.cs.stage3.math.Quaternion.interpolate( m_quaternion0, m_quaternion1, getPortion( t ) );
-				m_subject.setOrientationRightNow( q, m_asSeenBy );
+				edu.cmu.cs.stage3.math.Quaternion q = edu.cmu.cs.stage3.math.Quaternion.interpolate(m_quaternion0, m_quaternion1, getPortion(t));
+				m_subject.setOrientationRightNow(q, m_asSeenBy);
 			}
 		}
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			if( m_asSeenBy != null ) {
-				m_asSeenBy.removeAbsoluteTransformationListener( this );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			if (m_asSeenBy != null) {
+				m_asSeenBy.removeAbsoluteTransformationListener(this);
 			}
 		}
 	}

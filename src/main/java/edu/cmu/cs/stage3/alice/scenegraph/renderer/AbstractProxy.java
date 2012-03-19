@@ -27,51 +27,51 @@ public abstract class AbstractProxy {
 	private edu.cmu.cs.stage3.alice.scenegraph.Element m_sgElement;
 	private AbstractProxyRenderer m_abstractProxyRenderer;
 
-	public void initialize( edu.cmu.cs.stage3.alice.scenegraph.Element sgElement, AbstractProxyRenderer renderer ) {
+	public void initialize(edu.cmu.cs.stage3.alice.scenegraph.Element sgElement, AbstractProxyRenderer renderer) {
 		m_sgElement = sgElement;
-		setRenderer( renderer );
+		setRenderer(renderer);
 		initializeProperties();
-        renderer.addListenersToSGElement( sgElement );
+		renderer.addListenersToSGElement(sgElement);
 	}
 
 	public void release() {
-        m_abstractProxyRenderer.removeListenersFromSGElement( m_sgElement );
-		m_abstractProxyRenderer.forgetProxyFor( m_sgElement );
+		m_abstractProxyRenderer.removeListenersFromSGElement(m_sgElement);
+		m_abstractProxyRenderer.forgetProxyFor(m_sgElement);
 		m_sgElement = null;
 	}
 
-	protected void setRenderer( AbstractProxyRenderer renderer ) {
+	protected void setRenderer(AbstractProxyRenderer renderer) {
 		m_abstractProxyRenderer = renderer;
 	}
 	protected void initializeProperties() {
-		java.util.Enumeration enum0 = edu.cmu.cs.stage3.alice.scenegraph.Property.getProperties( m_sgElement.getClass() ).elements();
-		while( enum0.hasMoreElements() ) {
-			edu.cmu.cs.stage3.alice.scenegraph.Property property = (edu.cmu.cs.stage3.alice.scenegraph.Property)enum0.nextElement();
-			changed( property, property.get( m_sgElement ) );
+		java.util.Enumeration enum0 = edu.cmu.cs.stage3.alice.scenegraph.Property.getProperties(m_sgElement.getClass()).elements();
+		while (enum0.hasMoreElements()) {
+			edu.cmu.cs.stage3.alice.scenegraph.Property property = (edu.cmu.cs.stage3.alice.scenegraph.Property) enum0.nextElement();
+			changed(property, property.get(m_sgElement));
 		}
 	}
-	protected abstract void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value );
+	protected abstract void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value);
 	public edu.cmu.cs.stage3.alice.scenegraph.Element getSceneGraphElement() {
 		return m_sgElement;
 	}
 	public AbstractProxyRenderer getRenderer() {
 		return m_abstractProxyRenderer;
 	}
-	protected AbstractProxy getProxyFor( edu.cmu.cs.stage3.alice.scenegraph.Element sgElement ) {
-		return m_abstractProxyRenderer.getProxyFor( sgElement );
+	protected AbstractProxy getProxyFor(edu.cmu.cs.stage3.alice.scenegraph.Element sgElement) {
+		return m_abstractProxyRenderer.getProxyFor(sgElement);
 	}
-    protected AbstractProxy[] getProxiesFor( edu.cmu.cs.stage3.alice.scenegraph.Element[] sgElements, Class componentType ) {
-        return m_abstractProxyRenderer.getProxiesFor( sgElements, componentType );
-    }
-	protected void createNecessaryProxies( edu.cmu.cs.stage3.alice.scenegraph.Element sgElement ) {
-		m_abstractProxyRenderer.createNecessaryProxies( sgElement );
+	protected AbstractProxy[] getProxiesFor(edu.cmu.cs.stage3.alice.scenegraph.Element[] sgElements, Class componentType) {
+		return m_abstractProxyRenderer.getProxiesFor(sgElements, componentType);
+	}
+	protected void createNecessaryProxies(edu.cmu.cs.stage3.alice.scenegraph.Element sgElement) {
+		m_abstractProxyRenderer.createNecessaryProxies(sgElement);
 	}
 	protected void markAllRenderTargetsDirty() {
 		m_abstractProxyRenderer.markAllRenderTargetsDirty();
 	}
-	
-	
+
+	@Override
 	public String toString() {
-		return getClass().getName().substring( "edu.cmu.cs.stage3.alice.scenegraph.renderer.".length() )+"["+m_sgElement.toString()+"]";
+		return getClass().getName().substring("edu.cmu.cs.stage3.alice.scenegraph.renderer.".length()) + "[" + m_sgElement.toString() + "]";
 	}
 }

@@ -24,28 +24,28 @@
 package edu.cmu.cs.stage3.xml;
 
 public class Encoder {
-	public static void write( org.w3c.dom.Document document, java.io.OutputStream os ) throws java.io.IOException {
+	public static void write(org.w3c.dom.Document document, java.io.OutputStream os) throws java.io.IOException {
 		java.io.BufferedOutputStream bos;
-		if( os instanceof java.io.BufferedOutputStream ) {
-			bos = (java.io.BufferedOutputStream)os;
+		if (os instanceof java.io.BufferedOutputStream) {
+			bos = (java.io.BufferedOutputStream) os;
 		} else {
-			bos = new java.io.BufferedOutputStream( os );
+			bos = new java.io.BufferedOutputStream(os);
 		}
-		org.apache.xml.serialize.OutputFormat outputFormat = new org.apache.xml.serialize.OutputFormat( document, "UTF-8", true );
-		org.apache.xml.serialize.XMLSerializer xmlSerializer = new org.apache.xml.serialize.XMLSerializer( bos, outputFormat );
-		xmlSerializer.serialize( document );
+		org.apache.xml.serialize.OutputFormat outputFormat = new org.apache.xml.serialize.OutputFormat(document, "UTF-8", true);
+		org.apache.xml.serialize.XMLSerializer xmlSerializer = new org.apache.xml.serialize.XMLSerializer(bos, outputFormat);
+		xmlSerializer.serialize(document);
 		bos.flush();
 	}
-	public static void write( org.w3c.dom.Document document, java.io.Writer w ) throws java.io.IOException {
+	public static void write(org.w3c.dom.Document document, java.io.Writer w) throws java.io.IOException {
 		java.io.BufferedWriter bw;
-		if( w instanceof java.io.BufferedWriter ) {
-			bw = (java.io.BufferedWriter)w;
+		if (w instanceof java.io.BufferedWriter) {
+			bw = (java.io.BufferedWriter) w;
 		} else {
-			bw = new java.io.BufferedWriter( w );
+			bw = new java.io.BufferedWriter(w);
 		}
-		org.apache.xml.serialize.OutputFormat outputFormat = new org.apache.xml.serialize.OutputFormat( document, "UTF-8", true );
-		org.apache.xml.serialize.XMLSerializer xmlSerializer = new org.apache.xml.serialize.XMLSerializer( bw, outputFormat );
-		xmlSerializer.serialize( document );
+		org.apache.xml.serialize.OutputFormat outputFormat = new org.apache.xml.serialize.OutputFormat(document, "UTF-8", true);
+		org.apache.xml.serialize.XMLSerializer xmlSerializer = new org.apache.xml.serialize.XMLSerializer(bw, outputFormat);
+		xmlSerializer.serialize(document);
 		bw.flush();
 	}
 }

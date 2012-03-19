@@ -29,28 +29,33 @@ public class DefaultUndoableRedoable implements ContextAssignableUndoableRedoabl
 	Object affectedObject;
 	Object context;
 
-	public DefaultUndoableRedoable( Runnable undoRunnable, Runnable redoRunnable, Object affectedObject ) {
+	public DefaultUndoableRedoable(Runnable undoRunnable, Runnable redoRunnable, Object affectedObject) {
 		this.undoRunnable = undoRunnable;
 		this.redoRunnable = redoRunnable;
 		this.affectedObject = affectedObject;
 	}
 
-	public void setContext( Object context ) {
+	@Override
+	public void setContext(Object context) {
 		this.context = context;
 	}
 
+	@Override
 	public void undo() {
 		undoRunnable.run();
 	}
 
+	@Override
 	public void redo() {
 		redoRunnable.run();
 	}
 
+	@Override
 	public Object getAffectedObject() {
 		return affectedObject;
 	}
 
+	@Override
 	public Object getContext() {
 		return context;
 	}

@@ -27,8 +27,9 @@ package edu.cmu.cs.stage3.alice.scenegraph;
  * @author Dennis Cosgrove
  */
 public abstract class Shape extends Geometry {
-	
-	public void transform( javax.vecmath.Matrix4d trans ) {
-		//todo
+
+	@Override
+	public void transform(javax.vecmath.Matrix4d trans) {
+		// todo
 	}
 }

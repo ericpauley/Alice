@@ -24,6 +24,6 @@
 package edu.cmu.cs.stage3.alice.core.event;
 
 public interface PropertyListener {
-	public void propertyChanging( PropertyEvent propertyEvent );
-	public void propertyChanged( PropertyEvent propertyEvent );
+	public void propertyChanging(PropertyEvent propertyEvent);
+	public void propertyChanged(PropertyEvent propertyEvent);
 }

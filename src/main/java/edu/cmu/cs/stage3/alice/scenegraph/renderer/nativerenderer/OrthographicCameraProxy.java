@@ -24,16 +24,17 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer;
 
 public abstract class OrthographicCameraProxy extends CameraProxy {
-	protected abstract void onPlaneChange( double left, double top, double right, double bottom );
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.OrthographicCamera.PLANE_PROPERTY ) {
-			double[] plane = (double[])value;
-			if( plane!=null ) {
-				onPlaneChange( plane[0], plane[1], plane[2], plane[3] );
+	protected abstract void onPlaneChange(double left, double top, double right, double bottom);
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.OrthographicCamera.PLANE_PROPERTY) {
+			double[] plane = (double[]) value;
+			if (plane != null) {
+				onPlaneChange(plane[0], plane[1], plane[2], plane[3]);
 			}
 		} else {
-			super.changed( property, value );
+			super.changed(property, value);
 		}
 	}
 }

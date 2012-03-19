@@ -35,7 +35,7 @@ public class AuthoringToolStateChangedEvent {
 	private int previousState;
 	private edu.cmu.cs.stage3.alice.core.World world;
 
-	public AuthoringToolStateChangedEvent( int previousState, int currentState, edu.cmu.cs.stage3.alice.core.World world ) {
+	public AuthoringToolStateChangedEvent(int previousState, int currentState, edu.cmu.cs.stage3.alice.core.World world) {
 		this.currentState = currentState;
 		this.previousState = previousState;
 		this.world = world;
@@ -44,6 +44,7 @@ public class AuthoringToolStateChangedEvent {
 	/**
 	 * @deprecated Please use getCurrentState() instead
 	 */
+	@Deprecated
 	public int getState() {
 		return getCurrentState();
 	}

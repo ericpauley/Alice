@@ -29,40 +29,40 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
 public class FormatTokenizer {
 	protected java.util.Iterator tokenIterator;
 
-	public FormatTokenizer( String inputString ) {
-		if( inputString != null ) {
+	public FormatTokenizer(String inputString) {
+		if (inputString != null) {
 			java.util.LinkedList tokens = new java.util.LinkedList();
-			while( inputString.length() > 0 ) {
-				if( inputString.startsWith( "<<<" ) ) {
-					if( inputString.indexOf( ">>>" ) > 0 ) {
-						tokens.add( inputString.substring( 0, inputString.indexOf( ">>>" ) + 3 ) );
-						inputString = inputString.substring( inputString.indexOf( ">>>" ) + 3 );
+			while (inputString.length() > 0) {
+				if (inputString.startsWith("<<<")) {
+					if (inputString.indexOf(">>>") > 0) {
+						tokens.add(inputString.substring(0, inputString.indexOf(">>>") + 3));
+						inputString = inputString.substring(inputString.indexOf(">>>") + 3);
 					} else {
-						tokens.add( inputString );
+						tokens.add(inputString);
 						inputString = "";
 					}
-				} else if( inputString.startsWith( "<<" ) ) {
-					if( inputString.indexOf( ">>" ) > 0 ) {
-						tokens.add( inputString.substring( 0, inputString.indexOf( ">>" ) + 2 ) );
-						inputString = inputString.substring( inputString.indexOf( ">>" ) + 2 );
+				} else if (inputString.startsWith("<<")) {
+					if (inputString.indexOf(">>") > 0) {
+						tokens.add(inputString.substring(0, inputString.indexOf(">>") + 2));
+						inputString = inputString.substring(inputString.indexOf(">>") + 2);
 					} else {
-						tokens.add( inputString );
+						tokens.add(inputString);
 						inputString = "";
 					}
-				} else if( inputString.startsWith( "<" ) ) {
-					if( inputString.indexOf( ">" ) > 0 ) {
-						tokens.add( inputString.substring( 0, inputString.indexOf( ">" ) + 1 ) );
-						inputString = inputString.substring( inputString.indexOf( ">" ) + 1 );
+				} else if (inputString.startsWith("<")) {
+					if (inputString.indexOf(">") > 0) {
+						tokens.add(inputString.substring(0, inputString.indexOf(">") + 1));
+						inputString = inputString.substring(inputString.indexOf(">") + 1);
 					} else {
-						tokens.add( inputString );
+						tokens.add(inputString);
 						inputString = "";
 					}
 				} else {
-					if( inputString.indexOf( '<' ) > 0 ) {
-						tokens.add( inputString.substring( 0, inputString.indexOf( '<' ) ) );
-						inputString = inputString.substring( inputString.indexOf( '<' ) );
+					if (inputString.indexOf('<') > 0) {
+						tokens.add(inputString.substring(0, inputString.indexOf('<')));
+						inputString = inputString.substring(inputString.indexOf('<'));
 					} else {
-						tokens.add( inputString );
+						tokens.add(inputString);
 						inputString = "";
 					}
 				}
@@ -73,7 +73,7 @@ public class FormatTokenizer {
 	}
 
 	public boolean hasMoreTokens() {
-		if( tokenIterator != null ) {
+		if (tokenIterator != null) {
 			return tokenIterator.hasNext();
 		} else {
 			return false;
@@ -81,11 +81,10 @@ public class FormatTokenizer {
 	}
 
 	public String nextToken() {
-		if( tokenIterator != null ) {
-			if (tokenIterator.hasNext()){
-				return (String)tokenIterator.next();
-			}
-			else{
+		if (tokenIterator != null) {
+			if (tokenIterator.hasNext()) {
+				return (String) tokenIterator.next();
+			} else {
 				return null;
 			}
 		} else {

@@ -25,40 +25,46 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
 
 /**
  * @author Jason Pratt
- * @deprecated  use ElementNamePropertyViewController
+ * @deprecated use ElementNamePropertyViewController
  */
+@Deprecated
 public class RightClickNameEditor extends StringPropertyViewController {
-	public RightClickNameEditor( final edu.cmu.cs.stage3.alice.core.Element element ) {
-		super.set( element.name, false, true, true, new edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory() {
-			public Object createItem( final Object value ) {
+	public RightClickNameEditor(final edu.cmu.cs.stage3.alice.core.Element element) {
+		super.set(element.name, false, true, true, new edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory() {
+			@Override
+			public Object createItem(final Object value) {
 				return new Runnable() {
+					@Override
 					public void run() {
-						element.name.set( value );
+						element.name.set(value);
 					}
 				};
 			}
-		} );
+		});
 		popupStructure = new java.util.Vector();
-		popupStructure.add( new edu.cmu.cs.stage3.util.StringObjectPair( "Rename", new Runnable() {
+		popupStructure.add(new edu.cmu.cs.stage3.util.StringObjectPair("Rename", new Runnable() {
+			@Override
 			public void run() {
 				RightClickNameEditor.this.editValue();
 			}
 		}));
-		setPopupEnabled( false );
+		setPopupEnabled(false);
 	}
 
-	
+	@Override
 	protected java.awt.event.MouseListener getMouseListener() {
 		return new java.awt.event.MouseAdapter() {
-			
-			public void mouseReleased( java.awt.event.MouseEvent ev ) {
-				if( isEnabled() && ev.isPopupTrigger() ) {
+
+			@Override
+			public void mouseReleased(java.awt.event.MouseEvent ev) {
+				if (isEnabled() && ev.isPopupTrigger()) {
 					RightClickNameEditor.this.popupButton.doClick();
 				}
 			}
 		};
 	}
 
-	
-	protected void updatePopupStructure() {}
+	@Override
+	protected void updatePopupStructure() {
+	}
 }

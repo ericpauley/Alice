@@ -27,7 +27,8 @@ package edu.cmu.cs.stage3.alice.authoringtool.dialog;
  * @author Jason Pratt, Dennis Cosgrove
  */
 public class NewResponseContentPane extends NewNamedElementContentPane {
-	
+
+	@Override
 	public String getTitle() {
 		return "New Method";
 	}

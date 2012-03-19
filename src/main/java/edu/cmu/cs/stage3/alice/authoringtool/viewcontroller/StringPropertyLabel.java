@@ -27,27 +27,27 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
  * @author Jason Pratt
  */
 public class StringPropertyLabel extends PropertyLabel {
-	public StringPropertyLabel( edu.cmu.cs.stage3.alice.core.property.StringProperty property ) {
-		super( property );
+	public StringPropertyLabel(edu.cmu.cs.stage3.alice.core.property.StringProperty property) {
+		super(property);
 	}
 
-	
+	@Override
 	public void update() {
-		String propertyName = ((edu.cmu.cs.stage3.alice.core.property.StringProperty)property).getStringValue();
-		if( (property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.response.PropertyAnimation) && property.getName().equals( "propertyName" ) ) {
-			edu.cmu.cs.stage3.alice.core.Element element = ((edu.cmu.cs.stage3.alice.core.response.PropertyAnimation)property.getOwner()).element.getElementValue();
-			if( element != null ) {
+		String propertyName = ((edu.cmu.cs.stage3.alice.core.property.StringProperty) property).getStringValue();
+		if (property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.response.PropertyAnimation && property.getName().equals("propertyName")) {
+			edu.cmu.cs.stage3.alice.core.Element element = ((edu.cmu.cs.stage3.alice.core.response.PropertyAnimation) property.getOwner()).element.getElementValue();
+			if (element != null) {
 				Class elementClass = element.getClass();
-				while( edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom( elementClass ) ) {
+				while (edu.cmu.cs.stage3.alice.core.Element.class.isAssignableFrom(elementClass)) {
 					String propertyKey = elementClass.getName() + "." + propertyName;
-					if( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getName( propertyKey ) != null ) {
-						propertyName = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getName( propertyKey );
+					if (edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getName(propertyKey) != null) {
+						propertyName = edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getName(propertyKey);
 						break;
 					}
 					elementClass = elementClass.getSuperclass();
 				}
 			}
 		}
-		setText( propertyName );
+		setText(propertyName);
 	}
 }

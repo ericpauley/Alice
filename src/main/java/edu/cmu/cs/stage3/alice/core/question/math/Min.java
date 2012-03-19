@@ -24,13 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class Min extends edu.cmu.cs.stage3.alice.core.question.BinaryNumberResultingInNumberQuestion {
-	private static Class[] s_supportedCoercionClasses = { Max.class };
-	
+	private static Class[] s_supportedCoercionClasses = {Max.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected double getValue( double aValue, double bValue ) {
-		return Math.min( aValue, bValue );
+
+	@Override
+	protected double getValue(double aValue, double bValue) {
+		return Math.min(aValue, bValue);
 	}
 }

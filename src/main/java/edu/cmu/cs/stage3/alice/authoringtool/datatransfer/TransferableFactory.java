@@ -27,27 +27,27 @@ package edu.cmu.cs.stage3.alice.authoringtool.datatransfer;
  * @author Jason Pratt
  */
 public class TransferableFactory {
-	public static java.awt.datatransfer.Transferable createTransferable( Object object ) {
-		if( object instanceof edu.cmu.cs.stage3.alice.core.Element ) {
-			return new ElementReferenceTransferable( (edu.cmu.cs.stage3.alice.core.Element)object );
-		} else if( object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype ) {
-			return new CallToUserDefinedResponsePrototypeReferenceTransferable( (edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype)object );
-		} else if( object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedQuestionPrototype ) {
-			return new CallToUserDefinedQuestionPrototypeReferenceTransferable( (edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedQuestionPrototype)object );
-		} else if( object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype ) {
-			return new ResponsePrototypeReferenceTransferable( (edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype)object );
-		} else if( object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.QuestionPrototype ) {
-			return new QuestionPrototypeReferenceTransferable( (edu.cmu.cs.stage3.alice.authoringtool.util.QuestionPrototype)object );
-		} else if( object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ElementPrototype ) {
-			return new ElementPrototypeReferenceTransferable( (edu.cmu.cs.stage3.alice.authoringtool.util.ElementPrototype)object );
-		} else if( object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem ) {
-			return new ObjectArrayPropertyItemTransferable( (edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem)object );
-		} else if( object instanceof edu.cmu.cs.stage3.alice.core.Property ) {
-			return new PropertyReferenceTransferable( (edu.cmu.cs.stage3.alice.core.Property)object );
-		} else if( object instanceof edu.cmu.cs.stage3.alice.core.CopyFactory ) {
-			return new CopyFactoryTransferable( (edu.cmu.cs.stage3.alice.core.CopyFactory)object );
+	public static java.awt.datatransfer.Transferable createTransferable(Object object) {
+		if (object instanceof edu.cmu.cs.stage3.alice.core.Element) {
+			return new ElementReferenceTransferable((edu.cmu.cs.stage3.alice.core.Element) object);
+		} else if (object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype) {
+			return new CallToUserDefinedResponsePrototypeReferenceTransferable((edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedResponsePrototype) object);
+		} else if (object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedQuestionPrototype) {
+			return new CallToUserDefinedQuestionPrototypeReferenceTransferable((edu.cmu.cs.stage3.alice.authoringtool.util.CallToUserDefinedQuestionPrototype) object);
+		} else if (object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype) {
+			return new ResponsePrototypeReferenceTransferable((edu.cmu.cs.stage3.alice.authoringtool.util.ResponsePrototype) object);
+		} else if (object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.QuestionPrototype) {
+			return new QuestionPrototypeReferenceTransferable((edu.cmu.cs.stage3.alice.authoringtool.util.QuestionPrototype) object);
+		} else if (object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ElementPrototype) {
+			return new ElementPrototypeReferenceTransferable((edu.cmu.cs.stage3.alice.authoringtool.util.ElementPrototype) object);
+		} else if (object instanceof edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem) {
+			return new ObjectArrayPropertyItemTransferable((edu.cmu.cs.stage3.alice.authoringtool.util.ObjectArrayPropertyItem) object);
+		} else if (object instanceof edu.cmu.cs.stage3.alice.core.Property) {
+			return new PropertyReferenceTransferable((edu.cmu.cs.stage3.alice.core.Property) object);
+		} else if (object instanceof edu.cmu.cs.stage3.alice.core.CopyFactory) {
+			return new CopyFactoryTransferable((edu.cmu.cs.stage3.alice.core.CopyFactory) object);
 		} else {
-			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog( "cannot create Transferable for: " + object, null );
+			edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool.showErrorDialog("cannot create Transferable for: " + object, null);
 			return null;
 		}
 	}

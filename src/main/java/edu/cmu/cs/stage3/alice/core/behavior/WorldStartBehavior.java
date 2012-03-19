@@ -24,14 +24,16 @@
 package edu.cmu.cs.stage3.alice.core.behavior;
 
 public class WorldStartBehavior extends TriggerBehavior {
-	private static Class[] s_supportedCoercionClasses = { WorldIsRunningBehavior.class };
-	
+	private static Class[] s_supportedCoercionClasses = {WorldIsRunningBehavior.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	public void started( edu.cmu.cs.stage3.alice.core.World world, double time ) {
-		super.started( world, time );
-		trigger( time );
+
+	@Override
+	public void started(edu.cmu.cs.stage3.alice.core.World world, double time) {
+		super.started(world, time);
+		trigger(time);
 	}
 }

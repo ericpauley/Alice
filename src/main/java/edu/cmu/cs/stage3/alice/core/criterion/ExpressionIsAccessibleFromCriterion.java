@@ -26,30 +26,29 @@ package edu.cmu.cs.stage3.alice.core.criterion;
 //todo: deprecate?
 public class ExpressionIsAccessibleFromCriterion extends edu.cmu.cs.stage3.util.criterion.InstanceOfCriterion {
 	private edu.cmu.cs.stage3.alice.core.Element m_from;
-	public ExpressionIsAccessibleFromCriterion( edu.cmu.cs.stage3.alice.core.Element from ) {
-		super( edu.cmu.cs.stage3.alice.core.Expression.class );
+	public ExpressionIsAccessibleFromCriterion(edu.cmu.cs.stage3.alice.core.Element from) {
+		super(edu.cmu.cs.stage3.alice.core.Expression.class);
 		m_from = from;
 	}
-	
-	public boolean accept( Object o ) {
-		if( super.accept( o ) ) {
-            //todo
-            /*
-			edu.cmu.cs.stage3.alice.core.Expression expression = (edu.cmu.cs.stage3.alice.core.Expression)o;
-			edu.cmu.cs.stage3.alice.core.Element parentValue = expression.getParent();
-			if( parentValue instanceof edu.cmu.cs.stage3.alice.core.group.ExpressionGroup ) {
-				edu.cmu.cs.stage3.alice.core.group.ExpressionGroup expressionGroup = (edu.cmu.cs.stage3.alice.core.group.ExpressionGroup)parentValue;
-				if( expressionGroup.isPublic.booleanValue() ) {
-					return true;
-				} else {
-					return m_from.isDescendantOf( expressionGroup.getParent() );
-				}
-			} else {
-				//todo? warning
-				return false;
-			}
-            */
-            return false;
+
+	@Override
+	public boolean accept(Object o) {
+		if (super.accept(o)) {
+			// todo
+			/*
+			 * edu.cmu.cs.stage3.alice.core.Expression expression =
+			 * (edu.cmu.cs.stage3.alice.core.Expression)o;
+			 * edu.cmu.cs.stage3.alice.core.Element parentValue =
+			 * expression.getParent(); if( parentValue instanceof
+			 * edu.cmu.cs.stage3.alice.core.group.ExpressionGroup ) {
+			 * edu.cmu.cs.stage3.alice.core.group.ExpressionGroup
+			 * expressionGroup =
+			 * (edu.cmu.cs.stage3.alice.core.group.ExpressionGroup)parentValue;
+			 * if( expressionGroup.isPublic.booleanValue() ) { return true; }
+			 * else { return m_from.isDescendantOf( expressionGroup.getParent()
+			 * ); } } else { //todo? warning return false; }
+			 */
+			return false;
 		} else {
 			return false;
 		}

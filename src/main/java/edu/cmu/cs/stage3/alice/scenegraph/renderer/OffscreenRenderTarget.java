@@ -24,6 +24,6 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
 public interface OffscreenRenderTarget extends RenderTarget {
-	public void setSize( int width, int height );
-	public void setSize( java.awt.Dimension size );
+	public void setSize(int width, int height);
+	public void setSize(java.awt.Dimension size);
 }

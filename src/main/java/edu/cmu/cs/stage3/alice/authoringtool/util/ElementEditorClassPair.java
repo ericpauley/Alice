@@ -30,7 +30,7 @@ public class ElementEditorClassPair {
 	edu.cmu.cs.stage3.alice.core.Element element;
 	Class editorClass;
 
-	public ElementEditorClassPair( edu.cmu.cs.stage3.alice.core.Element element, Class editorClass ) {
+	public ElementEditorClassPair(edu.cmu.cs.stage3.alice.core.Element element, Class editorClass) {
 		this.element = element;
 		this.editorClass = editorClass;
 	}

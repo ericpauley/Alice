@@ -25,64 +25,66 @@ package edu.cmu.cs.stage3.alice.core;
 
 public class SpatialRelation extends edu.cmu.cs.stage3.util.Enumerable {
 	private javax.vecmath.Vector3d m_placeAxis;
-	//public static final SpatialRelation IN = new SpatialRelation();
-	//public static final SpatialRelation ON = new SpatialRelation();
-	//public static final SpatialRelation AT = new SpatialRelation();
+	// public static final SpatialRelation IN = new SpatialRelation();
+	// public static final SpatialRelation ON = new SpatialRelation();
+	// public static final SpatialRelation AT = new SpatialRelation();
 
-	private SpatialRelation( javax.vecmath.Vector3d placeAxis ) {
+	private SpatialRelation(javax.vecmath.Vector3d placeAxis) {
 		m_placeAxis = placeAxis;
 	}
 
-	public static final SpatialRelation LEFT_OF = new SpatialRelation( new javax.vecmath.Vector3d( -1, 0, 0 ) );
-	public static final SpatialRelation RIGHT_OF = new SpatialRelation( new javax.vecmath.Vector3d( 1, 0, 0 ) );
-	public static final SpatialRelation ABOVE = new SpatialRelation( new javax.vecmath.Vector3d( 0, 1, 0 ) );
-	public static final SpatialRelation BELOW = new SpatialRelation( new javax.vecmath.Vector3d( 0, -1, 0 ) );
-	public static final SpatialRelation IN_FRONT_OF = new SpatialRelation( new javax.vecmath.Vector3d( 0, 0, 1 ) );
-	public static final SpatialRelation BEHIND = new SpatialRelation( new javax.vecmath.Vector3d( 0, 0, -1 ) );
-	
-	public static final SpatialRelation FRONT_RIGHT_OF = new SpatialRelation( new javax.vecmath.Vector3d( 0.7071068, 0, 0.7071068 ) );
-	public static final SpatialRelation FRONT_LEFT_OF = new SpatialRelation( new javax.vecmath.Vector3d( -0.7071068, 0, 0.7071068 ) );
-	public static final SpatialRelation BEHIND_RIGHT_OF = new SpatialRelation( new javax.vecmath.Vector3d(  0.7071068, 0, -0.7071068 ) );
-	public static final SpatialRelation BEHIND_LEFT_OF = new SpatialRelation( new javax.vecmath.Vector3d( -0.7071068, 0, -0.7071068 ) );
+	public static final SpatialRelation LEFT_OF = new SpatialRelation(new javax.vecmath.Vector3d(-1, 0, 0));
+	public static final SpatialRelation RIGHT_OF = new SpatialRelation(new javax.vecmath.Vector3d(1, 0, 0));
+	public static final SpatialRelation ABOVE = new SpatialRelation(new javax.vecmath.Vector3d(0, 1, 0));
+	public static final SpatialRelation BELOW = new SpatialRelation(new javax.vecmath.Vector3d(0, -1, 0));
+	public static final SpatialRelation IN_FRONT_OF = new SpatialRelation(new javax.vecmath.Vector3d(0, 0, 1));
+	public static final SpatialRelation BEHIND = new SpatialRelation(new javax.vecmath.Vector3d(0, 0, -1));
 
-	public javax.vecmath.Vector3d getPlaceVector( double amount, edu.cmu.cs.stage3.math.Box subjectBoundingBox, edu.cmu.cs.stage3.math.Box objectBoundingBox ) {
-		double x = amount * m_placeAxis.x; 
-		double y = amount * m_placeAxis.y; 
+	public static final SpatialRelation FRONT_RIGHT_OF = new SpatialRelation(new javax.vecmath.Vector3d(0.7071068, 0, 0.7071068));
+	public static final SpatialRelation FRONT_LEFT_OF = new SpatialRelation(new javax.vecmath.Vector3d(-0.7071068, 0, 0.7071068));
+	public static final SpatialRelation BEHIND_RIGHT_OF = new SpatialRelation(new javax.vecmath.Vector3d(0.7071068, 0, -0.7071068));
+	public static final SpatialRelation BEHIND_LEFT_OF = new SpatialRelation(new javax.vecmath.Vector3d(-0.7071068, 0, -0.7071068));
+
+	public javax.vecmath.Vector3d getPlaceVector(double amount, edu.cmu.cs.stage3.math.Box subjectBoundingBox, edu.cmu.cs.stage3.math.Box objectBoundingBox) {
+		double x = amount * m_placeAxis.x;
+		double y = amount * m_placeAxis.y;
 		double z = amount * m_placeAxis.z;
-		
-		if( m_placeAxis.x > 0 ) {
-			x += m_placeAxis.x * ( objectBoundingBox.getMaximum().x - subjectBoundingBox.getMinimum().x ); 
-		} else if( m_placeAxis.x < 0 ) {
-			x += m_placeAxis.x * ( subjectBoundingBox.getMaximum().x - objectBoundingBox.getMinimum().x ); 
+
+		if (m_placeAxis.x > 0) {
+			x += m_placeAxis.x * (objectBoundingBox.getMaximum().x - subjectBoundingBox.getMinimum().x);
+		} else if (m_placeAxis.x < 0) {
+			x += m_placeAxis.x * (subjectBoundingBox.getMaximum().x - objectBoundingBox.getMinimum().x);
 		}
-		if( m_placeAxis.y > 0 ) {
-			y += m_placeAxis.y * ( objectBoundingBox.getMaximum().y - subjectBoundingBox.getMinimum().y ); 
-		} else if( m_placeAxis.y < 0 ) {
-			y += m_placeAxis.y * ( subjectBoundingBox.getMaximum().y - objectBoundingBox.getMinimum().y ); 
+		if (m_placeAxis.y > 0) {
+			y += m_placeAxis.y * (objectBoundingBox.getMaximum().y - subjectBoundingBox.getMinimum().y);
+		} else if (m_placeAxis.y < 0) {
+			y += m_placeAxis.y * (subjectBoundingBox.getMaximum().y - objectBoundingBox.getMinimum().y);
 		}
-		if( m_placeAxis.z > 0 ) {
-			z += m_placeAxis.z * ( objectBoundingBox.getMaximum().z - subjectBoundingBox.getMinimum().z ); 
-		} else if( m_placeAxis.z < 0 ) {
-			z += m_placeAxis.z * ( subjectBoundingBox.getMaximum().z - objectBoundingBox.getMinimum().z ); 
+		if (m_placeAxis.z > 0) {
+			z += m_placeAxis.z * (objectBoundingBox.getMaximum().z - subjectBoundingBox.getMinimum().z);
+		} else if (m_placeAxis.z < 0) {
+			z += m_placeAxis.z * (subjectBoundingBox.getMaximum().z - objectBoundingBox.getMinimum().z);
 		}
-		return new javax.vecmath.Vector3d( x, y, z );
+		return new javax.vecmath.Vector3d(x, y, z);
 	}
-	
-	
-	public boolean equals( Object o ) {
-		if( o==this ) return true;
-		if( o!=null && o instanceof SpatialRelation ) {
-			SpatialRelation spatialRelation = (SpatialRelation)o;
-			if( m_placeAxis == null ) {
-				return spatialRelation.m_placeAxis==null;
+
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (o != null && o instanceof SpatialRelation) {
+			SpatialRelation spatialRelation = (SpatialRelation) o;
+			if (m_placeAxis == null) {
+				return spatialRelation.m_placeAxis == null;
 			} else {
-				return m_placeAxis.equals( spatialRelation.m_placeAxis );
+				return m_placeAxis.equals(spatialRelation.m_placeAxis);
 			}
 		} else {
 			return false;
 		}
 	}
-	public static SpatialRelation valueOf( String s ) {
-		return (SpatialRelation)edu.cmu.cs.stage3.util.Enumerable.valueOf( s, SpatialRelation.class );
+	public static SpatialRelation valueOf(String s) {
+		return (SpatialRelation) edu.cmu.cs.stage3.util.Enumerable.valueOf(s, SpatialRelation.class);
 	}
 }

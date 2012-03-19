@@ -24,32 +24,40 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 public class OffscreenRenderTarget extends RenderTarget implements edu.cmu.cs.stage3.alice.scenegraph.renderer.OffscreenRenderTarget {
-    private javax.media.opengl.GLJPanel m_glJPanel;
-	OffscreenRenderTarget( Renderer renderer ) {
-		super( renderer );
-//		javax.media.opengl.GLCapabilities glCaps = new javax.media.opengl.GLCapabilities();
-//		glCaps.setHardwareAccelerated( true );
-//		glCaps.setRedBits( 8 );
-//		glCaps.setBlueBits( 8 );
-//		glCaps.setGreenBits( 8 );
-//		glCaps.setAlphaBits( 8 );
-//		m_glJPanel = javax.media.opengl.GLDrawableFactory.getFactory().createGLJPanel( glCaps );
+	private javax.media.opengl.GLJPanel m_glJPanel;
+	OffscreenRenderTarget(Renderer renderer) {
+		super(renderer);
+		// javax.media.opengl.GLCapabilities glCaps = new
+		// javax.media.opengl.GLCapabilities();
+		// glCaps.setHardwareAccelerated( true );
+		// glCaps.setRedBits( 8 );
+		// glCaps.setBlueBits( 8 );
+		// glCaps.setGreenBits( 8 );
+		// glCaps.setAlphaBits( 8 );
+		// m_glJPanel =
+		// javax.media.opengl.GLDrawableFactory.getFactory().createGLJPanel(
+		// glCaps );
 	}
-	
+
+	@Override
 	public java.awt.Graphics getOffscreenGraphics() {
 		return null;
 	}
-	public java.awt.Dimension getSize( java.awt.Dimension rv ) {
-        //todo
-        return rv;
-    }
-	public void setSize( int width, int height ) {
-        //todo
+	@Override
+	public java.awt.Dimension getSize(java.awt.Dimension rv) {
+		// todo
+		return rv;
 	}
-	public void setSize( java.awt.Dimension size ) {
-		setSize( size.width, size.height );
+	@Override
+	public void setSize(int width, int height) {
+		// todo
 	}
-	public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick( int x, int y, boolean isSubElementRequired, boolean isOnlyFrontMostRequired ) {
-        return null;
+	@Override
+	public void setSize(java.awt.Dimension size) {
+		setSize(size.width, size.height);
+	}
+	@Override
+	public edu.cmu.cs.stage3.alice.scenegraph.renderer.PickInfo pick(int x, int y, boolean isSubElementRequired, boolean isOnlyFrontMostRequired) {
+		return null;
 	}
 }

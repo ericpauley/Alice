@@ -51,56 +51,47 @@ import java.io.OutputStream;
  */
 public final class FPXCodec extends ImageCodec {
 
-    public FPXCodec() {}
+	public FPXCodec() {
+	}
 
-    
+	@Override
 	public String getFormatName() {
-        return "fpx";
-    }
+		return "fpx";
+	}
 
-    
+	@Override
 	public Class getEncodeParamClass() {
-        return null;
-    }
+		return null;
+	}
 
-    
+	@Override
 	public Class getDecodeParamClass() {
-        return FPXDecodeParam.class;
-    }
+		return FPXDecodeParam.class;
+	}
 
-    
-	public boolean canEncodeImage(RenderedImage im,
-                                  ImageEncodeParam param) {
-        return false;
-    }
+	@Override
+	public boolean canEncodeImage(RenderedImage im, ImageEncodeParam param) {
+		return false;
+	}
 
-    
-	protected ImageEncoder createImageEncoder(OutputStream dst,
-                                              ImageEncodeParam param) {
-        throw new RuntimeException(JaiI18N.getString("FPXCodec0"));
-    }
+	@Override
+	protected ImageEncoder createImageEncoder(OutputStream dst, ImageEncodeParam param) {
+		throw new RuntimeException(JaiI18N.getString("FPXCodec0"));
+	}
 
-    
-	protected ImageDecoder createImageDecoder(SeekableStream src,
-                                              ImageDecodeParam param) {
-        return new FPXImageDecoder(src, param);
-    }
+	@Override
+	protected ImageDecoder createImageDecoder(SeekableStream src, ImageDecodeParam param) {
+		return new FPXImageDecoder(src, param);
+	}
 
-    
+	@Override
 	public int getNumHeaderBytes() {
-         return 8;
-    }
+		return 8;
+	}
 
-    
+	@Override
 	public boolean isFormatRecognized(byte[] header) {
-        return ((header[0] == (byte)0xd0) &&
-                (header[1] == (byte)0xcf) &&
-                (header[2] == (byte)0x11) &&
-                (header[3] == (byte)0xe0) &&
-                (header[4] == (byte)0xa1) &&
-                (header[5] == (byte)0xb1) &&
-                (header[6] == (byte)0x1a) &&
-                (header[7] == (byte)0xe1));
-    }
+		return header[0] == (byte) 0xd0 && header[1] == (byte) 0xcf && header[2] == (byte) 0x11 && header[3] == (byte) 0xe0 && header[4] == (byte) 0xa1 && header[5] == (byte) 0xb1 && header[6] == (byte) 0x1a && header[7] == (byte) 0xe1;
+	}
 
 }

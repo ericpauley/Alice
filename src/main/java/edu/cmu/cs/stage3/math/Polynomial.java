@@ -24,6 +24,6 @@
 package edu.cmu.cs.stage3.math;
 
 public interface Polynomial {
-	public double evaluate( double t );
-    public double evaluateDerivative( double t );
+	public double evaluate(double t);
+	public double evaluateDerivative(double t);
 }

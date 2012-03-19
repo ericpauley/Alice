@@ -26,10 +26,10 @@ package edu.cmu.cs.stage3.alice.core.response.set;
 import edu.cmu.cs.stage3.alice.core.property.SetProperty;
 
 public class SetResponse extends edu.cmu.cs.stage3.alice.core.Response {
-	public final SetProperty set = new SetProperty( this, "set", null );
+	public final SetProperty set = new SetProperty(this, "set", null);
 	public class RuntimeSetResponse extends RuntimeResponse {
-        protected edu.cmu.cs.stage3.alice.core.Set getSet() {
-            return SetResponse.this.set.getSetValue();
-        }
+		protected edu.cmu.cs.stage3.alice.core.Set getSet() {
+			return set.getSetValue();
+		}
 	}
 }

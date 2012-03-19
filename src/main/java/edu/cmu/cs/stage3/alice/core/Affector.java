@@ -23,6 +23,6 @@
 
 package edu.cmu.cs.stage3.alice.core;
 
-public abstract class Affector extends Model /*Transformable*/ {
-    public abstract edu.cmu.cs.stage3.alice.scenegraph.Affector getSceneGraphAffector();
+public abstract class Affector extends Model /* Transformable */{
+	public abstract edu.cmu.cs.stage3.alice.scenegraph.Affector getSceneGraphAffector();
 }

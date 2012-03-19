@@ -25,11 +25,12 @@ package edu.cmu.cs.stage3.alice.scenegraph;
 
 /**
  * defined by a regualar pyramidal frustum
+ * 
  * @author Dennis Cosgrove
  */
 public class SymmetricPerspectiveCamera extends Camera {
-	public static final Property VERTICAL_VIEWING_ANGLE_PROPERTY = new Property( SymmetricPerspectiveCamera.class, "VERTICAL_VIEWING_ANGLE" );
-	public static final Property HORIZONTAL_VIEWING_ANGLE_PROPERTY = new Property( SymmetricPerspectiveCamera.class, "HORIZONTAL_VIEWING_ANGLE" );
+	public static final Property VERTICAL_VIEWING_ANGLE_PROPERTY = new Property(SymmetricPerspectiveCamera.class, "VERTICAL_VIEWING_ANGLE");
+	public static final Property HORIZONTAL_VIEWING_ANGLE_PROPERTY = new Property(SymmetricPerspectiveCamera.class, "HORIZONTAL_VIEWING_ANGLE");
 	private double m_verticalViewingAngle = 0.5;
 	private double m_horizontalViewingAngle = Double.NaN;
 
@@ -42,15 +43,15 @@ public class SymmetricPerspectiveCamera extends Camera {
 	/**
 	 * sets the horizontal viewing angle property.<br>
 	 * if the value is Double.NaN then it left to the renderer to decide.
-	 *
+	 * 
 	 * @param double (default: Double.NaN)
 	 * @see #getHorizontalViewingAngle
 	 * @see #setVerticalViewingAngle
 	 */
-	public void setHorizontalViewingAngle( double horizontalViewingAngle ) {
-		if( m_horizontalViewingAngle != horizontalViewingAngle ) {
+	public void setHorizontalViewingAngle(double horizontalViewingAngle) {
+		if (m_horizontalViewingAngle != horizontalViewingAngle) {
 			m_horizontalViewingAngle = horizontalViewingAngle;
-			onPropertyChange( HORIZONTAL_VIEWING_ANGLE_PROPERTY );
+			onPropertyChange(HORIZONTAL_VIEWING_ANGLE_PROPERTY);
 		}
 	}
 
@@ -63,33 +64,34 @@ public class SymmetricPerspectiveCamera extends Camera {
 	/**
 	 * sets the vertical viewing angle property.<br>
 	 * if the value is Double.NaN then it left to the renderer to decide.
-	 *
+	 * 
 	 * @param double (default: 0.5)
 	 * @see #getVerticalViewingAngle
 	 * @see #setHorizontalViewingAngle
 	 */
-	public void setVerticalViewingAngle( double verticalViewingAngle ) {
-		if( m_verticalViewingAngle != verticalViewingAngle ) {
+	public void setVerticalViewingAngle(double verticalViewingAngle) {
+		if (m_verticalViewingAngle != verticalViewingAngle) {
 			m_verticalViewingAngle = verticalViewingAngle;
-			onPropertyChange( VERTICAL_VIEWING_ANGLE_PROPERTY );
+			onPropertyChange(VERTICAL_VIEWING_ANGLE_PROPERTY);
 		}
 	}
 
-    //todo
-    
+	// todo
+
+	@Override
 	public javax.vecmath.Matrix4d getProjection() {
-        javax.vecmath.Matrix4d m = new javax.vecmath.Matrix4d();
-        double w = 1/Math.tan( getHorizontalViewingAngle() * 0.5 );
-        double h = 1/Math.tan( getVerticalViewingAngle() * 0.5 );
-        double farPlane = getFarClippingPlaneDistance();
-        double nearPlane = getNearClippingPlaneDistance();
-        double Q = farPlane/(farPlane-nearPlane);
-        m.m00 = w;
-        m.m11 = h;
-        m.m22 = Q;
-        m.m32 = -Q*nearPlane;
-        m.m23 = 1;
-        return m;
-    }
+		javax.vecmath.Matrix4d m = new javax.vecmath.Matrix4d();
+		double w = 1 / Math.tan(getHorizontalViewingAngle() * 0.5);
+		double h = 1 / Math.tan(getVerticalViewingAngle() * 0.5);
+		double farPlane = getFarClippingPlaneDistance();
+		double nearPlane = getNearClippingPlaneDistance();
+		double Q = farPlane / (farPlane - nearPlane);
+		m.m00 = w;
+		m.m11 = h;
+		m.m22 = Q;
+		m.m32 = -Q * nearPlane;
+		m.m23 = 1;
+		return m;
+	}
 
 }

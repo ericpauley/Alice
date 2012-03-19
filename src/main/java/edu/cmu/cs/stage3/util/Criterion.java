@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.util;
 
 public interface Criterion {
-    public boolean accept( Object o );
+	public boolean accept(Object o);
 }

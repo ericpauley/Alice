@@ -25,28 +25,26 @@ package edu.cmu.cs.stage3.alice.core.event;
 
 public class PropertyEvent extends java.util.EventObject {
 	private Object m_value;
-	public PropertyEvent( edu.cmu.cs.stage3.alice.core.Property source, Object value ) {
-		super( source );
+	public PropertyEvent(edu.cmu.cs.stage3.alice.core.Property source, Object value) {
+		super(source);
 		m_value = value;
 	}
 	public edu.cmu.cs.stage3.alice.core.Property getProperty() {
-		return (edu.cmu.cs.stage3.alice.core.Property)getSource();
+		return (edu.cmu.cs.stage3.alice.core.Property) getSource();
 	}
 	public Object getValue() {
 		return m_value;
 	}
-	//todo deprecate?
-	public boolean isSourceAlsoKnownAs( Class cls, String name ) {
+	// todo deprecate?
+	public boolean isSourceAlsoKnownAs(Class cls, String name) {
 		edu.cmu.cs.stage3.alice.core.Property property = getProperty();
 		edu.cmu.cs.stage3.alice.core.Element element = property.getOwner();
-		if( cls.isAssignableFrom( element.getClass() ) ) {
+		if (cls.isAssignableFrom(element.getClass())) {
 			try {
-				java.lang.reflect.Field field = cls.getField( name );
-				Object o = field.get( element );
-				return o==property;
-			} catch( NoSuchFieldException nsfe ) {
-			} catch( IllegalAccessException nsfe ) {
-			}
+				java.lang.reflect.Field field = cls.getField(name);
+				Object o = field.get(element);
+				return o == property;
+			} catch (NoSuchFieldException nsfe) {} catch (IllegalAccessException nsfe) {}
 		}
 		return false;
 	}

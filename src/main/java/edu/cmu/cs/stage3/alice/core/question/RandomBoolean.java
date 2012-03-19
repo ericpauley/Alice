@@ -27,17 +27,19 @@ import edu.cmu.cs.stage3.alice.core.Question;
 import edu.cmu.cs.stage3.alice.core.property.NumberProperty;
 
 public class RandomBoolean extends Question {
-	public final NumberProperty probabilityOfTrue = new NumberProperty( this, "probabilityOfTrue", new Double( 0.5 ) );
-	
+	public final NumberProperty probabilityOfTrue = new NumberProperty(this, "probabilityOfTrue", new Double(0.5));
+
+	@Override
 	public Object getValue() {
-		edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "choose true "+(int)(probabilityOfTrue.doubleValue()*100)+"% of the time is ";
-		if( Math.random() < probabilityOfTrue.doubleValue() ) {
+		edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "choose true " + (int) (probabilityOfTrue.doubleValue() * 100) + "% of the time is ";
+		if (Math.random() < probabilityOfTrue.doubleValue()) {
 			return Boolean.TRUE;
 		} else {
 			return Boolean.FALSE;
 		}
 	}
-	
+
+	@Override
 	public Class getValueClass() {
 		return Boolean.class;
 	}

@@ -32,20 +32,20 @@ public abstract class ElementProxy extends edu.cmu.cs.stage3.alice.scenegraph.re
 		super();
 		createNativeInstance();
 	}
-	
+
+	@Override
 	public void release() {
 		releaseNativeInstance();
 		super.release();
 	}
-    protected int getNativeInstance() {
-        return m_nativeInstance;
-    }
-	
-	protected void changed( edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value ) {
-		if( property == edu.cmu.cs.stage3.alice.scenegraph.Element.NAME_PROPERTY ) {
-		} else if( property == edu.cmu.cs.stage3.alice.scenegraph.Element.BONUS_PROPERTY ) {
-		} else {
-			edu.cmu.cs.stage3.alice.scenegraph.Element.warnln( "unhandled property: " + property + " " + value );
+	protected int getNativeInstance() {
+		return m_nativeInstance;
+	}
+
+	@Override
+	protected void changed(edu.cmu.cs.stage3.alice.scenegraph.Property property, Object value) {
+		if (property == edu.cmu.cs.stage3.alice.scenegraph.Element.NAME_PROPERTY) {} else if (property == edu.cmu.cs.stage3.alice.scenegraph.Element.BONUS_PROPERTY) {} else {
+			edu.cmu.cs.stage3.alice.scenegraph.Element.warnln("unhandled property: " + property + " " + value);
 		}
 	}
 }

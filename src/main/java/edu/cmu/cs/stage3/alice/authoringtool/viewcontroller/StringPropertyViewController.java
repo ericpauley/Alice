@@ -29,71 +29,72 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
 public class StringPropertyViewController extends TextFieldEditablePropertyViewController {
 	protected javax.swing.JLabel stringLabel = new javax.swing.JLabel();
 	protected boolean emptyStringWritesNull;
-	private java.awt.Dimension minSize = new java.awt.Dimension( 20, 16 );
+	private java.awt.Dimension minSize = new java.awt.Dimension(20, 16);
 
 	public StringPropertyViewController() {
-		stringLabel.setMinimumSize( minSize );
-		textField.setColumns( 20 );
+		stringLabel.setMinimumSize(minSize);
+		textField.setColumns(20);
 	}
 
-	public void set( edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-		set( property, allowExpressions, omitPropertyName, true, factory );
+	public void set(edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, boolean omitPropertyName, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
+		set(property, allowExpressions, omitPropertyName, true, factory);
 	}
 
-	
-	public void set( edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, boolean omitPropertyName, boolean emptyStringWritesNull, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-		super.set( property, includeDefaults, allowExpressions, true, omitPropertyName, factory );
-		this.emptyStringWritesNull = emptyStringWritesNull && (! edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.shouldGUIOmitNone( property ));
-		if( edu.cmu.cs.stage3.alice.core.response.Comment.class.isAssignableFrom( property.getOwner().getClass() ) || edu.cmu.cs.stage3.alice.core.question.userdefined.Comment.class.isAssignableFrom( property.getOwner().getClass() ) ) {
-			stringLabel.setForeground( edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor( "commentForeground" ) );
+	@Override
+	public void set(edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, boolean omitPropertyName, boolean emptyStringWritesNull, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
+		super.set(property, includeDefaults, allowExpressions, true, omitPropertyName, factory);
+		this.emptyStringWritesNull = emptyStringWritesNull && !edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.shouldGUIOmitNone(property);
+		if (edu.cmu.cs.stage3.alice.core.response.Comment.class.isAssignableFrom(property.getOwner().getClass()) || edu.cmu.cs.stage3.alice.core.question.userdefined.Comment.class.isAssignableFrom(property.getOwner().getClass())) {
+			stringLabel.setForeground(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getColor("commentForeground"));
 			int fontSize = Integer.parseInt(authoringToolConfig.getValue("fontSize"));
-			stringLabel.setFont( new java.awt.Font( "Helvetica", java.awt.Font.BOLD, (int)(13*fontSize/12.0) ) );
+			stringLabel.setFont(new java.awt.Font("Helvetica", java.awt.Font.BOLD, (int) (13 * fontSize / 12.0)));
 		} else {
-			stringLabel.setForeground( javax.swing.UIManager.getColor( "Label.foreground" ) );
-			stringLabel.setFont( javax.swing.UIManager.getFont( "Label.font" ) );
+			stringLabel.setForeground(javax.swing.UIManager.getColor("Label.foreground"));
+			stringLabel.setFont(javax.swing.UIManager.getFont("Label.font"));
 		}
 		refreshGUI();
 	}
-	
-	public void set( edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, boolean omitPropertyName, boolean emptyStringWritesNull, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
-		set( property, false, allowExpressions, omitPropertyName, emptyStringWritesNull, factory );
+
+	public void set(edu.cmu.cs.stage3.alice.core.Property property, boolean allowExpressions, boolean omitPropertyName, boolean emptyStringWritesNull, final edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
+		set(property, false, allowExpressions, omitPropertyName, emptyStringWritesNull, factory);
 	}
 
-	
-	protected void setValueFromString( String valueString ) {
-		if( valueString.trim().equals( "" ) ) {
-			if( emptyStringWritesNull ) {
+	@Override
+	protected void setValueFromString(String valueString) {
+		if (valueString.trim().equals("")) {
+			if (emptyStringWritesNull) {
 				valueString = null;
 			}
 		}
-		((Runnable)factory.createItem( valueString )).run();
+		((Runnable) factory.createItem(valueString)).run();
 	}
 
-	
+	@Override
 	protected java.awt.Component getNativeComponent() {
 		return stringLabel;
 	}
 
-	
+	@Override
 	protected Class getNativeClass() {
 		return String.class;
 	}
 
-	
+	@Override
 	protected void updateNativeComponent() {
-		stringLabel.setText( property.get().toString() );
+		stringLabel.setText(property.get().toString());
 	}
 
-	
+	@Override
 	protected void refreshGUI() {
-		//if( (property.getValue() != null) && (property.getValue().toString()).trim().equals( "" ) ) {
-		//	stringLabel.setPreferredSize( minSize );
-		//} else {
-		//	stringLabel.setPreferredSize( null );
-		//}
-		stringLabel.setPreferredSize( null );
-		if( this.isAncestorOf( textField ) ) {
-			remove( textField );
+		// if( (property.getValue() != null) &&
+		// (property.getValue().toString()).trim().equals( "" ) ) {
+		// stringLabel.setPreferredSize( minSize );
+		// } else {
+		// stringLabel.setPreferredSize( null );
+		// }
+		stringLabel.setPreferredSize(null);
+		if (isAncestorOf(textField)) {
+			remove(textField);
 		}
 		super.refreshGUI();
 	}

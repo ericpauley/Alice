@@ -30,13 +30,20 @@ public abstract class Key {
 	protected double[] components;
 	protected double time;
 
-	public abstract Object createSample( double[] components );  // this should really be static, but Java doesn't allow abstract static methods. :(
+	public abstract Object createSample(double[] components); // this should
+																// really be
+																// static, but
+																// Java doesn't
+																// allow
+																// abstract
+																// static
+																// methods. :(
 
 	public double[] getValueComponents() {
 		return components;
 	}
 
-	public void setValueComponents( double[] components ) {
+	public void setValueComponents(double[] components) {
 		this.components = components;
 	}
 
@@ -44,7 +51,7 @@ public abstract class Key {
 		return time;
 	}
 
-	public void setTime( double time ) {
+	public void setTime(double time) {
 		this.time = time;
 	}
 }

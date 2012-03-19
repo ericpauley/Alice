@@ -24,14 +24,16 @@
 package edu.cmu.cs.stage3.alice.core.question.math;
 
 public class Max extends edu.cmu.cs.stage3.alice.core.question.BinaryNumberResultingInNumberQuestion {
-	private static Class[] s_supportedCoercionClasses = { Min.class };
-	
+	private static Class[] s_supportedCoercionClasses = {Min.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected double getValue( double aValue, double bValue ) {
-		edu.cmu.cs.stage3.alice.core.response.Print.outputtext= "maximum of "+aValue+ " and "+bValue+" is ";
-		return Math.max( aValue, bValue );
+
+	@Override
+	protected double getValue(double aValue, double bValue) {
+		edu.cmu.cs.stage3.alice.core.response.Print.outputtext = "maximum of " + aValue + " and " + bValue + " is ";
+		return Math.max(aValue, bValue);
 	}
 }

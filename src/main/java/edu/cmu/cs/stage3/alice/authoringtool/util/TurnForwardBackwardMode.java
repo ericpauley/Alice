@@ -27,16 +27,16 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
  * @author Jason Pratt
  */
 public class TurnForwardBackwardMode extends DefaultMoveMode {
-	public TurnForwardBackwardMode( edu.cmu.cs.stage3.alice.authoringtool.MainUndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler  ) {
-		super( undoRedoStack, scheduler );
+	public TurnForwardBackwardMode(edu.cmu.cs.stage3.alice.authoringtool.MainUndoRedoStack undoRedoStack, edu.cmu.cs.stage3.alice.core.Scheduler scheduler) {
+		super(undoRedoStack, scheduler);
 	}
 
-	
-	public void mouseDragged( java.awt.event.MouseEvent ev, int dx, int dy ) {
-		if( pickedTransformable != null ) {
-			helper.setTransformationRightNow( edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera );
-			helper.setPositionRightNow( zeroVec, pickedTransformable );
-			pickedTransformable.rotateRightNow( edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy*.01, helper );
+	@Override
+	public void mouseDragged(java.awt.event.MouseEvent ev, int dx, int dy) {
+		if (pickedTransformable != null) {
+			helper.setTransformationRightNow(edu.cmu.cs.stage3.math.MathUtilities.createIdentityMatrix4d(), camera);
+			helper.setPositionRightNow(zeroVec, pickedTransformable);
+			pickedTransformable.rotateRightNow(edu.cmu.cs.stage3.math.MathUtilities.getXAxis(), -dy * .01, helper);
 		}
 	}
 }

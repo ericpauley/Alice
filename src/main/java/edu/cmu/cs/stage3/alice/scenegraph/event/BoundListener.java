@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.scenegraph.event;
 
 public interface BoundListener {
-	public void boundChanged( BoundEvent boundEvent );
+	public void boundChanged(BoundEvent boundEvent);
 }

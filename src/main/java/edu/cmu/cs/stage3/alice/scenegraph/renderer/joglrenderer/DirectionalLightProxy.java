@@ -24,13 +24,14 @@
 package edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer;
 
 class DirectionalLightProxy extends LightProxy {
-    
-	protected float[] getPosition( float[] rv ) {
-        double[] absolute = getAbsoluteTransformation();
-        rv[ 0 ] = (float)absolute[ 8 ];
-        rv[ 1 ] = (float)absolute[ 9 ];
-        rv[ 2 ] = (float)absolute[ 10 ];
-        rv[ 3 ] = 0;
-        return rv;
-    }
+
+	@Override
+	protected float[] getPosition(float[] rv) {
+		double[] absolute = getAbsoluteTransformation();
+		rv[0] = (float) absolute[8];
+		rv[1] = (float) absolute[9];
+		rv[2] = (float) absolute[10];
+		rv[3] = 0;
+		return rv;
+	}
 }

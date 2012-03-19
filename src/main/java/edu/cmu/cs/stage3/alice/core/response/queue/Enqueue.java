@@ -25,10 +25,11 @@ package edu.cmu.cs.stage3.alice.core.response.queue;
 
 public class Enqueue extends QueueItemResponse {
 	public class RuntimeEnqueue extends RuntimeQueueItemResponse {
-		
-		public void epilogue( double t ) {
-			super.epilogue( t );
-			getQueue().enqueueValue( getItem() );
+
+		@Override
+		public void epilogue(double t) {
+			super.epilogue(t);
+			getQueue().enqueueValue(getItem());
 		}
 	}
 }

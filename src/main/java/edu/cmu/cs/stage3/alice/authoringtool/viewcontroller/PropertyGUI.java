@@ -29,50 +29,57 @@ package edu.cmu.cs.stage3.alice.authoringtool.viewcontroller;
 public class PropertyGUI extends javax.swing.JPanel implements edu.cmu.cs.stage3.alice.authoringtool.util.GUIElement, edu.cmu.cs.stage3.alice.authoringtool.util.Releasable {
 	protected PropertyDnDPanel propertyDnDPanel;
 	protected javax.swing.JComponent propertyViewController;
-	protected javax.swing.JLabel equalsLabel = new javax.swing.JLabel( " = " );
+	protected javax.swing.JLabel equalsLabel = new javax.swing.JLabel(" = ");
 
 	public PropertyGUI() {
-		setLayout( new javax.swing.BoxLayout( this, javax.swing.BoxLayout.X_AXIS ) );
-		setOpaque( false );
+		setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.X_AXIS));
+		setOpaque(false);
 	}
 
-	public void set( edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool, edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory ) {
+	public void set(edu.cmu.cs.stage3.alice.authoringtool.AuthoringTool authoringTool, edu.cmu.cs.stage3.alice.core.Property property, boolean includeDefaults, boolean allowExpressions, edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory factory) {
 		clean();
 
-		propertyDnDPanel = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getPropertyDnDPanel( property );
-		propertyViewController = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getPropertyViewController( property, includeDefaults, allowExpressions, true, factory );
+		propertyDnDPanel = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getPropertyDnDPanel(property);
+		propertyViewController = edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.getPropertyViewController(property, includeDefaults, allowExpressions, true, factory);
 
-		add( propertyDnDPanel );
-		add( equalsLabel );
-		add( propertyViewController );
-		add( javax.swing.Box.createHorizontalGlue() );
+		add(propertyDnDPanel);
+		add(equalsLabel);
+		add(propertyViewController);
+		add(javax.swing.Box.createHorizontalGlue());
 	}
 
-	public void goToSleep() {}
-	public void wakeUp() {}
+	@Override
+	public void goToSleep() {
+	}
+	@Override
+	public void wakeUp() {
+	}
 
+	@Override
 	public void clean() {
 		removeAll();
-		if( propertyDnDPanel != null ) {
+		if (propertyDnDPanel != null) {
 			propertyDnDPanel.release();
 		}
-		if( propertyViewController instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable ) {
-			((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable)propertyViewController).release();
+		if (propertyViewController instanceof edu.cmu.cs.stage3.alice.authoringtool.util.Releasable) {
+			((edu.cmu.cs.stage3.alice.authoringtool.util.Releasable) propertyViewController).release();
 		}
 		propertyDnDPanel = null;
 		propertyViewController = null;
 	}
 
+	@Override
 	public void die() {
 		clean();
 	}
 
+	@Override
 	public void release() {
-		edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.releaseGUI( this );
+		edu.cmu.cs.stage3.alice.authoringtool.util.GUIFactory.releaseGUI(this);
 	}
 
-	
-	public void remove( java.awt.Component c ) {
-		super.remove( c );
+	@Override
+	public void remove(java.awt.Component c) {
+		super.remove(c);
 	}
 }

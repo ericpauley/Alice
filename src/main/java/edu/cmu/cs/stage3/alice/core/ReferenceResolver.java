@@ -24,5 +24,5 @@
 package edu.cmu.cs.stage3.alice.core;
 
 public interface ReferenceResolver {
-	public Element resolveReference( edu.cmu.cs.stage3.util.Criterion criterion ) throws UnresolvableReferenceException;
+	public Element resolveReference(edu.cmu.cs.stage3.util.Criterion criterion) throws UnresolvableReferenceException;
 }

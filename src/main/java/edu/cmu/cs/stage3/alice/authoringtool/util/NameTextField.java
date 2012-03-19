@@ -29,41 +29,45 @@ package edu.cmu.cs.stage3.alice.authoringtool.util;
 public class NameTextField extends javax.swing.JTextField {
 	private edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback okButtonCallback;
 	private edu.cmu.cs.stage3.alice.core.Element m_parent;
-	
-	public NameTextField( edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback okButtonCallback ) {
+
+	public NameTextField(edu.cmu.cs.stage3.alice.authoringtool.util.CheckForValidityCallback okButtonCallback) {
 		this.okButtonCallback = okButtonCallback;
-		getDocument().addDocumentListener( new javax.swing.event.DocumentListener() {
+		getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+			@Override
 			public void changedUpdate(javax.swing.event.DocumentEvent e) {
 				NameTextField.this.refresh();
 			}
+			@Override
 			public void insertUpdate(javax.swing.event.DocumentEvent e) {
 				NameTextField.this.refresh();
 			}
+			@Override
 			public void removeUpdate(javax.swing.event.DocumentEvent e) {
 				NameTextField.this.refresh();
 			}
 		});
 		addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent ev) {
 				textFieldAction();
 			}
 		});
 	}
-	
-	public void setParent( edu.cmu.cs.stage3.alice.core.Element parent ) {
+
+	public void setParent(edu.cmu.cs.stage3.alice.core.Element parent) {
 		m_parent = parent;
 		refresh();
 	}
-	
-	private void textFieldAction(){
+
+	private void textFieldAction() {
 		okButtonCallback.doAction();
 	}
-	
+
 	private boolean isNameValid() {
-		if( m_parent != null ) {
+		if (m_parent != null) {
 			String name = getText();
-			if( edu.cmu.cs.stage3.alice.core.Element.isPotentialNameValid( name ) ) {
-				if( m_parent.getChildNamedIgnoreCase( name ) == null ) {
+			if (edu.cmu.cs.stage3.alice.core.Element.isPotentialNameValid(name)) {
+				if (m_parent.getChildNamedIgnoreCase(name) == null) {
 					return true;
 				}
 			}
@@ -71,12 +75,12 @@ public class NameTextField extends javax.swing.JTextField {
 		return false;
 	}
 	private void refresh() {
-		if( isNameValid() ) {
+		if (isNameValid()) {
 			okButtonCallback.setValidity(this, true);
-			setForeground( java.awt.Color.black );
+			setForeground(java.awt.Color.black);
 		} else {
 			okButtonCallback.setValidity(this, false);
-			setForeground( java.awt.Color.red );
+			setForeground(java.awt.Color.red);
 		}
 	}
 }

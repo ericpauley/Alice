@@ -31,8 +31,12 @@ import javax.swing.ScrollPaneConstants;
 public class OutputComponent extends javax.swing.JPanel {
 	protected javax.swing.JScrollPane scrollPane;
 	protected edu.cmu.cs.stage3.alice.authoringtool.util.StyledStreamTextPane textPane;
-//	protected edu.cmu.cs.stage3.alice.authoringtool.util.StyledStreamTextPane.StyleStream stdOutStream;
-//	protected edu.cmu.cs.stage3.alice.authoringtool.util.StyledStreamTextPane.StyleStream stdErrStream;
+	// protected
+	// edu.cmu.cs.stage3.alice.authoringtool.util.StyledStreamTextPane.StyleStream
+	// stdOutStream;
+	// protected
+	// edu.cmu.cs.stage3.alice.authoringtool.util.StyledStreamTextPane.StyleStream
+	// stdErrStream;
 	protected edu.cmu.cs.stage3.alice.authoringtool.util.StyleStream stdOutStream;
 	protected edu.cmu.cs.stage3.alice.authoringtool.util.StyleStream stdErrStream;
 
@@ -42,39 +46,37 @@ public class OutputComponent extends javax.swing.JPanel {
 	}
 
 	private void guiInit() {
-		setLayout( new java.awt.BorderLayout() );
+		setLayout(new java.awt.BorderLayout());
 
 		textPane = new edu.cmu.cs.stage3.alice.authoringtool.util.StyledStreamTextPane();
-		scrollPane = new javax.swing.JScrollPane( textPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED );
+		scrollPane = new javax.swing.JScrollPane(textPane, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		add( scrollPane, java.awt.BorderLayout.CENTER );
+		add(scrollPane, java.awt.BorderLayout.CENTER);
 	}
 
 	private void miscInit() {
-		stdOutStream = textPane.getNewStyleStream( textPane.stdOutStyle );
-		stdErrStream = textPane.getNewStyleStream( textPane.stdErrStyle );
+		stdOutStream = textPane.getNewStyleStream(textPane.stdOutStyle);
+		stdErrStream = textPane.getNewStyleStream(textPane.stdErrStyle);
 
 		// scroll to the end of the output window when new output arrives
-		scrollPane.getVerticalScrollBar().getModel().addChangeListener(
-			new javax.swing.event.ChangeListener() {
-				private int max = 0;
-				private javax.swing.JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
+		scrollPane.getVerticalScrollBar().getModel().addChangeListener(new javax.swing.event.ChangeListener() {
+			private int max = 0;
+			private javax.swing.JScrollBar scrollBar = scrollPane.getVerticalScrollBar();
 
-				public void stateChanged( javax.swing.event.ChangeEvent e ) {
-					final int newMax = ((javax.swing.BoundedRangeModel)e.getSource()).getMaximum();
-					if( newMax != max ) {
-						javax.swing.SwingUtilities.invokeLater(
-							new Runnable() {
-								public void run() {
-									scrollBar.setValue( newMax );
-									max = newMax;
-								}
-							}
-						);
-					}
+			@Override
+			public void stateChanged(javax.swing.event.ChangeEvent e) {
+				final int newMax = ((javax.swing.BoundedRangeModel) e.getSource()).getMaximum();
+				if (newMax != max) {
+					javax.swing.SwingUtilities.invokeLater(new Runnable() {
+						@Override
+						public void run() {
+							scrollBar.setValue(newMax);
+							max = newMax;
+						}
+					});
 				}
 			}
-		);
+		});
 	}
 
 	public edu.cmu.cs.stage3.alice.authoringtool.util.StyledStreamTextPane getTextPane() {
@@ -90,6 +92,6 @@ public class OutputComponent extends javax.swing.JPanel {
 	}
 
 	public void clear() {
-		textPane.setText( "" );
+		textPane.setText("");
 	}
 }

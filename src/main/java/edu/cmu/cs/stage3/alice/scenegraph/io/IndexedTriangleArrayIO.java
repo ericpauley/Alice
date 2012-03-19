@@ -24,76 +24,74 @@
 package edu.cmu.cs.stage3.alice.scenegraph.io;
 
 public class IndexedTriangleArrayIO {
-	private static final String[] s_codecNames = { "obj", "vfb" };
-	private static final String[] s_objExtensions = { "obj" };
-	private static final String[] s_vfbExtensions = { "vfb" };
+	private static final String[] s_codecNames = {"obj", "vfb"};
+	private static final String[] s_objExtensions = {"obj"};
+	private static final String[] s_vfbExtensions = {"vfb"};
 	public static String[] getCodecNames() {
 		return s_codecNames;
 	}
-	public static String[] getExtensionsForCodec( String codecName ) {
-		if( codecName.equals( "obj" ) ) {
+	public static String[] getExtensionsForCodec(String codecName) {
+		if (codecName.equals("obj")) {
 			return s_objExtensions;
-		} else if( codecName.equals( "vfb" ) ) {
+		} else if (codecName.equals("vfb")) {
 			return s_vfbExtensions;
 		} else {
 			return null;
 		}
 	}
-	public static String mapExtensionToCodecName( String extension ) {
+	public static String mapExtensionToCodecName(String extension) {
 		String[] codecNames = IndexedTriangleArrayIO.getCodecNames();
-		for( int i=0; i<codecNames.length; i++ ) {
-			String[] extensions = getExtensionsForCodec( codecNames[i] );
-			for( int j=0; j<extensions.length; j++ ) {
-				if( extensions[j].equalsIgnoreCase( extension ) ) {
-					return codecNames[i];
+		for (String codecName : codecNames) {
+			String[] extensions = getExtensionsForCodec(codecName);
+			for (String extension2 : extensions) {
+				if (extension2.equalsIgnoreCase(extension)) {
+					return codecName;
 				}
 			}
 		}
 		return null;
 	}
 
-
-	private static Object[] decodeOBJ( java.io.BufferedInputStream bufferedInputStream ) throws java.io.IOException {
-		return OBJ.load( bufferedInputStream );
+	private static Object[] decodeOBJ(java.io.BufferedInputStream bufferedInputStream) throws java.io.IOException {
+		return OBJ.load(bufferedInputStream);
 	}
-	private static Object[] decodeVFB( java.io.BufferedInputStream bufferedInputStream ) throws java.io.IOException {
-		return VFB.load( bufferedInputStream );
+	private static Object[] decodeVFB(java.io.BufferedInputStream bufferedInputStream) throws java.io.IOException {
+		return VFB.load(bufferedInputStream);
 	}
-	public static edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray decode( String codecName, java.io.InputStream inputStream ) throws java.io.IOException {
-		java.io.BufferedInputStream bufferedInputStream = new java.io.BufferedInputStream( inputStream );
+	public static edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray decode(String codecName, java.io.InputStream inputStream) throws java.io.IOException {
+		java.io.BufferedInputStream bufferedInputStream = new java.io.BufferedInputStream(inputStream);
 		Object[] array;
-		if( codecName.equals( "obj" ) ) {
-			array = decodeOBJ( bufferedInputStream );
-		} else if( codecName.equals( "vfb" ) ) {
-			array = decodeVFB( bufferedInputStream );
+		if (codecName.equals("obj")) {
+			array = decodeOBJ(bufferedInputStream);
+		} else if (codecName.equals("vfb")) {
+			array = decodeVFB(bufferedInputStream);
 		} else {
-			throw new RuntimeException( "unknown codec: " + codecName );
+			throw new RuntimeException("unknown codec: " + codecName);
 		}
-		if( array!=null ) {
+		if (array != null) {
 			edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray ita = new edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray();
-			ita.setVertices( (edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[])array[0] );
-			ita.setIndices( (int[])array[1] );
+			ita.setVertices((edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[]) array[0]);
+			ita.setIndices((int[]) array[1]);
 			return ita;
 		} else {
 			return null;
 		}
 	}
 
-
-	private static void encodeOBJ( java.io.BufferedOutputStream bufferedOutputStream, edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] vertices, int[] indices ) throws java.io.IOException {
-		OBJ.store( bufferedOutputStream, vertices, indices, null, null );
+	private static void encodeOBJ(java.io.BufferedOutputStream bufferedOutputStream, edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] vertices, int[] indices) throws java.io.IOException {
+		OBJ.store(bufferedOutputStream, vertices, indices, null, null);
 	}
-	private static void encodeVFB( java.io.BufferedOutputStream bufferedOutputStream, edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] vertices, int[] indices ) throws java.io.IOException {
-		VFB.store( bufferedOutputStream, vertices, indices );
+	private static void encodeVFB(java.io.BufferedOutputStream bufferedOutputStream, edu.cmu.cs.stage3.alice.scenegraph.Vertex3d[] vertices, int[] indices) throws java.io.IOException {
+		VFB.store(bufferedOutputStream, vertices, indices);
 	}
-	public static void encode( String codecName, java.io.OutputStream outputStream, edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray ita ) throws java.io.IOException {
-		java.io.BufferedOutputStream bufferedOutputStream = new java.io.BufferedOutputStream( outputStream );
-		if( codecName.equals( "obj" ) ) {
-			encodeOBJ( bufferedOutputStream, ita.getVertices(), ita.getIndices() );
-		} else if( codecName.equals( "vfb" ) ) {
-			encodeVFB( bufferedOutputStream, ita.getVertices(), ita.getIndices() );
+	public static void encode(String codecName, java.io.OutputStream outputStream, edu.cmu.cs.stage3.alice.scenegraph.IndexedTriangleArray ita) throws java.io.IOException {
+		java.io.BufferedOutputStream bufferedOutputStream = new java.io.BufferedOutputStream(outputStream);
+		if (codecName.equals("obj")) {
+			encodeOBJ(bufferedOutputStream, ita.getVertices(), ita.getIndices());
+		} else if (codecName.equals("vfb")) {
+			encodeVFB(bufferedOutputStream, ita.getVertices(), ita.getIndices());
 		} else {
-			throw new RuntimeException( "unknown codec: " + codecName );
+			throw new RuntimeException("unknown codec: " + codecName);
 		}
 		bufferedOutputStream.flush();
 	}

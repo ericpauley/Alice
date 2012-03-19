@@ -26,16 +26,16 @@ package edu.cmu.cs.stage3.util.criterion;
 public class NotCriterion implements edu.cmu.cs.stage3.util.Criterion {
 	protected edu.cmu.cs.stage3.util.Criterion m_criterion;
 
-	public NotCriterion( edu.cmu.cs.stage3.util.Criterion criterion ) {
+	public NotCriterion(edu.cmu.cs.stage3.util.Criterion criterion) {
 		m_criterion = criterion;
 	}
 
-	public boolean accept( Object o ) {
-		if( m_criterion != null ) {
-			return !m_criterion.accept( o );
+	@Override
+	public boolean accept(Object o) {
+		if (m_criterion != null) {
+			return !m_criterion.accept(o);
 		} else {
 			return false;
 		}
 	}
 }
-

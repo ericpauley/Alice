@@ -31,54 +31,59 @@ public class ElementNamePropertyViewController extends StringPropertyViewControl
 		setDefaultPopupStructure();
 	}
 
-	
+	@Override
 	public void stopEditing() {
 		try {
 			super.stopEditing();
-		} catch( edu.cmu.cs.stage3.alice.core.IllegalNameValueException e ) {
-			edu.cmu.cs.stage3.swing.DialogManager.showMessageDialog( e.getMessage(), "Error setting name", javax.swing.JOptionPane.ERROR_MESSAGE );
+		} catch (edu.cmu.cs.stage3.alice.core.IllegalNameValueException e) {
+			edu.cmu.cs.stage3.swing.DialogManager.showMessageDialog(e.getMessage(), "Error setting name", javax.swing.JOptionPane.ERROR_MESSAGE);
 			editValue();
 		}
 	}
 
-	public void set( final edu.cmu.cs.stage3.alice.core.Element element ) {
-		super.set( element.name, false, true, true, new edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory() {
-			public Object createItem( final Object value ) {
+	public void set(final edu.cmu.cs.stage3.alice.core.Element element) {
+		super.set(element.name, false, true, true, new edu.cmu.cs.stage3.alice.authoringtool.util.PopupItemFactory() {
+			@Override
+			public Object createItem(final Object value) {
 				return new Runnable() {
+					@Override
 					public void run() {
-						element.name.set( value );
+						element.name.set(value);
 					}
 				};
 			}
-		} );
-		setPopupEnabled( false );
+		});
+		setPopupEnabled(false);
 	}
 
 	public void setDefaultPopupStructure() {
 		popupStructure = new java.util.Vector();
-		popupStructure.add( new edu.cmu.cs.stage3.util.StringObjectPair( "Rename", new Runnable() {
+		popupStructure.add(new edu.cmu.cs.stage3.util.StringObjectPair("Rename", new Runnable() {
+			@Override
 			public void run() {
 				ElementNamePropertyViewController.this.editValue();
 			}
 		}));
 	}
 
-	public void setPopupStructure( java.util.Vector structure ) {
+	public void setPopupStructure(java.util.Vector structure) {
 		popupStructure = structure;
 	}
 
-	
+	@Override
 	protected java.awt.event.MouseListener getMouseListener() {
 		return new java.awt.event.MouseAdapter() {
-			
-			public void mouseReleased( java.awt.event.MouseEvent ev ) {
-				if( isEnabled() && ev.isPopupTrigger() ) {
+
+			@Override
+			public void mouseReleased(java.awt.event.MouseEvent ev) {
+				if (isEnabled() && ev.isPopupTrigger()) {
 					ElementNamePropertyViewController.this.popupButton.doClick();
 				}
 			}
 		};
 	}
 
-	
-	protected void updatePopupStructure() {}
+	@Override
+	protected void updatePopupStructure() {
+	}
 }

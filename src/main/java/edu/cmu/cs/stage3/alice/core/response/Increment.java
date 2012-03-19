@@ -27,30 +27,33 @@ import edu.cmu.cs.stage3.alice.core.Variable;
 import edu.cmu.cs.stage3.alice.core.property.VariableProperty;
 
 public class Increment extends Animation {
-	public final VariableProperty variable = new VariableProperty( this, "variable", null );
-	
+	public final VariableProperty variable = new VariableProperty(this, "variable", null);
+
+	@Override
 	protected Number getDefaultDuration() {
-		return new Double( 0 );
+		return new Double(0);
 	}
 	public class RuntimeIncrement extends RuntimeAnimation {
-        private double m_amountAlreadyIncremented = 0;
-        private void incrementValue( double amount ) {
+		private double m_amountAlreadyIncremented = 0;
+		private void incrementValue(double amount) {
 			Variable variableValue = variable.getVariableValue();
-			Number number = (Number)variableValue.value.getValue();
-			variableValue.value.set( new Double( number.doubleValue() + amount ) );
-            m_amountAlreadyIncremented += amount;
-        }
-		
-		public void prologue( double t ) {
-			super.prologue( t );
+			Number number = (Number) variableValue.value.getValue();
+			variableValue.value.set(new Double(number.doubleValue() + amount));
+			m_amountAlreadyIncremented += amount;
+		}
+
+		@Override
+		public void prologue(double t) {
+			super.prologue(t);
 			m_amountAlreadyIncremented = 0;
 		}
-		
-		public void update( double t ) {
-			super.update( t );
-            incrementValue( getPortion( t ) - m_amountAlreadyIncremented );
+
+		@Override
+		public void update(double t) {
+			super.update(t);
+			incrementValue(getPortion(t) - m_amountAlreadyIncremented);
 		}
-        //todo?
-		//public void epilogue( double t ) {
+		// todo?
+		// public void epilogue( double t ) {
 	}
 }

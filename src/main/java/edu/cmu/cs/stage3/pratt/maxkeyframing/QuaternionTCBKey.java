@@ -27,42 +27,51 @@ package edu.cmu.cs.stage3.pratt.maxkeyframing;
  * @author Jason Pratt
  */
 public class QuaternionTCBKey extends TCBKey {
-	public QuaternionTCBKey( double time, edu.cmu.cs.stage3.math.Quaternion value, double tension, double continuity, double bias ) {
-		super( time, new double[] { value.x, value.y, value.z, value.w }, tension, continuity, bias ); // fix this when Quaternion constructor changes
+	public QuaternionTCBKey(double time, edu.cmu.cs.stage3.math.Quaternion value, double tension, double continuity, double bias) {
+		super(time, new double[]{value.x, value.y, value.z, value.w}, tension, continuity, bias); // fix
+																									// this
+																									// when
+																									// Quaternion
+																									// constructor
+																									// changes
 	}
 
 	private edu.cmu.cs.stage3.math.Quaternion qSample = new edu.cmu.cs.stage3.math.Quaternion();
-	
-	public Object createSample( double[] components ) {
-		double lengthSquared = components[0]*components[0] + components[1]*components[1] + components[2]*components[2] + components[3]*components[3];
-		if( lengthSquared == 1.0 ) {
+
+	@Override
+	public Object createSample(double[] components) {
+		double lengthSquared = components[0] * components[0] + components[1] * components[1] + components[2] * components[2] + components[3] * components[3];
+		if (lengthSquared == 1.0) {
 			qSample.x = components[0];
 			qSample.y = components[1];
 			qSample.z = components[2];
 			qSample.w = components[3];
 			return qSample;
-			//return new edu.cmu.cs.stage3.math.Quaternion( components[0], components[1], components[2], components[3] );
+			// return new edu.cmu.cs.stage3.math.Quaternion( components[0],
+			// components[1], components[2], components[3] );
 		} else {
-			double length = Math.sqrt( lengthSquared );
-			qSample.x = components[0]/length;
-			qSample.y = components[1]/length;
-			qSample.z = components[2]/length;
-			qSample.w = components[3]/length;
+			double length = Math.sqrt(lengthSquared);
+			qSample.x = components[0] / length;
+			qSample.y = components[1] / length;
+			qSample.z = components[2] / length;
+			qSample.w = components[3] / length;
 			return qSample;
-			//return new edu.cmu.cs.stage3.math.Quaternion( components[0]/length, components[1]/length, components[2]/length, components[3]/length );
+			// return new edu.cmu.cs.stage3.math.Quaternion(
+			// components[0]/length, components[1]/length, components[2]/length,
+			// components[3]/length );
 		}
 	}
 
-	public static QuaternionTCBKey valueOf( String s ) {
-		java.util.StringTokenizer st = new java.util.StringTokenizer( s, " \t,[]" );
+	public static QuaternionTCBKey valueOf(String s) {
+		java.util.StringTokenizer st = new java.util.StringTokenizer(s, " \t,[]");
 
 		String className = st.nextToken(); // unused
-		double time = Double.parseDouble( st.nextToken() );
-		edu.cmu.cs.stage3.math.Quaternion value = new edu.cmu.cs.stage3.math.Quaternion( Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ), Double.parseDouble( st.nextToken() ) );
-		double tension = Double.parseDouble( st.nextToken() );
-		double continuity = Double.parseDouble( st.nextToken() );
-		double bias = Double.parseDouble( st.nextToken() );
+		double time = Double.parseDouble(st.nextToken());
+		edu.cmu.cs.stage3.math.Quaternion value = new edu.cmu.cs.stage3.math.Quaternion(Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()), Double.parseDouble(st.nextToken()));
+		double tension = Double.parseDouble(st.nextToken());
+		double continuity = Double.parseDouble(st.nextToken());
+		double bias = Double.parseDouble(st.nextToken());
 
-		return new QuaternionTCBKey( time, value, tension, continuity, bias );
+		return new QuaternionTCBKey(time, value, tension, continuity, bias);
 	}
 }

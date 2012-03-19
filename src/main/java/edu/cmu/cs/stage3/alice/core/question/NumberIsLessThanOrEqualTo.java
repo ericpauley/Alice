@@ -24,13 +24,15 @@
 package edu.cmu.cs.stage3.alice.core.question;
 
 public class NumberIsLessThanOrEqualTo extends BinaryNumberResultingInBooleanQuestion {
-	private static Class[] s_supportedCoercionClasses = { NumberIsGreaterThan.class, NumberIsGreaterThanOrEqualTo.class, NumberIsLessThan.class };
-	
+	private static Class[] s_supportedCoercionClasses = {NumberIsGreaterThan.class, NumberIsGreaterThanOrEqualTo.class, NumberIsLessThan.class};
+
+	@Override
 	public Class[] getSupportedCoercionClasses() {
 		return s_supportedCoercionClasses;
 	}
-	
-	protected boolean getValue( double aValue, double bValue ) {
+
+	@Override
+	protected boolean getValue(double aValue, double bValue) {
 		return aValue <= bValue;
 	}
 }
