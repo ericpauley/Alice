@@ -23,15 +23,18 @@
 
 package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DefaultRenderTargetFactory implements RenderTargetFactory {
 
-	public static Class[] getPotentialRendererClasses() {
-		java.util.Vector vector = new java.util.Vector();
+	public static List<Class<? extends edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractRenderer>> getPotentialRendererClasses() {
+		List<Class<? extends edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractRenderer>> renderers = new ArrayList<Class<? extends edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractRenderer>>();
 
 		if (System.getProperty("os.name").startsWith("Win")) {
 			try {
 				if (edu.cmu.cs.stage3.alice.scenegraph.renderer.util.DirectXVersion.getVersion() >= 7.0) {
-					vector.addElement(edu.cmu.cs.stage3.alice.scenegraph.renderer.directx7renderer.Renderer.class);
+					renderers.add(edu.cmu.cs.stage3.alice.scenegraph.renderer.directx7renderer.Renderer.class);
 				}
 			} catch (Throwable t) {
 				// pass
@@ -39,28 +42,26 @@ public class DefaultRenderTargetFactory implements RenderTargetFactory {
 		}
 
 		try {
-			vector.addElement(edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer.Renderer.class);
+			renderers.add(edu.cmu.cs.stage3.alice.scenegraph.renderer.joglrenderer.Renderer.class);
 		} catch (Throwable t) {
 			// pass
 		}
 
 		try {
-			vector.addElement(edu.cmu.cs.stage3.alice.scenegraph.renderer.nullrenderer.Renderer.class);
+			renderers.add(edu.cmu.cs.stage3.alice.scenegraph.renderer.nullrenderer.Renderer.class);
 		} catch (Throwable t) {
 			// pass
 		}
-		Class[] array = new Class[vector.size()];
-		vector.copyInto(array);
-		return array;
+		return renderers;
 	}
-	private Class m_rendererClass;
+	private Class<?> m_rendererClass;
 	private Renderer m_renderer;
 	public DefaultRenderTargetFactory() {
 		this(null);
 	}
-	public DefaultRenderTargetFactory(Class rendererClass) {
+	public DefaultRenderTargetFactory(Class<?> rendererClass) {
 		if (rendererClass == null) {
-			rendererClass = getPotentialRendererClasses()[0];
+			rendererClass = getPotentialRendererClasses().get(0);
 		}
 		m_rendererClass = rendererClass;
 	}

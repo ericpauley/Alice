@@ -23,28 +23,31 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Jason Pratt
  */
 public class Importing {
-	protected java.util.ArrayList importers = new java.util.ArrayList();
+	List<Importer> importers = new ArrayList<Importer>();
 
 	public Importing() {
 		init();
 	}
 
 	private void init() {
-		Class[] importerClasses = AuthoringToolResources.getImporterClasses();
-		for (Class importerClasse : importerClasses) {
+		Class<? extends Importer>[] importerClasses = AuthoringToolResources.getImporterClasses();
+		for (Class<? extends Importer> importerClasse : importerClasses) {
 			try {
-				importers.add(importerClasse.newInstance());
+				importers.add((Importer) importerClasse.newInstance());
 			} catch (Throwable t) {
 				AuthoringTool.showErrorDialog("Error creating importer of type " + importerClasse, t);
 			}
 		}
 	}
 
-	public java.util.List getImporters() {
+	public List<Importer> getImporters() {
 		return importers;
 	}
 }

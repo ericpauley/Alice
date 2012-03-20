@@ -23,22 +23,28 @@
 
 package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
+import java.util.EventObject;
+import java.util.Vector;
+
+import edu.cmu.cs.stage3.alice.scenegraph.event.ReleaseEvent;
+
 public abstract class AbstractRenderer implements edu.cmu.cs.stage3.alice.scenegraph.renderer.Renderer, edu.cmu.cs.stage3.alice.scenegraph.event.AbsoluteTransformationListener, edu.cmu.cs.stage3.alice.scenegraph.event.BoundListener, edu.cmu.cs.stage3.alice.scenegraph.event.ChildrenListener, edu.cmu.cs.stage3.alice.scenegraph.event.HierarchyListener, edu.cmu.cs.stage3.alice.scenegraph.event.PropertyListener, edu.cmu.cs.stage3.alice.scenegraph.event.ReleaseListener {
 
 	private boolean m_isSoftwareEmulationForced;
-	private java.util.Vector m_onscreenRenderTargets = new java.util.Vector();
-	private java.util.Vector m_offscreenRenderTargets = new java.util.Vector();
+	private Vector<RenderTarget> m_onscreenRenderTargets = new Vector<RenderTarget>();
+	private Vector<RenderTarget> m_offscreenRenderTargets = new Vector<RenderTarget>();
 	private OnscreenRenderTarget[] m_onscreenRenderTargetArray = null;
 	private OffscreenRenderTarget[] m_offscreenRenderTargetArray = null;
 
-	private java.util.Vector m_rendererListeners = new java.util.Vector();
+	@SuppressWarnings("unused")
+	private Vector<?> m_rendererListeners = new Vector<Object>();
 
-	private java.util.Vector m_pendingAbsoluteTransformationChanges = new java.util.Vector();
-	private java.util.Vector m_pendingBoundChanges = new java.util.Vector();
-	private java.util.Vector m_pendingChildChanges = new java.util.Vector();
-	private java.util.Vector m_pendingHeirarchyChanges = new java.util.Vector();
-	private java.util.Vector m_pendingPropertyChanges = new java.util.Vector();
-	private java.util.Vector m_pendingReleases = new java.util.Vector();
+	private Vector<EventObject> m_pendingAbsoluteTransformationChanges = new Vector<EventObject>();
+	private Vector<EventObject> m_pendingBoundChanges = new Vector<EventObject>();
+	private Vector<EventObject> m_pendingChildChanges = new Vector<EventObject>();
+	private Vector<EventObject> m_pendingHeirarchyChanges = new Vector<EventObject>();
+	private Vector<EventObject> m_pendingPropertyChanges = new Vector<EventObject>();
+	private Vector<ReleaseEvent> m_pendingReleases = new Vector<ReleaseEvent>();
 
 	protected abstract void dispatchAbsoluteTransformationChange(edu.cmu.cs.stage3.alice.scenegraph.event.AbsoluteTransformationEvent absoluteTransformationEvent);
 	protected abstract void dispatchBoundChange(edu.cmu.cs.stage3.alice.scenegraph.event.BoundEvent boundEvent);
@@ -58,6 +64,7 @@ public abstract class AbstractRenderer implements edu.cmu.cs.stage3.alice.sceneg
 	public void leaveIgnore() {
 		m_ignoreCount--;
 	}
+	@SuppressWarnings("unused")
 	private boolean ignore() {
 		return m_ignoreCount > 0;
 	}
@@ -113,7 +120,7 @@ public abstract class AbstractRenderer implements edu.cmu.cs.stage3.alice.sceneg
 		sgElement.removeReleaseListener(this);
 	}
 	public void commitAnyPendingChanges() {
-		java.util.Enumeration enum0;
+		java.util.Enumeration<EventObject> enum0;
 		if (m_pendingAbsoluteTransformationChanges.size() > 0) {
 			synchronized (m_pendingAbsoluteTransformationChanges) {
 				enum0 = m_pendingAbsoluteTransformationChanges.elements();

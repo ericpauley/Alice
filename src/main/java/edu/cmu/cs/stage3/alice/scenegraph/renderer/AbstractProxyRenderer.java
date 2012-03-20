@@ -23,14 +23,25 @@
 
 package edu.cmu.cs.stage3.alice.scenegraph.renderer;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import edu.cmu.cs.stage3.alice.scenegraph.Element;
+import edu.cmu.cs.stage3.alice.scenegraph.Property;
+import edu.cmu.cs.stage3.alice.scenegraph.event.PropertyEvent;
+import edu.cmu.cs.stage3.alice.scenegraph.renderer.nativerenderer.AffectorProxy;
+
 public abstract class AbstractProxyRenderer extends AbstractRenderer {
-	private java.util.Hashtable m_sgElementToProxyMap = new java.util.Hashtable();
-	private java.util.Vector m_queuedPropertyChanges = new java.util.Vector();
+	private Map<Element,AbstractProxy> m_sgElementToProxyMap = new HashMap<Element,AbstractProxy>();
+	@SuppressWarnings("unused")
+	private List<?> m_queuedPropertyChanges = new ArrayList<Object>();
 
 	@Override
-	protected void dispatchPropertyChange(edu.cmu.cs.stage3.alice.scenegraph.event.PropertyEvent propertyEvent) {
-		edu.cmu.cs.stage3.alice.scenegraph.Property property = propertyEvent.getProperty();
-		edu.cmu.cs.stage3.alice.scenegraph.Element sgElement = (edu.cmu.cs.stage3.alice.scenegraph.Element) propertyEvent.getSource();
+	protected void dispatchPropertyChange(PropertyEvent propertyEvent) {
+		Property property = propertyEvent.getProperty();
+		Element sgElement = (Element) propertyEvent.getSource();
 		if (sgElement.isReleased()) {
 			// pass
 		} else {
@@ -42,12 +53,12 @@ public abstract class AbstractProxyRenderer extends AbstractRenderer {
 
 	@Override
 	protected void dispatchRelease(edu.cmu.cs.stage3.alice.scenegraph.event.ReleaseEvent releaseEvent) {
-		edu.cmu.cs.stage3.alice.scenegraph.Element sgElement = (edu.cmu.cs.stage3.alice.scenegraph.Element) releaseEvent.getSource();
+		Element sgElement = (Element) releaseEvent.getSource();
 		AbstractProxy proxy = getProxyFor(sgElement);
 		proxy.release();
 	}
 
-	protected abstract AbstractProxy createProxyFor(edu.cmu.cs.stage3.alice.scenegraph.Element sgElement);
+	protected abstract AbstractProxy createProxyFor(Element sgElement);
 	public AbstractProxy getProxyFor(edu.cmu.cs.stage3.alice.scenegraph.Element sgElement) {
 		AbstractProxy proxy;
 		if (sgElement != null) {
@@ -72,7 +83,7 @@ public abstract class AbstractProxyRenderer extends AbstractRenderer {
 		}
 		return proxy;
 	}
-	public AbstractProxy[] getProxiesFor(edu.cmu.cs.stage3.alice.scenegraph.Element[] sgElements, Class componentType) {
+	public AbstractProxy[] getProxiesFor(edu.cmu.cs.stage3.alice.scenegraph.Element[] sgElements, Class<? extends AffectorProxy> componentType) {
 		if (sgElements != null) {
 			AbstractProxy[] proxies = (AbstractProxy[]) java.lang.reflect.Array.newInstance(componentType, sgElements.length);
 			for (int i = 0; i < sgElements.length; i++) {

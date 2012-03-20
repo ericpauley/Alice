@@ -26,16 +26,31 @@ package edu.cmu.cs.stage3.alice.authoringtool;
 import java.awt.Dimension;
 import java.awt.Window;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.filechooser.FileFilter;
 
 import edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateChangedEvent;
 import edu.cmu.cs.stage3.alice.authoringtool.event.AuthoringToolStateListener;
+import edu.cmu.cs.stage3.alice.authoringtool.event.ElementSelectionListener;
+import edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionFileFilter;
+import edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule;
 import edu.cmu.cs.stage3.alice.core.Element;
 import edu.cmu.cs.stage3.alice.core.Variable;
+import edu.cmu.cs.stage3.alice.core.property.ObjectProperty;
 import edu.cmu.cs.stage3.alice.core.question.userdefined.CallToUserDefinedQuestion;
+import edu.cmu.cs.stage3.alice.core.question.userdefined.UserDefinedQuestion;
 import edu.cmu.cs.stage3.alice.core.response.CallToUserDefinedResponse;
+import edu.cmu.cs.stage3.alice.core.response.UserDefinedResponse;
+import edu.cmu.cs.stage3.alice.scenegraph.renderer.DefaultRenderTargetFactory;
+import edu.cmu.cs.stage3.media.Player;
+import edu.cmu.cs.stage3.progress.ProgressPane;
 
 /**
  * @author Jason Pratt
@@ -104,8 +119,9 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	private boolean worldHasBeenModified = false;
 	private long lastSaveTime;
 	private movieMaker.SoundStorage soundStorage = null;
+	@SuppressWarnings("unused")
 	private java.io.File worldDirectory; // only needed for saving backup files
-	private java.util.HashMap extensionStringsToFileFilterMap;
+	private java.util.HashMap<String,FileFilter> extensionStringsToFileFilterMap;
 	private edu.cmu.cs.stage3.alice.authoringtool.util.Configuration authoringToolConfig;
 	private edu.cmu.cs.stage3.alice.core.RenderTarget renderTarget;
 	private edu.cmu.cs.stage3.alice.scripting.ScriptingFactory scriptingFactory;
@@ -122,12 +138,12 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	private boolean stdErrToConsole;
 	public int numEncoded = 0; // Madeleine added
 
-	private static ArrayList sound = new ArrayList();
+	private static List<Player> sound = new ArrayList<Player>();
 
 	private edu.cmu.cs.stage3.alice.core.util.WorldListener userDefinedParameterListener = new edu.cmu.cs.stage3.alice.core.util.WorldListener() {
 		private Object m_previousPropertyValue = null;
-		private edu.cmu.cs.stage3.alice.core.response.CallToUserDefinedResponse[] getCallsTo(final edu.cmu.cs.stage3.alice.core.response.UserDefinedResponse userDefined) {
-			java.util.Vector v = new java.util.Vector();
+		private CallToUserDefinedResponse[] getCallsTo(final UserDefinedResponse userDefined) {
+			Vector<CallToUserDefinedResponse> v = new Vector<CallToUserDefinedResponse>();
 			getWorld().internalSearch(new edu.cmu.cs.stage3.util.Criterion() {
 				@Override
 				public boolean accept(Object o) {
@@ -140,12 +156,12 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 					return false;
 				}
 			}, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS, v);
-			edu.cmu.cs.stage3.alice.core.response.CallToUserDefinedResponse[] calls = new edu.cmu.cs.stage3.alice.core.response.CallToUserDefinedResponse[v.size()];
+			CallToUserDefinedResponse[] calls = new CallToUserDefinedResponse[v.size()];
 			v.copyInto(calls);
 			return calls;
 		}
-		private edu.cmu.cs.stage3.alice.core.question.userdefined.CallToUserDefinedQuestion[] getCallsTo(final edu.cmu.cs.stage3.alice.core.question.userdefined.UserDefinedQuestion userDefined) {
-			java.util.Vector v = new java.util.Vector();
+		private CallToUserDefinedQuestion[] getCallsTo(final UserDefinedQuestion userDefined) {
+			Vector<CallToUserDefinedQuestion> v = new Vector<CallToUserDefinedQuestion>();
 			getWorld().internalSearch(new edu.cmu.cs.stage3.util.Criterion() {
 				@Override
 				public boolean accept(Object o) {
@@ -234,7 +250,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 								for (CallToUserDefinedResponse call : calls) {
 									edu.cmu.cs.stage3.alice.core.Variable actualParameter = new edu.cmu.cs.stage3.alice.core.Variable();
 									actualParameter.name.set(formalParameter.name.get());
-									Class cls = formalParameter.valueClass.getClassValue();
+									Class<?> cls = formalParameter.valueClass.getClassValue();
 									actualParameter.valueClass.set(cls);
 									actualParameter.value.set(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getDefaultValueForClass(cls));
 									boolean tempListening = AuthoringTool.this.getUndoRedoStack().getIsListening();
@@ -279,7 +295,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 								for (CallToUserDefinedQuestion call : calls) {
 									edu.cmu.cs.stage3.alice.core.Variable actualParameter = new edu.cmu.cs.stage3.alice.core.Variable();
 									actualParameter.name.set(formalParameter.name.get());
-									Class cls = formalParameter.valueClass.getClassValue();
+									Class<?> cls = formalParameter.valueClass.getClassValue();
 									actualParameter.valueClass.set(cls);
 									actualParameter.value.set(edu.cmu.cs.stage3.alice.authoringtool.AuthoringToolResources.getDefaultValueForClass(cls));
 									call.addChild(actualParameter);
@@ -321,10 +337,10 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	// selected element
 	private edu.cmu.cs.stage3.alice.core.Element selectedElement;
-	private java.util.HashSet selectionListeners = new java.util.HashSet();
+	private java.util.HashSet<ElementSelectionListener> selectionListeners = new java.util.HashSet<ElementSelectionListener>();
 
 	// AuthoringTool state listening
-	private java.util.HashSet stateListeners = new java.util.HashSet();
+	private java.util.HashSet<AuthoringToolStateListener> stateListeners = new java.util.HashSet<AuthoringToolStateListener>();
 
 	public static org.python.core.PyFile getPyStdOut() {
 		return pyStdOut;
@@ -349,6 +365,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			// 255, 255, 255, 0 ) ); // don't show focus // makes printing slow,
 			// unfortunately
 
+			@SuppressWarnings("serial")
 			class CustomButtonBorder extends javax.swing.border.AbstractBorder implements javax.swing.plaf.UIResource {
 				protected java.awt.Insets insets = new java.awt.Insets(3, 3, 3, 3);
 				protected javax.swing.border.Border line = javax.swing.BorderFactory.createLineBorder(java.awt.Color.black, 1);
@@ -563,6 +580,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		});
 	}
 
+	@SuppressWarnings("serial")
 	private void dialogInit() {
 		importFileChooser = new javax.swing.JFileChooser();
 		saveWorldFileChooser = new javax.swing.JFileChooser() {
@@ -697,7 +715,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	}
 
 	private void miscInit() {
-		extensionStringsToFileFilterMap = new java.util.HashMap();
+		extensionStringsToFileFilterMap = new java.util.HashMap<String, FileFilter>();
 		scheduler.addEachFrameRunnable(oneShotScheduler);
 
 		// try to quit on window close
@@ -879,18 +897,17 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	}
 
 	private void importInit() {
-		java.util.List importers = importing.getImporters();
+		List<Importer> importers = importing.getImporters();
 		edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionGroupFileFilter imageFiles = new edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionGroupFileFilter("Image Files");
 		extensionStringsToFileFilterMap.put("Image Files", imageFiles);
 		edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionGroupFileFilter soundFiles = new edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionGroupFileFilter("Sound Files");
 		extensionStringsToFileFilterMap.put("Sound Files", soundFiles);
-		java.util.TreeSet extensions = new java.util.TreeSet();
-		for (java.util.Iterator iter = importers.iterator(); iter.hasNext();) {
-			edu.cmu.cs.stage3.alice.authoringtool.Importer importer = (edu.cmu.cs.stage3.alice.authoringtool.Importer) iter.next();
-			java.util.Map map = importer.getExtensionMap();
-			for (java.util.Iterator jter = map.keySet().iterator(); jter.hasNext();) {
-				String extension = (String) jter.next();
-				String description = extension + " (" + map.get(extension) + ")";
+		java.util.TreeSet<ExtensionFileFilter> extensions = new java.util.TreeSet<ExtensionFileFilter>();
+		for (Importer importer:importers) {
+			Map<String,String> map = importer.getExtensionMap();
+			for (Map.Entry<String, String> entry:map.entrySet()) {
+				String extension = entry.getKey();
+				String description = extension + " (" + entry.getValue() + ")";
 				edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionFileFilter ext = new edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionFileFilter(extension, description);
 				extensions.add(ext);
 				extensionStringsToFileFilterMap.put(extension, ext);
@@ -904,8 +921,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		importFileChooser.addChoosableFileFilter(characterFileFilter);
 		importFileChooser.addChoosableFileFilter(imageFiles);
 		importFileChooser.addChoosableFileFilter(soundFiles);
-		for (java.util.Iterator iter = extensions.iterator(); iter.hasNext();) {
-			edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionFileFilter ext = (edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionFileFilter) iter.next();
+		for (java.util.Iterator<ExtensionFileFilter> iter = extensions.iterator(); iter.hasNext();) {
+			edu.cmu.cs.stage3.alice.authoringtool.util.ExtensionFileFilter ext = iter.next();
 			importFileChooser.addChoosableFileFilter(ext);
 		}
 		importFileChooser.setFileFilter(importFileChooser.getAcceptAllFileFilter());
@@ -995,7 +1012,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	public edu.cmu.cs.stage3.alice.scenegraph.renderer.RenderTargetFactory getRenderTargetFactory() {
 		if (renderTargetFactory == null) {
-			Class rendererClass = null;
+			Class<?> rendererClass = null;
 			boolean isSoftwareEmulationForced = false;
 			try {
 				String[] renderers = authoringToolConfig.getValueList("rendering.orderedRendererList");
@@ -1017,7 +1034,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			if (commandLineOption != null && commandLineOption.equalsIgnoreCase("true")) {
 				isSoftwareEmulationForced = true;
 			}
-			renderTargetFactory = new edu.cmu.cs.stage3.alice.scenegraph.renderer.DefaultRenderTargetFactory(rendererClass);
+			renderTargetFactory = new DefaultRenderTargetFactory(rendererClass);
 			renderTargetFactory.setIsSoftwareEmulationForced(isSoftwareEmulationForced);
 		}
 		return renderTargetFactory;
@@ -1083,8 +1100,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	}
 
 	protected void fireElementSelected(edu.cmu.cs.stage3.alice.core.Element element) {
-		for (java.util.Iterator iter = selectionListeners.iterator(); iter.hasNext();) {
-			((edu.cmu.cs.stage3.alice.authoringtool.event.ElementSelectionListener) iter.next()).elementSelected(element);
+		for (java.util.Iterator<ElementSelectionListener> iter = selectionListeners.iterator(); iter.hasNext();) {
+			iter.next().elementSelected(element);
 		}
 	}
 
@@ -1102,8 +1119,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireStateChanging(int previousState, int currentState) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(previousState, currentState, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.stateChanging(ev);
 			} catch (Throwable t) {
@@ -1114,8 +1131,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldLoading(edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(AuthoringToolStateChangedEvent.AUTHORING_STATE, AuthoringToolStateChangedEvent.AUTHORING_STATE, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldLoading(ev);
 			} catch (Throwable t) {
@@ -1126,8 +1143,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldUnLoading(edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(AuthoringToolStateChangedEvent.AUTHORING_STATE, AuthoringToolStateChangedEvent.AUTHORING_STATE, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldUnLoading(ev);
 			} catch (Throwable t) {
@@ -1138,8 +1155,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldStarting(int previousState, int currentState, edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(previousState, currentState, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldStarting(ev);
 			} catch (Throwable t) {
@@ -1150,8 +1167,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldStopping(int previousState, int currentState, edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(previousState, currentState, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldStopping(ev);
 			} catch (Throwable t) {
@@ -1162,8 +1179,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldPausing(int previousState, int currentState, edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(previousState, currentState, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldPausing(ev);
 			} catch (Throwable t) {
@@ -1174,8 +1191,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldSaving(edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(AuthoringToolStateChangedEvent.AUTHORING_STATE, AuthoringToolStateChangedEvent.AUTHORING_STATE, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldSaving(ev);
 			} catch (Throwable t) {
@@ -1186,8 +1203,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireStateChanged(int previousState, int currentState) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(previousState, currentState, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.stateChanged(ev);
 			} catch (Throwable t) {
@@ -1198,8 +1215,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldLoaded(edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(AuthoringToolStateChangedEvent.AUTHORING_STATE, AuthoringToolStateChangedEvent.AUTHORING_STATE, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldLoaded(ev);
 			} catch (Throwable t) {
@@ -1210,8 +1227,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldUnLoaded(edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(AuthoringToolStateChangedEvent.AUTHORING_STATE, AuthoringToolStateChangedEvent.AUTHORING_STATE, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldUnLoaded(ev);
 			} catch (Throwable t) {
@@ -1222,8 +1239,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldStarted(int previousState, int currentState, edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(previousState, currentState, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldStarted(ev);
 			} catch (Throwable t) {
@@ -1234,8 +1251,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldStopped(int previousState, int currentState, edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(previousState, currentState, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldStopped(ev);
 			} catch (Throwable t) {
@@ -1246,8 +1263,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldPaused(int previousState, int currentState, edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(previousState, currentState, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldPaused(ev);
 			} catch (Throwable t) {
@@ -1258,8 +1275,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	protected void fireWorldSaved(edu.cmu.cs.stage3.alice.core.World world) {
 		AuthoringToolStateChangedEvent ev = new AuthoringToolStateChangedEvent(AuthoringToolStateChangedEvent.AUTHORING_STATE, AuthoringToolStateChangedEvent.AUTHORING_STATE, world);
-		for (java.util.Iterator iter = stateListeners.iterator(); iter.hasNext();) {
-			AuthoringToolStateListener listener = (AuthoringToolStateListener) iter.next();
+		for (java.util.Iterator<AuthoringToolStateListener> iter = stateListeners.iterator(); iter.hasNext();) {
+			AuthoringToolStateListener listener = iter.next();
 			try {
 				listener.worldSaved(ev);
 			} catch (Throwable t) {
@@ -1277,14 +1294,14 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	}
 
 	public void editObject(Object object, boolean switchToNewTab) {
-		Class editorClass = null;
+		Class<?> editorClass = null;
 		if (object != null) {
 			editorClass = edu.cmu.cs.stage3.alice.authoringtool.util.EditorUtilities.getBestEditor(object.getClass());
 		}
 		editObject(object, editorClass, switchToNewTab);
 	}
 
-	public void editObject(Object object, Class editorClass, boolean switchToNewTab) {
+	public void editObject(Object object, Class<?> editorClass, boolean switchToNewTab) {
 		jAliceFrame.getTabbedEditorComponent().editObject(object, editorClass, switchToNewTab);
 		saveTabs();
 		if (switchToNewTab && getJAliceFrame().getGuiMode() != JAliceFrame.SCENE_EDITOR_SMALL_MODE) {
@@ -1322,7 +1339,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		// worker.start();
 	}
 
-	public void editObject(final Object object, final Class editorClass, final boolean switchToNewTab, javax.swing.JComponent componentToAnimateFrom) {
+	public void editObject(final Object object, final Class<?> editorClass, final boolean switchToNewTab, javax.swing.JComponent componentToAnimateFrom) {
 		if (!isObjectBeingEdited(object)) {
 			animateEditOpen(componentToAnimateFrom);
 		}
@@ -1803,7 +1820,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			updateWorldOpenTime();
 
 			// store the world
-			java.util.Dictionary map = new java.util.Hashtable();
+			java.util.Dictionary<String, byte[]> map = new java.util.Hashtable<String, byte[]>();
 			if (authoringToolConfig.getValue("saveThumbnailWithWorld").equalsIgnoreCase("true")) {
 				try {
 					edu.cmu.cs.stage3.alice.core.Camera[] cameras = (edu.cmu.cs.stage3.alice.core.Camera[]) world.getDescendants(edu.cmu.cs.stage3.alice.core.Camera.class);
@@ -1926,7 +1943,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		if (code == null) {
 			code = " ";
 		}
-		java.util.HashMap replacements = new java.util.HashMap();
+		java.util.HashMap<String, String> replacements = new java.util.HashMap<String, String>();
 		replacements.put("__worldname__", baseName);
 		replacements.put("__code__", code);
 		replacements.put("__authorname__", authorName);
@@ -1944,9 +1961,9 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 		String line = templateReader.readLine();
 		while (line != null) {
-			for (java.util.Iterator iter = replacements.keySet().iterator(); iter.hasNext();) {
-				String from = (String) iter.next();
-				String to = (String) replacements.get(from);
+			for (java.util.Iterator<String> iter = replacements.keySet().iterator(); iter.hasNext();) {
+				String from = iter.next();
+				String to = replacements.get(from);
 				while (line.indexOf(from) > 0) {
 					line = line.substring(0, line.indexOf(from)) + to + line.substring(line.indexOf(from) + from.length());
 				}
@@ -2312,6 +2329,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 						AuthoringTool.this.getUndoRedoStack().setIsListening(false);
 						model.vehicle.set(world);
 						edu.cmu.cs.stage3.math.Box boundingBox = model.getBoundingBox();
+						@SuppressWarnings("unused")
 						javax.vecmath.Vector3d insertionPoint = boundingBox.getCenterOfBottomFace();
 						model.setAbsoluteTransformationRightNow(targetTransformation);
 						model.moveRightNow(edu.cmu.cs.stage3.math.MathUtilities.negate(boundingBox.getCenterOfBottomFace()));
@@ -2440,8 +2458,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			}
 
 			Importer importerToUse = null;
-			for (java.util.Iterator iter = importing.getImporters().iterator(); iter.hasNext();) {
-				Importer importer = (Importer) iter.next();
+			for (java.util.Iterator<Importer> iter = importing.getImporters().iterator(); iter.hasNext();) {
+				Importer importer = iter.next();
 
 				if (importer.getExtensionMap().get(ext) != null) {
 					importerToUse = importer;
@@ -2519,8 +2537,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			boolean shouldAnimateCamera = camera != null;
 			edu.cmu.cs.stage3.alice.core.Model model = (edu.cmu.cs.stage3.alice.core.Model) transformable;
 
-			java.util.HashMap opacityMap = new java.util.HashMap();
-			java.util.Vector properties = new java.util.Vector();
+			java.util.HashMap<Element, Object> opacityMap = new java.util.HashMap<Element, Object>();
+			java.util.Vector<ObjectProperty> properties = new java.util.Vector<ObjectProperty>();
 			if (shouldAnimateCamera) {
 				properties.add(camera.localTransformation);
 				properties.add(camera.farClippingPlaneDistance);
@@ -2531,7 +2549,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 				opacityMap.put(descendant, ((edu.cmu.cs.stage3.alice.core.Model) descendant).opacity.get());
 				properties.add(((edu.cmu.cs.stage3.alice.core.Model) descendant).opacity);
 			}
-			edu.cmu.cs.stage3.alice.core.Property[] affectedProperties = (edu.cmu.cs.stage3.alice.core.Property[]) properties.toArray(new edu.cmu.cs.stage3.alice.core.Property[0]);
+			edu.cmu.cs.stage3.alice.core.Property[] affectedProperties = properties.toArray(new edu.cmu.cs.stage3.alice.core.Property[0]);
 			boolean tempListening = AuthoringTool.this.getUndoRedoStack().getIsListening();
 			undoRedoStack.setIsListening(false);
 			model.opacity.set(new Double(0.0), edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS);
@@ -2594,7 +2612,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 				farClipping2.value.set(camera.farClippingPlaneDistance.get());
 			}
 			edu.cmu.cs.stage3.alice.core.response.DoTogether opacityDoTogether = new edu.cmu.cs.stage3.alice.core.response.DoTogether();
-			for (java.util.Iterator iter = opacityMap.keySet().iterator(); iter.hasNext();) {
+			for (java.util.Iterator<Element> iter = opacityMap.keySet().iterator(); iter.hasNext();) {
 				edu.cmu.cs.stage3.alice.core.Model m = (edu.cmu.cs.stage3.alice.core.Model) iter.next();
 				Object opacity = opacityMap.get(m);
 				edu.cmu.cs.stage3.alice.core.response.PropertyAnimation opacityAnimation = new edu.cmu.cs.stage3.alice.core.response.PropertyAnimation();
@@ -2664,7 +2682,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			undoCameraGoBackWaitDoInOrder.componentResponses.add(undoWait);
 			undoCameraGoBackWaitDoInOrder.componentResponses.add(undoCameraGoBack);
 			edu.cmu.cs.stage3.alice.core.response.DoTogether undoOpacityDoTogether = new edu.cmu.cs.stage3.alice.core.response.DoTogether();
-			for (java.util.Iterator iter = opacityMap.keySet().iterator(); iter.hasNext();) {
+			for (java.util.Iterator<Element> iter = opacityMap.keySet().iterator(); iter.hasNext();) {
 				edu.cmu.cs.stage3.alice.core.Model m = (edu.cmu.cs.stage3.alice.core.Model) iter.next();
 				edu.cmu.cs.stage3.alice.core.response.PropertyAnimation opacityAnimation = new edu.cmu.cs.stage3.alice.core.response.PropertyAnimation();
 				opacityAnimation.element.set(m);
@@ -2700,6 +2718,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void displayDurations(edu.cmu.cs.stage3.alice.core.Response r) {
 		if (r instanceof edu.cmu.cs.stage3.alice.core.response.CompositeResponse) {
 			edu.cmu.cs.stage3.alice.core.response.CompositeResponse c = (edu.cmu.cs.stage3.alice.core.response.CompositeResponse) r;
@@ -2803,9 +2822,9 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	}
 
 	public boolean isImportable(String extension) {
-		for (java.util.Iterator iter = importing.getImporters().iterator(); iter.hasNext();) {
-			edu.cmu.cs.stage3.alice.authoringtool.Importer importer = (edu.cmu.cs.stage3.alice.authoringtool.Importer) iter.next();
-			java.util.Map map = importer.getExtensionMap();
+		for (java.util.Iterator<Importer> iter = importing.getImporters().iterator(); iter.hasNext();) {
+			edu.cmu.cs.stage3.alice.authoringtool.Importer importer = iter.next();
+			Map<String, String> map = importer.getExtensionMap();
 			if (map.get(extension.toUpperCase()) != null) {
 				return true;
 			}
@@ -2815,7 +2834,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	}
 
 	public void setImportFileFilter(String extensionString) {
-		javax.swing.filechooser.FileFilter filter = (javax.swing.filechooser.FileFilter) extensionStringsToFileFilterMap.get(extensionString);
+		FileFilter filter = extensionStringsToFileFilterMap.get(extensionString);
 		if (filter != null) {
 			importFileChooser.setFileFilter(filter);
 		}
@@ -3146,7 +3165,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		int result = edu.cmu.cs.stage3.swing.DialogManager.showDialog(exportCodeForPrintingContentPane);
 		if (result == edu.cmu.cs.stage3.swing.ContentPane.OK_OPTION) {
 			final java.io.File fileToExportTo = exportCodeForPrintingContentPane.getFileToExportTo();
-			edu.cmu.cs.stage3.progress.ProgressPane progressPane = new edu.cmu.cs.stage3.progress.ProgressPane("Saving HTML...", "Saving: ") {
+			@SuppressWarnings("serial")
+			edu.cmu.cs.stage3.progress.ProgressPane progressPane = new ProgressPane("Saving HTML...", "Saving: ") {
 				@Override
 				protected void construct() throws edu.cmu.cs.stage3.progress.ProgressCancelException {
 					try {
@@ -3201,7 +3221,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		if (index > -1) {
 			return jAliceFrame.tabbedEditorComponent.getEditorAt(index).getJComponent();
 		} else {
-			Class editorClass = edu.cmu.cs.stage3.alice.authoringtool.util.EditorUtilities.getBestEditor(elementToEdit.getClass());
+			Class<?> editorClass = edu.cmu.cs.stage3.alice.authoringtool.util.EditorUtilities.getBestEditor(elementToEdit.getClass());
 			Editor editor = editorManager.getEditorInstance(editorClass);
 			edu.cmu.cs.stage3.alice.authoringtool.util.EditorUtilities.editObject(editor, elementToEdit);
 			return editor.getJComponent();
@@ -3211,15 +3231,15 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	// /////////////
 	// Stencils
 	// /////////////
-	protected java.util.HashMap componentMap = new java.util.HashMap();
+	protected java.util.HashMap<String, JComponent> componentMap = new java.util.HashMap<String, JComponent>();
 	protected edu.cmu.cs.stage3.caitlin.stencilhelp.client.StencilManager stencilManager;
-	protected java.util.HashSet classesToStopOn = new java.util.HashSet();
+	protected java.util.HashSet<Class<?>> classesToStopOn = new java.util.HashSet<Class<?>>();
 	protected javax.swing.Timer updateTimer;
 	protected boolean stencilDragging = false;
 	protected java.awt.Component dragStartSource;
 	protected java.io.File tutorialOne;
 	protected java.io.File tutorialDirectory = new java.io.File(JAlice.getAliceHomeDirectory(), "tutorial").getAbsoluteFile();
-	protected java.util.ArrayList wayPoints = new java.util.ArrayList();
+	protected java.util.ArrayList<WorldDifferencesCapsule> wayPoints = new java.util.ArrayList<WorldDifferencesCapsule>();
 
 	private void stencilInit() {
 		stencilManager = new edu.cmu.cs.stage3.caitlin.stencilhelp.client.StencilManager(this);
@@ -3465,7 +3485,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	@Override
 	public edu.cmu.cs.stage3.caitlin.stencilhelp.application.StateCapsule getCurrentState() {
 		if (wayPoints.size() > 0) {
-			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule currentWayPoint = (edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule) wayPoints.get(0);
+			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule currentWayPoint = wayPoints.get(0);
 			edu.cmu.cs.stage3.alice.authoringtool.util.StencilStateCapsule capsule = currentWayPoint.getStateCapsule();
 
 			// this.doesStateMatch(capsule);
@@ -3528,8 +3548,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			}
 
 			// default cases
-			for (java.util.Iterator iter = classesToStopOn.iterator(); iter.hasNext();) {
-				Class stopClass = (Class) iter.next();
+			for (Class<?> stopClass: classesToStopOn) {
 				if (stopClass.isAssignableFrom(c.getClass())) {
 					return c;
 				}
@@ -3756,8 +3775,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 				}
 			}
 		} else if (componentMap.containsValue(c)) {
-			for (java.util.Iterator iter = componentMap.keySet().iterator(); iter.hasNext();) {
-				String k = (String) iter.next();
+			for (java.util.Iterator<String> iter = componentMap.keySet().iterator(); iter.hasNext();) {
+				String k = iter.next();
 				if (c.equals(componentMap.get(k))) {
 					key = k;
 					break;
@@ -3976,7 +3995,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 									}
 								} else if (prefix.equals("elementPrototypeTile") && spec != null) {
 									try {
-										Class elementClass = Class.forName(spec);
+										Class<?> elementClass = Class.forName(spec);
 										if (elementClass != null) {
 											java.awt.Component c = AuthoringToolResources.findPrototypeDnDPanel(container, elementClass);
 											if (c != null) {
@@ -4001,7 +4020,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 					r = javax.swing.SwingUtilities.convertRectangle(jAliceFrame.tabbedEditorComponent.getParent(), r, jAliceFrame.getGlassPane());
 				}
 			} else if (componentMap.containsKey(prefix)) {
-				java.awt.Component c = (java.awt.Component) componentMap.get(prefix);
+				java.awt.Component c = componentMap.get(prefix);
 				if (c != null) {
 					image = getComponentImage(c);
 				}
@@ -4244,7 +4263,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 									}
 								} else if (prefix.equals("elementPrototypeTile") && spec != null) {
 									try {
-										Class elementClass = Class.forName(spec);
+										Class<?> elementClass = Class.forName(spec);
 										if (elementClass != null) {
 											java.awt.Component c = AuthoringToolResources.findPrototypeDnDPanel(container, elementClass);
 											if (c != null) {
@@ -4270,7 +4289,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 					r = javax.swing.SwingUtilities.convertRectangle(jAliceFrame.tabbedEditorComponent.getParent(), r, jAliceFrame.getGlassPane());
 				}
 			} else if (componentMap.containsKey(prefix)) {
-				java.awt.Component c = (java.awt.Component) componentMap.get(prefix);
+				java.awt.Component c = componentMap.get(prefix);
 				if (c != null) {
 					r = c.getBounds();
 					r = javax.swing.SwingUtilities.convertRectangle(c.getParent(), r, jAliceFrame.getGlassPane());
@@ -4575,7 +4594,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 									}
 								} else if (prefix.equals("elementPrototypeTile") && spec != null) {
 									try {
-										Class elementClass = Class.forName(spec);
+										Class<?> elementClass = Class.forName(spec);
 										if (elementClass != null) {
 											java.awt.Component c = AuthoringToolResources.findPrototypeDnDPanel(container, elementClass);
 											if (c != null && c.isShowing()) {
@@ -4602,7 +4621,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 					}
 				}
 			} else if (componentMap.containsKey(prefix)) {
-				java.awt.Component c = (java.awt.Component) componentMap.get(prefix);
+				java.awt.Component c = componentMap.get(prefix);
 				if (c != null && c.isShowing()) {
 					return true;
 				} else {
@@ -4831,7 +4850,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 								}
 							} else if (prefix.equals("elementPrototypeTile") && spec != null) {
 								try {
-									Class elementClass = Class.forName(spec);
+									Class<?> elementClass = Class.forName(spec);
 									if (elementClass != null) {
 										java.awt.Component c = AuthoringToolResources.findPrototypeDnDPanel(container, elementClass);
 										if (c != null && c.isShowing() && c instanceof javax.swing.JComponent) {
@@ -4851,7 +4870,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 					}
 				}
 			} else if (componentMap.containsKey(prefix)) {
-				java.awt.Component c = (java.awt.Component) componentMap.get(prefix);
+				java.awt.Component c = componentMap.get(prefix);
 				if (c != null && c.isShowing() && c instanceof javax.swing.JComponent) {
 					((javax.swing.JComponent) c).scrollRectToVisible(c.getBounds());
 				}
@@ -4862,7 +4881,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	@Override
 	synchronized public void makeWayPoint() {
 		if (wayPoints.size() > 0) {
-			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule currentWayPoint = (edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule) wayPoints.get(0);
+			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule currentWayPoint = wayPoints.get(0);
 			currentWayPoint.stopListening();
 		}
 
@@ -4873,14 +4892,14 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 	@Override
 	synchronized public void goToPreviousWayPoint() {
 		if (wayPoints.size() > 0) {
-			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule currentWayPoint = (edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule) wayPoints.get(0);
+			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule currentWayPoint = wayPoints.get(0);
 			currentWayPoint.restoreWorld();
 			currentWayPoint.dispose();
 			wayPoints.remove(0);
 		}
 
 		if (wayPoints.size() > 0) {
-			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule previousWayPoint = (edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule) wayPoints.get(0);
+			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule previousWayPoint = wayPoints.get(0);
 			previousWayPoint.restoreWorld();
 			previousWayPoint.startListening();
 		}
@@ -4888,8 +4907,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 	@Override
 	synchronized public void clearWayPoints() {
-		for (java.util.Iterator iter = wayPoints.iterator(); iter.hasNext();) {
-			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule wayPoint = (edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule) iter.next();
+		for (java.util.Iterator<WorldDifferencesCapsule> iter = wayPoints.iterator(); iter.hasNext();) {
+			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule wayPoint = iter.next();
 			wayPoint.dispose();
 		}
 		wayPoints.clear();
@@ -4902,8 +4921,8 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 			String[] existantElements = stencilStateCapsule.getExistantElements();
 			String[] nonExistantElements = stencilStateCapsule.getNonExistantElements();
-			java.util.Set propertyValueKeys = stencilStateCapsule.getPropertyValueKeySet();
-			java.util.Set elementPositions = stencilStateCapsule.getElementPositionKeySet();
+			Set<String> propertyValueKeys = stencilStateCapsule.getPropertyValueKeySet();
+			Set<String> elementPositions = stencilStateCapsule.getElementPositionKeySet();
 
 			// check for all the elements that need to exist
 			for (String existantElement : existantElements) {
@@ -4924,8 +4943,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			// System.out.println("elements don't exist ok");
 
 			// check that elements are in the right positions
-			for (java.util.Iterator iter = elementPositions.iterator(); iter.hasNext();) {
-				String elementKey = (String) iter.next();
+			for (String elementKey: elementPositions) {
 				int position = stencilStateCapsule.getElementPosition(elementKey);
 
 				edu.cmu.cs.stage3.alice.core.Element element = world.getDescendantKeyed(elementKey);
@@ -4968,8 +4986,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 
 			// System.out.println("elements in correct positions ok");
 
-			for (java.util.Iterator iter = propertyValueKeys.iterator(); iter.hasNext();) {
-				String propertyKey = (String) iter.next();
+			for (String propertyKey: propertyValueKeys) {
 				String valueRepr = stencilStateCapsule.getPropertyValue(propertyKey);
 				int dotIndex = propertyKey.lastIndexOf(".");
 				String elementKey = propertyKey.substring(0, dotIndex);
@@ -5018,7 +5035,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 			// been met. check to make sure user hasn't done
 			// anything else that's strange.
 
-			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule currentWayPoint = (edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule) wayPoints.get(0);
+			edu.cmu.cs.stage3.alice.authoringtool.util.WorldDifferencesCapsule currentWayPoint = wayPoints.get(0);
 
 			if (currentWayPoint.otherPropertyChangesMade(propertyValueKeys) || currentWayPoint.otherElementsInsertedOrDeleted(existantElements, nonExistantElements) || currentWayPoint.otherElementsShifted(elementPositions)) {
 				return false;
@@ -5426,7 +5443,7 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		soundStorage = myS;
 	}
 
-	public static void pauseSound(edu.cmu.cs.stage3.media.Player m_player) {
+	public static void pauseSound(Player m_player) {
 		sound.add(m_player);
 		m_player.startFromBeginning();
 	}
@@ -5441,11 +5458,11 @@ public class AuthoringTool implements java.awt.datatransfer.ClipboardOwner, edu.
 		public void run() {
 			if (pause) {
 				for (int i = 0; i < sound.size(); i++) {
-					((edu.cmu.cs.stage3.media.Player) sound.get(i)).stop();
+					sound.get(i).stop();
 				}
 			} else {
 				for (int i = 0; i < sound.size(); i++) {
-					((edu.cmu.cs.stage3.media.Player) sound.get(i)).start();
+					sound.get(i).start();
 				}
 			}
 		}

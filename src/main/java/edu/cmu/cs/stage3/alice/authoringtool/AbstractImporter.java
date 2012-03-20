@@ -28,7 +28,7 @@ public abstract class AbstractImporter implements edu.cmu.cs.stage3.alice.author
 	protected String plainName = null;
 
 	@Override
-	public abstract java.util.Map getExtensionMap();
+	public abstract java.util.Map<String, String> getExtensionMap();
 
 	@Override
 	public edu.cmu.cs.stage3.alice.core.Element load(String filename) throws java.io.IOException {

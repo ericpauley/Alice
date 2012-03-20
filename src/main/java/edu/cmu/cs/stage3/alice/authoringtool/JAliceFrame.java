@@ -48,6 +48,7 @@ import edu.cmu.cs.stage3.alice.authoringtool.util.Configuration;
 /**
  * @author Jason Pratt
  */
+@SuppressWarnings("serial")
 public class JAliceFrame extends javax.swing.JFrame {
 	protected AuthoringTool authoringTool;
 
@@ -72,7 +73,7 @@ public class JAliceFrame extends javax.swing.JFrame {
 
 	// recent worlds
 	protected int recentWorldsPosition = -1;
-	protected java.util.ArrayList recentWorlds = new java.util.ArrayList();
+	protected java.util.ArrayList<String> recentWorlds = new java.util.ArrayList<String>();
 	protected int maxRecentWorlds;
 	protected java.awt.event.ActionListener recentWorldsListener;
 
@@ -469,18 +470,17 @@ public class JAliceFrame extends javax.swing.JFrame {
 
 		// add everything back in
 		if (recentWorlds.size() > 0) {
-			int i;
-			java.util.Iterator iter;
-			for (i = 0, iter = recentWorlds.iterator(); iter.hasNext(); i++) {
-				String pathname = (String) iter.next();
-				javax.swing.JMenuItem item = new javax.swing.JMenuItem(pathname);
+			int i = 0;
+			for (String pathName:recentWorlds) {
+				javax.swing.JMenuItem item = new javax.swing.JMenuItem(pathName);
 				item.addActionListener(recentWorldsListener);
 				fileMenu.insert(item, recentWorldsPosition + i);
-				if (pathname.length() > 60) {
+				if (pathName.length() > 60) {
 					int fontSize = Integer.parseInt(authoringToolConfig.getValue("fontSize"));
-					item.setToolTipText(pathname);
+					item.setToolTipText(pathName);
 					item.setPreferredSize(new Dimension(500, fontSize + 10));
 				}
+				i++;
 			}
 		} else {
 			javax.swing.JMenuItem item = new javax.swing.JMenuItem("<No Recent Worlds>");

@@ -23,15 +23,18 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool.util;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Jason Pratt
  */
 public class StencilStateCapsule implements edu.cmu.cs.stage3.caitlin.stencilhelp.application.StateCapsule {
-	protected java.util.ArrayList existantElements = new java.util.ArrayList();
-	protected java.util.ArrayList nonExistantElements = new java.util.ArrayList();
-	protected java.util.HashMap propertyValues = new java.util.HashMap();
+	protected List<String> existantElements = new java.util.ArrayList<String>();
+	protected List<String> nonExistantElements = new java.util.ArrayList<String>();
+	protected Map<String, String> propertyValues = new java.util.HashMap<String, String>();
 
-	protected java.util.HashMap elementPositions = new java.util.HashMap();
+	protected Map<String, Integer> elementPositions = new java.util.HashMap<String, Integer>();
 
 	/**
 	 * elementKey should be the element's key, relative to the world; i.e.
@@ -50,7 +53,7 @@ public class StencilStateCapsule implements edu.cmu.cs.stage3.caitlin.stencilhel
 	}
 
 	public String[] getExistantElements() {
-		return (String[]) existantElements.toArray(new String[0]);
+		return existantElements.toArray(new String[0]);
 	}
 
 	/**
@@ -70,7 +73,7 @@ public class StencilStateCapsule implements edu.cmu.cs.stage3.caitlin.stencilhel
 	}
 
 	public String[] getNonExistantElements() {
-		return (String[]) nonExistantElements.toArray(new String[0]);
+		return nonExistantElements.toArray(new String[0]);
 	}
 
 	/**
@@ -112,7 +115,7 @@ public class StencilStateCapsule implements edu.cmu.cs.stage3.caitlin.stencilhel
 	}
 
 	public int getElementPosition(String elementKey) {
-		Integer value = (Integer) elementPositions.get(elementKey);
+		Integer value = elementPositions.get(elementKey);
 		if (value != null) {
 			return value.intValue();
 		} else {
@@ -125,14 +128,14 @@ public class StencilStateCapsule implements edu.cmu.cs.stage3.caitlin.stencilhel
 	 * world).(property name). i.e. "Bunny.Head.color"
 	 */
 	public String getPropertyValue(String propertyKey) {
-		return (String) propertyValues.get(propertyKey);
+		return propertyValues.get(propertyKey);
 	}
 
-	public java.util.Set getPropertyValueKeySet() {
+	public java.util.Set<String> getPropertyValueKeySet() {
 		return propertyValues.keySet();
 	}
 
-	public java.util.Set getElementPositionKeySet() {
+	public java.util.Set<String> getElementPositionKeySet() {
 		return elementPositions.keySet();
 	}
 
@@ -195,29 +198,29 @@ public class StencilStateCapsule implements edu.cmu.cs.stage3.caitlin.stencilhel
 
 		storableRepr += "existantElements|?";
 
-		for (java.util.Iterator iter = existantElements.iterator(); iter.hasNext();) {
-			storableRepr += (String) iter.next() + "?";
+		for (java.util.Iterator<String> iter = existantElements.iterator(); iter.hasNext();) {
+			storableRepr += iter.next() + "?";
 		}
 		storableRepr += "|";
 
 		storableRepr += "nonExistantElements|?";
-		for (java.util.Iterator iter = nonExistantElements.iterator(); iter.hasNext();) {
-			storableRepr += (String) iter.next() + "?";
+		for (java.util.Iterator<String> iter = nonExistantElements.iterator(); iter.hasNext();) {
+			storableRepr += iter.next() + "?";
 		}
 		storableRepr += "|";
 
 		storableRepr += "propertyValues|?";
-		for (java.util.Iterator iter = propertyValues.keySet().iterator(); iter.hasNext();) {
-			String propertyKey = (String) iter.next();
-			String valueRepr = (String) propertyValues.get(propertyKey);
+		for (java.util.Iterator<String> iter = propertyValues.keySet().iterator(); iter.hasNext();) {
+			String propertyKey = iter.next();
+			String valueRepr = propertyValues.get(propertyKey);
 			storableRepr += propertyKey + ":" + valueRepr + "?";
 		}
 		storableRepr += "|";
 
 		storableRepr += "elementPositions|?";
-		for (java.util.Iterator iter = elementPositions.keySet().iterator(); iter.hasNext();) {
-			String elementKey = (String) iter.next();
-			Integer valueRepr = (Integer) elementPositions.get(elementKey);
+		for (java.util.Iterator<String> iter = elementPositions.keySet().iterator(); iter.hasNext();) {
+			String elementKey = iter.next();
+			Integer valueRepr = elementPositions.get(elementKey);
 			storableRepr += elementKey + ":" + valueRepr + "?";
 		}
 		storableRepr += "|";

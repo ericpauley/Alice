@@ -23,11 +23,20 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool;
 
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
+import java.awt.datatransfer.DataFlavor;
 import java.io.File;
+import java.util.HashMap;
+
+import javax.swing.ImageIcon;
 
 import edu.cmu.cs.stage3.alice.core.Element;
+import edu.cmu.cs.stage3.alice.core.Property;
+import edu.cmu.cs.stage3.alice.core.Response;
 import edu.cmu.cs.stage3.alice.core.Transformable;
+import edu.cmu.cs.stage3.alice.core.property.ObjectProperty;
 import edu.cmu.cs.stage3.alice.core.reference.PropertyReference;
 import edu.cmu.cs.stage3.util.StringObjectPair;
 import edu.cmu.cs.stage3.util.StringTypePair;
@@ -63,12 +72,12 @@ public class AuthoringToolResources {
 		public java.util.Vector questionStructure;
 		public java.util.Vector worldTreeChildrenPropertiesStructure;
 		public java.util.Vector behaviorParameterPropertiesStructure;
-		public java.util.HashMap nameMap = new java.util.HashMap();
-		public java.util.HashMap htmlNameMap = new java.util.HashMap();
-		public java.util.HashMap formatMap = new java.util.HashMap();
-		public java.util.HashMap propertyValueFormatMap = new java.util.HashMap();
-		public java.util.HashMap unitMap = new java.util.HashMap();
-		public Class[] classesToOmitNoneFor;
+		public java.util.HashMap<Object, String> nameMap = new java.util.HashMap<Object, String>();
+		public java.util.HashMap<Object, String> htmlNameMap = new java.util.HashMap<Object, String>();
+		public java.util.HashMap<Object, String> formatMap = new java.util.HashMap<Object, String>();
+		public java.util.HashMap<String, HashMap> propertyValueFormatMap = new java.util.HashMap<String, HashMap>();
+		public java.util.HashMap<String, String> unitMap = new java.util.HashMap<String, String>();
+		public Class<?>[] classesToOmitNoneFor;
 		public edu.cmu.cs.stage3.util.StringTypePair[] propertiesToOmitNoneFor;
 		public edu.cmu.cs.stage3.util.StringTypePair[] propertiesToIncludeNoneFor;
 		public edu.cmu.cs.stage3.util.StringTypePair[] propertyNamesToOmit;
@@ -76,22 +85,22 @@ public class AuthoringToolResources {
 		public java.util.Vector defaultPropertyValuesStructure;
 		public edu.cmu.cs.stage3.util.StringTypePair[] defaultVariableTypes;
 		public String[] defaultAspectRatios;
-		public Class[] behaviorClasses;
+		public Class<?>[] behaviorClasses;
 		public String[] parameterizedPropertiesToOmit;
 		public String[] responsePropertiesToOmit;
 		public String[] oneShotGroupsToInclude;
 		public String[] questionPropertiesToOmit;
-		public java.util.HashMap colorMap = new java.util.HashMap();
+		public java.util.HashMap<String, Color> colorMap = new java.util.HashMap<String, Color>();
 		public java.text.DecimalFormat decimalFormatter = new java.text.DecimalFormat("#0.##");
-		public java.util.HashMap stringImageMap = new java.util.HashMap();
-		public java.util.HashMap stringIconMap = new java.util.HashMap();
-		public java.util.HashMap disabledIconMap = new java.util.HashMap();
-		public Class[] importers;
-		public Class[] editors;
-		public java.util.HashMap flavorMap = new java.util.HashMap();
-		public java.util.HashMap keyCodesToStrings = new java.util.HashMap();
+		public java.util.HashMap<String, Image> stringImageMap = new java.util.HashMap<String, Image>();
+		public java.util.HashMap<String, ImageIcon> stringIconMap = new java.util.HashMap<String, ImageIcon>();
+		public java.util.HashMap<ImageIcon, ImageIcon> disabledIconMap = new java.util.HashMap<ImageIcon, ImageIcon>();
+		public Class<Importer>[] importers;
+		public Class<?>[] editors;
+		public java.util.HashMap<Class<?>, DataFlavor> flavorMap = new java.util.HashMap<Class<?>, DataFlavor>();
+		public java.util.HashMap<Integer, String> keyCodesToStrings = new java.util.HashMap<Integer, String>();
 		public boolean experimentalFeaturesEnabled;
-		public java.util.HashMap miscMap = new java.util.HashMap();
+		public java.util.HashMap<Object, Object> miscMap = new java.util.HashMap<Object, Object>();
 		public java.net.URL mainWebGalleryURL = null;
 		public java.io.File mainDiskGalleryDirectory = null;
 		public java.io.File mainCDGalleryDirectory = null;
@@ -260,16 +269,16 @@ public class AuthoringToolResources {
 		AuthoringToolResources.resources.propertyStructure = propertyStructure;
 	}
 
-	public static java.util.Vector getPropertyStructure(Class elementClass) {
+	public static java.util.Vector<StringObjectPair> getPropertyStructure(Class<?> elementClass) {
 		if (AuthoringToolResources.resources.propertyStructure != null) {
 			for (java.util.Iterator iter = AuthoringToolResources.resources.propertyStructure.iterator(); iter.hasNext();) {
 				Object o = iter.next();
 				if (o instanceof edu.cmu.cs.stage3.util.StringObjectPair) {
 					String className = ((edu.cmu.cs.stage3.util.StringObjectPair) o).getString();
 					try {
-						Class c = Class.forName(className);
+						Class<?> c = Class.forName(className);
 						if (c.isAssignableFrom(elementClass)) {
-							return (java.util.Vector) ((edu.cmu.cs.stage3.util.StringObjectPair) o).getObject();
+							return (java.util.Vector<StringObjectPair>) ((edu.cmu.cs.stage3.util.StringObjectPair) o).getObject();
 						}
 					} catch (java.lang.ClassNotFoundException e) {
 						AuthoringTool.showErrorDialog("Can't find class " + className, e);
@@ -282,13 +291,13 @@ public class AuthoringToolResources {
 		return null;
 	}
 
-	public static java.util.Vector getPropertyStructure(edu.cmu.cs.stage3.alice.core.Element element, boolean includeLeftovers) {
-		java.util.Vector structure = getPropertyStructure(element.getClass());
+	public static java.util.Vector<StringObjectPair> getPropertyStructure(edu.cmu.cs.stage3.alice.core.Element element, boolean includeLeftovers) {
+		java.util.Vector<StringObjectPair> structure = getPropertyStructure(element.getClass());
 
 		if (includeLeftovers && structure != null) {
-			java.util.Vector usedProperties = new java.util.Vector();
-			for (java.util.Iterator iter = structure.iterator(); iter.hasNext();) {
-				edu.cmu.cs.stage3.util.StringObjectPair sop = (edu.cmu.cs.stage3.util.StringObjectPair) iter.next();
+			java.util.Vector<Property> usedProperties = new java.util.Vector<Property>();
+			for (java.util.Iterator<StringObjectPair> iter = structure.iterator(); iter.hasNext();) {
+				edu.cmu.cs.stage3.util.StringObjectPair sop = iter.next();
 				java.util.Vector propertyNames = (java.util.Vector) sop.getObject();
 				if (propertyNames != null) {
 					for (java.util.Iterator jter = propertyNames.iterator(); jter.hasNext();) {
@@ -301,7 +310,7 @@ public class AuthoringToolResources {
 				}
 			}
 
-			java.util.Vector leftovers = new java.util.Vector();
+			java.util.Vector<String> leftovers = new java.util.Vector<String>();
 			edu.cmu.cs.stage3.alice.core.Property[] properties = element.getProperties();
 			for (int i = 0; i < properties.length; i++) {
 				if (!usedProperties.contains(properties[i])) {
@@ -363,14 +372,14 @@ public class AuthoringToolResources {
 		AuthoringToolResources.resources.oneShotStructure = oneShotStructure;
 	}
 
-	public static java.util.Vector getOneShotStructure(Class elementClass) {
+	public static java.util.Vector getOneShotStructure(Class<?> elementClass) {
 		if (AuthoringToolResources.resources.oneShotStructure != null) {
 			for (java.util.Iterator iter = AuthoringToolResources.resources.oneShotStructure.iterator(); iter.hasNext();) {
 				Object o = iter.next();
 				if (o instanceof edu.cmu.cs.stage3.util.StringObjectPair) {
 					String className = ((edu.cmu.cs.stage3.util.StringObjectPair) o).getString();
 					try {
-						Class c = Class.forName(className);
+						Class<?> c = Class.forName(className);
 						if (c.isAssignableFrom(elementClass)) {
 							return (java.util.Vector) ((edu.cmu.cs.stage3.util.StringObjectPair) o).getObject();
 						}
@@ -436,14 +445,14 @@ public class AuthoringToolResources {
 		AuthoringToolResources.resources.questionStructure = questionStructure;
 	}
 
-	public static java.util.Vector getQuestionStructure(Class elementClass) {
+	public static java.util.Vector getQuestionStructure(Class<?> elementClass) {
 		if (AuthoringToolResources.resources.questionStructure != null) {
 			for (java.util.Iterator iter = AuthoringToolResources.resources.questionStructure.iterator(); iter.hasNext();) {
 				Object o = iter.next();
 				if (o instanceof edu.cmu.cs.stage3.util.StringObjectPair) {
 					String className = ((edu.cmu.cs.stage3.util.StringObjectPair) o).getString();
 					try {
-						Class c = Class.forName(className);
+						Class<?> c = Class.forName(className);
 						if (c.isAssignableFrom(elementClass)) {
 							return (java.util.Vector) ((edu.cmu.cs.stage3.util.StringObjectPair) o).getObject();
 						}
@@ -505,13 +514,13 @@ public class AuthoringToolResources {
 		AuthoringToolResources.resources.defaultPropertyValuesStructure = defaultPropertyValuesStructure;
 	}
 
-	public static java.util.Vector getDefaultPropertyValues(Class elementClass, String propertyName) {
+	public static java.util.Vector getDefaultPropertyValues(Class<?> elementClass, String propertyName) {
 		if (AuthoringToolResources.resources.defaultPropertyValuesStructure != null) {
 			for (java.util.Iterator iter = AuthoringToolResources.resources.defaultPropertyValuesStructure.iterator(); iter.hasNext();) {
 				edu.cmu.cs.stage3.util.StringObjectPair classChunk = (edu.cmu.cs.stage3.util.StringObjectPair) iter.next();
 				String className = classChunk.getString();
 				try {
-					Class c = Class.forName(className);
+					Class<?> c = Class.forName(className);
 					if (c.isAssignableFrom(elementClass)) {
 						java.util.Vector properties = (java.util.Vector) classChunk.getObject();
 						for (java.util.Iterator jter = properties.iterator(); jter.hasNext();) {
@@ -535,7 +544,7 @@ public class AuthoringToolResources {
 	}
 
 	public static String getName(Object key) {
-		return (String) AuthoringToolResources.resources.nameMap.get(key);
+		return AuthoringToolResources.resources.nameMap.get(key);
 	}
 
 	public static boolean nameMapContainsKey(Object key) {
@@ -547,7 +556,7 @@ public class AuthoringToolResources {
 	}
 
 	public static String getHTMLName(Object key) {
-		return (String) AuthoringToolResources.resources.htmlNameMap.get(key);
+		return AuthoringToolResources.resources.htmlNameMap.get(key);
 	}
 
 	public static boolean htmlNameMapContainsKey(Object key) {
@@ -559,11 +568,11 @@ public class AuthoringToolResources {
 	}
 
 	public static String getFormat(Object key) {
-		return (String) AuthoringToolResources.resources.formatMap.get(key);
+		return AuthoringToolResources.resources.formatMap.get(key);
 	}
 
 	public static String getPlainFormat(Object key) {
-		String format = (String) AuthoringToolResources.resources.formatMap.get(key);
+		String format = AuthoringToolResources.resources.formatMap.get(key);
 		StringBuffer sb = new StringBuffer();
 		edu.cmu.cs.stage3.alice.authoringtool.util.FormatTokenizer tokenizer = new edu.cmu.cs.stage3.alice.authoringtool.util.FormatTokenizer(format);
 		while (tokenizer.hasMoreTokens()) {
@@ -587,7 +596,7 @@ public class AuthoringToolResources {
 	}
 
 	public static java.util.HashMap getPropertyValueFormatMap(String propertyKey) {
-		return (java.util.HashMap) AuthoringToolResources.resources.propertyValueFormatMap.get(propertyKey);
+		return AuthoringToolResources.resources.propertyValueFormatMap.get(propertyKey);
 	}
 
 	public static boolean propertyValueFormatMapContainsKey(String propertyKey) {
@@ -599,18 +608,18 @@ public class AuthoringToolResources {
 	}
 
 	public static String getUnitString(String key) {
-		return (String) AuthoringToolResources.resources.unitMap.get(key);
+		return AuthoringToolResources.resources.unitMap.get(key);
 	}
 
 	public static boolean unitMapContainsKey(String key) {
 		return AuthoringToolResources.resources.unitMap.containsKey(key);
 	}
 
-	public static java.util.Set getUnitMapKeySet() {
+	public static java.util.Set<String> getUnitMapKeySet() {
 		return AuthoringToolResources.resources.unitMap.keySet();
 	}
 
-	public static java.util.Collection getUnitMapValues() {
+	public static java.util.Collection<String> getUnitMapValues() {
 		return AuthoringToolResources.resources.unitMap.values();
 	}
 
@@ -644,7 +653,7 @@ public class AuthoringToolResources {
 
 	public static boolean shouldGUIIncludeNone(edu.cmu.cs.stage3.alice.core.Property property) {
 		if (AuthoringToolResources.resources.propertiesToIncludeNoneFor != null) {
-			Class elementClass = property.getOwner().getClass();
+			Class<?> elementClass = property.getOwner().getClass();
 			String propertyName = property.getName();
 			for (StringTypePair element : AuthoringToolResources.resources.propertiesToIncludeNoneFor) {
 				if (element.getType().isAssignableFrom(elementClass) && element.getString().equals(propertyName)) {
@@ -655,7 +664,7 @@ public class AuthoringToolResources {
 		return false;
 	}
 
-	public static boolean shouldGUIIncludeNone(Class elementClass, String propertyName) {
+	public static boolean shouldGUIIncludeNone(Class<?> elementClass, String propertyName) {
 		if (AuthoringToolResources.resources.propertiesToIncludeNoneFor != null) {
 			for (StringTypePair element : AuthoringToolResources.resources.propertiesToIncludeNoneFor) {
 				if (element.getType().isAssignableFrom(elementClass) && element.getString().equals(propertyName)) {
@@ -672,7 +681,7 @@ public class AuthoringToolResources {
 
 	public static boolean shouldGUIOmitPropertyName(edu.cmu.cs.stage3.alice.core.Property property) {
 		if (AuthoringToolResources.resources.propertyNamesToOmit != null) {
-			Class elementClass = property.getOwner().getClass();
+			Class<?> elementClass = property.getOwner().getClass();
 			String propertyName = property.getName();
 			for (StringTypePair element : AuthoringToolResources.resources.propertyNamesToOmit) {
 				if (element.getType().isAssignableFrom(elementClass) && element.getString().equals(propertyName)) {
@@ -691,7 +700,7 @@ public class AuthoringToolResources {
 		if (!authoringToolConfig.getValue("enableScripting").equalsIgnoreCase("true")) {
 			return true;
 		} else if (AuthoringToolResources.resources.propertiesToOmitScriptDefinedFor != null) {
-			Class elementClass = property.getOwner().getClass();
+			Class<?> elementClass = property.getOwner().getClass();
 			String propertyName = property.getName();
 			for (StringTypePair element : AuthoringToolResources.resources.propertiesToOmitScriptDefinedFor) {
 				if (element.getType().isAssignableFrom(elementClass) && element.getString().equals(propertyName)) {
@@ -706,11 +715,11 @@ public class AuthoringToolResources {
 	public static String getReprForValue(Object value, edu.cmu.cs.stage3.alice.core.Property property) {
 		return getReprForValue(value, property, null);
 	}
-	public static String getReprForValue(Object value, Class elementClass, String propertyName) {
+	public static String getReprForValue(Object value, Class<?> elementClass, String propertyName) {
 		return getReprForValue(value, elementClass, propertyName, null);
 	}
 	public static String getReprForValue(Object value, edu.cmu.cs.stage3.alice.core.Property property, Object extraContextInfo) {
-		Class elementClass = property.getOwner().getClass();
+		Class<?> elementClass = property.getOwner().getClass();
 		String propertyName = property.getName();
 		if (property.getOwner() instanceof edu.cmu.cs.stage3.alice.core.response.PropertyAnimation && property.getName().equals("value")) {
 			edu.cmu.cs.stage3.alice.core.response.PropertyAnimation propertyAnimation = (edu.cmu.cs.stage3.alice.core.response.PropertyAnimation) property.getOwner();
@@ -733,9 +742,9 @@ public class AuthoringToolResources {
 		}
 		return getReprForValue(value, elementClass, propertyName, extraContextInfo);
 	}
-	public static String getReprForValue(Object value, Class elementClass, String propertyName, Object extraContextInfo) {
+	public static String getReprForValue(Object value, Class<?> elementClass, String propertyName, Object extraContextInfo) {
 		boolean verbose = false;
-		Class valueClass = null;
+		Class<Object> valueClass = null;
 		try {
 			valueClass = edu.cmu.cs.stage3.alice.core.Element.getValueClassForPropertyNamed(elementClass, propertyName);
 		} catch (Exception e) { // a bit hackish
@@ -830,8 +839,8 @@ public class AuthoringToolResources {
 				}
 
 				if (reprString != null) {
-					for (java.util.Iterator iter = AuthoringToolResources.resources.unitMap.keySet().iterator(); iter.hasNext();) {
-						String key = (String) iter.next();
+					for (java.util.Iterator<String> iter = AuthoringToolResources.resources.unitMap.keySet().iterator(); iter.hasNext();) {
+						String key = iter.next();
 						String unitString = getUnitString(key);
 						String unitExpression = "<" + key + ">";
 						while (reprString.indexOf(unitExpression) > -1) {
@@ -970,7 +979,7 @@ public class AuthoringToolResources {
 			value = getPlainFormat(value);
 		}
 		if (value instanceof Class) {
-			value = ((Class) value).getName();
+			value = ((Class<?>) value).getName();
 			if (nameMapContainsKey(value)) {
 				value = getName(value);
 			}
@@ -981,12 +990,12 @@ public class AuthoringToolResources {
 		if (value instanceof edu.cmu.cs.stage3.alice.core.question.PropertyValue) {
 			String propertyName = ((edu.cmu.cs.stage3.alice.core.question.PropertyValue) value).propertyName.getStringValue();
 			edu.cmu.cs.stage3.alice.core.Element element = (edu.cmu.cs.stage3.alice.core.Element) ((edu.cmu.cs.stage3.alice.core.question.PropertyValue) value).element.get();
-			Class valueClass = element.getClass();
+			Class<?> valueClass = element.getClass();
 			if (element instanceof edu.cmu.cs.stage3.alice.core.Expression) {
 				valueClass = ((edu.cmu.cs.stage3.alice.core.Expression) element).getValueClass();
 			}
 			try {
-				Class declaringClass = valueClass.getField(propertyName).getDeclaringClass();
+				Class<?> declaringClass = valueClass.getField(propertyName).getDeclaringClass();
 				if (declaringClass != null) {
 					String key = declaringClass.getName() + "." + propertyName;
 					if (nameMapContainsKey(key)) {
@@ -1182,7 +1191,7 @@ public class AuthoringToolResources {
 	}
 
 	public static String getFormattedReprForValue(Object value, edu.cmu.cs.stage3.util.StringObjectPair[] knownPropertyValues) {
-		String format = (String) AuthoringToolResources.resources.formatMap.get(value);
+		String format = AuthoringToolResources.resources.formatMap.get(value);
 		StringBuffer sb = new StringBuffer();
 		edu.cmu.cs.stage3.alice.authoringtool.util.FormatTokenizer tokenizer = new edu.cmu.cs.stage3.alice.authoringtool.util.FormatTokenizer(format);
 		while (tokenizer.hasMoreTokens()) {
@@ -1261,8 +1270,8 @@ public class AuthoringToolResources {
 		return AuthoringToolResources.resources.defaultAspectRatios;
 	}
 
-	public static String[] getInitialVisibleProperties(Class elementClass) {
-		java.util.LinkedList visible = new java.util.LinkedList();
+	public static String[] getInitialVisibleProperties(Class<?> elementClass) {
+		java.util.LinkedList<String> visible = new java.util.LinkedList<String>();
 		String format = AuthoringToolResources.getFormat(elementClass);
 		edu.cmu.cs.stage3.alice.authoringtool.util.FormatTokenizer tokenizer = new edu.cmu.cs.stage3.alice.authoringtool.util.FormatTokenizer(format);
 		while (tokenizer.hasMoreTokens()) {
@@ -1276,11 +1285,11 @@ public class AuthoringToolResources {
 			}
 		}
 
-		return (String[]) visible.toArray(new String[0]);
+		return visible.toArray(new String[0]);
 	}
 
-	public static String[] getDesiredProperties(Class elementClass) {
-		java.util.LinkedList desired = new java.util.LinkedList();
+	public static String[] getDesiredProperties(Class<?> elementClass) {
+		java.util.LinkedList<String> desired = new java.util.LinkedList<String>();
 		String format = AuthoringToolResources.getFormat(elementClass);
 		edu.cmu.cs.stage3.alice.authoringtool.util.FormatTokenizer tokenizer = new edu.cmu.cs.stage3.alice.authoringtool.util.FormatTokenizer(format);
 		while (tokenizer.hasMoreTokens()) {
@@ -1295,7 +1304,7 @@ public class AuthoringToolResources {
 			}
 		}
 
-		return (String[]) desired.toArray(new String[0]);
+		return desired.toArray(new String[0]);
 	}
 
 	public static void setBehaviorClasses(Class[] behaviorClasses) {
@@ -1326,14 +1335,14 @@ public class AuthoringToolResources {
 		AuthoringToolResources.resources.behaviorParameterPropertiesStructure = behaviorParameterPropertiesStructure;
 	}
 
-	public static String[] getBehaviorParameterProperties(Class behaviorClass) {
+	public static String[] getBehaviorParameterProperties(Class<?> behaviorClass) {
 		if (AuthoringToolResources.resources.behaviorParameterPropertiesStructure != null) {
 			for (java.util.Iterator iter = AuthoringToolResources.resources.behaviorParameterPropertiesStructure.iterator(); iter.hasNext();) {
 				Object o = iter.next();
 				if (o instanceof edu.cmu.cs.stage3.util.StringObjectPair) {
 					String className = ((edu.cmu.cs.stage3.util.StringObjectPair) o).getString();
 					try {
-						Class c = Class.forName(className);
+						Class<?> c = Class.forName(className);
 						if (c.isAssignableFrom(behaviorClass)) {
 							return (String[]) ((edu.cmu.cs.stage3.util.StringObjectPair) o).getObject();
 						}
@@ -1450,7 +1459,7 @@ public class AuthoringToolResources {
 	//
 	// }
 	public static java.awt.Color getColor(String key) {
-		java.awt.Color toReturn = (java.awt.Color) AuthoringToolResources.resources.colorMap.get(key);
+		java.awt.Color toReturn = AuthoringToolResources.resources.colorMap.get(key);
 		if (authoringToolConfig.getValue("enableHighContrastMode").equalsIgnoreCase("true") && !key.equalsIgnoreCase("mainFontColor") && !key.equalsIgnoreCase("objectTreeDisabledText") && !key.equalsIgnoreCase("objectTreeSelectedText") && !key.equalsIgnoreCase("disabledHTMLText") && !key.equalsIgnoreCase("disabledHTML") && !key.equalsIgnoreCase("stdErrTextColor") && !key.equalsIgnoreCase("commentForeground") && !key.equalsIgnoreCase("objectTreeSelected") && !key.equalsIgnoreCase("dndHighlight") && !key.equalsIgnoreCase("dndHighlight2") && !key.equalsIgnoreCase("dndHighlight3") && !key.equalsIgnoreCase("guiEffectsShadow") && !key.equalsIgnoreCase("guiEffectsEdge") && !key.equalsIgnoreCase("guiEffectsTroughShadow") && !key.equalsIgnoreCase("guiEffectsDisabledLine") && !key.equalsIgnoreCase("makeSceneEditorBigBackground") && !key.equalsIgnoreCase("makeSceneEditorSmallBackground") && !key.equalsIgnoreCase("objectTreeText")) {
 			float[] hsl = rgbToHSL(toReturn);
 			hsl[2] = Math.max(hsl[2], .95f);
@@ -1523,7 +1532,7 @@ public class AuthoringToolResources {
 			}
 		}
 
-		return (java.awt.Image) AuthoringToolResources.resources.stringImageMap.get(s);
+		return AuthoringToolResources.resources.stringImageMap.get(s);
 	}
 
 	public static javax.swing.ImageIcon getIconForString(String s) {
@@ -1542,7 +1551,7 @@ public class AuthoringToolResources {
 			}
 		}
 
-		return (javax.swing.ImageIcon) AuthoringToolResources.resources.stringIconMap.get(s);
+		return AuthoringToolResources.resources.stringIconMap.get(s);
 	}
 
 	static final javax.swing.ImageIcon cameraIcon = getIconForString("camera");
@@ -1585,7 +1594,7 @@ public class AuthoringToolResources {
 		} else if (value instanceof String) {
 			return getIconForString((String) value);
 		} else if (value instanceof Integer) {
-			String s = (String) AuthoringToolResources.resources.keyCodesToStrings.get(value);
+			String s = AuthoringToolResources.resources.keyCodesToStrings.get(value);
 			if (s != null) {
 				return getIconForString("keyboardKeys/" + s);
 			} else {
@@ -1601,7 +1610,7 @@ public class AuthoringToolResources {
 	}
 
 	public static javax.swing.ImageIcon getDisabledIcon(javax.swing.ImageIcon inputIcon, int percentGray) {
-		javax.swing.ImageIcon disabledIcon = (javax.swing.ImageIcon) AuthoringToolResources.resources.disabledIconMap.get(inputIcon);
+		javax.swing.ImageIcon disabledIcon = AuthoringToolResources.resources.disabledIconMap.get(inputIcon);
 
 		if (disabledIcon == null) {
 			javax.swing.GrayFilter filter = new javax.swing.GrayFilter(true, percentGray);
@@ -1783,10 +1792,10 @@ public class AuthoringToolResources {
 	}
 
 	public static boolean isMethodHookedUp(edu.cmu.cs.stage3.alice.core.Response response, edu.cmu.cs.stage3.alice.core.World world) {
-		return isMethodHookedUp(response, world, new java.util.Vector());
+		return isMethodHookedUp(response, world, new java.util.Vector<Element>());
 	}
 
-	private static boolean isMethodHookedUp(edu.cmu.cs.stage3.alice.core.Response response, edu.cmu.cs.stage3.alice.core.World world, java.util.Vector checkedMethods) {
+	private static boolean isMethodHookedUp(edu.cmu.cs.stage3.alice.core.Response response, edu.cmu.cs.stage3.alice.core.World world, java.util.Vector<Element> checkedMethods) {
 		edu.cmu.cs.stage3.alice.core.reference.PropertyReference[] references = response.getRoot().getPropertyReferencesTo(response, edu.cmu.cs.stage3.util.HowMuch.INSTANCE_AND_ALL_DESCENDANTS, false, true);
 		for (PropertyReference reference : references) {
 			edu.cmu.cs.stage3.alice.core.Element referrer = reference.getProperty().getOwner();
@@ -1806,7 +1815,7 @@ public class AuthoringToolResources {
 	public static edu.cmu.cs.stage3.alice.core.Response createUndoResponse(edu.cmu.cs.stage3.alice.core.Response response) {
 		edu.cmu.cs.stage3.alice.core.Response undoResponse = null;
 
-		Class responseClass = response.getClass();
+		Class<? extends Response> responseClass = response.getClass();
 		if (response instanceof edu.cmu.cs.stage3.alice.core.response.ResizeAnimation) {
 			edu.cmu.cs.stage3.alice.core.response.ResizeAnimation resizeResponse = (edu.cmu.cs.stage3.alice.core.response.ResizeAnimation) response;
 			edu.cmu.cs.stage3.alice.core.response.ResizeAnimation undoResizeResponse = new edu.cmu.cs.stage3.alice.core.response.ResizeAnimation();
@@ -1872,7 +1881,7 @@ public class AuthoringToolResources {
 		return undoResponse;
 	}
 
-	public static void addAffectedProperties(java.util.List affectedProperties, edu.cmu.cs.stage3.alice.core.Element element, String propertyName, edu.cmu.cs.stage3.util.HowMuch howMuch) {
+	public static void addAffectedProperties(java.util.List<Property> affectedProperties, edu.cmu.cs.stage3.alice.core.Element element, String propertyName, edu.cmu.cs.stage3.util.HowMuch howMuch) {
 		edu.cmu.cs.stage3.alice.core.Property property = element.getPropertyNamed(propertyName);
 		if (property != null) {
 			affectedProperties.add(property);
@@ -1898,7 +1907,7 @@ public class AuthoringToolResources {
 
 		if (response instanceof edu.cmu.cs.stage3.alice.core.response.ResizeAnimation) {
 			edu.cmu.cs.stage3.alice.core.Transformable transformable = (edu.cmu.cs.stage3.alice.core.Transformable) ((edu.cmu.cs.stage3.alice.core.response.TransformAnimation) response).subject.getElementValue();
-			java.util.Vector pVector = new java.util.Vector();
+			java.util.Vector<ObjectProperty> pVector = new java.util.Vector<ObjectProperty>();
 			pVector.add(transformable.localTransformation);
 			if (transformable instanceof edu.cmu.cs.stage3.alice.core.Model) {
 				pVector.add(((edu.cmu.cs.stage3.alice.core.Model) transformable).visualScale);
@@ -1910,7 +1919,7 @@ public class AuthoringToolResources {
 					pVector.add(((edu.cmu.cs.stage3.alice.core.Model) descendant).visualScale);
 				}
 			}
-			properties = (edu.cmu.cs.stage3.alice.core.Property[]) pVector.toArray(new edu.cmu.cs.stage3.alice.core.Property[0]);
+			properties = pVector.toArray(new edu.cmu.cs.stage3.alice.core.Property[0]);
 		} else if (response instanceof edu.cmu.cs.stage3.alice.core.response.TransformAnimation) {
 			edu.cmu.cs.stage3.alice.core.Transformable transformable = (edu.cmu.cs.stage3.alice.core.Transformable) ((edu.cmu.cs.stage3.alice.core.response.TransformAnimation) response).subject.getElementValue();
 			properties = new edu.cmu.cs.stage3.alice.core.Property[]{transformable.localTransformation};
@@ -1922,9 +1931,9 @@ public class AuthoringToolResources {
 			String propertyName = ((edu.cmu.cs.stage3.alice.core.response.PropertyAnimation) response).propertyName.getStringValue();
 			edu.cmu.cs.stage3.util.HowMuch howMuch = (edu.cmu.cs.stage3.util.HowMuch) ((edu.cmu.cs.stage3.alice.core.response.PropertyAnimation) response).howMuch.getValue();
 
-			java.util.LinkedList propertyList = new java.util.LinkedList();
+			java.util.LinkedList<Property> propertyList = new java.util.LinkedList<Property>();
 			addAffectedProperties(propertyList, element, propertyName, howMuch);
-			properties = (edu.cmu.cs.stage3.alice.core.Property[]) propertyList.toArray(new edu.cmu.cs.stage3.alice.core.Property[0]);
+			properties = propertyList.toArray(new edu.cmu.cs.stage3.alice.core.Property[0]);
 		} // TODO: handle everything else
 
 		if (properties == null) {
@@ -2080,14 +2089,14 @@ public class AuthoringToolResources {
 		AuthoringToolResources.resources.worldTreeChildrenPropertiesStructure = worldTreeChildrenPropertiesStructure;
 	}
 
-	public static String[] getWorldTreeChildrenPropertiesStructure(Class elementClass) {
+	public static String[] getWorldTreeChildrenPropertiesStructure(Class<?> elementClass) {
 		if (AuthoringToolResources.resources.worldTreeChildrenPropertiesStructure != null) {
 			for (java.util.Iterator iter = AuthoringToolResources.resources.worldTreeChildrenPropertiesStructure.iterator(); iter.hasNext();) {
 				Object o = iter.next();
 				if (o instanceof edu.cmu.cs.stage3.util.StringObjectPair) {
 					String className = ((edu.cmu.cs.stage3.util.StringObjectPair) o).getString();
 					try {
-						Class c = Class.forName(className);
+						Class<?> c = Class.forName(className);
 						if (c.isAssignableFrom(elementClass)) {
 							return (String[]) ((edu.cmu.cs.stage3.util.StringObjectPair) o).getObject();
 						}
@@ -2174,7 +2183,7 @@ public class AuthoringToolResources {
 		AuthoringToolResources.resources.importers = importers;
 	}
 
-	public static Class[] getImporterClasses() {
+	public static Class<? extends Importer>[] getImporterClasses() {
 		return AuthoringToolResources.resources.importers;
 	}
 
@@ -2186,14 +2195,14 @@ public class AuthoringToolResources {
 		return AuthoringToolResources.resources.editors;
 	}
 
-	public static void findAssignables(Class baseClass, java.util.Set result, boolean includeInterfaces) {
+	public static void findAssignables(Class<?> baseClass, java.util.Set<Class> result, boolean includeInterfaces) {
 		if (baseClass != null) {
 			if (!result.contains(baseClass)) {
 				result.add(baseClass);
 
 				if (includeInterfaces) {
 					Class[] interfaces = baseClass.getInterfaces();
-					for (Class interface1 : interfaces) {
+					for (Class<?> interface1 : interfaces) {
 						findAssignables(interface1, result, includeInterfaces);
 					}
 				}
@@ -2203,7 +2212,7 @@ public class AuthoringToolResources {
 		}
 	}
 
-	public static java.awt.datatransfer.DataFlavor getReferenceFlavorForClass(Class c) {
+	public static java.awt.datatransfer.DataFlavor getReferenceFlavorForClass(Class<?> c) {
 		if (!AuthoringToolResources.resources.flavorMap.containsKey(c)) {
 			try {
 				AuthoringToolResources.resources.flavorMap.put(c, new java.awt.datatransfer.DataFlavor(java.awt.datatransfer.DataFlavor.javaJVMLocalObjectMimeType + "; class=" + c.getName()));
@@ -2211,10 +2220,10 @@ public class AuthoringToolResources {
 				AuthoringTool.showErrorDialog("Can't find class " + c.getName(), e);
 			}
 		}
-		return (java.awt.datatransfer.DataFlavor) AuthoringToolResources.resources.flavorMap.get(c);
+		return AuthoringToolResources.resources.flavorMap.get(c);
 	}
 
-	public static Object getDefaultValueForClass(Class cls) {
+	public static Object getDefaultValueForClass(Class<?> cls) {
 		if (cls == Boolean.class) {
 			return Boolean.TRUE;
 		} else if (cls == Number.class) {
@@ -2580,7 +2589,7 @@ public class AuthoringToolResources {
 		return findComponent(root, criterion);
 	}
 
-	public static java.awt.Component findPrototypeDnDPanel(java.awt.Container root, final Class elementClass) {
+	public static java.awt.Component findPrototypeDnDPanel(java.awt.Container root, final Class<?> elementClass) {
 		edu.cmu.cs.stage3.util.Criterion criterion = new edu.cmu.cs.stage3.util.Criterion() {
 			@Override
 			public boolean accept(Object o) {

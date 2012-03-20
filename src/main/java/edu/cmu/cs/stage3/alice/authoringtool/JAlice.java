@@ -23,6 +23,11 @@
 
 package edu.cmu.cs.stage3.alice.authoringtool;
 
+import java.util.List;
+
+import edu.cmu.cs.stage3.alice.scenegraph.renderer.AbstractRenderer;
+import edu.cmu.cs.stage3.alice.scenegraph.renderer.DefaultRenderTargetFactory;
+
 /**
  * @author Jason Pratt
  */
@@ -288,10 +293,10 @@ public class JAlice {
 		}
 
 		if (authoringtoolConfig.getValueList("rendering.orderedRendererList") == null) {
-			Class[] rendererClasses = edu.cmu.cs.stage3.alice.scenegraph.renderer.DefaultRenderTargetFactory.getPotentialRendererClasses();
-			String[] list = new String[rendererClasses.length];
-			for (int i = 0; i < rendererClasses.length; i++) {
-				list[i] = rendererClasses[i].getName();
+			List<Class<? extends AbstractRenderer>> rendererClasses = DefaultRenderTargetFactory.getPotentialRendererClasses();
+			String[] list = new String[rendererClasses.size()];
+			for (int i = 0; i < rendererClasses.size(); i++) {
+				list[i] = rendererClasses.get(i).getName();
 			}
 			authoringtoolConfig.setValueList("rendering.orderedRendererList", list);
 		}

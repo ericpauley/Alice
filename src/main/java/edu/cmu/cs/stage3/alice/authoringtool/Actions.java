@@ -25,9 +25,12 @@ package edu.cmu.cs.stage3.alice.authoringtool;
 
 import java.awt.event.InputEvent;
 
+import javax.swing.Action;
+
 /**
  * @author Jason Pratt
  */
+@SuppressWarnings("serial")
 public class Actions {
 	public javax.swing.AbstractAction newWorldAction;
 	public javax.swing.AbstractAction openWorldAction;
@@ -69,8 +72,8 @@ public class Actions {
 
 	protected AuthoringTool authoringTool;
 	protected JAliceFrame jAliceFrame;
-	protected java.util.LinkedList applicationActions = new java.util.LinkedList();
-	public java.util.LinkedList renderActions = new java.util.LinkedList();
+	protected java.util.LinkedList<Action> applicationActions = new java.util.LinkedList<Action>();
+	public java.util.LinkedList<Action> renderActions = new java.util.LinkedList<Action>();
 
 	public Actions(AuthoringTool authoringTool, JAliceFrame jAliceFrame) {
 		this.authoringTool = authoringTool;
@@ -695,8 +698,7 @@ public class Actions {
 		javax.swing.KeyStroke keyStroke;
 		String commandKey;
 
-		for (java.util.Iterator iter = applicationActions.iterator(); iter.hasNext();) {
-			javax.swing.Action action = (javax.swing.Action) iter.next();
+		for (Action action:applicationActions) {
 
 			try {
 				keyStroke = (javax.swing.KeyStroke) action.getValue(javax.swing.Action.ACCELERATOR_KEY);
